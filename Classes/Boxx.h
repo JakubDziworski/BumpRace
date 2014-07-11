@@ -21,7 +21,7 @@ protected:
 	virtual void additionalDebugInfo();
 public:
 	//COCOS PATTERN//
-	bool myInit(const std::string& filename, cpSpace *space);
+	bool myInit(const std::string& filename, std::string ID, cpSpace *space);
 	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space);
 	//GETTERS SETTERS//
 	std::string getID() const { return ID; }

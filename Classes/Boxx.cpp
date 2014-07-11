@@ -1,7 +1,7 @@
 #include "Boxx.h"
 #include "Globals.h"
 using namespace cocos2d;
-bool Boxx::myInit(const std::string& filename, cpSpace *space)
+bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 {
 	if (!Sprite::initWithSpriteFrameName("BOX.png"))
 	{
@@ -12,7 +12,7 @@ bool Boxx::myInit(const std::string& filename, cpSpace *space)
 	wind = 0;
 	//create cocos stuff//
 	debugL = Label::create();
-	debugL->setSystemFontSize(25);
+	debugL->setSystemFontSize(35);
 	//physics//
 	auto bounding = this->getContentSize();
 	myBody = cpBodyNew(1.0f,INFINITY);
@@ -37,12 +37,14 @@ bool Boxx::myInit(const std::string& filename, cpSpace *space)
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
+	this->ID = ID;
+	debugL->setString(ID);
 	return true;
 };
 Boxx* Boxx::create(const std::string& filename, std::string ID, cpSpace *space)
 {
 	Boxx *pRet = new Boxx();
-	if (pRet && pRet->myInit(filename,space))
+	if (pRet && pRet->myInit(filename,ID,space))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -79,8 +81,8 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 	{
 		gravity.x = gravity.x * box->getWind();
 	}
-	box->debugL->setString(CCString::createWithFormat(" gravx:%f\n", gravity.x)->getCString());
 	cpBodyUpdateVelocity(body, gravity, damping, dt);
+	//box->debugL->setString(debugL->getString() + CCString::createWithFormat(" gravx:%f\n", gravity.x)->getCString());
 }
 
 bool Boxx::isJumping()

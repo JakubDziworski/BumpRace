@@ -71,11 +71,11 @@ CarrerWorld* CarrerWorld::create(int numberOfPlayers)
 
 void CarrerWorld::putOnBoxes()
 {
-	opponentz.pushBack(Boxx::create("BOX.png", "ja", gravitySpace));
+	opponentz.pushBack(Boxx::create("BOX.png", "KUBA", gravitySpace));
 	player = opponentz.at(0);
 	for (int i = 1; i < boxesNumber; i++)
 	{
-		auto aiop = AIOpponent::create("BOX.png", "Opponent", gravitySpace);
+		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d",i)->getCString(), gravitySpace);
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}

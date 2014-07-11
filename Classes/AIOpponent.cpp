@@ -14,9 +14,9 @@ void AIOpponent::simulate(float dt)
 	}
 }
 
-bool AIOpponent::myInit(const std::string& filename, cpSpace *space)
+bool AIOpponent::myInit(const std::string& filename,std::string ID, cpSpace *space)
 {
-	if (!Boxx::myInit(filename, space))
+	if (!Boxx::myInit(filename, ID,space))
 	{
 		return false;
 	}
@@ -27,7 +27,7 @@ bool AIOpponent::myInit(const std::string& filename, cpSpace *space)
 AIOpponent* AIOpponent::create(const std::string& filename, std::string ID, cpSpace *space)
 {
 	AIOpponent *pRet = new AIOpponent();
-	if (pRet && pRet->myInit(filename, space))
+	if (pRet && pRet->myInit(filename,ID, space))
 	{
 		pRet->autorelease();
 		return pRet;
