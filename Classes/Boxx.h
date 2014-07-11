@@ -6,6 +6,7 @@
 class Boxx : public cocos2d::Sprite
 {
 private:
+	int points;
 	cpBody *myBody;
 	float wind;
 	float maxVel;
@@ -38,5 +39,6 @@ public:
 	bool isOnFlat();
 	void updateBox();
 	float getVelocity(){if(myBody != nullptr) return myBody->v.x;}
+	void addPoint();
 };
 #endif

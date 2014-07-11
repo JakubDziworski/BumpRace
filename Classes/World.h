@@ -41,6 +41,10 @@ protected:
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)=0;
 	virtual void customWorldUpdate()=0;
 public:
+	int getBoxesNumber() const { return boxesNumber; }
+	void setBoxesNumber(int val) { boxesNumber = val; }
+	virtual void checkpointReached(Boxx *box, int pos);
 	virtual bool myInit(int numberOfPlayers);
+	virtual void rozmiescCheckpointy();
 };
 #endif // __GAMETEST_SCENE_H__

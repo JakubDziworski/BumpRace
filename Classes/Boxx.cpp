@@ -10,6 +10,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 	//init variables//
 	maxVel = 1000;
 	wind = 0;
+	points = 0;
 	//create cocos stuff//
 	debugL = Label::create();
 	debugL->setSystemFontSize(35);
@@ -38,7 +39,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
 	this->ID = ID;
-	debugL->setString(ID);
+	additionalDebugInfo();
 	return true;
 };
 Boxx* Boxx::create(const std::string& filename, std::string ID, cpSpace *space)
@@ -149,7 +150,14 @@ void Boxx::displayDebugInfo()
 
 void Boxx::additionalDebugInfo()
 {
-	debugL->setString("");
+	debugL->setString(ID);
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n points:%d", points)->getCString());
+}
+
+void Boxx::addPoint()
+{
+	points++;
+	additionalDebugInfo();
 }
 
 

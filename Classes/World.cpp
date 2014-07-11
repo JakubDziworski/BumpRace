@@ -3,8 +3,11 @@
 #include "U.h"
 #include "Boxx.h"
 #include "Globals.h"
+#include "Paths.h"
 #include "VisibleRect.h"
 #include "extensions/cocos-ext.h"
+#include "SimpleAudioEngine.h"
+#include "Checkpoint.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 bool World::myInit(int numberOfPlayers)
@@ -42,6 +45,7 @@ bool World::myInit(int numberOfPlayers)
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
 	putOnPlayers();
+	rozmiescCheckpointy();
 	schedule(schedule_selector(World::tick));
 	this->setScale(0.45f);
 	return true;
@@ -152,4 +156,19 @@ void World::putOnBoxes()
 	}
 }
 
+void World::checkpointReached(Boxx *box, int pos)
+{
+	if (pos == 1) box->addPoint();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
+}
 
+void World::rozmiescCheckpointy()
+{
+	const int dlugosc = floor->bb.r - floor->bb.l;
+	for (int i = 5000; i < dlugosc; i+=5000)
+	{
+		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
+		chkpt->setPosition(floor->bb.l + i, floor->bb.t);
+		rotationLayer->addChild(chkpt);
+	}
+}

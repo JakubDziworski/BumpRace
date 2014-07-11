@@ -20,6 +20,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/VisibleRect.cpp \
 				   ../../Classes/AIOpponent.cpp \
 				   ../../Classes/Globals.cpp \
+				   ../../Classes/Checkpoint.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					

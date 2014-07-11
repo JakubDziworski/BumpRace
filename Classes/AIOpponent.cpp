@@ -40,11 +40,6 @@ AIOpponent* AIOpponent::create(const std::string& filename, std::string ID, cpSp
 	}
 }
 
-void AIOpponent::additionalDebugInfo()
-{
-	debugL->setString(CCString::createWithFormat("!AI!")->getCString());
-
-}
 
 float AIOpponent::odleglosc(Boxx *box)
 {
