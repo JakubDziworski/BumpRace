@@ -65,7 +65,7 @@ void World::tick(float delta)
 {
 	timee += delta;
 	int steps = 2;
-	float dt = Director::getInstance()->getAnimationInterval() / (float)steps;
+	float dt = Director::getInstance()->getAnimationInterval()*Director::getInstance()->getScheduler()->getTimeScale() / (float)steps;
 	G_setCurrAngle(rotationLayer->getRotation());
 	for (int i = 0; i < steps; i++){
 		cpSpaceStep(gravitySpace, dt);
