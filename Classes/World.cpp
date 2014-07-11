@@ -40,6 +40,7 @@ bool World::myInit(int numberOfPlayers)
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(World::onKeyPressed, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
 	putOnPlayers();
 	schedule(schedule_selector(World::tick));
 	this->setScale(0.45f);
