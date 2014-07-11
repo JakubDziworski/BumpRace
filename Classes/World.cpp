@@ -36,7 +36,6 @@ bool World::myInit(int numberOfPlayers)
 	//****************//
 	createFloor();
 	auto touchlistener = EventListenerTouchOneByOne::create();
-	touchlistener->setSwallowTouches(true);
 	touchlistener->onTouchBegan = CC_CALLBACK_2(World::onTouched, this);
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(World::onKeyPressed, this);
