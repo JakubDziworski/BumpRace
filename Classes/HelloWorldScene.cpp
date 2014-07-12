@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "CarrerWorld.h"
 #include "SimpleAudioEngine.h"
+#include "Paths.h"
 
 USING_NS_CC;
 
@@ -27,7 +28,7 @@ bool HelloWorld::init()
                                            CC_CALLBACK_1(HelloWorld::goToLevelCallBack, this));
     
 	closeItem->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("sounds/punch.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);

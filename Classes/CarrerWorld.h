@@ -15,7 +15,7 @@ public:
 	virtual bool myInit(int numberOfPlayers);
 	virtual void cameraFollow(float dt);
 	virtual void putOnBoxes();
-
+	virtual void rozmiescCheckpointy();
 
 };
 #endif

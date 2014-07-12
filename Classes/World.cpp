@@ -8,6 +8,7 @@
 #include "extensions/cocos-ext.h"
 #include "SimpleAudioEngine.h"
 #include "Checkpoint.h"
+#include "CCTexture2D.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 bool World::myInit(int numberOfPlayers)
@@ -18,12 +19,13 @@ bool World::myInit(int numberOfPlayers)
 	}
 	//****************//
 	rotationLayer = Node::create();
-	scaleLayer = Node::create();
-	scaleLayer->setAnchorPoint(Vec2(.5, 0.5));
-	//scaleLayer->setPosition(VisibleRect::getVisibleRect().origin);
-	scaleLayer->addChild(rotationLayer);
+	moveLayer = Node::create();
+	scaleeLayer = Node::create();
+	moveLayer->addChild(rotationLayer);
+	scaleeLayer->addChild(moveLayer);
 	srodek = VisibleRect::getVisibleRect().size/2;
-	this->addChild(scaleLayer);
+	scaleeLayer->setPosition(srodek);
+	this->addChild(scaleeLayer,1);
 	//****************//
 	boxesNumber = numberOfPlayers;
 	opponentz = Vector<Boxx*>(boxesNumber);
@@ -37,17 +39,17 @@ bool World::myInit(int numberOfPlayers)
 	rotationLayer->addChild(_debugLayer, 100);
 	_debugLayer->setVisible(true);
 	//****************//
-	createFloor();
 	auto touchlistener = EventListenerTouchOneByOne::create();
 	touchlistener->onTouchBegan = CC_CALLBACK_2(World::onTouched, this);
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(World::onKeyPressed, this);
+	createBackground();
+	createFloor();
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
 	putOnPlayers();
 	rozmiescCheckpointy();
 	schedule(schedule_selector(World::tick));
-	this->setScale(0.45f);
 	return true;
 }
 
@@ -55,14 +57,25 @@ void World::createFloor()
 {
 	floorBody = cpBodyNew(INFINITY,INFINITY);
 	cpVect verts[] = {
-		cpv(0,-108),
+		cpv(0,-2000),
 		cpv(0, 0),
-		cpv(500000, 0),
-		cpv(500000, -108),
+		cpv(5000, 0),
+		cpv(5000, -2000),
 	};
+	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - Director::getInstance()->getWinSize().width) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
+	//SPRITE
+	SpriteBatchNode *node = SpriteBatchNode::create("FLAT.png");
+	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
+	node->getTexture()->setTexParameters(&tp);
+	PhysicsSprite *spr = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x,verts[1].y,abs(verts[3].x),abs(verts[3].y)));
+	spr->setCPBody(floorBody);
+	node->addChild(spr);
+	spr->setAnchorPoint(Vec2(0, 1));
+	rotationLayer->addChild(node);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
+
 	cpSpaceAddStaticShape(gravitySpace, floor);
 }
 void World::tick(float delta)
@@ -78,14 +91,15 @@ void World::tick(float delta)
 		if (rotationLayer->getNumberOfRunningActions() == 0)
 		{
 			const int critical = rand() % 3;
-			if (critical == 0) angle = rand() % 50 - 100;
-			const float duration = (rand() % 6+1)/2.0f;
+			//if (critical == 0) angle = rand() % 50 - 100; else 
 			angle = rand()%60;
+			const float duration = (rand() % 6+1)/2.0f;
 			rotationLayer->runAction(RotateTo::create(duration, angle));
 		}
 		changeGravity();
 		checkPosition(delta);
 		cameraFollow(delta);
+		bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
 		customWorldUpdate();
 }
 
@@ -101,10 +115,10 @@ void World::putOnPlayers()
 	{
 		do
 		{
-			losowa = (rand() % boxesNumber) - 2.05f;
+			losowa = (rand() % boxesNumber)+0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2*srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -165,10 +179,27 @@ void World::checkpointReached(Boxx *box, int pos)
 void World::rozmiescCheckpointy()
 {
 	const int dlugosc = floor->bb.r - floor->bb.l;
-	for (int i = 5000; i < dlugosc; i+=5000)
+	for (int i = 40000; i < dlugosc; i+=40000)
 	{
-		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
+		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint,true);
 		chkpt->setPosition(floor->bb.l + i, floor->bb.t);
 		rotationLayer->addChild(chkpt);
 	}
+}
+
+void World::floorspritefollow()
+{
+
+}
+
+void World::createBackground()
+{
+
+	//bgImg = Sprite::createWithSpriteFrameName("tlo.png");
+	bgImg = Sprite::create("tlo.png");
+	bgImg->setScale(srodek.x * 4 / bgImg->getContentSize().width, srodek.y * 2 / bgImg->getContentSize().height);
+	bgImg->setPosition(srodek.x,srodek.y);
+	bgImg->setAnchorPoint(Vec2(0,.5f));
+	this->addChild(bgImg, -1);
+	scaleeLayer->setScale(0.45f);
 }

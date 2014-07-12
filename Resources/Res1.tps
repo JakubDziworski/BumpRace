@@ -144,6 +144,7 @@
             <filename>BOX.png</filename>
             <filename>FLAT.png</filename>
             <filename>checkpoint.png</filename>
+            <filename>tlo.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -7,7 +7,7 @@
             <key>BOX.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,132},{128,128}}</string>
+                <string>{{208,324},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>FLAT.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{128,128}}</string>
+                <string>{{78,324},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>checkpoint.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,2},{74,680}}</string>
+                <string>{{2,324},{74,680}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -43,6 +43,19 @@
                 <key>sourceSize</key>
                 <string>{74,680}</string>
             </dict>
+            <key>tlo.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{480,320}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{480,320}}</string>
+                <key>sourceSize</key>
+                <string>{480,320}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -51,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>Res1.png</string>
             <key>size</key>
-            <string>{256,1024}</string>
+            <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:41d466258a5917d8f22c71892955a2b0$</string>
+            <string>$TexturePacker:SmartUpdate:ea15e6437e5e8c3a628d69b14651735d$</string>
             <key>textureFileName</key>
             <string>Res1.png</string>
         </dict>

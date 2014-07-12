@@ -8,10 +8,10 @@
 
 #include "Checkpoint.h"
 using namespace cocos2d;
-Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName)
+Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName,bool singlee)
 {
 	Chcekpoint *pRet = new Chcekpoint();
-	if (pRet && pRet->init(worldd, boxess,imagefileName))
+	if (pRet && pRet->init(worldd, boxess, imagefileName, singlee))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -23,7 +23,7 @@ Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess, s
 		return NULL;
 	}
 }
-bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName)
+bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName, bool single)
 {
 	if (!Sprite::initWithSpriteFrameName(imagefileName))
 	{
@@ -36,7 +36,9 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	director = Director::getInstance();
 	timee = 0;
 	pierwszyZlapal = false;
+	isSinglePlayer = single;
 	schedule(schedule_selector(Chcekpoint::tick));
+	return true;
 }
 
 void Chcekpoint::tick(float dt)
@@ -54,6 +56,7 @@ void Chcekpoint::tick(float dt)
 	if (pierwszy->getPositionX() < this->getPositionX() - 3*pierwszy->getContentSize().width) return;
 	if (actualpos == 0 && (pierwszy->getPositionX() < (pierwszy->getContentSize().width + drugi->getContentSize().width) + drugi->getPositionX()))
 	{
+		if (!isSinglePlayer)
 		schedule(schedule_selector(Chcekpoint::zwolnij));
 	}
 	Boxx *aktualny = orderedBoxes->at(actualpos);

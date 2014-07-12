@@ -29,8 +29,13 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 	cpShape* topShape = cpSegmentShapeNew(myBody, topa, topb, bounding.height*0.05f);
 	topShape->e = 0;
 	topShape->u = 0;
+	cpVect bota = cpv(-bounding.width / 2.2f, -bounding.height / 2.0f);
+	cpVect botb = cpv(bounding.width / 2.2f,-bounding.height / 2.0f);
+	cpShape* botShape = cpSegmentShapeNew(myBody, bota, botb, bounding.height*0.05f);
+	botShape->e = 0;
+	botShape->u = 0;
 	cpShape* shape = cpPolyShapeNew(myBody, 4, verts, cpvzero);
-	shape->e = 0.8f; shape->u = 0.1f;
+	shape->e = 1.1f; shape->u = 0.1f;
 	cpSpaceAddShape(space, topShape);
 	cpSpaceAddShape(space, shape);
 	//tweaks and adchild//

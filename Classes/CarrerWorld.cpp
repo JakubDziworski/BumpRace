@@ -1,6 +1,8 @@
 #include "CarrerWorld.h"
 #include "Globals.h"
 #include "AIOpponent.h"
+#include "Paths.h"
+#include "Checkpoint.h"
 USING_NS_CC;
 
 
@@ -42,16 +44,16 @@ void CarrerWorld::cameraFollow(float dt)
 	if (player == orderedOpponents.at(1)) followMate = orderedOpponents.at(2);
 	else followMate = orderedOpponents.at(1);
 		//************//
-		posX = srodek.x - player->getPositionX()*G_myCos;
-		posY = srodek.y*0.75f + player->getPositionX()*G_mySin;
+		posX = - player->getPositionX()*G_myCos;
+		posY =  player->getPositionX()*G_mySin;
 		const float maxOffsetX = 2*srodek.x * G_myCos;
 		const float maxOffsetY = srodek.x  * G_mySin;
 		//************//
-		const float lastposX = srodek.x - followMate->getPositionX()*G_myCos;
-		const float lastposY = srodek.y + followMate->getPositionX()*G_mySin;
-		scaleLayer->setPositionX(posX - clampf((posX - lastposX) / 2.0, -maxOffsetX, maxOffsetX));
-		scaleLayer->setPositionY(posY + clampf((posY - lastposY) / 2.0, -maxOffsetY, maxOffsetY));
-		scaleLayer->setPositionY(scaleLayer->getPositionY() + 3.0f*G_Currangle);
+		const float lastposX = - followMate->getPositionX()*G_myCos;
+		const float lastposY = + followMate->getPositionX()*G_mySin;
+		moveLayer->setPositionX(posX - clampf((posX - lastposX) / 2.0, -maxOffsetX, maxOffsetX));
+		moveLayer->setPositionY(posY + clampf((posY - lastposY) / 2.0, -maxOffsetY, maxOffsetY));
+		moveLayer->setPositionY(moveLayer->getPositionY() + 3.0f*G_Currangle);
 }
 CarrerWorld* CarrerWorld::create(int numberOfPlayers)
 {
@@ -79,6 +81,17 @@ void CarrerWorld::putOnBoxes()
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}
+}
+
+void CarrerWorld::rozmiescCheckpointy()
+{
+		const int dlugosc = floor->bb.r - floor->bb.l;
+		for (int i = 40000; i < dlugosc; i += 40000)
+		{
+			auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint, true);
+			chkpt->setPosition(floor->bb.l + i, floor->bb.t);
+			rotationLayer->addChild(chkpt);
+		}
 }
 
 
