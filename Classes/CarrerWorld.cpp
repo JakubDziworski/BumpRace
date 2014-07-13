@@ -48,12 +48,11 @@ void CarrerWorld::cameraFollow(float dt)
 		posY =  player->getPositionX()*G_mySin;
 		const float lastposX = - followMate->getPositionX()*G_myCos;
 		const float lastposY = + followMate->getPositionX()*G_mySin;
-		const float maxOffsetX = 2*srodek.x/* *G_myCos*/;
-		const float maxOffsetY = srodek.x  * G_mySin;
+		const float maxOffsetX = srodek.x / scaleeLayer->getScale()/screenRatio;
+		const float maxOffsetY = srodek.y / scaleeLayer->getScale()/screenRatio;
 		//************//
 		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
 		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
-		//moveLayer->setPositionY(moveLayer->getPositionY() + 3.0f*G_Currangle);
 }
 CarrerWorld* CarrerWorld::create(int numberOfPlayers)
 {

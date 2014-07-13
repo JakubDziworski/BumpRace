@@ -31,6 +31,7 @@ bool World::myInit(int numberOfPlayers)
 	opponentz = Vector<Boxx*>(boxesNumber);
 	angle = 0;
 	timee = 0;
+	screenRatio = Director::getInstance()->getWinSize().width / Director::getInstance()->getWinSize().height;
 	//****************//
 	gravitySpace = cpSpaceNew();
 	gravitySpace->gravity = cpv(0, -2000);

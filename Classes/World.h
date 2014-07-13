@@ -28,6 +28,7 @@ private:
 protected:
 	cpSpace *gravitySpace;
 	int boxesNumber;
+	float screenRatio;
 	Boxx *player;
 	cocos2d::Vector<Boxx*> opponentz;
 	cocos2d::Vector<Boxx*> orderedOpponents;
