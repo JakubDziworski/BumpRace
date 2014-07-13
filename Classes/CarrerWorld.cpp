@@ -41,19 +41,19 @@ void CarrerWorld::customWorldUpdate()
 }
 void CarrerWorld::cameraFollow(float dt)
 {
-	if (player == orderedOpponents.at(1)) followMate = orderedOpponents.at(2);
-	else followMate = orderedOpponents.at(1);
+	if (player == orderedOpponents.at(0)) followMate = orderedOpponents.at(1);
+	else followMate = orderedOpponents.at(0);
 		//************//
 		posX = - player->getPositionX()*G_myCos;
 		posY =  player->getPositionX()*G_mySin;
-		const float maxOffsetX = 2*srodek.x * G_myCos;
-		const float maxOffsetY = srodek.x  * G_mySin;
-		//************//
 		const float lastposX = - followMate->getPositionX()*G_myCos;
 		const float lastposY = + followMate->getPositionX()*G_mySin;
-		moveLayer->setPositionX(posX - clampf((posX - lastposX) / 2.0, -maxOffsetX, maxOffsetX));
-		moveLayer->setPositionY(posY + clampf((posY - lastposY) / 2.0, -maxOffsetY, maxOffsetY));
-		moveLayer->setPositionY(moveLayer->getPositionY() + 3.0f*G_Currangle);
+		const float maxOffsetX = 2*srodek.x/* *G_myCos*/;
+		const float maxOffsetY = srodek.x  * G_mySin;
+		//************//
+		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
+		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
+		//moveLayer->setPositionY(moveLayer->getPositionY() + 3.0f*G_Currangle);
 }
 CarrerWorld* CarrerWorld::create(int numberOfPlayers)
 {

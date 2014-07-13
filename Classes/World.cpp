@@ -59,8 +59,8 @@ void World::createFloor()
 	cpVect verts[] = {
 		cpv(0,-2000),
 		cpv(0, 0),
-		cpv(5000, 0),
-		cpv(5000, -2000),
+		cpv(250000, 0),
+		cpv(250000, -2000),
 	};
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - Director::getInstance()->getWinSize().width) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
