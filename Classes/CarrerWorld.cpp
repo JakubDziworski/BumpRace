@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "AIOpponent.h"
 #include "Paths.h"
+#include "Player.h"
 #include "Checkpoint.h"
 USING_NS_CC;
 
@@ -72,7 +73,7 @@ CarrerWorld* CarrerWorld::create(int numberOfPlayers)
 
 void CarrerWorld::putOnBoxes()
 {
-	opponentz.pushBack(Boxx::create("BOX.png", "KUBA", gravitySpace));
+	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
 	player = opponentz.at(0);
 	for (int i = 1; i < boxesNumber; i++)
 	{
@@ -85,9 +86,9 @@ void CarrerWorld::putOnBoxes()
 void CarrerWorld::rozmiescCheckpointy()
 {
 		const int dlugosc = floor->bb.r - floor->bb.l;
-		for (int i = 40000; i < dlugosc; i += 40000)
+		for (int i = 4000; i < dlugosc; i += 4000)
 		{
-			auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint, true);
+			auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
 			chkpt->setPosition(floor->bb.l + i, floor->bb.t);
 			rotationLayer->addChild(chkpt);
 		}

@@ -53,5 +53,6 @@ public:
 	virtual void checkpointReached(Boxx *box, int pos);
 	virtual bool myInit(int numberOfPlayers);
 	virtual void rozmiescCheckpointy();
+	bool nodeOutOfWindow(cocos2d::Node *node);
 };
 #endif // __GAMETEST_SCENE_H__

@@ -12,13 +12,12 @@ private:
 	cocos2d::Director *director;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;
-	bool isSinglePlayer;
 public:
 	void przyspiesz(float dt);
 	void zwolnij(float dt);
 	void tick(float dt);
-	static Chcekpoint *create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName,bool singlee);
-	bool init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName, bool single);
+	static Chcekpoint *create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName);
+	bool init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName);
 };
 
 #endif /* defined(__BumpRaceAndro__Checkpoint__) */

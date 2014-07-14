@@ -88,7 +88,6 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 		gravity.x = gravity.x * box->getWind();
 	}
 	cpBodyUpdateVelocity(body, gravity, damping, dt);
-	//box->debugL->setString(debugL->getString() + CCString::createWithFormat(" gravx:%f\n", gravity.x)->getCString());
 }
 
 bool Boxx::isJumping()

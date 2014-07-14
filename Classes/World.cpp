@@ -126,7 +126,7 @@ void World::putOnPlayers()
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(1000 * G_mySin, -2000 /** G_myCos*/);
+	gravitySpace->gravity = cpv(1000 * G_mySin, -2000 * G_myCos);
 }
 
 void World::checkPosition(float dt)
@@ -182,7 +182,7 @@ void World::rozmiescCheckpointy()
 	const int dlugosc = floor->bb.r - floor->bb.l;
 	for (int i = 40000; i < dlugosc; i+=40000)
 	{
-		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint,true);
+		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
 		chkpt->setPosition(floor->bb.l + i, floor->bb.t);
 		rotationLayer->addChild(chkpt);
 	}
@@ -202,5 +202,11 @@ void World::createBackground()
 	bgImg->setPosition(srodek.x,srodek.y);
 	bgImg->setAnchorPoint(Vec2(0,.5f));
 	this->addChild(bgImg, -1);
-	scaleeLayer->setScale(0.45f);
+	scaleeLayer->setScale(srodek.x/1280.0f);
+}
+
+bool World::nodeOutOfWindow(Node *node)
+{
+	if (node->getPositionX() + srodek.x< orderedOpponents.at(this->getBoxesNumber()-1)->getPositionX()) return true;
+	return false;
 }

@@ -7,11 +7,12 @@
 //
 
 #include "Checkpoint.h"
+#include "Player.h"
 using namespace cocos2d;
-Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName,bool singlee)
+Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName)
 {
 	Chcekpoint *pRet = new Chcekpoint();
-	if (pRet && pRet->init(worldd, boxess, imagefileName, singlee))
+	if (pRet && pRet->init(worldd, boxess, imagefileName))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -23,7 +24,7 @@ Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess,st
 		return NULL;
 	}
 }
-bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName, bool single)
+bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName)
 {
 	if (!Sprite::initWithSpriteFrameName(imagefileName))
 	{
@@ -36,36 +37,66 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	director = Director::getInstance();
 	timee = 0;
 	pierwszyZlapal = false;
-	isSinglePlayer = single;
 	schedule(schedule_selector(Chcekpoint::tick));
 	return true;
 }
 
 void Chcekpoint::tick(float dt)
 {
-	if (actualpos == world->getBoxesNumber())
+	if (actualpos == world->getBoxesNumber())	//WSZYSTKIE PRZESZLY
 	{
-		if (director->getVisibleOrigin().x - director->getVisibleSize().width / 2.0f && director->getScheduler()->getTimeScale() == 1)
+		if (world->nodeOutOfWindow(this) && director->getScheduler()->getTimeScale() == 1)
 		{
+
 			this->removeFromParentAndCleanup(true);
 		}
 		return;
 	}
-	Boxx *pierwszy = orderedBoxes->at(0);
-	Boxx *drugi = orderedBoxes->at(1);
-	if (pierwszy->getPositionX() < this->getPositionX() - 3*pierwszy->getContentSize().width) return;
-	if (actualpos == 0 && (pierwszy->getPositionX() < (pierwszy->getContentSize().width + drugi->getContentSize().width) + drugi->getPositionX()))
-	{
-		if (!isSinglePlayer)
-		schedule(schedule_selector(Chcekpoint::zwolnij));
-	}
-	Boxx *aktualny = orderedBoxes->at(actualpos);
+	//****************//PRZYPISANIE
+	Boxx *pierwszy = orderedBoxes->at(0); //pierwszy
+	if (pierwszy->getPositionX() < this->getPositionX() - 3 * pierwszy->getContentSize().width) return;	//blisko bramki
+	Boxx *closestPlayer = orderedBoxes->at(world->getBoxesNumber() - 1); //ostani
+	Boxx *aktualny = orderedBoxes->at(actualpos); //aktualny
+	//sprawdzenie czy ktos przekroczyl
 	if (aktualny->getBoundingBox().getMaxX() > this->getPositionX())
 	{
 		if (actualpos == 0) pierwszyZlapal = true;
 		world->checkpointReached(aktualny,actualpos+1);
 		actualpos++;
 	}
+	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
+	if (actualpos > 0) return;
+	bool playerWzasiegu = false;
+	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
+	{
+		for (int i = 1; i < world->getBoxesNumber(); i++)
+		{
+			Boxx* curr = orderedBoxes->at(i);
+			if (pierwszy->getPositionX() < (pierwszy->getContentSize().width + curr->getContentSize().width + curr->getPositionX()))
+			{
+				playerWzasiegu = true;
+				break;
+			}
+		}
+	}
+	else //pierwszy to nie player
+	{
+		for (int i = 1; i < world->getBoxesNumber(); i++)
+		{
+			Boxx* curr = orderedBoxes->at(i);
+			if ((dynamic_cast<Player*> (curr)) != NULL)
+			{
+				if (pierwszy->getPositionX() < (pierwszy->getContentSize().width + curr->getContentSize().width + curr->getPositionX()))
+				{
+					playerWzasiegu = true;
+					break;
+				}
+			}
+		}
+	}
+	if (playerWzasiegu == false) return; // zaden gracz nie jest blisko pierwszego
+	//*************//
+	schedule(schedule_selector(Chcekpoint::zwolnij));
 }
 
 void Chcekpoint::przyspiesz(float dt)
