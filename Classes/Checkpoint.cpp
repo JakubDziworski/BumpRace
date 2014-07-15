@@ -54,7 +54,7 @@ void Chcekpoint::tick(float dt)
 	}
 	//****************//PRZYPISANIE
 	Boxx *pierwszy = orderedBoxes->at(0); //pierwszy
-	if (pierwszy->getPositionX() < this->getPositionX() - 3 * pierwszy->getContentSize().width) return;	//blisko bramki
+	if (pierwszy->getPositionX() < this->getPositionX() - 2.5f * pierwszy->getContentSize().width) return;	//blisko bramki
 	Boxx *closestPlayer = orderedBoxes->at(world->getBoxesNumber() - 1); //ostani
 	Boxx *aktualny = orderedBoxes->at(actualpos); //aktualny
 	//sprawdzenie czy ktos przekroczyl
@@ -105,7 +105,7 @@ void Chcekpoint::przyspiesz(float dt)
 
 void Chcekpoint::zwolnij(float dt)
 {
-	if (timee > 0.7f)
+	if (timee > 0.5f)
 	{
 		director->getScheduler()->setTimeScale(1);
 		schedule(schedule_selector(Chcekpoint::przyspiesz));

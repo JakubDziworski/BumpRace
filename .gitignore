@@ -6,3 +6,6 @@ obj
 assets
 bin
 libs
+bmprac.opensdf
+BuildConfig.java
+R.java

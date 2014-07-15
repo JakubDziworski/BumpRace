@@ -90,7 +90,7 @@ void CarrerWorld::rozmiescCheckpointy()
 		{
 			auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
 			chkpt->setPosition(floor->bb.l + i, floor->bb.t);
-			rotationLayer->addChild(chkpt);
+			rotationLayer->addChild(chkpt,-1);
 		}
 }
 

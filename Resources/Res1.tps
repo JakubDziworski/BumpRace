@@ -145,6 +145,13 @@
             <filename>FLAT.png</filename>
             <filename>checkpoint.png</filename>
             <filename>tlo.png</filename>
+            <filename>btnOn.png</filename>
+            <filename>btnOf.png</filename>
+            <filename>btnBackOf.png</filename>
+            <filename>btnBackOn.png</filename>
+            <filename>slider.png</filename>
+            <filename>sliderDot.png</filename>
+            <filename>sliderActive.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

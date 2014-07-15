@@ -29,11 +29,11 @@ bool HelloWorld::init()
     
 	closeItem->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
     return true;
 }
 
