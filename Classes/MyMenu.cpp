@@ -17,21 +17,27 @@ bool MyMenu::init()
 	currMenu = L_MAINMENU;
 	//*layout init*//
 	createLayout(L_MAINMENU);
-	createLayout(L_PLAYSINGLE);
-	createLayout(L_PLAYMULTI);
-	createLayout(L_OPTIONS);
-	createLayout(L_FREERUN);
+		createLayout(L_PLAYSINGLE);
+			createLayout(L_CARRER);
+			createLayout(L_FREERUN);
+		createLayout(L_PLAYMULTI);
+			createLayout(L_MULTIFREELOCALRUN);
+		createLayout(L_OPTIONS);
 	//*MAIN MENU BUTTNS*//
 	createBtn("btnOn.png", "btnOf.png", "Single Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
 	createBtn("btnOn.png", "btnOf.png", "Multi Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
-	createBtn("btnOn.png", "btnOf.png", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_BACK, this->getChildByTag(L_MAINMENU));
+	createBtn("btnOn.png", "btnOf.png", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
 	//*SINGLE PLAYER BUTTONS*//
+	createLabel("SINGLE PLAYER MODE", L_PLAYSINGLE, LAB_SINGLEPLAYER);
 	createBtn("btnOn.png", "btnOf.png", "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
-	createBtn("btnOn.png", "btnOf.png", "Elimination", CC_CALLBACK_2(MyMenu::playElimination, this), B_ELIMINATION, this->getChildByTag(L_PLAYSINGLE));
-	createBtn("btnOn.png", "btnOf.png", "Endless Run", CC_CALLBACK_2(MyMenu::playEndless, this), B_ENDLESS_RUN, this->getChildByTag(L_PLAYSINGLE));
 	createBtn("btnOn.png", "btnOf.png", "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
+	//*CARRER BUTTONS*//
+	//TODO
 	//*FRE RUN BUTTONS*//
-	createSlider(0, 200, L_FREERUN, B_DIFFICULTYSLIDER, B_DIFFICULTYLABELSLIDER);
+	createLabel("Free run:", L_FREERUN, LAB_FREERUN);
+	createPages("Choose Mode",{ "Gate Collector", "Elimination", "Endless Run" }, { "pageGate.png", "pageEndlessRun.png", "PageElimination.png" }, 0, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
+	createSlider("Difficulty:Medium", 1, 2, currDiffValue, CC_CALLBACK_2(MyMenu::difficultySliderChanged, this), L_FREERUN, B_DIFFICULTYSLIDER, LAB_DIFFICULTYLABEL);
+	createSlider("Opponents:3", 3, maxOpponentsNumber-1,currOpponentsNumber , CC_CALLBACK_2(MyMenu::opponentsSliderChanged, this), L_FREERUN, B_AMOUNTOFOPPONENTSSLIDE, LAB_OPPONENTSNUMBERSLIDER);
 	createBtn("btnOn.png", "btnOf.png", "Play!", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
 	//*GENERAL BUTTONS*//
 	createBtn("btnBackOn.png", "btnBackOf.png", "", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
@@ -52,6 +58,38 @@ cocos2d::Scene* MyMenu::createScene()
 	scena->addChild(menu);
 	return scena;
 }
+void MyMenu::createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int defaultState, const int tag, int parent, PageView::ccPageViewCallback callback)
+{
+	LinearLayoutParameter* par = LinearLayoutParameter::create();
+	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
+	createLabel("Choose Mode:", L_FREERUN, LAB_CHOOSEMODE);
+	((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_CHOOSEMODE))->setFontSize(25);
+	PageView* pageView = PageView::create();
+	pageView->setClippingEnabled(false);
+	pageView->setBackGroundColor(Color3B(100, 100, 100));
+	auto siz = Sprite::create(filepaths.at(0))->getContentSize();
+	pageView->removeAllPages();
+	int i = 0;
+	for (auto name : names)
+	{
+		Layout *layout = Layout::create();
+		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
+		ImageView *imageView = ImageView::create(filepaths.at(i));
+		Text *text = Text::create();
+		text->setString(names.at(i));
+		text->setFontSize(25);
+		text->setLayoutParameter(par);
+		imageView->setLayoutParameter(par);
+		layout->addChild(text);
+		layout->addChild(imageView);
+		pageView->insertPage(layout, i);
+		pageView->setContentSize(Size(1.1f*siz.width, siz.height + text->getContentSize().height));
+		i++;
+	}
+	pageView->setLayoutParameter(par);
+	pageView->addEventListener(callback);
+	this->getChildByTag(parent)->addChild(pageView, 1, tag);
+}
 
 void MyMenu::createLayout(int layoutTag)
 {
@@ -63,6 +101,16 @@ void MyMenu::createLayout(int layoutTag)
 	mylater->setBackGroundColorType(LAYOUT_COLOR_SOLID);
 	mylater->setBackGroundColor(Color3B(128, 200, 200));
 	this->addChild(mylater, 0, layoutTag);
+}
+void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
+{
+	auto label = Text::create();
+	label->setFontSize(35);
+	label->setString(text);
+	LinearLayoutParameter* par = LinearLayoutParameter::create();
+	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
+	label->setLayoutParameter(par);
+	this->getChildByTag(parenttag)->addChild(label, 1, tag);
 }
 
 void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
@@ -78,7 +126,7 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 	btn->setLayoutParameter(par);
 	layout->addChild(btn, 1, typed);
 }
-void MyMenu::createSlider(int minvalue, int maxvalue, int parenttag,int tag,int labelTag)
+void MyMenu::createSlider(const std::string &defaultText, const float defaultval, const float maxVal, int &changingValue, Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag)
 {
 	Slider* slider = Slider::create();
 	slider->loadBarTexture("slider.png");
@@ -88,19 +136,22 @@ void MyMenu::createSlider(int minvalue, int maxvalue, int parenttag,int tag,int 
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	slider->setLayoutParameter(par);
-	auto dispValLabel = Label::create();
-	dispValLabel->setSystemFontSize(35);
-	dispValLabel->setPosition(slider->getContentSize().width / 2.0f, slider->getContentSize().height);
-	dispValLabel->setAnchorPoint(Vec2(0.5, 0));
-	slider->addEventListenerSlider(this, sliderpercentchangedselector(MyMenu::sliderValueChanged));
-	slider->addChild(dispValLabel, 1, labelTag);
+	auto txt = Text::create();
+	txt->setLayoutParameter(par);
+	txt->setFontSize(25);
+	slider->setPercent(defaultval/maxVal * 100);
+	txt->setString(defaultText);
+	slider->addEventListener(callback);
+	changingValue = defaultval;
+	this->getChildByTag(parenttag)->addChild(txt, 1, labelTag);
 	this->getChildByTag(parenttag)->addChild(slider, 1, tag);
 }
 
 void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	/*show(L_OPTIONS);
-	hide(L_MAINMENU);*/
+	show(L_OPTIONS);
+	show(B_BACK);
+	hide(L_MAINMENU);
 }
 
 void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
@@ -139,6 +190,7 @@ void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 
 void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
 	switch (currMenu)
 	{
 	case L_PLAYSINGLE:
@@ -183,22 +235,9 @@ void MyMenu::show(int menutypedef)
 	currMenu = menutypedef;
 }
 
-void MyMenu::sliderValueChanged(cocos2d::Ref* stg, cocos2d::ui::SliderEventType* evnt)
-{
-	
-	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER));
-	Label* lbl = ((Label*)slid->getChildByTag(B_DIFFICULTYLABELSLIDER));
-	//
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent / maxOpponentsNumber);
-	slid->setPercent(nearest*maxOpponentsNumber);
-	lbl->setString(String::createWithFormat("Opponents:%d", nearest)->getCString());
-	currOpponentsNumber = nearest;
-}
-
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	Director::getInstance()->replaceScene(CarrerWorld::createScene(currOpponentsNumber));
+	Director::getInstance()->replaceScene(CarrerWorld::createScene(currOpponentsNumber+1));
 }
 
 void MyMenu::preload()
@@ -206,6 +245,44 @@ void MyMenu::preload()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
 }
+
+void MyMenu::opponentsSliderChanged(cocos2d::Ref* stg, Slider::EventType evnt)
+{
+	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_AMOUNTOFOPPONENTSSLIDE));
+	Text* lbl = ((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_OPPONENTSNUMBERSLIDER));
+	//
+	const float percent = slid->getPercent();
+	int nearest = std::round(percent*(maxOpponentsNumber-1) / 100.0f);
+	slid->setPercent(nearest / (maxOpponentsNumber-1) * 100);
+	lbl->setString(String::createWithFormat("Opponents:%d", nearest+1)->getCString());
+	currOpponentsNumber = nearest+1;
+}
+void MyMenu::difficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type)
+{
+	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER));
+	Text* lbl = ((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_DIFFICULTYLABEL));
+	
+	const float maxdiffLevel = 2;
+	const float percent = slid->getPercent();
+	int nearest = std::round(percent*maxdiffLevel / 100.0f);
+	slid->setPercent(nearest/maxdiffLevel*100);
+	std::string poziom = "";
+	if (nearest == 0) poziom = "Easy";
+	else if (nearest == 1) poziom = "Medium";
+	else if (nearest == 2) poziom = "Hard";
+	lbl->setString(String::createWithFormat("Difficulty:%s", poziom.c_str())->getCString());
+	currDiffValue = nearest;
+}
+
+void MyMenu::modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
+{
+	PageView *pages = ((PageView*)this->getChildByTag(L_FREERUN)->getChildByTag(PG_CHOOSEMODE));
+	currModeSelected = pages->getCurPageIndex();
+}
+
+
+
+
 
 
 

@@ -161,6 +161,10 @@ void Boxx::updatePhysPos()
 		wind = 3.15f;
 		maxVel = G_maxVelocity*wind;
 		break;
+	case 11:
+		wind = 3.3f;
+		maxVel = G_maxVelocity*wind;
+		break;
 	}
 }
 
