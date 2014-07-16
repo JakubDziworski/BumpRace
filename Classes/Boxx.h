@@ -38,7 +38,7 @@ public:
 	void jump();
 	bool isOnFlat();
 	void updateBox();
-	float getVelocity(){if(myBody != nullptr) return myBody->v.x;}
+	float getVelocity(){if(myBody != nullptr) return  myBody->v.x;}
 	void addPoint();
 };
 #endif
