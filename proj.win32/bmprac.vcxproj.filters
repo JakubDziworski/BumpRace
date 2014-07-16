@@ -36,9 +36,6 @@
     <ClCompile Include="..\Classes\World.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\CarrerWorld.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\AIOpponent.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -49,6 +46,15 @@
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MyMenu.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SingleGateWorld.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SingleHud.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Hud.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,9 +83,6 @@
     <ClInclude Include="..\Classes\World.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CarrerWorld.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\AIOpponent.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -96,6 +99,15 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Macros.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SingleGateWorld.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SingleHud.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Hud.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

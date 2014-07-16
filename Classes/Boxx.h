@@ -40,5 +40,6 @@ public:
 	void updateBox();
 	float getVelocity(){if(myBody != nullptr) return  myBody->v.x;}
 	void addPoint();
+	int getScore(){ return points; }
 };
 #endif

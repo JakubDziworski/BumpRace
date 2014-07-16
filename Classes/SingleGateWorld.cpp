@@ -1,20 +1,24 @@
-#include "CarrerWorld.h"
+#include "SingleGateWorld.h"
 #include "Globals.h"
 #include "AIOpponent.h"
 #include "Paths.h"
+#include "Macros.h"
 #include "Player.h"
+#include "SingleHud.h"
 #include "Checkpoint.h"
 USING_NS_CC;
 
 
-cocos2d::Scene* CarrerWorld::createScene(int numberOfPlayers, int aiLevel)
+cocos2d::Scene* SingleGateWorld::createScene(int numberOfPlayers, int aiLevel)
 {
 	auto scene = Scene::create();
-	auto layer = CarrerWorld::create(numberOfPlayers,aiLevel);
-	scene->addChild(layer);
+	auto gameLayer = SingleGateWorld::create(numberOfPlayers,aiLevel);
+	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
+	auto hudLayer = SingleGateHud::create(gameLayer);
+	scene->addChild(hudLayer, 2, LAYER_HUD);
 	return scene;
 }
-bool CarrerWorld::myInit(int numberOfPlayers, int aiLevel)
+bool SingleGateWorld::myInit(int numberOfPlayers, int aiLevel)
 {
 	if (!World::myInitWithAI(numberOfPlayers, aiLevel))
 	{
@@ -23,7 +27,7 @@ bool CarrerWorld::myInit(int numberOfPlayers, int aiLevel)
 	return true;
 }
 
-bool CarrerWorld::onTouched(Touch* touch, Event* event)
+bool SingleGateWorld::onTouched(Touch* touch, Event* event)
 {
 		player->jump();
 		/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) opponentz.at(0)->jump();
@@ -31,16 +35,16 @@ bool CarrerWorld::onTouched(Touch* touch, Event* event)
 		else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) opponentz.at(2)->jump();*/
 		return true;
 }
-void CarrerWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+void SingleGateWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
 	player->jump();
 }
 
-void CarrerWorld::customWorldUpdate()
+void SingleGateWorld::customWorldUpdate()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
 }
-void CarrerWorld::cameraFollow(float dt)
+void SingleGateWorld::cameraFollow(float dt)
 {
 	if (player == orderedOpponents.at(0)) followMate = orderedOpponents.at(1);
 	else followMate = orderedOpponents.at(0);
@@ -55,9 +59,9 @@ void CarrerWorld::cameraFollow(float dt)
 		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
 		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
 }
-CarrerWorld* CarrerWorld::create(int numberOfPlayers, int aiLevel)
+SingleGateWorld* SingleGateWorld::create(int numberOfPlayers, int aiLevel)
 {
-	CarrerWorld *pRet = new CarrerWorld();
+	SingleGateWorld *pRet = new SingleGateWorld();
 	if (pRet && pRet->myInit(numberOfPlayers,aiLevel))
 	{
 		pRet->autorelease();
@@ -71,7 +75,7 @@ CarrerWorld* CarrerWorld::create(int numberOfPlayers, int aiLevel)
 	}
 }
 
-void CarrerWorld::putOnBoxes()
+void SingleGateWorld::putOnBoxes()
 {
 	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
 	player = opponentz.at(0);
@@ -83,7 +87,7 @@ void CarrerWorld::putOnBoxes()
 	}
 }
 
-void CarrerWorld::rozmiescCheckpointy()
+void SingleGateWorld::rozmiescCheckpointy()
 {
 		const int dlugosc = floor->bb.r - floor->bb.l;
 		for (int i = 4000; i < dlugosc; i += 4000)
@@ -94,5 +98,9 @@ void CarrerWorld::rozmiescCheckpointy()
 		}
 }
 
+void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
+{
+	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
+}
 
 

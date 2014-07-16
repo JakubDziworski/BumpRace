@@ -61,11 +61,12 @@ void Chcekpoint::tick(float dt)
 	if (aktualny->getBoundingBox().getMaxX() > this->getPositionX())
 	{
 		if (actualpos == 0) pierwszyZlapal = true;
-		world->checkpointReached(aktualny,actualpos+1);
+		world->checkpointReachedBase(aktualny,actualpos+1);
 		actualpos++;
 	}
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
 	if (actualpos > 0) return;
+	if (this->isScheduled(schedule_selector(Chcekpoint::zwolnij))) return;
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
 	{

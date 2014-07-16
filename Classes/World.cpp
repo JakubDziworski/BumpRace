@@ -112,6 +112,7 @@ void World::putOnPlayers()
 	player = opponentz.at(0);
 	physPosOrderedOpponentz = Vector<Boxx*>(opponentz);
 	orderedOpponents = Vector<Boxx*>(opponentz);
+	orderedOppByScore = Vector<Boxx*>(opponentz);
 	for (Boxx *opponent : opponentz)
 	{
 		do
@@ -171,10 +172,11 @@ void World::putOnBoxes()
 	}
 }
 
-void World::checkpointReached(Boxx *box, int pos)
+void World::checkpointReachedBase(Boxx *box, int pos)
 {
 	if (pos == 1) box->addPoint();
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
+	checkpointReachedExtended(box,pos);
 }
 
 void World::rozmiescCheckpointy()
@@ -216,4 +218,20 @@ bool World::myInitWithAI(int numberOfPlayers, int aiSmartness)
 	this->aiSmart = aiSmartness;
 	if (!myInit(numberOfPlayers)) return false;
 	return true;
+}
+
+cocos2d::Vector<Boxx*> * World::getSortedBoxesByScore()
+{
+	std::sort(orderedOppByScore.begin(), orderedOppByScore.end(), &World::scoreSortingFun);
+	return &orderedOppByScore;
+}
+
+bool World::scoreSortingFun(Boxx *a, Boxx *b)	//MALEJACAO
+{
+	return (a->getScore() < b->getScore());
+}
+
+void World::checkpointReachedExtended(Boxx *box, int pos)
+{
+
 }

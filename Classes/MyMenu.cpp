@@ -1,8 +1,9 @@
 #include "MyMenu.h"
 #include "Macros.h"
-#include "CarrerWorld.h"
+#include "SingleGateWorld.h"
 #include "SimpleAudioEngine.h"
 #include "Paths.h"
+#include "Globals.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -237,11 +238,12 @@ void MyMenu::show(int menutypedef)
 
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	Director::getInstance()->replaceScene(CarrerWorld::createScene(currOpponentsNumber+1,currDiffValue));
+	Director::getInstance()->replaceScene(SingleGateWorld::createScene(currOpponentsNumber+1,currDiffValue));
 }
 
 void MyMenu::preload()
 {
+	G_srodek = Director::getInstance()->getVisibleSize() / 2;
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
 }

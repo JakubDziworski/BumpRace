@@ -25,6 +25,7 @@ private:
 	void createBackground();
 	static bool posSortingFun(Boxx* a, Boxx* b);
 	static bool physPosSortingFun(Boxx *a, Boxx *b);
+	static bool scoreSortingFun(Boxx *a, Boxx *b);
 protected:
 	int aiSmart;
 	cpSpace *gravitySpace;
@@ -33,6 +34,7 @@ protected:
 	Boxx *player;
 	cocos2d::Vector<Boxx*> opponentz;
 	cocos2d::Vector<Boxx*> orderedOpponents;
+	cocos2d::Vector<Boxx*> orderedOppByScore;
 	//**cocos stuff**//
 	cpShape *floor;
 	Node *rotationLayer;
@@ -49,9 +51,12 @@ protected:
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)=0;
 	virtual void customWorldUpdate()=0;
 public:
+	cocos2d::Vector<Boxx*> *getBoxes(){ return &opponentz; }
+	cocos2d::Vector<Boxx*> *getSortedBoxesByScore();
 	int getBoxesNumber() const { return boxesNumber; }
 	void setBoxesNumber(int val) { boxesNumber = val; }
-	virtual void checkpointReached(Boxx *box, int pos);
+	virtual void checkpointReachedBase(Boxx *box, int pos);
+	virtual void checkpointReachedExtended(Boxx *box, int pos);
 	virtual bool myInit(int numberOfPlayers);
 	virtual bool myInitWithAI(int numberOfPlayers,int aiSmartness);
 	virtual void rozmiescCheckpointy();
