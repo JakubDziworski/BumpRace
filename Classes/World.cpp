@@ -210,3 +210,10 @@ bool World::nodeOutOfWindow(Node *node)
 	if (node->getPositionX() + srodek.x< orderedOpponents.at(this->getBoxesNumber()-1)->getPositionX()) return true;
 	return false;
 }
+
+bool World::myInitWithAI(int numberOfPlayers, int aiSmartness)
+{
+	this->aiSmart = aiSmartness;
+	if (!myInit(numberOfPlayers)) return false;
+	return true;
+}

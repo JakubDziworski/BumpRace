@@ -53,5 +53,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::goToLevelCallBack(cocos2d::Ref* pSender)
 {
-	Director::getInstance()->replaceScene(CarrerWorld::createScene(4));
+	Director::getInstance()->replaceScene(CarrerWorld::createScene(4,2));
 }

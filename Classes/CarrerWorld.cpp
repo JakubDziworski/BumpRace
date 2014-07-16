@@ -7,16 +7,16 @@
 USING_NS_CC;
 
 
-cocos2d::Scene* CarrerWorld::createScene(int numberOfPlayers)
+cocos2d::Scene* CarrerWorld::createScene(int numberOfPlayers, int aiLevel)
 {
 	auto scene = Scene::create();
-	auto layer = CarrerWorld::create(numberOfPlayers);
+	auto layer = CarrerWorld::create(numberOfPlayers,aiLevel);
 	scene->addChild(layer);
 	return scene;
 }
-bool CarrerWorld::myInit(int numberOfPlayers)
+bool CarrerWorld::myInit(int numberOfPlayers, int aiLevel)
 {
-	if (!World::myInit(numberOfPlayers))
+	if (!World::myInitWithAI(numberOfPlayers, aiLevel))
 	{
 		return false;
 	}
@@ -55,10 +55,10 @@ void CarrerWorld::cameraFollow(float dt)
 		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
 		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
 }
-CarrerWorld* CarrerWorld::create(int numberOfPlayers)
+CarrerWorld* CarrerWorld::create(int numberOfPlayers, int aiLevel)
 {
 	CarrerWorld *pRet = new CarrerWorld();
-	if (pRet && pRet->myInit(numberOfPlayers))
+	if (pRet && pRet->myInit(numberOfPlayers,aiLevel))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -77,7 +77,7 @@ void CarrerWorld::putOnBoxes()
 	player = opponentz.at(0);
 	for (int i = 1; i < boxesNumber; i++)
 	{
-		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d",i)->getCString(), gravitySpace,0);
+		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}

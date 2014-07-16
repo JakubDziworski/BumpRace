@@ -237,7 +237,7 @@ void MyMenu::show(int menutypedef)
 
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	Director::getInstance()->replaceScene(CarrerWorld::createScene(currOpponentsNumber+1));
+	Director::getInstance()->replaceScene(CarrerWorld::createScene(currOpponentsNumber+1,currDiffValue));
 }
 
 void MyMenu::preload()

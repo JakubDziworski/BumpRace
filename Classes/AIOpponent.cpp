@@ -4,35 +4,17 @@ void AIOpponent::simulate(float dt)
 {
 	if (orderedOpponents->size() == 0) return;
 	this->setPrzedniTylni();
-	bool doJump = false;
 	if (tylni && tylni->getVelocity() > 1.2f*this->getVelocity() && tylni->isJumping())
 	{
-		doJump = true;
-	}
-	if (przedni && przedni->getVelocity() < 0.8f*this->getVelocity())
-	{
-		doJump = true;
-	}
-	if (stykasie())
-	{
-		doJump = true;
-	}
-	//smartness odrzut
-	if (!doJump) return;
-	int randomNumber = rand() % 11 -1;
-	switch (smartness)
-	{
-	case 0:
-		if (randomNumber <= 3) jump();
-		break;
-	case 1:
-		if (randomNumber <= 6) jump();
-		break;
-	case 2:
 		jump();
-		break;
-	default:
-		break;
+	}
+	else if (przedni && przedni->getVelocity() < 0.8f*this->getVelocity())
+	{
+		jump();
+	}
+	else if (stykasie())
+	{
+		jump();
 	}
 }
 
@@ -43,7 +25,22 @@ bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *sp
 		return false;
 	}
 	this->smartness = smartnez;
-	schedule(schedule_selector(AIOpponent::simulate), 0.2f);
+	//**trudnosc**//
+	int randomNumber = rand() % 11 - 1;
+	switch (smartness)
+	{
+	case 0:
+		schedule(schedule_selector(AIOpponent::simulate),2);
+		break;
+	case 1:
+		schedule(schedule_selector(AIOpponent::simulate), 1.5f);
+		break;
+	case 2:
+		schedule(schedule_selector(AIOpponent::simulate), 0.2f);
+		break;
+	default:
+		break;
+	}
 	return true;
 }
 
