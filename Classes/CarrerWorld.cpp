@@ -77,7 +77,7 @@ void CarrerWorld::putOnBoxes()
 	player = opponentz.at(0);
 	for (int i = 1; i < boxesNumber; i++)
 	{
-		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d",i)->getCString(), gravitySpace);
+		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d",i)->getCString(), gravitySpace,0);
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}
