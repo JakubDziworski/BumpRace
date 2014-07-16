@@ -39,6 +39,7 @@ bool MyMenu::init()
 	createPages("Choose Mode",{ "Gate Collector", "Elimination", "Endless Run" }, { "pageGate.png", "pageEndlessRun.png", "PageElimination.png" }, 0, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
 	createSlider("Difficulty:Medium", 1, 2, currDiffValue, CC_CALLBACK_2(MyMenu::difficultySliderChanged, this), L_FREERUN, B_DIFFICULTYSLIDER, LAB_DIFFICULTYLABEL);
 	createSlider("Opponents:3", 3, maxOpponentsNumber-1,currOpponentsNumber , CC_CALLBACK_2(MyMenu::opponentsSliderChanged, this), L_FREERUN, B_AMOUNTOFOPPONENTSSLIDE, LAB_OPPONENTSNUMBERSLIDER);
+	createSlider("Gates:7", 7, 24, currGatesNumb, CC_CALLBACK_2(MyMenu::gatesSliderChanged, this), L_FREERUN, B_GATESLIDER, LAB_GATESNUMBER);
 	createBtn("btnOn.png", "btnOf.png", "Play!", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
 	//*GENERAL BUTTONS*//
 	createBtn("btnBackOn.png", "btnBackOf.png", "", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
@@ -238,11 +239,12 @@ void MyMenu::show(int menutypedef)
 
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	Director::getInstance()->replaceScene(SingleGateWorld::createScene(currOpponentsNumber+1,currDiffValue));
+	Director::getInstance()->replaceScene(SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue));
 }
 
 void MyMenu::preload()
 {
+	G_odlegloscmiedzyBramkami = 40000;
 	G_srodek = Director::getInstance()->getVisibleSize() / 2;
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
@@ -281,6 +283,20 @@ void MyMenu::modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView
 	PageView *pages = ((PageView*)this->getChildByTag(L_FREERUN)->getChildByTag(PG_CHOOSEMODE));
 	currModeSelected = pages->getCurPageIndex();
 }
+
+void MyMenu::gatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type)
+{
+	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER));
+	Text* lbl = ((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_GATESNUMBER));
+
+	const float maxdiffLevel = 24;
+	const float percent = slid->getPercent();
+	int nearest = std::round(percent*maxdiffLevel / 100.0f);
+	slid->setPercent(nearest / maxdiffLevel * 100);
+	lbl->setString(String::createWithFormat("Gates:%d", nearest+1)->getCString());
+	currGatesNumb = nearest+1;
+}
+
 
 
 

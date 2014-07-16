@@ -20,7 +20,7 @@ bool SingleGateHud::init(SingleGateWorld *worldd)
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
 		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
 		text->setFontSize(25);
-		text->setPosition(Vec2(G_srodek.x/10, 1.1f*i));
+		text->setPosition(Vec2(G_srodek.x / 15, 1.1f*i + G_srodek.x / 15));
 		this->addChild(text);
 		i += text->getContentSize().height;
 		scoreTable.insert(box, text);
@@ -34,7 +34,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 	for (Boxx *box : *orderedByPointsBoxes)
 	{
 		Text* text = ((Text*)scoreTable.at(box));
-		text->setPosition(Vec2(G_srodek.x / 10, 1.1f*i));
+		text->setPosition(Vec2(G_srodek.x / 15, 1.1f*i + G_srodek.x / 15));
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
 		i += text->getContentSize().height;
 	}

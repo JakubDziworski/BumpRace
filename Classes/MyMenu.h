@@ -12,6 +12,7 @@ private:
 	int currDiffValue;
 	int currModeSelected;
 	int currMenu;
+	int currGatesNumb;
 	cocos2d::Size srodek;
 	cocos2d::ui::Layout* layout;
 	void preload();
@@ -44,5 +45,6 @@ public:
 	void opponentsSliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
 	void difficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
 	void modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
+	void gatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type);
 };
 #endif // !__MENU_H__

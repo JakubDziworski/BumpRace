@@ -11,7 +11,7 @@
 #include "CCTexture2D.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
-bool World::myInit(int numberOfPlayers)
+bool World::myInit(int numberOfPlayers,int gates)
 {
 	if (!Layer::init())
 	{
@@ -28,6 +28,7 @@ bool World::myInit(int numberOfPlayers)
 	this->addChild(scaleeLayer,1);
 	//****************//
 	boxesNumber = numberOfPlayers;
+	gatesNumber = gates;
 	opponentz = Vector<Boxx*>(boxesNumber);
 	angle = 0;
 	timee = 0;
@@ -57,11 +58,12 @@ bool World::myInit(int numberOfPlayers)
 void World::createFloor()
 {
 	floorBody = cpBodyNew(INFINITY,INFINITY);
+	float lengtht = (gatesNumber )*G_odlegloscmiedzyBramkami;
 	cpVect verts[] = {
 		cpv(0,-2000),
 		cpv(0, 0),
-		cpv(250000, 0),
-		cpv(250000, -2000),
+		cpv(lengtht, 0),
+		cpv(lengtht, -2000),
 	};
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - Director::getInstance()->getWinSize().width) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
@@ -182,10 +184,10 @@ void World::checkpointReachedBase(Boxx *box, int pos)
 void World::rozmiescCheckpointy()
 {
 	const int dlugosc = floor->bb.r - floor->bb.l;
-	for (int i = 40000; i < dlugosc; i+=40000)
+	for (int i = 1; i <= gatesNumber; i++)
 	{
 		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
-		chkpt->setPosition(floor->bb.l + i, floor->bb.t);
+		chkpt->setPosition(floor->bb.l + i*G_odlegloscmiedzyBramkami, floor->bb.t);
 		rotationLayer->addChild(chkpt);
 	}
 }
@@ -209,14 +211,14 @@ void World::createBackground()
 
 bool World::nodeOutOfWindow(Node *node)
 {
-	if (node->getPositionX() + srodek.x< orderedOpponents.at(this->getBoxesNumber()-1)->getPositionX()) return true;
+	if (node->getPositionX() + 2*srodek.x< orderedOpponents.at(this->getBoxesNumber()-1)->getPositionX()) return true;
 	return false;
 }
 
-bool World::myInitWithAI(int numberOfPlayers, int aiSmartness)
+bool World::myInitWithAI(int numberOfPlayers, int gates,int aiSmartness)
 {
 	this->aiSmart = aiSmartness;
-	if (!myInit(numberOfPlayers)) return false;
+	if (!myInit(numberOfPlayers, gates)) return false;
 	return true;
 }
 

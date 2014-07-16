@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "cocos2d.h"
+int G_odlegloscmiedzyBramkami;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;
 float G_Currangle = 0;

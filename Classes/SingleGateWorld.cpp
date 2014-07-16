@@ -9,18 +9,18 @@
 USING_NS_CC;
 
 
-cocos2d::Scene* SingleGateWorld::createScene(int numberOfPlayers, int aiLevel)
+cocos2d::Scene* SingleGateWorld::createScene(int numberOfPlayers, int gatess, int aiLevel)
 {
 	auto scene = Scene::create();
-	auto gameLayer = SingleGateWorld::create(numberOfPlayers,aiLevel);
+	auto gameLayer = SingleGateWorld::create(numberOfPlayers, gatess,aiLevel );
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
 	auto hudLayer = SingleGateHud::create(gameLayer);
 	scene->addChild(hudLayer, 2, LAYER_HUD);
 	return scene;
 }
-bool SingleGateWorld::myInit(int numberOfPlayers, int aiLevel)
+bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 {
-	if (!World::myInitWithAI(numberOfPlayers, aiLevel))
+	if (!World::myInitWithAI(numberOfPlayers,gates, aiLevel))
 	{
 		return false;
 	}
@@ -59,10 +59,10 @@ void SingleGateWorld::cameraFollow(float dt)
 		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
 		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
 }
-SingleGateWorld* SingleGateWorld::create(int numberOfPlayers, int aiLevel)
+SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiLevel)
 {
 	SingleGateWorld *pRet = new SingleGateWorld();
-	if (pRet && pRet->myInit(numberOfPlayers,aiLevel))
+	if (pRet && pRet->myInit(numberOfPlayers, gatess,aiLevel))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -85,17 +85,6 @@ void SingleGateWorld::putOnBoxes()
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}
-}
-
-void SingleGateWorld::rozmiescCheckpointy()
-{
-		const int dlugosc = floor->bb.r - floor->bb.l;
-		for (int i = 4000; i < dlugosc; i += 4000)
-		{
-			auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
-			chkpt->setPosition(floor->bb.l + i, floor->bb.t);
-			rotationLayer->addChild(chkpt,-1);
-		}
 }
 
 void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)

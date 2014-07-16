@@ -28,6 +28,7 @@ private:
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
 protected:
 	int aiSmart;
+	int gatesNumber;
 	cpSpace *gravitySpace;
 	int boxesNumber;
 	float screenRatio;
@@ -57,8 +58,8 @@ public:
 	void setBoxesNumber(int val) { boxesNumber = val; }
 	virtual void checkpointReachedBase(Boxx *box, int pos);
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
-	virtual bool myInit(int numberOfPlayers);
-	virtual bool myInitWithAI(int numberOfPlayers,int aiSmartness);
+	virtual bool myInit(int numberOfPlayers,int gatess);
+	virtual bool myInitWithAI(int numberOfPlayers, int gatess, int aiSmartness);
 	virtual void rozmiescCheckpointy();
 	bool nodeOutOfWindow(cocos2d::Node *node);
 };
