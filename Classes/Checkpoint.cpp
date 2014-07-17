@@ -36,6 +36,7 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	actualpos = 0;
 	director = Director::getInstance();
 	timee = 0;
+	isLast = false;
 	pierwszyZlapal = false;
 	schedule(schedule_selector(Chcekpoint::tick));
 	return true;
@@ -65,6 +66,10 @@ void Chcekpoint::tick(float dt)
 		actualpos++;
 	}
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
+	if (isLast)
+	{
+		director->getScheduler()->setTimeScale(0.1);
+	}
 	if (actualpos > 0) return;
 	if (this->isScheduled(schedule_selector(Chcekpoint::zwolnij))) return;
 	bool playerWzasiegu = false;
@@ -120,6 +125,11 @@ void Chcekpoint::zwolnij(float dt)
 		return;
 	}
 	
-	director->getScheduler()->setTimeScale(0.1f/*director->getScheduler()->getTimeScale() - 10 * dt*/);
+	director->getScheduler()->setTimeScale(0.1f);
+}
+
+void Chcekpoint::zwolnijNaOstanim(float dt)
+{
+
 }
 

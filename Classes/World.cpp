@@ -29,6 +29,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	//****************//
 	boxesNumber = numberOfPlayers;
 	gatesNumber = gates;
+	remainingGates = gates;
 	opponentz = Vector<Boxx*>(boxesNumber);
 	angle = 0;
 	timee = 0;
@@ -176,7 +177,11 @@ void World::putOnBoxes()
 
 void World::checkpointReachedBase(Boxx *box, int pos)
 {
-	if (pos == 1) box->addPoint();
+	if (pos == 1)
+	{
+		box->addPoint();
+		remainingGates--;
+	}
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
 	checkpointReachedExtended(box,pos);
 }
@@ -189,6 +194,7 @@ void World::rozmiescCheckpointy()
 		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
 		chkpt->setPosition(floor->bb.l + i*G_odlegloscmiedzyBramkami, floor->bb.t);
 		rotationLayer->addChild(chkpt);
+		if (i == gatesNumber) chkpt->setIsLast(true);
 	}
 }
 
@@ -237,3 +243,18 @@ void World::checkpointReachedExtended(Boxx *box, int pos)
 {
 
 }
+
+void World::pauseGame()
+{
+	rotationLayer->pause();
+	this->pause();
+}
+
+void World::resumeGame()
+{
+	rotationLayer->resume();
+	this->resume();
+}
+
+
+

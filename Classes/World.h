@@ -29,6 +29,7 @@ private:
 protected:
 	int aiSmart;
 	int gatesNumber;
+	int remainingGates;
 	cpSpace *gravitySpace;
 	int boxesNumber;
 	float screenRatio;
@@ -52,6 +53,7 @@ protected:
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)=0;
 	virtual void customWorldUpdate()=0;
 public:
+	virtual void restartLevel() = 0;
 	cocos2d::Vector<Boxx*> *getBoxes(){ return &opponentz; }
 	cocos2d::Vector<Boxx*> *getSortedBoxesByScore();
 	int getBoxesNumber() const { return boxesNumber; }
@@ -62,5 +64,7 @@ public:
 	virtual bool myInitWithAI(int numberOfPlayers, int gatess, int aiSmartness);
 	virtual void rozmiescCheckpointy();
 	bool nodeOutOfWindow(cocos2d::Node *node);
+	virtual void pauseGame();
+	virtual void resumeGame();
 };
 #endif // __GAMETEST_SCENE_H__

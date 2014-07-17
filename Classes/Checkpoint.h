@@ -12,9 +12,12 @@ private:
 	cocos2d::Director *director;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;
+	bool isLast;
 public:
+	void setIsLast(bool val) { isLast = val; }
 	void przyspiesz(float dt);
 	void zwolnij(float dt);
+	void zwolnijNaOstanim(float dt);
 	void tick(float dt);
 	static Chcekpoint *create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName);
 	bool init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName);

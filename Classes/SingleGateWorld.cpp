@@ -92,4 +92,7 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
 }
 
-
+void SingleGateWorld::restartLevel()
+{
+	Director::getInstance()->replaceScene(SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart));
+}

@@ -16,6 +16,6 @@ public:
 	virtual void cameraFollow(float dt);
 	virtual void putOnBoxes();
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
-
+	virtual void restartLevel();
 };
 #endif
