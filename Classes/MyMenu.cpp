@@ -244,7 +244,6 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 
 void MyMenu::preload()
 {
-	G_odlegloscmiedzyBramkami = 40000;
 	G_srodek = Director::getInstance()->getVisibleSize() / 2;
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");

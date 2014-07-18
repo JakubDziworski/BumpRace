@@ -11,11 +11,11 @@ bool Hud::init()
 	{
 		return false;
 	}
+	//PAUSE//
+	pauseNode = Node::create();
 	Button* pauseBtn = Button::create("pauseBtnOn.png", "pauseBtnOf.png");
 	pauseBtn->setPosition(Vec2(2 * G_srodek.x - pauseBtn->getContentSize().height*0.75f, 2 * G_srodek.y - pauseBtn->getContentSize().width*0.75f));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_2(Hud::pauseTouchCallback,this));
-	//pause menu//
-	pauseNode = Node::create();
 	const int margin = G_srodek.y / 20;
 	Button *resume = Button::create("resumeBtnOf.png", "resumeBtnOf.png");
 	Button *repeat = Button::create("repeatBtnOn.png", "repeatBtnOn.png");
@@ -62,5 +62,10 @@ void Hud::gotoMenuBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchE
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	Director::getInstance()->replaceScene(MyMenu::createScene());
+}
+
+void Hud::gameIsOver()
+{
+
 }
 

@@ -9,6 +9,8 @@
 #include "SimpleAudioEngine.h"
 #include "Checkpoint.h"
 #include "CCTexture2D.h"
+#include "Macros.h"
+#include "Hud.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 bool World::myInit(int numberOfPlayers,int gates)
@@ -182,8 +184,13 @@ void World::checkpointReachedBase(Boxx *box, int pos)
 		box->addPoint();
 		remainingGates--;
 	}
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
 	checkpointReachedExtended(box,pos);
+	if (remainingGates == 0)
+	{
+		if ((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))
+		((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->gameIsOver();
+	}
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
 }
 
 void World::rozmiescCheckpointy()
@@ -236,7 +243,7 @@ cocos2d::Vector<Boxx*> * World::getSortedBoxesByScore()
 
 bool World::scoreSortingFun(Boxx *a, Boxx *b)	//MALEJACAO
 {
-	return (a->getScore() < b->getScore());
+	return (a->getScore() > b->getScore());
 }
 
 void World::checkpointReachedExtended(Boxx *box, int pos)

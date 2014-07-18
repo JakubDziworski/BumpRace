@@ -13,6 +13,10 @@ extern int G_maxVelocity;
 const extern int G_maxVelConstant;
 const extern int G_maxVelAddition;
 extern void G_setCurrAngle(float angle);
+extern float G_wF(float inp);
+extern float G_hF(float inp);
+extern cocos2d::Vec2 G_wV(cocos2d::Vec2 inp);
+extern cocos2d::Vec2 G_hV(cocos2d::Vec2 inp);
 
 #endif
 

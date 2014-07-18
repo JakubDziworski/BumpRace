@@ -8,11 +8,13 @@ class Hud : public cocos2d::Layer
 {
 private:
 	Node *pauseNode;
+	Node *gameOverNode;
 	void pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void resumeBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void repeatBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void gotoMenuBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 public:
+	virtual void gameIsOver();
 	virtual bool init();
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 
