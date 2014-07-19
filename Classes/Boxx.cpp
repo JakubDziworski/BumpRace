@@ -11,6 +11,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 	maxVel = 1000;
 	wind = 0;
 	points = 0;
+	deactivated = false;
 	//create cocos stuff//
 	debugL = Label::create();
 	debugL->setSystemFontSize(35);
@@ -67,7 +68,7 @@ void Boxx::updateBox()
 {
 	updatePhysPos();
 	updateTransform();
-	//displayDebugInfo();
+	displayDebugInfo();
 }
 
 void Boxx::jump()
@@ -119,6 +120,12 @@ bool Boxx::isOnFlat()
 
 void Boxx::updatePhysPos()
 {
+	if (deactivated)
+	{
+		wind = 0;
+		maxVel = G_maxVelocity * wind;
+		return;
+	}
 	switch (physPos)
 	{
 	case 1:
@@ -171,12 +178,12 @@ void Boxx::updatePhysPos()
 void Boxx::displayDebugInfo()
 {
 	additionalDebugInfo();
-	if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
-	debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
+	//if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
+	//debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
 }
 
@@ -184,12 +191,19 @@ void Boxx::additionalDebugInfo()
 {
 	debugL->setString(ID);
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n points:%d", points)->getCString());
+	if (deactivated) 
+		debugL->setString(debugL->getString() + "\ndeactivated");
 }
 
 void Boxx::addPoint()
 {
 	points++;
 	additionalDebugInfo();
+}
+
+void Boxx::deactivate()
+{
+	deactivated = true;
 }
 
 

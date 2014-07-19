@@ -1,26 +1,26 @@
-#include "SingleGateWorld.h"
+#include "SingleEliminationWorld.h"
 #include "Globals.h"
 #include "AIOpponent.h"
 #include "Paths.h"
 #include "Macros.h"
 #include "Player.h"
-#include "SingleHud.h"
+#include "SingleElimHUD.h"
 #include "Checkpoint.h"
 USING_NS_CC;
 
 
-cocos2d::Scene* SingleGateWorld::createScene(int numberOfPlayers, int gatess, int aiLevel)
+cocos2d::Scene* SingleEliminationWorld::createScene(int numberOfPlayers, int aiLevel)
 {
 	auto scene = Scene::create();
-	auto gameLayer = SingleGateWorld::create(numberOfPlayers, gatess,aiLevel );
+	auto gameLayer = SingleEliminationWorld::create(numberOfPlayers,aiLevel);
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
-	auto hudLayer = SingleGateHud::create(gameLayer);
+	auto hudLayer = SingleElimHud::create(gameLayer);
 	scene->addChild(hudLayer, 2, LAYER_HUD);
 	return scene;
 }
-bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
+bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
 {
-	if (!World::myInitWithAI(numberOfPlayers,gates, aiLevel))
+	if (!World::myInitWithAI(numberOfPlayers,numberOfPlayers-1, aiLevel))
 	{
 		return false;
 	}
@@ -28,7 +28,7 @@ bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 	return true;
 }
 
-bool SingleGateWorld::onTouched(Touch* touch, Event* event)
+bool SingleEliminationWorld::onTouched(Touch* touch, Event* event)
 {
 		player->jump();
 		/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) opponentz.at(0)->jump();
@@ -36,16 +36,16 @@ bool SingleGateWorld::onTouched(Touch* touch, Event* event)
 		else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) opponentz.at(2)->jump();*/
 		return true;
 }
-void SingleGateWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+void SingleEliminationWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
 	player->jump();
 }
 
-void SingleGateWorld::customWorldUpdate()
+void SingleEliminationWorld::customWorldUpdate()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
 }
-void SingleGateWorld::cameraFollow(float dt)
+void SingleEliminationWorld::cameraFollow(float dt)
 {
 	if (player == orderedOpponents.at(0)) followMate = orderedOpponents.at(1);
 	else followMate = orderedOpponents.at(0);
@@ -60,10 +60,10 @@ void SingleGateWorld::cameraFollow(float dt)
 		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
 		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
 }
-SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiLevel)
+SingleEliminationWorld* SingleEliminationWorld::create(int numberOfPlayers, int aiLevel)
 {
-	SingleGateWorld *pRet = new SingleGateWorld();
-	if (pRet && pRet->myInit(numberOfPlayers, gatess,aiLevel))
+	SingleEliminationWorld *pRet = new SingleEliminationWorld();
+	if (pRet && pRet->myElimInit(numberOfPlayers, aiLevel))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -76,7 +76,7 @@ SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiL
 	}
 }
 
-void SingleGateWorld::putOnBoxes()
+void SingleEliminationWorld::putOnBoxes()
 {
 	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
 	player = opponentz.at(0);
@@ -88,18 +88,30 @@ void SingleGateWorld::putOnBoxes()
 	}
 }
 
-void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
+void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
-	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
+	if (box == orderedOpponents.at(remainingGates+1))
+	{
+		box->deactivate();
+	}
+	((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
 }
 
-void SingleGateWorld::restartLevel()
+void SingleEliminationWorld::restartLevel()
 {
 	G_dir()->getScheduler()->setTimeScale(1);
-	Director::getInstance()->replaceScene(SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart));
+	Director::getInstance()->replaceScene(SingleEliminationWorld::createScene(boxesNumber, aiSmart));
 }
 
-void SingleGateWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
+void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {
+	if (first == false)
+	{
+		chkpt->enableSlowmo();
+	}
 }
 
+void SingleEliminationWorld::modifyGate(Chcekpoint *inp)
+{
+	inp->setSprawdzajPierwszych(false);
+}

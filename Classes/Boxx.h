@@ -8,6 +8,7 @@ class Boxx : public cocos2d::Sprite
 private:
 	int points;
 	cpBody *myBody;
+	bool deactivated;
 	float wind;
 	float maxVel;
 	int physPos;
@@ -25,6 +26,7 @@ public:
 	bool myInit(const std::string& filename, std::string ID, cpSpace *space);
 	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space);
 	//GETTERS SETTERS//
+	bool isDeactivated() const { return deactivated; }
 	std::string getID() const { return ID; }
 	void setID(std::string val) { ID = val; }
 	float getWind(){ return wind; }
@@ -41,5 +43,6 @@ public:
 	float getVelocity(){if(myBody != nullptr) return  myBody->v.x;}
 	void addPoint();
 	int getScore(){ return points; }
+	void deactivate();
 };
 #endif

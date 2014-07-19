@@ -11,6 +11,7 @@
 #include "CCTexture2D.h"
 #include "Macros.h"
 #include "Hud.h"
+#include "Checkpoint.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 bool World::myInit(int numberOfPlayers,int gates)
@@ -198,10 +199,11 @@ void World::rozmiescCheckpointy()
 	const int dlugosc = floor->bb.r - floor->bb.l;
 	for (int i = 1; i <= gatesNumber; i++)
 	{
-		auto *chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
+		auto chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
 		chkpt->setPosition(floor->bb.l + i*G_odlegloscmiedzyBramkami, floor->bb.t);
 		rotationLayer->addChild(chkpt);
 		if (i == gatesNumber) chkpt->setIsLast(true);
+		modifyGate(chkpt);
 	}
 }
 
@@ -262,6 +264,27 @@ void World::resumeGame()
 	rotationLayer->resume();
 	this->resume();
 }
+Boxx* World::getPrzedostaniActive()
+{
+	int i = 0;
+	for (Boxx *box : orderedOpponents)
+	{
+		if (box->isDeactivated()) break;
+		if (box == orderedOpponents.back()) break;
+		i++;
+	}
+	return orderedOpponents.at(i-1);
+}
+
+void World::modifyGate(Chcekpoint *chkpt)
+{
+
+}
+
+
+
+
+
 
 
 

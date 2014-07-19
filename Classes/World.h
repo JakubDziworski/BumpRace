@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Boxx.h"
 #include "external/chipmunk/include/chipmunk/chipmunk.h"
+class Chcekpoint;
 class World :
 	public cocos2d::Layer
 {
@@ -66,5 +67,8 @@ public:
 	bool nodeOutOfWindow(cocos2d::Node *node);
 	virtual void pauseGame();
 	virtual void resumeGame();
+	virtual void modifyGate(Chcekpoint *chkpt);
+	Boxx* getPrzedostaniActive();
+	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first)=0;
 };
 #endif // __GAMETEST_SCENE_H__

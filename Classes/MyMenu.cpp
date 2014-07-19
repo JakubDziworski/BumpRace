@@ -4,6 +4,7 @@
 #include "SimpleAudioEngine.h"
 #include "Paths.h"
 #include "Globals.h"
+#include "SingleEliminationWorld.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -239,7 +240,15 @@ void MyMenu::show(int menutypedef)
 
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	Director::getInstance()->replaceScene(SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue));
+	if (currModeSelected == 0)
+	{
+		G_dir()->replaceScene(SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue));
+	}
+	else if (currModeSelected == 1)
+	{
+		G_dir()->replaceScene(SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue));
+	}
+	
 }
 
 void MyMenu::preload()
