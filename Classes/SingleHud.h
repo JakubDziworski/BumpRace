@@ -10,7 +10,7 @@ private:
 	SingleGateWorld* world;
 	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
-	myLayout *scoreNode;
+	cocos2d::ui::Layout *scoreNode;
 	myLayout *gmOverNode;
 public:
 	virtual bool init(SingleGateWorld *worldd);

@@ -1,5 +1,5 @@
 ﻿#include "myLayout.h"
-
+#include "Globals.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -20,6 +20,7 @@ void myLayout::autoResizeVertically(const float marginWidth,const float marginHe
 	this->setBackGroundImageCapInsets(Rect(0,0, widgetsSize.width - 20, widgetsSize.height - 20));
 	this->setBackGroundImageScale9Enabled(true);
 }
+
 
 void myLayout::autoResizeHorizontally(const float marginWidth, const float marginHeight)
 {
@@ -46,4 +47,68 @@ bool myLayout::init()
 		return false;
 	}
 	return true;
+}
+
+void myLayout::setType(int i)
+{
+	child = myLayout::create();
+	if (i == 0)
+	{
+		child->setLayoutType(Layout::Type::VERTICAL);
+		linearParam = LinearLayoutParameter::create();
+		linearParam->setGravity(LinearGravity::CENTER_HORIZONTAL);
+	}
+	else 
+	{
+		child->setLayoutType(Layout::Type::HORIZONTAL);
+		linearParam = LinearLayoutParameter::create();
+		linearParam->setGravity(LinearGravity::CENTER_VERTICAL);
+	}
+	this->setLayoutType(Layout::Type::RELATIVE);
+	relativeParam = RelativeLayoutParameter::create();
+	relativeParam->setAlign(RelativeAlign::CENTER_IN_PARENT);
+	child->setLayoutParameter(relativeParam);
+	this->addChild(child);
+}
+
+void myLayout::setMargin(float x, float y)
+{
+	relativeParam->setMargin(Margin(x / 2, y / 2, x / 2, y / 2));
+	child->setLayoutParameter(relativeParam);
+}
+
+void myLayout::setMargin(const float l, const float t, const float r, const float b)
+{
+	relativeParam->setMargin(Margin(l, t, r, b));
+}
+
+void myLayout::addWidget(cocos2d::ui::Widget* node)
+{
+	node->setLayoutParameter(linearParam);
+	child->addChild(node);
+	if (child->getLayoutType() == Layout::Type::VERTICAL)
+	{
+		child->autoResizeVertically();
+		this->autoResizeVertically();
+	}
+	else
+	{
+		child->autoResizeHorizontally();
+		this->autoResizeHorizontally();
+	}
+}
+
+void myLayout::addWidgetCustomParam(cocos2d::ui::Widget *node)
+{
+	child->addChild(node);
+	if (child->getLayoutType() == Layout::Type::VERTICAL)
+	{
+		child->autoResizeVertically();
+		this->autoResizeVertically();
+	}
+	else
+	{
+		child->autoResizeHorizontally();
+		this->autoResizeHorizontally();
+	}
 }

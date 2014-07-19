@@ -12,7 +12,7 @@ bool SingleGateHud::init(SingleGateWorld *worldd)
 		return false;
 	}
 	world = worldd;
-	scoreNode = myLayout::create();
+	scoreNode = Layout::create();
 	//TOP LEFT SCORE VIEW///
 	int i = 0;
 	for (Boxx *box : *world->getBoxes())
@@ -65,23 +65,21 @@ SingleGateHud* SingleGateHud::create(SingleGateWorld *worldd)
 void SingleGateHud::gameIsOver()
 {
 	const float margin = G_srodek.x / 15;
-	scoreNode->runAction(FadeOut::create(0.5f));
 	gmOverNode = myLayout::create();
-	gmOverNode->setAnchorPoint(Vec2(0.5f, 0.5f));
-	gmOverNode->setLayoutType(Layout::Type::VERTICAL);
+	gmOverNode->setType(0);
 	//gmover text
 	auto gmOverText = Text::create();
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
-	gameoverparam->setGravity(LinearGravity::CENTER_HORIZONTAL);
+	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
 	gameoverparam->setMargin(Margin(0, 0, 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
 	gmOverText->setString("Game Over");
 	gmOverText->setFontSize(40);
+	gmOverNode->addWidgetCustomParam(gmOverText);
 	//consts
 	const float additionalOffset = gmOverText->getContentSize().height + margin;
 	int i = 1;
-	gmOverNode->addChild(gmOverText);
 	for (Boxx *box : *orderedBoxes)
 	{
 		Text* text = Text::create();
@@ -89,18 +87,26 @@ void SingleGateHud::gameIsOver()
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
 		text->setString(String::createWithFormat("%d.%s(%d gates collected)", i, box->getID().c_str(), box->getScore())->getCString());
 		text->setFontSize(G_wF(25));
-		LinearLayoutParameter *param = LinearLayoutParameter::create();
-		param->setGravity(LinearGravity::CENTER_HORIZONTAL);
-		param->setMargin(Margin(0, 0, 0, margin/3));
-		text->setLayoutParameter(param);
-		gmOverNode->addChild(text);
+		gmOverNode->addWidget(text);
 		i++;
 	}
-	gmOverNode->autoResizeVertically(G_wF(200),G_hF(200));
+	//**HORIZONTAL BUTTONS**//
+	myLayout *btnlayout = myLayout::create();
+	btnlayout->setType(1);
+	btnlayout->setMargin(0, G_hF(25), 0, 0);
+	Button *menuBtn = Button::create("gotoMenuBtnOf.png");
+	Button *retryBtn = Button::create("repeatBtnOn.png");
+	btnlayout->addWidget(menuBtn);
+	btnlayout->addWidget(retryBtn);
+	gmOverNode->setMargin(25, 25);
+	gmOverNode->addWidget(btnlayout);
+	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
 	gmOverNode->setBackGroundImage("btnOn.png");
 	gmOverNode->setPosition(G_srodek);
+	//oapcity
+	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
 	gmOverNode->setOpacity(0);
-	gmOverNode->runAction(FadeIn::create(0.5f));
+	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
 }
 
