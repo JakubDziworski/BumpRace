@@ -31,7 +31,7 @@ bool Hud::init()
 	pauseNode->setPosition(G_srodek);
 	pauseNode->setVisible(false);
 	this->addChild(pauseNode);
-	this->addChild(pauseBtn);
+	this->addChild(pauseBtn, 1, B_PAUSE);
 	return true;
 }
 
@@ -53,8 +53,6 @@ void Hud::resumeBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEve
 }
 void Hud::repeatBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
-	Director::getInstance()->getScheduler()->setTimeScale(1);
-	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->resumeGame();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->restartLevel();
 }
 
@@ -62,10 +60,16 @@ void Hud::gotoMenuBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchE
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	Director::getInstance()->replaceScene(MyMenu::createScene());
+	
 }
 
 void Hud::gameIsOver()
 {
+}
 
+void Hud::switchToGameOverInput()
+{
+	((Button*)pauseNode->getChildByTag(B_PAUSE))->setTouchEnabled(false);
+	((Button*)pauseNode->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
 }
 

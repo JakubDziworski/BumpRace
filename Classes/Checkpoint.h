@@ -9,6 +9,7 @@ private:
 	int actualpos;
 	float timee;
 	bool pierwszyZlapal;
+	bool slowmoTriggered;
 	cocos2d::Director *director;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;

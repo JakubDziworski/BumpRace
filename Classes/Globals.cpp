@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "cocos2d.h"
 int G_odlegloscmiedzyBramkami = 2000;
+cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;
 float G_Currangle = 0;
@@ -11,6 +12,7 @@ const float Globals_radWsp = M_PI / 180.0f;
 int G_maxVelocity = 1000;
 const int G_maxVelConstant = 500;
 const int G_maxVelAddition = 2000;
+
 void G_setCurrAngle(float angle)
 {
 	G_Currangle = angle;
@@ -32,4 +34,10 @@ cocos2d::Vec2 G_wV(cocos2d::Vec2 inp)
 cocos2d::Vec2 G_hV(cocos2d::Vec2 inp)
 {
 	return inp * cocos2d::Director::getInstance()->getVisibleSize().height / 640.0f;
+}
+
+cocos2d::Director * G_dir()
+{
+	if (G_director == NULL) G_director = cocos2d::Director::getInstance();
+	return G_director;
 }

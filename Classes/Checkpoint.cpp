@@ -1,4 +1,4 @@
-//
+﻿//
 //  Checkpoint.cpp
 //  BumpRaceAndro
 //
@@ -38,6 +38,7 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	timee = 0;
 	isLast = false;
 	pierwszyZlapal = false;
+	slowmoTriggered = false;
 	schedule(schedule_selector(Chcekpoint::tick));
 	return true;
 }
@@ -66,9 +67,11 @@ void Chcekpoint::tick(float dt)
 		actualpos++;
 	}
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
+	if (slowmoTriggered) return;
 	if (isLast)
 	{
 		director->getScheduler()->setTimeScale(0.1);
+		slowmoTriggered = true;
 	}
 	if (actualpos > 0) return;
 	if (this->isScheduled(schedule_selector(Chcekpoint::zwolnij))) return;
@@ -102,6 +105,8 @@ void Chcekpoint::tick(float dt)
 	}
 	if (playerWzasiegu == false) return; // zaden gracz nie jest blisko pierwszego
 	//*************//
+	director->getScheduler()->setTimeScale(0.1f);
+	slowmoTriggered = true;
 	schedule(schedule_selector(Chcekpoint::zwolnij));
 }
 
@@ -124,8 +129,6 @@ void Chcekpoint::zwolnij(float dt)
 		timee += 10*dt;
 		return;
 	}
-	
-	director->getScheduler()->setTimeScale(0.1f);
 }
 
 void Chcekpoint::zwolnijNaOstanim(float dt)

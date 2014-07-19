@@ -24,6 +24,7 @@ bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 	{
 		return false;
 	}
+	G_dir()->getScheduler()->setTimeScale(1);
 	return true;
 }
 
@@ -94,5 +95,6 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 
 void SingleGateWorld::restartLevel()
 {
+	G_dir()->getScheduler()->setTimeScale(1);
 	Director::getInstance()->replaceScene(SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart));
 }

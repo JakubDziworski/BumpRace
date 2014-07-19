@@ -1,6 +1,7 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 #include "cocos2d.h"
+extern cocos2d::Director *G_director;
 extern int G_odlegloscmiedzyBramkami;
 extern cocos2d::Vec2 G_srodek;
 extern float G_prevXgravity;
@@ -12,6 +13,7 @@ extern float G_mySin;
 extern int G_maxVelocity;
 const extern int G_maxVelConstant;
 const extern int G_maxVelAddition;
+cocos2d::Director *G_dir();
 extern void G_setCurrAngle(float angle);
 extern float G_wF(float inp);
 extern float G_hF(float inp);

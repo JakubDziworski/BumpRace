@@ -40,7 +40,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 	for (Boxx *box : *orderedByPointsBoxes)
 	{
 		Text* text = ((Text*)scoreTable.at(box));
-		text->setPosition(Vec2(G_srodek.x / 15, 1.1f*i + G_srodek.x / 15));
+		text->setPositionY (G_srodek.x / 15);
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
 		i += text->getContentSize().height;
 	}
@@ -64,6 +64,7 @@ SingleGateHud* SingleGateHud::create(SingleGateWorld *worldd)
 
 void SingleGateHud::gameIsOver()
 {
+	//general disabling
 	const float margin = G_srodek.x / 15;
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
@@ -103,6 +104,9 @@ void SingleGateHud::gameIsOver()
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
 	gmOverNode->setBackGroundImage("btnOn.png");
 	gmOverNode->setPosition(G_srodek);
+	//listeners
+	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoMenuBtnListener, this));
+	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::repeatBtnListener, this));
 	//oapcity
 	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
 	gmOverNode->setOpacity(0);
