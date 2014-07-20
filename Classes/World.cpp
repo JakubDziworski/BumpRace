@@ -270,15 +270,57 @@ Boxx* World::getPrzedostaniActive()
 	for (Boxx *box : orderedOpponents)
 	{
 		if (box->isDeactivated()) break;
-		if (box == orderedOpponents.back()) break;
+		if (box == orderedOpponents.back()){ i++; break; }
 		i++;
 	}
+	if (i>0)
 	return orderedOpponents.at(i-1);
 }
 
 void World::modifyGate(Chcekpoint *chkpt)
 {
 
+}
+
+void World::cameraFollow(float dt)
+{
+	Boxx *pierwszyy = NULL;
+	if (player == orderedOpponents.at(0))
+	{
+		followMate = orderedOpponents.at(1);
+		pierwszyy = player;
+	}
+	else
+	{
+		followMate = orderedOpponents.at(0);
+		pierwszyy = followMate;
+	}
+	//************//
+	posX = -player->getPositionX()*G_myCos;
+	posY = player->getPositionX()*G_mySin;
+	const float lastposX = -followMate->getPositionX()*G_myCos;
+	const float lastposY = +followMate->getPositionX()*G_mySin;
+	const float maxOffsetX = srodek.x / scaleeLayer->getScale() / screenRatio;
+	const float maxOffsetY = srodek.y / scaleeLayer->getScale() / screenRatio;
+	const float maxpierwszyOffset = 0.8f*srodek.y / scaleeLayer->getScale();
+	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
+	//************//
+	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
+	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset,posY-maxpierwszyOffset,posY+maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
+}
+
+bool World::onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	player->jump();
+	/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) opponentz.at(0)->jump();
+	else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) opponentz.at(1)->jump();
+	else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) opponentz.at(2)->jump();*/
+	return true;
+}
+
+void World::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+{
+	player->jump();
 }
 
 

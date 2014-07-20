@@ -28,37 +28,9 @@ bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 	return true;
 }
 
-bool SingleGateWorld::onTouched(Touch* touch, Event* event)
-{
-		player->jump();
-		/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) opponentz.at(0)->jump();
-		else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) opponentz.at(1)->jump();
-		else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) opponentz.at(2)->jump();*/
-		return true;
-}
-void SingleGateWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-{
-	player->jump();
-}
-
 void SingleGateWorld::customWorldUpdate()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
-}
-void SingleGateWorld::cameraFollow(float dt)
-{
-	if (player == orderedOpponents.at(0)) followMate = orderedOpponents.at(1);
-	else followMate = orderedOpponents.at(0);
-		//************//
-		posX = - player->getPositionX()*G_myCos;
-		posY =  player->getPositionX()*G_mySin;
-		const float lastposX = - followMate->getPositionX()*G_myCos;
-		const float lastposY = + followMate->getPositionX()*G_mySin;
-		const float maxOffsetX = srodek.x / scaleeLayer->getScale()/screenRatio;
-		const float maxOffsetY = srodek.y / scaleeLayer->getScale()/screenRatio;
-		//************//
-		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
-		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
 }
 SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiLevel)
 {

@@ -15,7 +15,8 @@ private:
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;
 	bool isLast;
-	void checkIfClose(Boxx* box,bool first);
+	void checkIfCloseToFirst(Boxx* box);
+	void checkIfCloseToLast(Boxx *box);
 public:
 	void setSprawdzajPierwszych(bool inp);
 	void enableSlowmo();

@@ -46,7 +46,7 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 
 void Chcekpoint::tick(float dt)
 {
-	if (actualpos == world->getBoxesNumber())	//WSZYSTKIE PRZESZLY
+	if (actualpos == world->getBoxesNumber() || (actualpos == world->getRemainingGates()+1 && !sprawdzajPierwszych))	//WSZYSTKIE PRZESZLY
 	{
 		if (world->nodeOutOfWindow(this) && director->getScheduler()->getTimeScale() == 1)
 		{
@@ -65,44 +65,43 @@ void Chcekpoint::tick(float dt)
 	//sprawdzenie czy ktos przekroczyl
 	if (aktualny->getBoundingBox().getMaxX() > this->getPositionX())
 	{
-		if (actualpos == 0 && sprawdzajPierwszych) pierwszyZlapal = true;
-		else if (aktualny == sprawdzany) pierwszyZlapal = true;
+		if (aktualny == sprawdzany && sprawdzajPierwszych) pierwszyZlapal = true;
+		else if (actualpos == sprawdzany->getRacePos()-2) 
+			pierwszyZlapal = true;
 		world->checkpointReachedBase(aktualny,actualpos+1);
 		actualpos++;
 	}
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
-	if (sprawdzajPierwszych) checkIfClose(sprawdzany,true);
-	else					 checkIfClose(sprawdzany,false);
+	if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
+	else					 checkIfCloseToLast(sprawdzany);
 }
 
-
-void Chcekpoint::checkIfClose(Boxx* sprawdzany,bool first)
+void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
-	if (!first)
-	{
-		if (sprawdzany->getPositionX() < this->getPositionX() - 2.5f * sprawdzany->getContentSize().width) return;
-	}
+	if (ostatni->getPositionX() + 5 * ostatni->getContentSize().width < this->getPositionX()) return;
+
 	bool playerWzasiegu = false;
-	if ((dynamic_cast<Player*> (sprawdzany)) != NULL)	//sprawdzany to player
+	if ((dynamic_cast<Player*> (ostatni)) != NULL)	//ostatni to player
 	{
-		for (int i = 1; i < world->getBoxesNumber(); i++)
+		for (int i = ostatni->getRacePos()-2; i >= 0;i--)
 		{
-			Boxx* curr = orderedBoxes->at(i);
-			if (sprawdzany->getPositionX() < (sprawdzany->getContentSize().width + curr->getContentSize().width + curr->getPositionX()))
+			Boxx *curr = orderedBoxes->at(i);
+			if (curr->getPositionX() - ostatni->getPositionX() < curr->getContentSize().width + ostatni->getContentSize().width)
 			{
 				playerWzasiegu = true;
 				break;
 			}
 		}
 	}
-	else //sprawdzany to nie player
+	else //ostatni to nie player
 	{
-		for (Boxx* curr : *world->getBoxes())
+		for (int i = ostatni->getRacePos()-2; i >= 0; i--)
 		{
-			if ((dynamic_cast<Player*> (curr)) != NULL && curr != sprawdzany)
+			Boxx *curr = orderedBoxes->at(i);
+			if ((dynamic_cast<Player*> (curr)) != NULL)
 			{
-				if (sprawdzany->getPositionX() < (sprawdzany->getContentSize().width + curr->getContentSize().width + curr->getPositionX()))
+				if (curr->getPositionX() - ostatni->getPositionX() < curr->getContentSize().width + ostatni->getContentSize().width)
 				{
 					playerWzasiegu = true;
 					break;
@@ -114,7 +113,42 @@ void Chcekpoint::checkIfClose(Boxx* sprawdzany,bool first)
 	//*************//
 	enableSlowmo();
 }
-
+void Chcekpoint::checkIfCloseToFirst(Boxx* pierwszy)
+{
+	if (slowmoTriggered) return;
+	if (pierwszy->getPositionX() < this->getPositionX() - 2.5f * pierwszy->getContentSize().width) return;
+	bool playerWzasiegu = false;
+	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
+	{
+		for (int i = 1; i < world->getBoxesNumber(); i++)
+		{
+			Boxx *curr = orderedBoxes->at(i);
+			if (pierwszy->getPositionX() - curr->getPositionX() < pierwszy->getContentSize().width + curr->getContentSize().width)
+			{
+				playerWzasiegu = true;
+				break;
+			}
+		}
+	}
+	else //pierwszy to nie player
+	{
+		for (int i = 1; i < world->getBoxesNumber(); i++)
+		{
+			Boxx *curr = orderedBoxes->at(i);
+			if ((dynamic_cast<Player*> (curr)) != NULL)
+			{
+				if (pierwszy->getPositionX() - curr->getPositionX() < pierwszy->getContentSize().width + curr->getContentSize().width)
+				{
+					playerWzasiegu = true;
+					break;
+				}
+			}
+		}
+	}
+	if (playerWzasiegu == false) return; // zaden gracz nie jest blisko pierwszego
+	//*************//
+	enableSlowmo();
+}
 
 void Chcekpoint::setSprawdzajPierwszych(bool inp)
 {

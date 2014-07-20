@@ -7,7 +7,7 @@
             <key>BOX.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{270,554},{128,128}}</string>
+                <string>{{3628,78},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,24 +20,24 @@
             <key>FLAT.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{140,554},{128,128}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{128,128}}</string>
-                <key>sourceSize</key>
-                <string>{128,128}</string>
-            </dict>
-            <key>btnBackOf.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{140,684},{117,113}}</string>
+                <string>{{2,1540},{2048,1024}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{2048,1024}}</string>
+                <key>sourceSize</key>
+                <string>{2048,1024}</string>
+            </dict>
+            <key>btnBackOf.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3453,140},{117,113}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{117,113}}</string>
                 <key>sourceSize</key>
@@ -46,7 +46,7 @@
             <key>btnBackOn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{392,324},{117,113}}</string>
+                <string>{{3334,140},{117,113}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>btnOf.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{140,439},{312,113}}</string>
+                <string>{{3758,117},{312,113}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>btnOn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{78,324},{312,113}}</string>
+                <string>{{3758,2},{312,113}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,24 +85,37 @@
             <key>checkpoint.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,324},{74,680}}</string>
+                <string>{{3076,2},{74,680}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{74,680}}</string>
                 <key>sourceSize</key>
                 <string>{74,680}</string>
             </dict>
-            <key>slider.png</key>
+            <key>drzewka.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{109,439},{550,29}}</string>
+                <string>{{3076,140},{2048,256}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{2048,256}}</string>
+                <key>sourceSize</key>
+                <string>{2048,256}</string>
+            </dict>
+            <key>slider.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3076,109},{550,29}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{550,29}}</string>
                 <key>sourceSize</key>
@@ -111,11 +124,11 @@
             <key>sliderActive.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{78,439},{550,29}}</string>
+                <string>{{3076,78},{550,29}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{550,29}}</string>
                 <key>sourceSize</key>
@@ -124,11 +137,11 @@
             <key>sliderDot.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{484,2},{37,25}}</string>
+                <string>{{3572,140},{37,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{37,25}}</string>
                 <key>sourceSize</key>
@@ -137,15 +150,15 @@
             <key>tlo.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{480,320}}</string>
+                <string>{{2,2},{3072,1536}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{480,320}}</string>
+                <string>{{0,0},{3072,1536}}</string>
                 <key>sourceSize</key>
-                <string>{480,320}</string>
+                <string>{3072,1536}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -155,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>Res1.png</string>
             <key>size</key>
-            <string>{512,1024}</string>
+            <string>{4096,4096}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:18aed55ccdfb6946ce65820ee09762c0$</string>
+            <string>$TexturePacker:SmartUpdate:2b69fd7b60862f4bb2f705385fb79b44$</string>
             <key>textureFileName</key>
             <string>Res1.png</string>
         </dict>

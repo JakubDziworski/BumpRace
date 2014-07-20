@@ -66,6 +66,9 @@
     <ClCompile Include="..\Classes\SingleElimHUD.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SingleWorld.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -126,6 +129,9 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SingleElimHUD.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SingleWorld.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

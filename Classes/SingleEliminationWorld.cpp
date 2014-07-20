@@ -28,37 +28,9 @@ bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
 	return true;
 }
 
-bool SingleEliminationWorld::onTouched(Touch* touch, Event* event)
-{
-		player->jump();
-		/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) opponentz.at(0)->jump();
-		else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) opponentz.at(1)->jump();
-		else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) opponentz.at(2)->jump();*/
-		return true;
-}
-void SingleEliminationWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-{
-	player->jump();
-}
-
 void SingleEliminationWorld::customWorldUpdate()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
-}
-void SingleEliminationWorld::cameraFollow(float dt)
-{
-	if (player == orderedOpponents.at(0)) followMate = orderedOpponents.at(1);
-	else followMate = orderedOpponents.at(0);
-		//************//
-		posX = - player->getPositionX()*G_myCos;
-		posY =  player->getPositionX()*G_mySin;
-		const float lastposX = - followMate->getPositionX()*G_myCos;
-		const float lastposY = + followMate->getPositionX()*G_mySin;
-		const float maxOffsetX = srodek.x / scaleeLayer->getScale()/screenRatio;
-		const float maxOffsetY = srodek.y / scaleeLayer->getScale()/screenRatio;
-		//************//
-		moveLayer->setPositionX(clampf((posX + lastposX) / 2.0f, posX - maxOffsetX, posX+maxOffsetX));
-		moveLayer->setPositionY(clampf((posY + lastposY) / 2.0f, posY - maxOffsetY, posY + maxOffsetY));
 }
 SingleEliminationWorld* SingleEliminationWorld::create(int numberOfPlayers, int aiLevel)
 {
@@ -90,9 +62,9 @@ void SingleEliminationWorld::putOnBoxes()
 
 void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
-	if (box == orderedOpponents.at(remainingGates+1))
+	if (box == orderedOpponents.at(remainingGates))
 	{
-		box->deactivate();
+		orderedOpponents.at(remainingGates+1)->deactivate();
 	}
 	((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
 }

@@ -54,9 +54,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>4096</int>
             <key>height</key>
-            <int>2048</int>
+            <int>4096</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -152,6 +152,7 @@
             <filename>slider.png</filename>
             <filename>sliderDot.png</filename>
             <filename>sliderActive.png</filename>
+            <filename>drzewka.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
