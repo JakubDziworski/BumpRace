@@ -85,10 +85,10 @@ void World::createFloor()
 	SpriteBatchNode *node = SpriteBatchNode::create("FLAT.png");
 	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
 	node->getTexture()->setTexParameters(&tp);
-	PhysicsSprite *spr = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
-	spr->setCPBody(floorBody);
-	node->addChild(spr);
-	spr->setAnchorPoint(Vec2(0, 1));
+	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
+	flatsprite->setCPBody(floorBody);
+	node->addChild(flatsprite);
+	flatsprite->setAnchorPoint(Vec2(0, 1));
 	rotationLayer->addChild(node);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
@@ -109,7 +109,6 @@ void World::rozmiescCheckpointy()
 void World::createBackground()
 {
 
-	//bgImg = Sprite::createWithSpriteFrameName("tlo.png");
 	bgImg = Sprite::create("tlo.png");
 	bgImg->setScale(srodek.x * 4 / bgImg->getContentSize().width, srodek.y * 2 / bgImg->getContentSize().height);
 	bgImg->setPosition(srodek.x, srodek.y);
@@ -303,5 +302,9 @@ void World::s_cameraFollow(float dt)
 	//************//
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
 	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
+}
+void World::gameIsOver()
+{
+	this->setTouchEnabled(false);
 }
 

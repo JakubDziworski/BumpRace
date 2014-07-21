@@ -72,8 +72,8 @@ void Chcekpoint::tick(float dt)
 		actualpos++;
 	}
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
-	if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
-	else					 checkIfCloseToLast(sprawdzany);
+	//if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
+	//else					 checkIfCloseToLast(sprawdzany);
 }
 
 void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)

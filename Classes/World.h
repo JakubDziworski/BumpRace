@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Boxx.h"
 #include "external/chipmunk/include/chipmunk/chipmunk.h"
+#include "extensions/cocos-ext.h"
 class Chcekpoint;
 class Hud;
 class World :public cocos2d::Layer
@@ -12,8 +13,6 @@ private:
 	float timee;
 	float angle;
 	//**chipmunk stuff**//
-	cocos2d::Sprite *bgImg;
-	cpBody *floorBody;
 	Hud *hud;
 	//**myStuff**//
 	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
@@ -23,11 +22,14 @@ private:
 	void changeGravity();
 	void createFloor();
 	void tick(float dt);
-	void createBackground();
+	virtual void createBackground();
 	static bool posSortingFun(Boxx* a, Boxx* b);
 	static bool physPosSortingFun(Boxx *a, Boxx *b);
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
 protected:
+	cocos2d::extension::PhysicsSprite *flatsprite;
+	cocos2d::Sprite *bgImg;
+	cpBody *floorBody;
 	int aiSmart;
 	int gatesNumber;
 	int remainingGates;
@@ -74,5 +76,6 @@ public:
 	Boxx* getOstaniActive();
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first){}
 	Hud* getHud();
+	virtual void gameIsOver();
 };
 #endif // __GAMETEST_SCENE_H__

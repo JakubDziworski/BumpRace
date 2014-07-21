@@ -3,6 +3,11 @@
 #include "World.h"
 class EndlessWorld : public World
 {
+private:
+	int koniec;
+	int iterations;
+	int dodatek;
+	void extendFlat();
 public:
 	static cocos2d::Scene *createScene();
 	virtual bool init();
@@ -10,6 +15,7 @@ public:
 	virtual void restartLevel();
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first);
+	virtual void customWorldUpdate();
 
 };
 #endif

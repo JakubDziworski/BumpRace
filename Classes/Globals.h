@@ -1,6 +1,7 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 #include "cocos2d.h"
+extern int G_endlessGateNumber;
 extern cocos2d::Director *G_director;
 extern int G_odlegloscmiedzyBramkami;
 extern cocos2d::Vec2 G_srodek;

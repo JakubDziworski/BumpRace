@@ -42,18 +42,11 @@ bool Hud::init()
 	this->addChild(infoNode);
 	return true;
 }
-
 void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	pauseNode->setVisible(true);
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->pauseGame();
 }
-
-void Hud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
-{
-
-}
-
 void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	pauseNode->setVisible(false);
@@ -66,31 +59,24 @@ void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 	repeatBtnListenerExtended();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->restartLevel();
 }
-
 void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	gotoMenuBtnListenerExtended();
 	Director::getInstance()->replaceScene(MyMenu::createScene());
 }
-
-void Hud::gameIsOver()
-{
-
-}
-
 void Hud::displayGameOver()
 {
 	if (isGameOver) return;
 	isGameOver = true;
-	//((Button*)pauseNode->getChildByTag(B_PAUSE))->setTouchEnabled(false);
-	//((Button*)pauseNode->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
+	((Button*)this->getChildByTag(B_PAUSE))->setTouchEnabled(false);
+	((Button*)this->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
+	((World*)G_dir()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->gameIsOver();
 	G_dir()->getScheduler()->setTimeScale(0.1f);
 	FiniteTimeAction *wait = DelayTime::create(0.1f);
 	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(); });
 	this->runAction(Sequence::create(wait, lategameover, NULL));
 }
-
 void Hud::displayInfo(const std::string &stringToDisplay)
 {
 	infoNode->setString(stringToDisplay);

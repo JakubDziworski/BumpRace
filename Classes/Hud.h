@@ -15,14 +15,15 @@ protected:
 	void resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
+	//TYLKO DZIEDZICZENIE//
 	virtual void resumeBtnListenerExtended(){}
 	virtual void gotoMenuBtnListenerExtended(){}
 	virtual void repeatBtnListenerExtended(){}
-	virtual void gameIsOver();
+	virtual void gameIsOver(){}
+	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes){}
 public:
 	void displayGameOver();
 	virtual bool init();
-	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	void displayInfo(const std::string &stringToDisplay);
 };
 #endif

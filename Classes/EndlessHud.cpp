@@ -12,7 +12,6 @@ bool EndlessHud::init(EndlessWorld* worldd)
 	this->world = worldd;
 	return true;
 }
-
 EndlessHud* EndlessHud::create(EndlessWorld* worldd)
 {
 	EndlessHud *pRet = new EndlessHud();
@@ -28,7 +27,6 @@ EndlessHud* EndlessHud::create(EndlessWorld* worldd)
 		return NULL;
 	}
 }
-
 void EndlessHud::gameIsOver()
 {
 	//general disabling

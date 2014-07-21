@@ -16,6 +16,10 @@ bool MyMenu::init()
 		return false;
 	}
 	preload();
+	currOpponentsNumber=3;
+	currDiffValue=1;
+	currModeSelected=0;
+	currGatesNumb=7;
 	srodek = Director::getInstance()->getVisibleSize() / 2.0f;
 	currMenu = L_MAINMENU;
 	//*layout init*//
@@ -39,9 +43,9 @@ bool MyMenu::init()
 	//*FRE RUN BUTTONS*//
 	createLabel("Free run:", L_FREERUN, LAB_FREERUN);
 	createPages("Choose Mode",{ "Gate Collector", "Elimination", "Endless Run" }, { "pageGate.png", "pageEndlessRun.png", "PageElimination.png" }, 0, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
-	createSlider("Difficulty:Medium", 1, 2, currDiffValue, CC_CALLBACK_2(MyMenu::difficultySliderChanged, this), L_FREERUN, B_DIFFICULTYSLIDER, LAB_DIFFICULTYLABEL);
-	createSlider("Opponents:3", 3, maxOpponentsNumber-1,currOpponentsNumber , CC_CALLBACK_2(MyMenu::opponentsSliderChanged, this), L_FREERUN, B_AMOUNTOFOPPONENTSSLIDE, LAB_OPPONENTSNUMBERSLIDER);
-	createSlider("Gates:7", 7, 24, currGatesNumb, CC_CALLBACK_2(MyMenu::gatesSliderChanged, this), L_FREERUN, B_GATESLIDER, LAB_GATESNUMBER);
+	createSlider("Difficulty:Medium", currDiffValue, 2, currDiffValue, CC_CALLBACK_2(MyMenu::difficultySliderChanged, this), L_FREERUN, B_DIFFICULTYSLIDER, LAB_DIFFICULTYLABEL);
+	createSlider("Opponents:3", currOpponentsNumber, maxOpponentsNumber - 1, currOpponentsNumber, CC_CALLBACK_2(MyMenu::opponentsSliderChanged, this), L_FREERUN, B_AMOUNTOFOPPONENTSSLIDE, LAB_OPPONENTSNUMBERSLIDER);
+	createSlider("Gates:7", currGatesNumb, 24, currGatesNumb, CC_CALLBACK_2(MyMenu::gatesSliderChanged, this), L_FREERUN, B_GATESLIDER, LAB_GATESNUMBER);
 	createBtn("btnOn.png", "btnOf.png", "Play!", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
 	//*GENERAL BUTTONS*//
 	createBtn("btnBackOn.png", "btnBackOf.png", "", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
@@ -94,7 +98,6 @@ void MyMenu::createPages(const std::string title,const std::vector<const std::st
 	pageView->addEventListener(callback);
 	this->getChildByTag(parent)->addChild(pageView, 1, tag);
 }
-
 void MyMenu::createLayout(int layoutTag)
 {
 	cocos2d::ui::Layout *mylater = cocos2d::ui::Layout::create();
@@ -116,7 +119,6 @@ void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 	label->setLayoutParameter(par);
 	this->getChildByTag(parenttag)->addChild(label, 1, tag);
 }
-
 void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
 {
 	cocos2d::ui::Button* btn = cocos2d::ui::Button::create();
@@ -150,48 +152,39 @@ void MyMenu::createSlider(const std::string &defaultText, const float defaultval
 	this->getChildByTag(parenttag)->addChild(txt, 1, labelTag);
 	this->getChildByTag(parenttag)->addChild(slider, 1, tag);
 }
-
 void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	show(L_OPTIONS);
 	show(B_BACK);
 	hide(L_MAINMENU);
 }
-
 void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	show(B_BACK);
 	show(L_PLAYSINGLE);
 	hide(L_MAINMENU);
 }
-
 void MyMenu::playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 
 }
-
 void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 
 }
-
 void MyMenu::playElimination(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 
 }
-
 void MyMenu::playEndless(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 
 }
-
 void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	show(L_FREERUN);
 	hide(L_PLAYSINGLE);
 }
-
-
 void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
@@ -220,7 +213,6 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 		break;
 	}
 }
-
 void MyMenu::hide(int menutypedef)
 {
 	Node *nodetiHide = this->getChildByTag(menutypedef);
@@ -228,7 +220,6 @@ void MyMenu::hide(int menutypedef)
 	FiniteTimeAction *disableTouch = CallFunc::create([nodetiHide](){nodetiHide->setVisible(false); });
 	nodetiHide->runAction(Sequence::createWithTwoActions(fadeout, disableTouch));
 }
-
 void MyMenu::show(int menutypedef)
 {
 	Node *nodetoShow = this->getChildByTag(menutypedef);
@@ -238,7 +229,6 @@ void MyMenu::show(int menutypedef)
 	nodetoShow->runAction(Sequence::create(doNothung,enableTouch, fadeIn,NULL));
 	currMenu = menutypedef;
 }
-
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (currModeSelected == 0)
@@ -255,14 +245,12 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	}
 	
 }
-
 void MyMenu::preload()
 {
 	G_srodek = Director::getInstance()->getVisibleSize() / 2;
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
 }
-
 void MyMenu::opponentsSliderChanged(cocos2d::Ref* stg, Slider::EventType evnt)
 {
 	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_AMOUNTOFOPPONENTSSLIDE));
@@ -290,13 +278,11 @@ void MyMenu::difficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider:
 	lbl->setString(String::createWithFormat("Difficulty:%s", poziom.c_str())->getCString());
 	currDiffValue = nearest;
 }
-
 void MyMenu::modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 {
 	PageView *pages = ((PageView*)this->getChildByTag(L_FREERUN)->getChildByTag(PG_CHOOSEMODE));
 	currModeSelected = pages->getCurPageIndex();
 }
-
 void MyMenu::gatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type)
 {
 	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER));
