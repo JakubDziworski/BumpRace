@@ -10,6 +10,15 @@
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Gates">
+      <UniqueIdentifier>{0a6e5863-ebef-48c5-9d96-1b016104cf40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Elimination">
+      <UniqueIdentifier>{2d5eeb27-2e1b-4d89-84f6-8764b242862c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Endless">
+      <UniqueIdentifier>{dde2b2f2-cd6e-4d8d-893b-906b85cc1470}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,12 +57,6 @@
     <ClCompile Include="..\Classes\MyMenu.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SingleGateWorld.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SingleHud.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Hud.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -61,10 +64,22 @@
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SingleEliminationWorld.cpp">
-      <Filter>Classes</Filter>
+      <Filter>Classes\Elimination</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SingleElimHUD.cpp">
-      <Filter>Classes</Filter>
+      <Filter>Classes\Elimination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SingleGateWorld.cpp">
+      <Filter>Classes\Gates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SingleHud.cpp">
+      <Filter>Classes\Gates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EndlessWorld.cpp">
+      <Filter>Classes\Endless</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EndlessHud.cpp">
+      <Filter>Classes\Endless</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,12 +125,6 @@
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SingleGateWorld.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SingleHud.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Hud.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -123,10 +132,22 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SingleEliminationWorld.h">
-      <Filter>Classes</Filter>
+      <Filter>Classes\Elimination</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SingleElimHUD.h">
-      <Filter>Classes</Filter>
+      <Filter>Classes\Elimination</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SingleGateWorld.h">
+      <Filter>Classes\Gates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SingleHud.h">
+      <Filter>Classes\Gates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EndlessWorld.h">
+      <Filter>Classes\Endless</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EndlessHud.h">
+      <Filter>Classes\Endless</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

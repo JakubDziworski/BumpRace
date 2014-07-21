@@ -63,14 +63,6 @@ SingleElimHud* SingleElimHud::create(SingleEliminationWorld *worldd)
 
 void SingleElimHud::gameIsOver()
 {
-	G_dir()->getScheduler()->setTimeScale(0.1f);
-	FiniteTimeAction *wait = DelayTime::create(0.1f);
-	FiniteTimeAction *lategameover = CallFunc::create([&](){this->lateGameIsOver(); });
-	this->infoNode->runAction(Sequence::create(wait, lategameover, NULL));
-}
-
-void SingleElimHud::lateGameIsOver()
-{
 	//general disabling
 	const float margin = G_srodek.x / 15;
 	gmOverNode = myLayout::create();
@@ -105,8 +97,8 @@ void SingleElimHud::lateGameIsOver()
 	gmOverNode->setBackGroundImage("btnOn.png");
 	gmOverNode->setPosition(G_srodek);
 	//listeners
-	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::gotoMenuBtnListener, this));
-	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::repeatBtnListener, this));
+	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::gotoMenuBtnListenerBase, this));
+	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::repeatBtnListenerBase, this));
 	//oapcity
 	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
 	gmOverNode->setOpacity(0);

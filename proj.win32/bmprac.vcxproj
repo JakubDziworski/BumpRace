@@ -138,6 +138,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AIOpponent.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Boxx.cpp" />
+    <ClCompile Include="..\Classes\EndlessHud.cpp" />
+    <ClCompile Include="..\Classes\EndlessWorld.cpp" />
     <ClCompile Include="..\Classes\Hud.cpp" />
     <ClCompile Include="..\Classes\myLayout.cpp" />
     <ClCompile Include="..\Classes\SingleElimHUD.cpp" />
@@ -158,6 +160,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AIOpponent.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Boxx.h" />
+    <ClInclude Include="..\Classes\EndlessHud.h" />
+    <ClInclude Include="..\Classes\EndlessWorld.h" />
     <ClInclude Include="..\Classes\Hud.h" />
     <ClInclude Include="..\Classes\myLayout.h" />
     <ClInclude Include="..\Classes\SingleElimHUD.h" />

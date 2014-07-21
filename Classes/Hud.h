@@ -12,9 +12,12 @@ protected:
 	Node *gameOverNode;
 	cocos2d::Label *infoNode;
 	void pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
-	void resumeBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
-	void repeatBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
-	void gotoMenuBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
+	void resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
+	void repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
+	void gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
+	virtual void resumeBtnListenerExtended(){}
+	virtual void gotoMenuBtnListenerExtended(){}
+	virtual void repeatBtnListenerExtended(){}
 	virtual void gameIsOver();
 public:
 	void displayGameOver();

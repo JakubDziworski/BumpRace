@@ -23,9 +23,9 @@ bool Hud::init()
 	Button *goToMenu = Button::create("gotoMenuBtnOf.png", "gotoMenuBtnOf.png");
 	resume->setPositionY(resume->getContentSize().height + margin);
 	goToMenu->setPositionY(-goToMenu->getContentSize().height - margin);
-	resume->addTouchEventListener(CC_CALLBACK_2(Hud::resumeBtnListener, this));
-	repeat->addTouchEventListener(CC_CALLBACK_2(Hud::repeatBtnListener, this));
-	goToMenu->addTouchEventListener(CC_CALLBACK_2(Hud::gotoMenuBtnListener, this));
+	resume->addTouchEventListener(CC_CALLBACK_2(Hud::resumeBtnListenerBase, this));
+	repeat->addTouchEventListener(CC_CALLBACK_2(Hud::repeatBtnListenerBase, this));
+	goToMenu->addTouchEventListener(CC_CALLBACK_2(Hud::gotoMenuBtnListenerBase, this));
 	pauseNode->addChild(resume);
 	pauseNode->addChild(repeat);
 	pauseNode->addChild(goToMenu);
@@ -54,21 +54,24 @@ void Hud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 
 }
 
-void Hud::resumeBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
+void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	pauseNode->setVisible(false);
+	resumeBtnListenerExtended();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->resumeGame();
 }
-void Hud::repeatBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
+void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
+	Director::getInstance()->getScheduler()->setTimeScale(1);
+	repeatBtnListenerExtended();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->restartLevel();
 }
 
-void Hud::gotoMenuBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
+void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1);
+	gotoMenuBtnListenerExtended();
 	Director::getInstance()->replaceScene(MyMenu::createScene());
-	
 }
 
 void Hud::gameIsOver()
@@ -82,7 +85,10 @@ void Hud::displayGameOver()
 	isGameOver = true;
 	//((Button*)pauseNode->getChildByTag(B_PAUSE))->setTouchEnabled(false);
 	//((Button*)pauseNode->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
-	gameIsOver();
+	G_dir()->getScheduler()->setTimeScale(0.1f);
+	FiniteTimeAction *wait = DelayTime::create(0.1f);
+	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(); });
+	this->infoNode->runAction(Sequence::create(wait, lategameover, NULL));
 }
 
 void Hud::displayInfo(const std::string &stringToDisplay)

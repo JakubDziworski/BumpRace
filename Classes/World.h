@@ -4,6 +4,7 @@
 #include "Boxx.h"
 #include "external/chipmunk/include/chipmunk/chipmunk.h"
 class Chcekpoint;
+class Hud;
 class World :public cocos2d::Layer
 {
 private:
@@ -13,6 +14,7 @@ private:
 	//**chipmunk stuff**//
 	cocos2d::Sprite *bgImg;
 	cpBody *floorBody;
+	Hud *hud;
 	//**myStuff**//
 	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
 	//**functions**//
@@ -51,7 +53,7 @@ protected:
 	virtual void cameraFollow(float dt);
 	virtual bool onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-	virtual void customWorldUpdate()=0;
+	virtual void customWorldUpdate(){}
 public:
 	void tintToBlack();
 	int getRemainingGates() const { return remainingGates; }
@@ -70,6 +72,7 @@ public:
 	virtual void resumeGame();
 	virtual void modifyGate(Chcekpoint *chkpt){}
 	Boxx* getOstaniActive();
-	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first)=0;
+	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first){}
+	Hud* getHud();
 };
 #endif // __GAMETEST_SCENE_H__

@@ -30,6 +30,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	scaleeLayer->setPosition(srodek);
 	this->addChild(scaleeLayer,1);
 	//****************//
+	hud = NULL;
 	boxesNumber = numberOfPlayers;
 	gatesNumber = gates;
 	remainingGates = gates;
@@ -312,6 +313,15 @@ void World::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event
 
 void World::tintToBlack()
 {
+}
+
+Hud* World::getHud()
+{
+	if (hud == NULL)
+	{
+		hud = (Hud*)(G_dir()->getRunningScene()->getChildByTag(LAYER_HUD));
+	}
+	return hud;
 }
 
 

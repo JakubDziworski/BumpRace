@@ -5,6 +5,7 @@
 #include "Paths.h"
 #include "Globals.h"
 #include "SingleEliminationWorld.h"
+#include "EndlessWorld.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -247,6 +248,10 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	else if (currModeSelected == 1)
 	{
 		G_dir()->replaceScene(SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue));
+	}
+	else if (currModeSelected == 2)
+	{
+		G_dir()->replaceScene(EndlessWorld::createScene());
 	}
 	
 }

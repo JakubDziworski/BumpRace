@@ -105,13 +105,14 @@ void SingleGateHud::gameIsOver()
 	gmOverNode->setBackGroundImage("btnOn.png");
 	gmOverNode->setPosition(G_srodek);
 	//listeners
-	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoMenuBtnListener, this));
-	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::repeatBtnListener, this));
+	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoMenuBtnListenerBase, this));
+	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::repeatBtnListenerBase, this));
 	//oapcity
 	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
 	gmOverNode->setOpacity(0);
 	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
 }
+
 
 
