@@ -63,34 +63,35 @@ SingleElimHud* SingleElimHud::create(SingleEliminationWorld *worldd)
 
 void SingleElimHud::gameIsOver()
 {
+	G_dir()->getScheduler()->setTimeScale(0.1f);
+	FiniteTimeAction *wait = DelayTime::create(0.1f);
+	FiniteTimeAction *lategameover = CallFunc::create([&](){this->lateGameIsOver(); });
+	this->infoNode->runAction(Sequence::create(wait, lategameover, NULL));
+}
+
+void SingleElimHud::lateGameIsOver()
+{
 	//general disabling
 	const float margin = G_srodek.x / 15;
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
 	auto gmOverText = Text::create();
+	if (dynamic_cast<Player*>(world->getOstaniActive()))	//WYGRANA
+	{
+		gmOverText->setString("WYGRANA!");
+	}
+	else
+	{
+		gmOverText->setString("ELIMINATED!");
+	}
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
 	gameoverparam->setMargin(Margin(0, 0, 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
-	gmOverText->setString("Game Over");
 	gmOverText->setFontSize(40);
 	gmOverNode->addWidgetCustomParam(gmOverText);
-	//consts
-	const float additionalOffset = gmOverText->getContentSize().height + margin;
-	int i = 1;
-	for (Boxx *box : *orderedBoxes)
-	{
-		Text* text = Text::create();
-		text->setAnchorPoint(Vec2(0.5f, 0));
-		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
-		text->setString(String::createWithFormat("%d.%s(%d gates collected)", i, box->getID().c_str(), box->getScore())->getCString());
-		text->setFontSize(G_wF(25));
-		gmOverNode->addWidget(text);
-		i++;
-	}
-	//**HORIZONTAL BUTTONS**//
 	myLayout *btnlayout = myLayout::create();
 	btnlayout->setType(1);
 	btnlayout->setMargin(0, G_hF(25), 0, 0);
@@ -111,6 +112,7 @@ void SingleElimHud::gameIsOver()
 	gmOverNode->setOpacity(0);
 	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
+	//obsluga zdarzenia
 }
 
 

@@ -11,6 +11,7 @@ bool Hud::init()
 	{
 		return false;
 	}
+	isGameOver = false;
 	//PAUSE//
 	pauseNode = Node::create();
 	Button* pauseBtn = Button::create("pauseBtnOn.png", "pauseBtnOf.png");
@@ -32,6 +33,13 @@ bool Hud::init()
 	pauseNode->setVisible(false);
 	this->addChild(pauseNode);
 	this->addChild(pauseBtn, 1, B_PAUSE);
+	//INFO
+	infoNode = Label::create();
+	infoNode->setSystemFontSize(G_wF(25));
+	infoNode->setPosition(G_srodek);
+	infoNode->setVisible(false);
+	infoNode->setOpacity(0);
+	this->addChild(infoNode);
 	return true;
 }
 
@@ -65,11 +73,26 @@ void Hud::gotoMenuBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchE
 
 void Hud::gameIsOver()
 {
+
 }
 
-void Hud::switchToGameOverInput()
+void Hud::displayGameOver()
 {
-	((Button*)pauseNode->getChildByTag(B_PAUSE))->setTouchEnabled(false);
-	((Button*)pauseNode->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
+	if (isGameOver) return;
+	isGameOver = true;
+	//((Button*)pauseNode->getChildByTag(B_PAUSE))->setTouchEnabled(false);
+	//((Button*)pauseNode->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
+	gameIsOver();
+}
+
+void Hud::displayInfo(const std::string &stringToDisplay)
+{
+	infoNode->setString(stringToDisplay);
+	infoNode->setVisible(true);
+	FiniteTimeAction *fadein = FadeIn::create(0.2f);
+	FiniteTimeAction *disable = CallFunc::create([&](){infoNode->setVisible(false); });
+	FiniteTimeAction *idle = DelayTime::create(2);
+	FiniteTimeAction *fadeout = FadeOut::create(0.5f);
+	infoNode->runAction(Sequence::create(fadein, idle, fadeout, disable, NULL));
 }
 

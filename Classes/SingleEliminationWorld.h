@@ -2,8 +2,11 @@
 #define  __SINGLE_ELIM_H__
 #include "cocos2d.h"
 #include "World.h"
+class SingleElimHud;
 class SingleEliminationWorld : public World
 {
+private:
+	SingleElimHud *hud;
 public:
 	static cocos2d::Scene* createScene(int numberOfPlayers, int AILevel);
 	static SingleEliminationWorld* create(int numberOfPlayers,  int AILevel);

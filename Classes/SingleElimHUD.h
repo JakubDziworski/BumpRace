@@ -12,6 +12,7 @@ private:
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	cocos2d::ui::Layout *scoreNode;
 	myLayout *gmOverNode;
+	void lateGameIsOver();
 public:
 	virtual bool init(SingleEliminationWorld *worldd);
 	static SingleElimHud* create(SingleEliminationWorld *worldd);

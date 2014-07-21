@@ -25,6 +25,7 @@ bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
 		return false;
 	}
 	G_dir()->getScheduler()->setTimeScale(1);
+	hud = NULL;
 	return true;
 }
 
@@ -62,12 +63,17 @@ void SingleEliminationWorld::putOnBoxes()
 
 void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
+	if (hud == NULL) hud = ((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
 	if (box == orderedOpponents.at(remainingGates))
 	{
 		orderedOpponents.at(remainingGates+1)->deactivate();
+		hud->displayInfo(CCString::createWithFormat("%s ELIMINATED!", orderedOpponents.at(remainingGates + 1)->getID().c_str())->getCString());
+		if (orderedOpponents.at(remainingGates+1) == player) 
+			hud->displayGameOver();
 	}
-	((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
+	hud->pointsChanged(getSortedBoxesByScore());
 }
+	
 
 void SingleEliminationWorld::restartLevel()
 {
@@ -87,3 +93,4 @@ void SingleEliminationWorld::modifyGate(Chcekpoint *inp)
 {
 	inp->setSprawdzajPierwszych(false);
 }
+

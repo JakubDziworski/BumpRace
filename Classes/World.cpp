@@ -75,14 +75,13 @@ void World::createFloor()
 	SpriteBatchNode *node = SpriteBatchNode::create("FLAT.png");
 	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
 	node->getTexture()->setTexParameters(&tp);
-	PhysicsSprite *spr = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x,verts[1].y,abs(verts[3].x),abs(verts[3].y)));
+	PhysicsSprite *spr = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
 	spr->setCPBody(floorBody);
 	node->addChild(spr);
 	spr->setAnchorPoint(Vec2(0, 1));
 	rotationLayer->addChild(node);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
-
 	cpSpaceAddStaticShape(gravitySpace, floor);
 }
 void World::tick(float delta)
@@ -189,7 +188,7 @@ void World::checkpointReachedBase(Boxx *box, int pos)
 	if (remainingGates == 0)
 	{
 		if ((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))
-		((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->gameIsOver();
+		((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->displayGameOver();
 	}
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
 }
@@ -207,10 +206,6 @@ void World::rozmiescCheckpointy()
 	}
 }
 
-void World::floorspritefollow()
-{
-
-}
 
 void World::createBackground()
 {
@@ -248,10 +243,6 @@ bool World::scoreSortingFun(Boxx *a, Boxx *b)	//MALEJACAO
 	return (a->getScore() > b->getScore());
 }
 
-void World::checkpointReachedExtended(Boxx *box, int pos)
-{
-
-}
 
 void World::pauseGame()
 {
@@ -264,7 +255,7 @@ void World::resumeGame()
 	rotationLayer->resume();
 	this->resume();
 }
-Boxx* World::getPrzedostaniActive()
+Boxx* World::getOstaniActive()
 {
 	int i = 0;
 	for (Boxx *box : orderedOpponents)
@@ -277,10 +268,6 @@ Boxx* World::getPrzedostaniActive()
 	return orderedOpponents.at(i-1);
 }
 
-void World::modifyGate(Chcekpoint *chkpt)
-{
-
-}
 
 void World::cameraFollow(float dt)
 {
@@ -321,6 +308,10 @@ bool World::onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 void World::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
 	player->jump();
+}
+
+void World::tintToBlack()
+{
 }
 
 

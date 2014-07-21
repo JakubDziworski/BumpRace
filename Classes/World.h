@@ -4,8 +4,7 @@
 #include "Boxx.h"
 #include "external/chipmunk/include/chipmunk/chipmunk.h"
 class Chcekpoint;
-class World :
-	public cocos2d::Layer
+class World :public cocos2d::Layer
 {
 private:
 	//**regular stuff**//
@@ -13,7 +12,6 @@ private:
 	float angle;
 	//**chipmunk stuff**//
 	cocos2d::Sprite *bgImg;
-	cocos2d::Sprite *floorsprite;
 	cpBody *floorBody;
 	//**myStuff**//
 	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
@@ -49,12 +47,13 @@ protected:
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
 	virtual void putOnBoxes();
-	void floorspritefollow();
+	void floorspritefollow(){}
 	virtual void cameraFollow(float dt);
 	virtual bool onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void customWorldUpdate()=0;
 public:
+	void tintToBlack();
 	int getRemainingGates() const { return remainingGates; }
 	virtual void restartLevel() = 0;
 	cocos2d::Vector<Boxx*> *getBoxes(){ return &opponentz; }
@@ -62,15 +61,15 @@ public:
 	int getBoxesNumber() const { return boxesNumber; }
 	void setBoxesNumber(int val) { boxesNumber = val; }
 	virtual void checkpointReachedBase(Boxx *box, int pos);
-	virtual void checkpointReachedExtended(Boxx *box, int pos);
+	virtual void checkpointReachedExtended(Boxx *box, int pos){}
 	virtual bool myInit(int numberOfPlayers,int gatess);
 	virtual bool myInitWithAI(int numberOfPlayers, int gatess, int aiSmartness);
 	virtual void rozmiescCheckpointy();
 	bool nodeOutOfWindow(cocos2d::Node *node);
 	virtual void pauseGame();
 	virtual void resumeGame();
-	virtual void modifyGate(Chcekpoint *chkpt);
-	Boxx* getPrzedostaniActive();
+	virtual void modifyGate(Chcekpoint *chkpt){}
+	Boxx* getOstaniActive();
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first)=0;
 };
 #endif // __GAMETEST_SCENE_H__
