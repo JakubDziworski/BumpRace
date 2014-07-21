@@ -88,7 +88,7 @@ void Hud::displayGameOver()
 	G_dir()->getScheduler()->setTimeScale(0.1f);
 	FiniteTimeAction *wait = DelayTime::create(0.1f);
 	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(); });
-	this->infoNode->runAction(Sequence::create(wait, lategameover, NULL));
+	this->runAction(Sequence::create(wait, lategameover, NULL));
 }
 
 void Hud::displayInfo(const std::string &stringToDisplay)

@@ -12,7 +12,6 @@ public:
 	static SingleEliminationWorld* create(int numberOfPlayers,  int AILevel);
 	virtual void customWorldUpdate();
 	virtual bool myElimInit(int numberOfPlayers, int AILevel);
-	virtual void putOnBoxes();
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
 	virtual void restartLevel();
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first);

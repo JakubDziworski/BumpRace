@@ -49,17 +49,6 @@ SingleEliminationWorld* SingleEliminationWorld::create(int numberOfPlayers, int 
 	}
 }
 
-void SingleEliminationWorld::putOnBoxes()
-{
-	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
-	player = opponentz.at(0);
-	for (int i = 1; i < boxesNumber; i++)
-	{
-		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
-		opponentz.pushBack(aiop);
-		aiop->addOrderedOpponents(orderedOpponents);
-	}
-}
 
 void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 {

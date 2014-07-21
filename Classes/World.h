@@ -18,7 +18,7 @@ private:
 	//**myStuff**//
 	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
 	//**functions**//
-	void putOnPlayers();
+	void s_putOnPlayers();
 	void checkPosition(float dt);
 	void changeGravity();
 	void createFloor();
@@ -48,13 +48,13 @@ protected:
 	float paralexFactor;
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
-	virtual void putOnBoxes();
 	void floorspritefollow(){}
-	virtual void cameraFollow(float dt);
-	virtual bool onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
-	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	virtual void s_cameraFollow(float dt);
+	virtual bool s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
+	virtual void s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void customWorldUpdate(){}
 public:
+	Boxx * getPlayer() const { return player; }
 	void tintToBlack();
 	int getRemainingGates() const { return remainingGates; }
 	virtual void restartLevel() = 0;

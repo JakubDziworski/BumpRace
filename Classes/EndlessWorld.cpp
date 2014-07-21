@@ -30,7 +30,7 @@ void EndlessWorld::restartLevel()
 
 void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
-	if (box == player && pos != 1)
+	if (box != player && pos == 1)
 	{
 		getHud()->displayGameOver();
 	}
