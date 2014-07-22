@@ -238,6 +238,10 @@ Hud* World::getHud()
 	return hud;
 }
 //_________SINGLE PLAYER_________//
+void World::setSinglePlayer(Player* player)
+{
+
+}
 bool World::s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
 	player->jump();
@@ -307,4 +311,11 @@ void World::gameIsOver()
 {
 	this->setTouchEnabled(false);
 }
+//_______MULTIPLAYER__________//
+void World::setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers)
+{
+
+}
+
+
 

@@ -36,9 +36,15 @@ cocos2d::Vec2 G_hV(cocos2d::Vec2 inp)
 {
 	return inp * cocos2d::Director::getInstance()->getVisibleSize().height / 640.0f;
 }
-
 cocos2d::Director * G_dir()
 {
 	if (G_director == NULL) G_director = cocos2d::Director::getInstance();
 	return G_director;
 }
+const char* G_form_str(const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	return cocos2d::String::createWithFormat(format, ap)->getCString();
+}
+

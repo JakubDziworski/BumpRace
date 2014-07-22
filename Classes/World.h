@@ -4,6 +4,7 @@
 #include "Boxx.h"
 #include "external/chipmunk/include/chipmunk/chipmunk.h"
 #include "extensions/cocos-ext.h"
+#include "Player.h"
 class Chcekpoint;
 class Hud;
 class World :public cocos2d::Layer
@@ -56,6 +57,8 @@ protected:
 	virtual void s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void customWorldUpdate(){}
 public:
+	void setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers);
+	void setSinglePlayer(Player* player);
 	Boxx * getPlayer() const { return player; }
 	void tintToBlack();
 	int getRemainingGates() const { return remainingGates; }
