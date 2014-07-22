@@ -9,6 +9,14 @@ bool EndlessHud::init(EndlessWorld* worldd)
 	{
 		return false;
 	}
+	scoreText = Label::create();
+	scoreText->setSystemFontSize(G_wF(35));
+	scoreText->setAnchorPoint(Vec2(0, 1));
+	const float margin = 0.05*G_srodek.x;
+	scoreText->setPosition(Vec2(margin,2*G_srodek.y - margin));
+	scoreText->setString("SCORE:0");
+	scoreText->enableShadow();
+	this->addChild(scoreText);
 	this->world = worldd;
 	return true;
 }
@@ -70,4 +78,7 @@ void EndlessHud::gameIsOver()
 	this->addChild(gmOverNode);
 	//obsluga zdarzenia
 }
-
+void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
+{
+	scoreText->setString(String::createWithFormat("SCORE:%d",world->getPlayer()->getScore())->getCString());
+}

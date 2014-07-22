@@ -38,6 +38,7 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 	{
 		//getHud()->displayGameOver();
 	}
+	getHud()->pointsChanged(&orderedOppByScore);
 	remainingGates++;
 }
 void EndlessWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
@@ -53,7 +54,6 @@ void EndlessWorld::customWorldUpdate()
 		iterations++;
 	}
 }
-
 void EndlessWorld::extendFlat()
 {
 	//flat

@@ -20,8 +20,8 @@ protected:
 	virtual void gotoMenuBtnListenerExtended(){}
 	virtual void repeatBtnListenerExtended(){}
 	virtual void gameIsOver(){}
-	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes){}
 public:
+	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes){}
 	void displayGameOver();
 	virtual bool init();
 	void displayInfo(const std::string &stringToDisplay);

@@ -8,11 +8,13 @@ class EndlessHud : public Hud
 private:
 	EndlessWorld* world;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
+	cocos2d::Label *scoreText;
 	myLayout *gmOverNode;
 public:
 	virtual bool init(EndlessWorld* worldd);
 	static EndlessHud* create(EndlessWorld* worldd);
 	virtual void gameIsOver();
+	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 
 };
 #endif // !___ENDLESS_HUD_H_
