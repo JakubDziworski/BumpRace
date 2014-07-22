@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
+#include "Hud.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -273,17 +274,25 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 {
 	if (currModeSelected == 0)
 	{
-		G_dir()->replaceScene(SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue));
+		auto scene = SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue);
+		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		G_dir()->replaceScene(scene);
 	}
 	else if (currModeSelected == 1)
 	{
-		G_dir()->replaceScene(SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue));
+		auto scene = SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue);
+		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		G_dir()->replaceScene(scene);
 	}
 	else if (currModeSelected == 2)
 	{
-		G_dir()->replaceScene(EndlessWorld::createScene());
+		auto scene = EndlessWorld::createScene();
+		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		G_dir()->replaceScene(scene);
 	}
-	
 }
 void MyMenu::opponentsSliderChanged(cocos2d::Ref* stg, Slider::EventType evnt)
 {

@@ -7,16 +7,18 @@
 class SingleElimHud : public Hud
 {
 private:
-	SingleEliminationWorld* world;
+	World* world;
 	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	cocos2d::ui::Layout *scoreNode;
 	myLayout *gmOverNode;
 public:
-	virtual bool init(SingleEliminationWorld *worldd);
-	static SingleElimHud* create(SingleEliminationWorld *worldd);
+	virtual bool init();
+	CREATE_FUNC(SingleElimHud);
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	virtual void gameIsOver();
+
+	virtual void lateinit(World *world);
 
 };
 #endif

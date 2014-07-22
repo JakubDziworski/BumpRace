@@ -7,16 +7,17 @@
 class SingleGateHud : public Hud
 {
 private:
-	SingleGateWorld* world;
+	World* world;
 	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	cocos2d::ui::Layout *scoreNode;
 	myLayout *gmOverNode;
 public:
-	virtual bool init(SingleGateWorld *worldd);
-	static SingleGateHud* create(SingleGateWorld *worldd);
+	virtual bool init();
+	CREATE_FUNC(SingleGateHud);
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	virtual void gameIsOver();
+	virtual void lateinit(World *world);
 
 };
 #endif

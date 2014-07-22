@@ -7,6 +7,7 @@
 #include "Player.h"
 class Chcekpoint;
 class Hud;
+class AIOpponent;
 class World :public cocos2d::Layer
 {
 private:
@@ -18,7 +19,6 @@ private:
 	//**myStuff**//
 	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
 	//**functions**//
-	void s_putOnPlayers();
 	void checkPosition(float dt);
 	void changeGravity();
 	void createFloor();
@@ -27,6 +27,7 @@ private:
 	static bool posSortingFun(Boxx* a, Boxx* b);
 	static bool physPosSortingFun(Boxx *a, Boxx *b);
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
+	std::function<void()> cameraFollowFunction;
 protected:
 	cocos2d::extension::PhysicsSprite *flatsprite;
 	cocos2d::Sprite *bgImg;
@@ -52,11 +53,18 @@ protected:
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
 	void floorspritefollow(){}
-	virtual void s_cameraFollow(float dt);
+	virtual void s_cameraFollow();
+	void s_putOnPlayers(Player* playerr);
 	virtual bool s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	virtual void m_cameraFollow();
+	void m_putOnPlayers(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers);
+	virtual bool m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
+	virtual void m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void customWorldUpdate(){}
+	void lateInit();
 public:
+	cpSpace * getGravitySpace() const { return gravitySpace; }
 	void setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers);
 	void setSinglePlayer(Player* player);
 	Boxx * getPlayer() const { return player; }
@@ -79,6 +87,7 @@ public:
 	Boxx* getOstaniActive();
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first){}
 	Hud* getHud();
+	void setHud(Hud *hudd){ hud = hudd; }
 	virtual void gameIsOver();
 };
 #endif // __GAMETEST_SCENE_H__

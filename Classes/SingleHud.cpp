@@ -5,30 +5,12 @@
 #include "Player.h"
 USING_NS_CC;
 using namespace ui;
-bool SingleGateHud::init(SingleGateWorld *worldd)
+bool SingleGateHud::init()
 {
 	if (!Hud::init())
 	{
 		return false;
 	}
-	world = worldd;
-	scoreNode = Layout::create();
-	//TOP LEFT SCORE VIEW///
-	int i = 0;
-	for (Boxx *box : *world->getBoxes())
-	{
-		Text* text = Text::create();
-		text->setAnchorPoint(Vec2(0,0));
-		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
-		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
-		text->setFontSize(25);
-		text->setPositionY(1.1f*i + G_srodek.x / 15);
-		scoreNode->addChild(text);
-		i += text->getContentSize().height;
-		scoreTable.insert(box, text);
-	}
-	scoreNode->setPosition(Vec2(G_srodek.x / 15, G_srodek.x / 15));
-	this->addChild(scoreNode);
 	//GAME OVER VIEW//
 	return true;
 }
@@ -43,22 +25,6 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 		text->setPositionY (G_srodek.x / 15);
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
 		i += text->getContentSize().height;
-	}
-}
-
-SingleGateHud* SingleGateHud::create(SingleGateWorld *worldd)
-{
-	SingleGateHud *pRet = new SingleGateHud();
-	if (pRet && pRet->init(worldd))
-	{
-		pRet->autorelease();
-		return pRet;
-	}
-	else
-	{
-		delete pRet;
-		pRet = NULL;
-		return NULL;
 	}
 }
 
@@ -112,6 +78,28 @@ void SingleGateHud::gameIsOver()
 	gmOverNode->setOpacity(0);
 	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
+}
+
+void SingleGateHud::lateinit(World *world)
+{
+	this->world = world;
+	scoreNode = Layout::create();
+	//TOP LEFT SCORE VIEW///
+	int i = 0;
+	for (Boxx *box : *world->getBoxes())
+	{
+		Text* text = Text::create();
+		text->setAnchorPoint(Vec2(0, 0));
+		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
+		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
+		text->setFontSize(25);
+		text->setPositionY(1.1f*i + G_srodek.x / 15);
+		scoreNode->addChild(text);
+		i += text->getContentSize().height;
+		scoreTable.insert(box, text);
+	}
+	scoreNode->setPosition(Vec2(G_srodek.x / 15, G_srodek.x / 15));
+	this->addChild(scoreNode);
 }
 
 

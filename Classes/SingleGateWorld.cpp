@@ -14,8 +14,9 @@ cocos2d::Scene* SingleGateWorld::createScene(int numberOfPlayers, int gatess, in
 	auto scene = Scene::create();
 	auto gameLayer = SingleGateWorld::create(numberOfPlayers, gatess,aiLevel );
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
-	auto hudLayer = SingleGateHud::create(gameLayer);
+	auto hudLayer = SingleGateHud::create();
 	scene->addChild(hudLayer, 2, LAYER_HUD);
+	gameLayer->setHud(hudLayer);
 	return scene;
 }
 bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
@@ -47,30 +48,18 @@ SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiL
 		return NULL;
 	}
 }
-
-void SingleGateWorld::putOnBoxes()
-{
-	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
-	player = opponentz.at(0);
-	for (int i = 1; i < boxesNumber; i++)
-	{
-		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
-		opponentz.pushBack(aiop);
-		aiop->addOrderedOpponents(orderedOpponents);
-	}
-}
-
 void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
 }
-
 void SingleGateWorld::restartLevel()
 {
 	G_dir()->getScheduler()->setTimeScale(1);
-	Director::getInstance()->replaceScene(SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart));
+	auto scene = SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart);
+	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+	G_dir()->replaceScene(scene);
 }
-
 void SingleGateWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {
 }

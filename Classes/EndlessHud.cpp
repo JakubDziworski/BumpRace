@@ -3,7 +3,7 @@
 USING_NS_CC;
 using namespace ui;
 
-bool EndlessHud::init(EndlessWorld* worldd)
+bool EndlessHud::init()
 {
 	if (!Hud::init())
 	{
@@ -17,23 +17,7 @@ bool EndlessHud::init(EndlessWorld* worldd)
 	scoreText->setString("SCORE:0");
 	scoreText->enableShadow();
 	this->addChild(scoreText);
-	this->world = worldd;
 	return true;
-}
-EndlessHud* EndlessHud::create(EndlessWorld* worldd)
-{
-	EndlessHud *pRet = new EndlessHud();
-	if (pRet && pRet->init(worldd))
-	{
-		pRet->autorelease();
-		return pRet;
-	}
-	else
-	{
-		delete pRet;
-		pRet = NULL;
-		return NULL;
-	}
 }
 void EndlessHud::gameIsOver()
 {
@@ -81,4 +65,9 @@ void EndlessHud::gameIsOver()
 void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 {
 	scoreText->setString(String::createWithFormat("SCORE:%d",world->getPlayer()->getScore())->getCString());
+}
+
+void EndlessHud::lateinit(World *world)
+{
+	this->world = world;
 }

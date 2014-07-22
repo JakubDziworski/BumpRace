@@ -17,6 +17,12 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
+
+void World::lateInit()
+{
+	hud->lateinit(this);
+	schedule(schedule_selector(World::tick));
+}
 bool World::myInit(int numberOfPlayers,int gates)
 {
 	if (!Layer::init())
@@ -49,17 +55,9 @@ bool World::myInit(int numberOfPlayers,int gates)
 	rotationLayer->addChild(_debugLayer, 100);
 	_debugLayer->setVisible(true);
 	//****************//
-	auto touchlistener = EventListenerTouchOneByOne::create();
-	touchlistener->onTouchBegan = CC_CALLBACK_2(World::s_onTouched, this);
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(World::s_onKeyPressed, this);
 	createBackground();
 	createFloor();
-	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
-	s_putOnPlayers();
 	rozmiescCheckpointy();
-	schedule(schedule_selector(World::tick));
 	return true;
 }
 bool World::myInitWithAI(int numberOfPlayers, int gates, int aiSmartness)
@@ -137,7 +135,7 @@ void World::tick(float delta)
 	}
 	changeGravity();
 	checkPosition(delta);
-	s_cameraFollow(delta);
+	cameraFollowFunction();
 	bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
 	customWorldUpdate();
 }
@@ -237,10 +235,24 @@ Hud* World::getHud()
 	}
 	return hud;
 }
+void World::gameIsOver()
+{
+	this->setTouchEnabled(false);
+}
 //_________SINGLE PLAYER_________//
 void World::setSinglePlayer(Player* player)
 {
-
+	//DOTYK
+	auto touchlistener = EventListenerTouchOneByOne::create();
+	touchlistener->onTouchBegan = CC_CALLBACK_2(World::s_onTouched, this);
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(World::s_onKeyPressed, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
+	//PLAYERZ
+	s_putOnPlayers(player);
+	cameraFollowFunction = CC_CALLBACK_0(World::s_cameraFollow,this);
+	lateInit();
 }
 bool World::s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
@@ -254,7 +266,7 @@ void World::s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 {
 	player->jump();
 }
-void World::s_putOnPlayers()
+void World::s_putOnPlayers(Player* playerr)
 {
 	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
 	player = opponentz.at(0);
@@ -281,7 +293,7 @@ void World::s_putOnPlayers()
 		rotationLayer->addChild(opponent);
 	}
 }
-void World::s_cameraFollow(float dt)
+void World::s_cameraFollow()
 {
 	Boxx *pierwszyy = NULL;
 	if (player == orderedOpponents.at(0))
@@ -307,15 +319,36 @@ void World::s_cameraFollow(float dt)
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
 	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
-void World::gameIsOver()
-{
-	this->setTouchEnabled(false);
-}
 //_______MULTIPLAYER__________//
 void World::setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers)
 {
+	//DOTYK
+	auto touchlistener = EventListenerTouchOneByOne::create();
+	touchlistener->onTouchBegan = CC_CALLBACK_2(World::m_onTouched, this);
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(World::m_onKeyPressed, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
+	//PLAYERZ
+	m_putOnPlayers(players,computers);
+	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
+	lateInit();
+}
+bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	return true;
+}
+void World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+{
 
 }
+void World::m_putOnPlayers(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers)
+{
 
+}
+void World::m_cameraFollow()
+{
+
+}
 
 

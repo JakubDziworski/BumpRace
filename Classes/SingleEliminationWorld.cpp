@@ -14,8 +14,9 @@ cocos2d::Scene* SingleEliminationWorld::createScene(int numberOfPlayers, int aiL
 	auto scene = Scene::create();
 	auto gameLayer = SingleEliminationWorld::create(numberOfPlayers,aiLevel);
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
-	auto hudLayer = SingleElimHud::create(gameLayer);
+	auto hudLayer = SingleElimHud::create();
 	scene->addChild(hudLayer, 2, LAYER_HUD);
+	gameLayer->setHud(hudLayer);
 	return scene;
 }
 bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
@@ -67,7 +68,10 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 void SingleEliminationWorld::restartLevel()
 {
 	G_dir()->getScheduler()->setTimeScale(1);
-	Director::getInstance()->replaceScene(SingleEliminationWorld::createScene(boxesNumber, aiSmart));
+	auto scene = SingleEliminationWorld::createScene(boxesNumber, aiSmart);
+	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+	G_dir()->replaceScene(scene);
 }
 
 void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)

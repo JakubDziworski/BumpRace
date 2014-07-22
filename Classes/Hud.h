@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "UI/CocosGUI.h"
 #include "Boxx.h"
+#include "World.h"
 class Hud : public cocos2d::Layer
 {
 protected:
@@ -21,6 +22,7 @@ protected:
 	virtual void repeatBtnListenerExtended(){}
 	virtual void gameIsOver(){}
 public:
+	virtual void lateinit(World *world){}
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes){}
 	void displayGameOver();
 	virtual bool init();

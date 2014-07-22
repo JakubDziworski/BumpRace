@@ -9,7 +9,6 @@ public:
 	static SingleGateWorld* create(int numberOfPlayers, int gatess, int AILevel);
 	virtual void customWorldUpdate();
 	virtual bool myInit(int numberOfPlayers, int gatess, int AILevel);
-	virtual void putOnBoxes();
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
 	virtual void restartLevel();
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first);

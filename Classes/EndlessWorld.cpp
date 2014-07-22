@@ -24,13 +24,18 @@ cocos2d::Scene * EndlessWorld::createScene()
 	auto scene = Scene::create();
 	auto gameLayer = EndlessWorld::create();
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
-	auto hudLayer = EndlessHud::create(gameLayer);
+	auto hudLayer = EndlessHud::create();
 	scene->addChild(hudLayer, 2, LAYER_HUD);
+	gameLayer->setHud(hudLayer);
 	return scene;
 }
 void EndlessWorld::restartLevel()
 {
-	G_dir()->replaceScene(EndlessWorld::createScene());
+	G_dir()->getScheduler()->setTimeScale(1);
+	auto scene = EndlessWorld::createScene();
+	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+	G_dir()->replaceScene(scene);
 }
 void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
