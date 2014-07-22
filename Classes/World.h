@@ -17,7 +17,6 @@ private:
 	//**chipmunk stuff**//
 	Hud *hud;
 	//**myStuff**//
-	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
 	//**functions**//
 	void checkPosition(float dt);
 	void changeGravity();
@@ -33,13 +32,17 @@ protected:
 	cocos2d::Sprite *bgImg;
 	cpBody *floorBody;
 	int aiSmart;
+	bool multiplayerEnabled;
 	int gatesNumber;
 	int remainingGates;
 	cpSpace *gravitySpace;
 	int boxesNumber;
+	int playersNumber;
 	float screenRatio;
-	Boxx *player;
+	Player *player;
+	cocos2d::Vector<Player*> players;
 	cocos2d::Vector<Boxx*> opponentz;
+	cocos2d::Vector<Boxx*> physPosOrderedOpponentz;
 	cocos2d::Vector<Boxx*> orderedOpponents;
 	cocos2d::Vector<Boxx*> orderedOppByScore;
 	Boxx *followMate;
@@ -58,14 +61,15 @@ protected:
 	virtual bool s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void m_cameraFollow();
-	void m_putOnPlayers(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers);
+	void m_putOnPlayers(cocos2d::Vector<Player*> players);
 	virtual bool m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void customWorldUpdate(){}
 	void lateInit();
+	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
 public:
 	cpSpace * getGravitySpace() const { return gravitySpace; }
-	void setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers);
+	void setMultiplayer(cocos2d::Vector<Player*> players);
 	void setSinglePlayer(Player* player);
 	Boxx * getPlayer() const { return player; }
 	void tintToBlack();

@@ -57,8 +57,7 @@ void SingleGateWorld::restartLevel()
 	G_dir()->getScheduler()->setTimeScale(1);
 	auto scene = SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart);
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
-	G_dir()->replaceScene(scene);
+	this->replaceSceneGenereal(scene, world);
 }
 void SingleGateWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {

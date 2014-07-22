@@ -7,6 +7,7 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 #include "Hud.h"
+#include "AIOpponent.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -65,11 +66,13 @@ bool MyMenu::init()
 	createBtn("btnOn.png", "", "Continue!", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel("Choose names",L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
+	createBtn("btnOn.png", "", "Play!", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
 		createTextEdit("Player1", CC_CALLBACK_2(MyMenu::m_textFieldChanged, this), L_M_CHOOSENAMES, i);
 		createPages("Choose your apperance", { "crazy nigga", "mustache faggot", "regular guy" }, { "box.png", "box.png", "box.png" }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
 	}
+	
 	//*GENERAL BUTTONS*//
 	createBtn("btnBackOn.png", "btnBackOf.png", "", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	//*MODIFICATION*//
@@ -425,10 +428,28 @@ void MyMenu::m_pageBoxChosechanged(cocos2d::Ref* pSender, cocos2d::ui::PageView:
 {
 
 }
-
 void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-
+	Vector<Player*> players;
+	Vector<AIOpponent*> opponentz;
+	if (currModeSelected == 0)
+	{
+		auto scene = SingleGateWorld::createScene(m_currOpponentsNumber +m_currPlayersNumber, currGatesNumb, currDiffValue);
+		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+		for (int i = 1; i <= m_currPlayersNumber; i++)
+		{
+			players.pushBack(Player::create("Box.png", String::createWithFormat("Player%d", i)->getCString(), world->getGravitySpace()));
+		}
+		world->setMultiplayer(players);
+		G_dir()->replaceScene(scene);
+	}
+	else if (currModeSelected == 1)
+	{
+		auto scene = SingleEliminationWorld::createScene(m_currOpponentsNumber + m_currPlayersNumber, currDiffValue);
+		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		G_dir()->replaceScene(scene);
+	}
 }
 
 

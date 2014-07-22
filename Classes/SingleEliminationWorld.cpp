@@ -70,10 +70,8 @@ void SingleEliminationWorld::restartLevel()
 	G_dir()->getScheduler()->setTimeScale(1);
 	auto scene = SingleEliminationWorld::createScene(boxesNumber, aiSmart);
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
-	G_dir()->replaceScene(scene);
+	this->replaceSceneGenereal(scene, world);
 }
-
 void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {
 	if (first == false)
@@ -81,7 +79,6 @@ void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 		chkpt->enableSlowmo();
 	}
 }
-
 void SingleEliminationWorld::modifyGate(Chcekpoint *inp)
 {
 	inp->setSprawdzajPierwszych(false);

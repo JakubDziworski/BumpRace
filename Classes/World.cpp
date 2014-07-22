@@ -17,7 +17,6 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
-
 void World::lateInit()
 {
 	hud->lateinit(this);
@@ -40,6 +39,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	this->addChild(scaleeLayer,1);
 	//****************//
 	hud = NULL;
+	multiplayerEnabled = false;
 	boxesNumber = numberOfPlayers;
 	gatesNumber = gates;
 	remainingGates = gates;
@@ -268,8 +268,8 @@ void World::s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 }
 void World::s_putOnPlayers(Player* playerr)
 {
-	opponentz.pushBack(Player::create("BOX.png", "KUBA", gravitySpace));
-	player = opponentz.at(0);
+	player = playerr;
+	opponentz.pushBack(player);
 	for (int i = 1; i < boxesNumber; i++)
 	{
 		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
@@ -278,7 +278,6 @@ void World::s_putOnPlayers(Player* playerr)
 	}
 	float losowa;
 	std::vector<float> wylosowane(boxesNumber);
-	player = opponentz.at(0);
 	physPosOrderedOpponentz = Vector<Boxx*>(opponentz);
 	orderedOpponents = Vector<Boxx*>(opponentz);
 	orderedOppByScore = Vector<Boxx*>(opponentz);
@@ -320,9 +319,11 @@ void World::s_cameraFollow()
 	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
 //_______MULTIPLAYER__________//
-void World::setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers)
+void World::setMultiplayer(cocos2d::Vector<Player*> players)
 {
 	//DOTYK
+	multiplayerEnabled = true;
+	playersNumber = players.size();
 	auto touchlistener = EventListenerTouchOneByOne::create();
 	touchlistener->onTouchBegan = CC_CALLBACK_2(World::m_onTouched, this);
 	auto listener = EventListenerKeyboard::create();
@@ -330,25 +331,153 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players, cocos2d::Vector<AIO
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
 	//PLAYERZ
-	m_putOnPlayers(players,computers);
+	m_putOnPlayers(players);
 	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
 	lateInit();
 }
 bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	auto location = touch->getLocation();
+	if (playersNumber == 2)
+	{
+		if (location.x > srodek.x)
+		{
+			players.at(1)->jump();
+		}
+		else
+		{
+			players.at(0)->jump();
+		}
+	}
+	else if (playersNumber == 3)
+	{
+		if (location.x < 0.66f*srodek.x)
+		{
+			players.at(0)->jump();
+		}
+		else if (location.x < 1.32f*srodek.x)
+		{
+			players.at(1)->jump();
+		}
+		else 
+		{
+			players.at(2)->jump();
+		}
+	}
+	else if (playersNumber == 4)
+	{
+		if (location.x < 0.5f*srodek.x)
+		{
+			players.at(0)->jump();
+		}
+		else if (location.x < srodek.x)
+		{
+			players.at(1)->jump();
+		}
+		else if (location.x < 1.5f*srodek.x)
+		{
+			players.at(2)->jump();
+		}
+		else
+		{
+			players.at(3)->jump();
+		}
+	}
 	return true;
 }
 void World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
-
+	if (playersNumber > 3)
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_0) players.at(0)->jump();
+		else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) players.at(1)->jump();
+		else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) players.at(2)->jump();
+		else if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) players.at(3)->jump();
+	}
+	else if (playersNumber > 2)
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_0) players.at(0)->jump();
+		else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) players.at(1)->jump();
+		else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) players.at(2)->jump();
+	}
+	else if (playersNumber > 1)
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_0) players.at(0)->jump();
+		else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) players.at(1)->jump();
+	}
+	else if (playersNumber > 0)
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_0) players.at(0)->jump();
+	}
 }
-void World::m_putOnPlayers(cocos2d::Vector<Player*> players, cocos2d::Vector<AIOpponent*> computers)
+void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 {
-
+	for (auto player : players)
+	{
+		opponentz.pushBack(player);
+		this->players.pushBack(player);
+	}
+	for (int i = 1; i <= boxesNumber-playersNumber; i++)
+	{
+		AIOpponent *opp = AIOpponent::create("Box.png", String::createWithFormat("Opponent%d", i)->getCString(), gravitySpace, aiSmart);
+		opp->addOrderedOpponents(orderedOpponents);
+		opponentz.pushBack(opp);
+	}
+	float losowa;
+	std::vector<float> wylosowane(boxesNumber);
+	physPosOrderedOpponentz = Vector<Boxx*>(opponentz);
+	orderedOpponents = Vector<Boxx*>(opponentz);
+	orderedOppByScore = Vector<Boxx*>(opponentz);
+	for (Boxx *opponent : opponentz)
+	{
+		do
+		{
+			losowa = (rand() % boxesNumber) + 0.1f;
+		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
+		wylosowane.push_back(losowa);
+		opponent->setBodyPosition(Vec2(2 * srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
+		rotationLayer->addChild(opponent);
+	}
 }
 void World::m_cameraFollow()
 {
-
+	Boxx *pierwszyy = NULL;	//PIERWSZY PLAYER
+	int i = 0;
+	do
+	{
+		pierwszyy = orderedOpponents.at(i);
+		i++;
+	}
+	while (dynamic_cast<Player*> (pierwszyy) == NULL);
+	Boxx *ostatni = orderedOpponents.at(boxesNumber-1);
+	//************//
+	posX = -pierwszyy->getPositionX()*G_myCos;
+	posY = pierwszyy->getPositionX()*G_mySin;
+	const float lastposX = -ostatni->getPositionX()*G_myCos;
+	const float lastposY = +ostatni->getPositionX()*G_mySin;
+	const float maxOffsetX = srodek.x / scaleeLayer->getScale() / screenRatio;
+	const float maxOffsetY = srodek.y / scaleeLayer->getScale() / screenRatio;
+	const float maxpierwszyOffset = 0.8f*srodek.y / scaleeLayer->getScale();
+	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
+	//************//
+	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
+	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
 
-
+void World::replaceSceneGenereal(Scene *scene,World *world)
+{
+	if (multiplayerEnabled)
+	{
+		Vector<Player*> plyrz;
+		for (auto plyr : players)
+		{
+			plyrz.pushBack(Player::create(plyr->getFileName(), plyr->getID(), world->getGravitySpace()));
+		}
+		world->setMultiplayer(plyrz);
+	}
+	else
+	{
+		world->setSinglePlayer(Player::create(player->getFileName(), player->getID(), world->getGravitySpace()));
+	}
+	G_dir()->replaceScene(scene);
+}

@@ -2,6 +2,7 @@
 USING_NS_CC;
 void AIOpponent::simulate(float dt)
 {
+	if (orderedOpponents == NULL) return;
 	if (orderedOpponents->size() == 0) return;
 	this->setPrzedniTylni();
 	if (tylni && tylni->getVelocity() > 1.2f*this->getVelocity() && tylni->isJumping())
@@ -17,7 +18,6 @@ void AIOpponent::simulate(float dt)
 		jump();
 	}
 }
-
 bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *space, int smartnez)
 {
 	if (!Boxx::myInit(filename, ID,space))
@@ -25,6 +25,7 @@ bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *sp
 		return false;
 	}
 	this->smartness = smartnez;
+	orderedOpponents = NULL;
 	//**trudnosc**//
 	int randomNumber = rand() % 11 - 1;
 	switch (smartness)
@@ -43,7 +44,6 @@ bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *sp
 	}
 	return true;
 }
-
 AIOpponent* AIOpponent::create(const std::string& filename, std::string ID, cpSpace *space, int smartnez)
 {
 	AIOpponent *pRet = new AIOpponent();

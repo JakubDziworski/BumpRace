@@ -34,8 +34,7 @@ void EndlessWorld::restartLevel()
 	G_dir()->getScheduler()->setTimeScale(1);
 	auto scene = EndlessWorld::createScene();
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
-	G_dir()->replaceScene(scene);
+	this->replaceSceneGenereal(scene, world);
 }
 void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {

@@ -8,6 +8,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 		return false;
 	}
 	//init variables//
+	this->fileName = filename;
 	maxVel = 1000;
 	wind = 0;
 	points = 0;

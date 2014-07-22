@@ -13,7 +13,6 @@ bool SingleElimHud::init()
 	
 	return true;
 }
-
 void SingleElimHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 {
 	orderedBoxes = orderedByPointsBoxes;
@@ -26,8 +25,6 @@ void SingleElimHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 		i += text->getContentSize().height;
 	}
 }
-
-
 void SingleElimHud::gameIsOver()
 {
 	//general disabling
@@ -73,7 +70,6 @@ void SingleElimHud::gameIsOver()
 	this->addChild(gmOverNode);
 	//obsluga zdarzenia
 }
-
 void SingleElimHud::lateinit(World *worldd)
 {
 	world = worldd;

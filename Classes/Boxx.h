@@ -10,6 +10,7 @@ private:
 	cpBody *myBody;
 	bool deactivated;
 	float wind;
+	std::string fileName;
 	float maxVel;
 	int physPos;
 	std::string ID;
@@ -26,6 +27,7 @@ public:
 	bool myInit(const std::string& filename, std::string ID, cpSpace *space);
 	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space);
 	//GETTERS SETTERS//
+	std::string getFileName() const { return fileName; }
 	bool isDeactivated() const { return deactivated; }
 	std::string getID() const { return ID; }
 	void setID(std::string val) { ID = val; }
