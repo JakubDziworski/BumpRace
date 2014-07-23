@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "Player.h"
 #include "SingleElimHud.h"
+#include "Paths.h"
 USING_NS_CC;
 using namespace ui;
 bool SingleElimHud::init()
@@ -32,7 +33,7 @@ void SingleElimHud::gameIsOver()
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create();
+	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
 	if (dynamic_cast<Player*>(world->getOstaniActive()))	//WYGRANA
 	{
 		gmOverText->setString("WYGRANA!");
@@ -78,11 +79,10 @@ void SingleElimHud::lateinit(World *worldd)
 	int i = 0;
 	for (Boxx *box : *world->getBoxes())
 	{
-		Text* text = Text::create();
+		Text* text = Text::create("", R_defaultFont, G_wF(25));
 		text->setAnchorPoint(Vec2(0, 0));
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
 		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
-		text->setFontSize(25);
 		text->setPositionY(1.1f*i + G_srodek.x / 15);
 		scoreNode->addChild(text);
 		i += text->getContentSize().height;

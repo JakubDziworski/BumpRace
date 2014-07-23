@@ -3,6 +3,7 @@
 #include "SingleGateWorld.h"
 #include "Globals.h"
 #include "Player.h"
+#include "Paths.h"
 USING_NS_CC;
 using namespace ui;
 bool SingleGateHud::init()
@@ -35,25 +36,22 @@ void SingleGateHud::gameIsOver()
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create();
+	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
 	gameoverparam->setMargin(Margin(0, 0, 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
-	gmOverText->setString("Game Over");
-	gmOverText->setFontSize(40);
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	//consts
 	const float additionalOffset = gmOverText->getContentSize().height + margin;
 	int i = 1;
 	for (Boxx *box : *orderedBoxes)
 	{
-		Text* text = Text::create();
+		Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
 		text->setAnchorPoint(Vec2(0.5f, 0));
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
 		text->setString(String::createWithFormat("%d.%s(%d gates collected)", i, box->getID().c_str(), box->getScore())->getCString());
-		text->setFontSize(G_wF(25));
 		gmOverNode->addWidget(text);
 		i++;
 	}
@@ -88,11 +86,10 @@ void SingleGateHud::lateinit(World *world)
 	int i = 0;
 	for (Boxx *box : *world->getBoxes())
 	{
-		Text* text = Text::create();
+		Text* text = Text::create("", R_defaultFont, G_wF(25));
 		text->setAnchorPoint(Vec2(0, 0));
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
 		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
-		text->setFontSize(25);
 		text->setPositionY(1.1f*i + G_srodek.x / 15);
 		scoreNode->addChild(text);
 		i += text->getContentSize().height;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Single_Player</key>
+    <string>Jeden Gracz</string>
+	<key>Multi_Player</key>
+    <string>Wielu Graczy</string>
+	<key>Options</key>
+    <string>Opcje</string>
+	<key>Carrer</key>
+    <string>Tryb Kariery</string>
+	<key>FreeRun</key>
+    <string>Własny tryb</string>
+	<key>Play</key>
+    <string>Graj</string>
+	<key>Continue</key>
+    <string>Kontynuuj</string>
+	<key>Choose_Mode</key>
+    <string>Wybierz Tryb</string>
+	<key>Opponents</key>
+    <string>Przeciwnicy</string>
+	<key>Gates</key>
+    <string>Punkty Kontrolne</string>
+	<key>Difficulty</key>
+    <string>Poziom Trudności</string>
+	<key>Players</key>
+    <string>Gracze</string>
+	<key>Player</key>
+    <string>Gracz</string>
+	<key>Computers</key>
+    <string>Komputery</string>
+	<key>Gate_Collector</key>
+    <string>Zbieracz Bramek</string>
+	<key>Elimination</key>
+    <string>Eliminacja</string>
+	<key>Endless</key>
+    <string>Nieskończony</string>
+	<key>Choose_Name</key>
+    <string>Wybierz Imię</string>
+	<key>Endless</key>
+    <string>Nieskończony</string>
+	
+</dict>
+</plist>

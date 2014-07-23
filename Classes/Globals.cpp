@@ -13,7 +13,7 @@ const float Globals_radWsp = M_PI / 180.0f;
 int G_maxVelocity = 1000;
 const int G_maxVelConstant = 500;
 const int G_maxVelAddition = 2000;
-
+cocos2d::Dictionary *G_strings;
 void G_setCurrAngle(float angle)
 {
 	G_Currangle = angle;
@@ -46,5 +46,23 @@ const char* G_form_str(const char *format, ...)
 	va_list ap;
 	va_start(ap, format);
 	return cocos2d::String::createWithFormat(format, ap)->getCString();
+}
+void G_initLanguage()
+{
+	cocos2d::LanguageType currentLanguageType = cocos2d::Application::getInstance()->getCurrentLanguage();
+	if (currentLanguageType == cocos2d::LanguageType::POLISH)
+	{
+		G_strings = cocos2d::Dictionary::createWithContentsOfFile("multilanguage/Polish.plist");
+	}
+	else
+	{
+		G_strings = cocos2d::Dictionary::createWithContentsOfFile("multilanguage/English.plist");
+	}
+	G_strings->retain();
+}
+std::string G_str(const std::string& input)
+{
+	std::string str = G_strings->valueForKey(input)->getCString();
+	return str;
 }
 

@@ -20,6 +20,8 @@ extern float G_wF(float inp);
 extern float G_hF(float inp);
 extern cocos2d::Vec2 G_wV(cocos2d::Vec2 inp);
 extern cocos2d::Vec2 G_hV(cocos2d::Vec2 inp);
-extern const char* G_form_str(const char *format, ...); CC_FORMAT_PRINTF(2, 3);
+extern void G_initLanguage();
+extern cocos2d::Dictionary *G_strings;
+extern std::string G_str(const std::string& input);
 #endif
 

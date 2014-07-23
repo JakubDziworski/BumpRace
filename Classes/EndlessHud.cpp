@@ -1,5 +1,6 @@
 #include "EndlessHud.h"
 #include "Globals.h"
+#include "Paths.h"
 USING_NS_CC;
 using namespace ui;
 
@@ -26,18 +27,15 @@ void EndlessHud::gameIsOver()
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create();
-	gmOverText->setString("GAME OVER!");
+	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
 	gameoverparam->setMargin(Margin(0, 0, 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
-	gmOverText->setFontSize(40);
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	//SCORE INFO
-	Text *score = Text::create();
-	score->setFontSize(G_wF(25));
+	Text *score = Text::create("SCORE:", R_defaultFont, G_wF(25));
 	score->setString(String::createWithFormat("SCORE:%d", world->getPlayer()->getScore())->getCString());
 	gmOverNode->addWidget(score);
 	//BUTTONS

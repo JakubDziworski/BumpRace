@@ -1,14 +1,17 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "MyMenu.h"
+#include "Globals.h"
 USING_NS_CC;
 
-AppDelegate::AppDelegate() {
-
+AppDelegate::AppDelegate() 
+{
+	
 }
 
 AppDelegate::~AppDelegate() 
 {
+	G_strings->release();
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -27,6 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
+	G_initLanguage();
     auto scene = MyMenu::createScene();
 
     // run
