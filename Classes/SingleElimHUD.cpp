@@ -14,18 +14,6 @@ bool SingleElimHud::init()
 	
 	return true;
 }
-void SingleElimHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
-{
-	orderedBoxes = orderedByPointsBoxes;
-	int i = 0;
-	for (Boxx *box : *orderedByPointsBoxes)
-	{
-		Text* text = ((Text*)scoreTable.at(box));
-		text->setPositionY (G_srodek.x / 15);
-		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
-		i += text->getContentSize().height;
-	}
-}
 void SingleElimHud::gameIsOver()
 {
 	//general disabling
@@ -82,15 +70,22 @@ void SingleElimHud::lateinit(World *worldd)
 		Text* text = Text::create("", R_defaultFont, G_wF(25));
 		text->setAnchorPoint(Vec2(0, 0));
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
-		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
+		text->setString(box->getID());
 		text->setPositionY(1.1f*i + G_srodek.x / 15);
 		scoreNode->addChild(text);
 		i += text->getContentSize().height;
 		scoreTable.insert(box, text);
 	}
+	eliminated = 0;
 	scoreNode->setPosition(Vec2(G_srodek.x / 15, G_srodek.x / 15));
 	this->addChild(scoreNode);
 	//GAME OVER VIEW//
+}
+void SingleElimHud::boxEliminated(Boxx* ostatni)
+{
+	this->displayInfo(CCString::createWithFormat("%s ELIMINATED!", ostatni->getID().c_str())->getCString());
+	scoreTable.at(ostatni)->setColor(Color3B(100, 100, 100));
+	eliminated++;
 }
 
 

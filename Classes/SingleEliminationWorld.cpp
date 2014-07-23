@@ -57,11 +57,10 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 	if (box == orderedOpponents.at(remainingGates))
 	{
 		orderedOpponents.at(remainingGates+1)->deactivate();
-		hud->displayInfo(CCString::createWithFormat("%s ELIMINATED!", orderedOpponents.at(remainingGates + 1)->getID().c_str())->getCString());
 		if (orderedOpponents.at(remainingGates+1) == player) 
 			hud->displayGameOver();
 	}
-	hud->pointsChanged(getSortedBoxesByScore());
+	hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 }
 	
 
