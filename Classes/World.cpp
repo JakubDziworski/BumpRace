@@ -185,7 +185,7 @@ cocos2d::Vector<Boxx*> * World::getSortedBoxesByScore()
 }
 bool World::scoreSortingFun(Boxx *a, Boxx *b)	//MALEJACAO
 {
-	return (a->getScore() > b->getScore());
+	return (a->getScore() < b->getScore());
 }
 Boxx* World::getOstaniActive()
 {

@@ -23,7 +23,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 	for (Boxx *box : *orderedByPointsBoxes)
 	{
 		Text* text = ((Text*)scoreTable.at(box));
-		text->setPositionY (G_srodek.x / 15);
+		text->setPositionY(1.1f*i + G_srodek.x / 15);
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
 		i += text->getContentSize().height;
 	}
