@@ -83,9 +83,20 @@ void SingleElimHud::lateinit(World *worldd)
 }
 void SingleElimHud::boxEliminated(Boxx* ostatni)
 {
-	this->displayInfo(CCString::createWithFormat("%s ELIMINATED!", ostatni->getID().c_str())->getCString());
-	scoreTable.at(ostatni)->setColor(Color3B(100, 100, 100));
+
+	this->displayInfo("ELIMINATED!",ostatni);
+	Text *wyeliminowany = scoreTable.at(ostatni);
+	const float zwolnienie = G_dir()->getScheduler()->getTimeScale();
+	auto powieksz = ScaleTo::create(0.35f*zwolnienie, 1.4f);
+	auto pomniejsz = ScaleTo::create(0.35f*zwolnienie, 1);
+	wyeliminowany->runAction(Sequence::createWithTwoActions(powieksz, pomniejsz));
+	wyeliminowany->setColor(Color3B(100, 100, 100));
 	eliminated++;
+}
+
+void SingleElimHud::additionalMulti(int heightY)
+{
+	scoreNode->setPositionY(scoreNode->getPositionY() + heightY);
 }
 
 

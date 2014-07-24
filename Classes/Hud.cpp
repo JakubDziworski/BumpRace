@@ -3,6 +3,7 @@
 #include "SingleGateWorld.h"
 #include "Globals.h"
 #include "MyMenu.h"
+#include "Paths.h"
 USING_NS_CC;
 using namespace ui;
 bool Hud::init()
@@ -35,7 +36,7 @@ bool Hud::init()
 	this->addChild(pauseBtn, 1, B_PAUSE);
 	//INFO
 	infoNode = Label::create();
-	infoNode->setSystemFontSize(G_wF(25));
+	infoNode->setSystemFontSize(G_wF(35));
 	infoNode->setPosition(G_srodek);
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);
@@ -77,14 +78,44 @@ void Hud::displayGameOver()
 	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(); });
 	this->runAction(Sequence::create(wait, lategameover, NULL));
 }
-void Hud::displayInfo(const std::string &stringToDisplay)
+void Hud::displayInfo(const std::string &stringToDisplay, Boxx* boxabout)
 {
-	infoNode->setString(stringToDisplay);
 	infoNode->setVisible(true);
+	std::string str = "";
+	if (boxabout != NULL)
+	{
+		str = boxabout->getID();
+	}
+	str += stringToDisplay;
+	infoNode->setString(str);
 	FiniteTimeAction *fadein = FadeIn::create(0.2f);
 	FiniteTimeAction *disable = CallFunc::create([&](){infoNode->setVisible(false); });
 	FiniteTimeAction *idle = DelayTime::create(2);
 	FiniteTimeAction *fadeout = FadeOut::create(0.5f);
 	infoNode->runAction(Sequence::create(fadein, idle, fadeout, disable, NULL));
 }
-
+void Hud::setMultiplayer(World *world)
+{
+	int playerznumber = world->getPlayers()->size();
+	int i = 0;
+	int sizey;
+	for (Player *player : *world->getPlayers())
+	{
+		auto btn = Button::create("multiBtn.png","");
+		btn->setScale9Enabled(true);
+		btn->setScaleX(2 * G_srodek.x / btn->getContentSize().width / playerznumber);
+		btn->setAnchorPoint(Vec2(0, 0));
+		btn->setPosition(Vec2(i*(2 * G_srodek.x / playerznumber), 0));
+		btn->setColor(player->getBoxColor());
+		btn->addTouchEventListener([player](Ref* pSender, Widget::TouchEventType type) {
+			if (type == Widget::TouchEventType::ENDED)
+			{
+				player->jump();
+			}
+		});
+		this->addChild(btn);
+		if(i==0)sizey = btn->getContentSize().height;
+		i++;
+	}
+	additionalMulti(sizey);
+}

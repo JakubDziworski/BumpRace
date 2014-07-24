@@ -13,6 +13,7 @@ private:
 	std::string fileName;
 	float maxVel;
 	int physPos;
+	cocos2d::Color3B boxColor;
 	std::string ID;
 	static void gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt);
 	void displayDebugInfo();
@@ -24,8 +25,9 @@ protected:
 	virtual void additionalDebugInfo();
 public:
 	//COCOS PATTERN//
-	bool myInit(const std::string& filename, std::string ID, cpSpace *space);
-	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space);
+	cocos2d::Color3B getBoxColor() const { return boxColor; }
+	bool myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr);
+	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space,cocos2d::Color3B boxColorr = cocos2d::Color3B::BLACK);
 	//GETTERS SETTERS//
 	std::string getFileName() const { return fileName; }
 	bool isDeactivated() const { return deactivated; }

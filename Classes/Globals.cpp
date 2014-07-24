@@ -66,3 +66,14 @@ std::string G_str(const std::string& input)
 	return str;
 }
 
+cocos2d::Color3B G_getRandomColor()
+{
+	int tab[3];
+	for (int i = 0; i < 3; i++)
+	{
+		tab[i] = rand() % 155 + 100;
+	}
+	return cocos2d::Color3B(tab[0], tab[1], tab[2]);
+}
+
+

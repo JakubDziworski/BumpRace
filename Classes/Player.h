@@ -5,7 +5,7 @@
 class Player : public Boxx
 {
 public:
-	bool myInit(const std::string& filename, std::string ID, cpSpace *space);
-	static Player* create(const std::string& filename, std::string ID, cpSpace *space);
+	bool myInit(const std::string& filename, std::string ID, cpSpace *space,cocos2d::Color3B boxColorr);
+	static Player* create(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr = cocos2d::Color3B::BLACK);
 };
 #endif

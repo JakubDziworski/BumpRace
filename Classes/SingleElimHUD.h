@@ -18,6 +18,7 @@ public:
 	virtual void gameIsOver();
 	virtual void boxEliminated(Boxx* ostatni);
 	virtual void lateinit(World *world);
+	virtual void additionalMulti(int heightY);
 
 };
 #endif

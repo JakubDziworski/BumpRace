@@ -18,9 +18,9 @@ void AIOpponent::simulate(float dt)
 		jump();
 	}
 }
-bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *space, int smartnez)
+bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *space, int smartnez, cocos2d::Color3B boxColorr)
 {
-	if (!Boxx::myInit(filename, ID,space))
+	if (!Boxx::myInit(filename, ID, space, boxColorr))
 	{
 		return false;
 	}
@@ -44,10 +44,10 @@ bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *sp
 	}
 	return true;
 }
-AIOpponent* AIOpponent::create(const std::string& filename, std::string ID, cpSpace *space, int smartnez)
+AIOpponent* AIOpponent::create(const std::string& filename, std::string ID, cpSpace *space, int smartnez, cocos2d::Color3B boxColorr)
 {
 	AIOpponent *pRet = new AIOpponent();
-	if (pRet && pRet->myInit(filename,ID, space,smartnez))
+	if (pRet && pRet->myInit(filename, ID, space, smartnez, boxColorr))
 	{
 		pRet->autorelease();
 		return pRet;
@@ -59,13 +59,10 @@ AIOpponent* AIOpponent::create(const std::string& filename, std::string ID, cpSp
 		return NULL;
 	}
 }
-
-
 float AIOpponent::odleglosc(Boxx *box)
 {
 	return box->getPositionX() - this->getPositionX();
 }
-
 void AIOpponent::setPrzedniTylni()
 {
 	if (racePos == orderedOpponents->back()->getRacePos()) tylni = NULL;
@@ -74,7 +71,6 @@ void AIOpponent::setPrzedniTylni()
 	if (racePos == orderedOpponents->front()->getRacePos()) przedni = NULL;
 	else przedni = orderedOpponents->at(racePos - 2);
 }
-
 bool AIOpponent::stykasie()
 {
 	if (przedni == NULL) return false;

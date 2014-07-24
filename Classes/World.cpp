@@ -334,6 +334,7 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	m_putOnPlayers(players);
 	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
 	lateInit();
+	getHud()->setMultiplayer(this);
 }
 bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
@@ -463,7 +464,6 @@ void World::m_cameraFollow()
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
 	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
-
 void World::replaceSceneGenereal(Scene *scene,World *world)
 {
 	if (multiplayerEnabled)

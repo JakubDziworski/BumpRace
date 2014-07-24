@@ -23,7 +23,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 	for (Boxx *box : *orderedByPointsBoxes)
 	{
 		Text* text = ((Text*)scoreTable.at(box));
-		text->setPositionY(1.1f*i + G_srodek.x / 15);
+		text->setPositionY(1.1f*i);
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
 		i += text->getContentSize().height;
 	}
@@ -50,7 +50,7 @@ void SingleGateHud::gameIsOver()
 	{
 		Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
 		text->setAnchorPoint(Vec2(0.5f, 0));
-		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
+		text->setColor(box->getBoxColor());
 		text->setString(String::createWithFormat("%d.%s(%d gates collected)", i, box->getID().c_str(), box->getScore())->getCString());
 		gmOverNode->addWidget(text);
 		i++;
@@ -88,15 +88,19 @@ void SingleGateHud::lateinit(World *world)
 	{
 		Text* text = Text::create("", R_defaultFont, G_wF(25));
 		text->setAnchorPoint(Vec2(0, 0));
-		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
+		text->setColor(box->getBoxColor());
 		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());
-		text->setPositionY(1.1f*i + G_srodek.x / 15);
+		text->setPositionY(1.1f*i);
 		scoreNode->addChild(text);
 		i += text->getContentSize().height;
 		scoreTable.insert(box, text);
 	}
 	scoreNode->setPosition(Vec2(G_srodek.x / 15, G_srodek.x / 15));
 	this->addChild(scoreNode);
+}
+void SingleGateHud::additionalMulti(int heightY)
+{
+	scoreNode->setPositionY(heightY);
 }
 
 

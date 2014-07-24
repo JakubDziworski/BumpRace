@@ -7,8 +7,6 @@
 #include "SingleElimHUD.h"
 #include "Checkpoint.h"
 USING_NS_CC;
-
-
 cocos2d::Scene* SingleEliminationWorld::createScene(int numberOfPlayers, int aiLevel)
 {
 	auto scene = Scene::create();
@@ -29,7 +27,6 @@ bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
 	hud = NULL;
 	return true;
 }
-
 void SingleEliminationWorld::customWorldUpdate()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
@@ -49,21 +46,17 @@ SingleEliminationWorld* SingleEliminationWorld::create(int numberOfPlayers, int 
 		return NULL;
 	}
 }
-
-
 void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (hud == NULL) hud = ((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
 	if (box == orderedOpponents.at(remainingGates))
 	{
 		orderedOpponents.at(remainingGates+1)->deactivate();
+		hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 		if (orderedOpponents.at(remainingGates+1) == player) 
 			hud->displayGameOver();
 	}
-	hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 }
-	
-
 void SingleEliminationWorld::restartLevel()
 {
 	G_dir()->getScheduler()->setTimeScale(1);

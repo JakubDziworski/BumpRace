@@ -23,5 +23,6 @@ extern cocos2d::Vec2 G_hV(cocos2d::Vec2 inp);
 extern void G_initLanguage();
 extern cocos2d::Dictionary *G_strings;
 extern std::string G_str(const std::string& input);
+extern cocos2d::Color3B G_getRandomColor();
 #endif
 

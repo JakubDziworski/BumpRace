@@ -18,6 +18,7 @@ public:
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	virtual void gameIsOver();
 	virtual void lateinit(World *world);
+	virtual void additionalMulti(int heightY);
 
 };
 #endif

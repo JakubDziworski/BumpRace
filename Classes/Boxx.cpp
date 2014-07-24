@@ -1,11 +1,19 @@
 #include "Boxx.h"
 #include "Globals.h"
 using namespace cocos2d;
-bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
+bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr)
 {
 	if (!Sprite::initWithSpriteFrameName("BOX.png"))
 	{
 		return false;
+	}
+	if (boxColorr == Color3B::BLACK)
+	{
+		this->boxColor = G_getRandomColor();
+	}
+	else
+	{
+		this->boxColor = boxColorr;
 	}
 	//init variables//
 	this->fileName = filename;
@@ -16,6 +24,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 	//create cocos stuff//
 	debugL = Label::create();
 	debugL->setSystemFontSize(35);
+	debugL->setColor(this->boxColor);
 	//physics//
 	auto bounding = this->getContentSize();
 	myBody = cpBodyNew(1.0f,INFINITY);
@@ -49,10 +58,10 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space)
 	additionalDebugInfo();
 	return true;
 };
-Boxx* Boxx::create(const std::string& filename, std::string ID, cpSpace *space)
+Boxx* Boxx::create(const std::string& filename, std::string ID,cpSpace *space, cocos2d::Color3B boxColorr)
 {
 	Boxx *pRet = new Boxx();
-	if (pRet && pRet->myInit(filename,ID,space))
+	if (pRet && pRet->myInit(filename, ID, space, boxColorr))
 	{
 		pRet->autorelease();
 		return pRet;
