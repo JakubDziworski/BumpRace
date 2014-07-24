@@ -8,7 +8,6 @@
 #include "extensions/cocos-ext.h"
 #include "SimpleAudioEngine.h"
 #include "Checkpoint.h"
-#include "CCTexture2D.h"
 #include "Macros.h"
 #include "Hud.h"
 #include "Checkpoint.h"
@@ -80,7 +79,7 @@ void World::createFloor()
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - Director::getInstance()->getWinSize().width) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
-	SpriteBatchNode *node = SpriteBatchNode::create("FLAT.png");
+	SpriteBatchNode *node = SpriteBatchNode::create(R_flat);
 	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
 	node->getTexture()->setTexParameters(&tp);
 	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
@@ -107,7 +106,7 @@ void World::rozmiescCheckpointy()
 void World::createBackground()
 {
 
-	bgImg = Sprite::create("tlo.png");
+	bgImg = Sprite::create(R_tlo);
 	bgImg->setScale(srodek.x * 4 / bgImg->getContentSize().width, srodek.y * 2 / bgImg->getContentSize().height);
 	bgImg->setPosition(srodek.x, srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));
@@ -272,7 +271,7 @@ void World::s_putOnPlayers(Player* playerr)
 	opponentz.pushBack(player);
 	for (int i = 1; i < boxesNumber; i++)
 	{
-		auto aiop = AIOpponent::create("BOX.png", CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
+		auto aiop = AIOpponent::create(R_Box[0], CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}
@@ -420,7 +419,7 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 	}
 	for (int i = 1; i <= boxesNumber-playersNumber; i++)
 	{
-		AIOpponent *opp = AIOpponent::create("Box.png", String::createWithFormat("Opponent%d", i)->getCString(), gravitySpace, aiSmart);
+		AIOpponent *opp = AIOpponent::create(R_Box[0], String::createWithFormat("Opponent%d", i)->getCString(), gravitySpace, aiSmart);
 		opp->addOrderedOpponents(orderedOpponents);
 		opponentz.pushBack(opp);
 	}

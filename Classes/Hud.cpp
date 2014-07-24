@@ -15,13 +15,13 @@ bool Hud::init()
 	isGameOver = false;
 	//PAUSE//
 	pauseNode = Node::create();
-	Button* pauseBtn = Button::create("pauseBtnOn.png", "pauseBtnOf.png");
+	Button* pauseBtn = Button::create(R_pauseBtn[0], R_pauseBtn[1]);
 	pauseBtn->setPosition(Vec2(2 * G_srodek.x - pauseBtn->getContentSize().height*0.75f, 2 * G_srodek.y - pauseBtn->getContentSize().width*0.75f));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_2(Hud::pauseTouchCallback,this));
 	const int margin = G_srodek.y / 20;
-	Button *resume = Button::create("resumeBtnOf.png", "resumeBtnOf.png");
-	Button *repeat = Button::create("repeatBtnOn.png", "repeatBtnOn.png");
-	Button *goToMenu = Button::create("gotoMenuBtnOf.png", "gotoMenuBtnOf.png");
+	Button *resume = Button::create(R_resumebtn, R_resumebtn);
+	Button *repeat = Button::create(R_reapeatBtn, R_reapeatBtn);
+	Button *goToMenu = Button::create(R_gotoMenuBtn, R_gotoMenuBtn);
 	resume->setPositionY(resume->getContentSize().height + margin);
 	goToMenu->setPositionY(-goToMenu->getContentSize().height - margin);
 	resume->addTouchEventListener(CC_CALLBACK_2(Hud::resumeBtnListenerBase, this));
@@ -101,7 +101,7 @@ void Hud::setMultiplayer(World *world)
 	int sizey;
 	for (Player *player : *world->getPlayers())
 	{
-		auto btn = Button::create("multiBtn.png","");
+		auto btn = Button::create(R_multiBtn,"");
 		btn->setScale9Enabled(true);
 		btn->setScaleX(2 * G_srodek.x / btn->getContentSize().width / playerznumber);
 		btn->setAnchorPoint(Vec2(0, 0));

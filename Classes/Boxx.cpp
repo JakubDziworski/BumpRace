@@ -1,9 +1,10 @@
 #include "Boxx.h"
 #include "Globals.h"
+#include "Paths.h"
 using namespace cocos2d;
 bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr)
 {
-	if (!Sprite::initWithSpriteFrameName("BOX.png"))
+	if (!Sprite::initWithSpriteFrameName(filename))
 	{
 		return false;
 	}

@@ -40,40 +40,40 @@ bool MyMenu::init()
 				createLayout(L_M_CHOOSENAMES);
 		createLayout(L_OPTIONS);
 	//*MAIN MENU BUTTNS*//
-	createBtn("btnOn.png", "btnOf.png", "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
-	createBtn("btnOn.png", "btnOf.png", "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
-	createBtn("btnOn.png", "btnOf.png", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
+	createBtn(R_btnOn[0], R_btnOn[1], "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
+	createBtn(R_btnOn[0], R_btnOn[1], "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
+	createBtn(R_btnOn[0], R_btnOn[1], "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
 	//*SINGLE PLAYER BUTTONS*//
 	createLabel(G_str("Single_Player"), L_PLAYSINGLE, LAB_SINGLEPLAYER);
-	createBtn("btnOn.png", "btnOf.png", "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
-	createBtn("btnOn.png", "btnOf.png", "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
+	createBtn(R_btnOn[0], R_btnOn[1], "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
+	createBtn(R_btnOn[0], R_btnOn[1], "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
 	//*CARRER BUTTONS*//
 	//TODO
 	//*FRE RUN BUTTONS*//
 	createLabel(G_str("FreeRun"), L_FREERUN, LAB_FREERUN);
-	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination"),G_str("Endless")}, { "pageGate.png", "pageEndlessRun.png", "PageElimination.png" }, currModeSelected, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
+	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination"),G_str("Endless")}, { R_pageGate, R_pageEndless, R_pageElimination }, currModeSelected, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
 	createSlider(String::createWithFormat("%s:7",G_str("Gates").c_str())->getCString(), currGatesNumb, 24, currGatesNumb, CC_CALLBACK_2(MyMenu::gatesSliderChanged, this), L_FREERUN, B_GATESLIDER, LAB_GATESNUMBER);
 	createSlider(String::createWithFormat("%s:4", G_str("Opponents").c_str())->getCString(), currOpponentsNumber, maxOpponentsNumber - 1, currOpponentsNumber, CC_CALLBACK_2(MyMenu::opponentsSliderChanged, this), L_FREERUN, B_AMOUNTOFOPPONENTSSLIDE, LAB_OPPONENTSNUMBERSLIDER);
 	createSlider(String::createWithFormat("%s:Medium", G_str("Difficulty").c_str())->getCString(), currDiffValue, 2, currDiffValue, CC_CALLBACK_2(MyMenu::difficultySliderChanged, this), L_FREERUN, B_DIFFICULTYSLIDER, LAB_DIFFICULTYLABEL);
-	createBtn("btnOn.png", "btnOf.png", "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
+	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
-	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { "pageGate.png", "pageElimination.png" }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_2(MyMenu::m_ModeChooserPageChanged, this));
+	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { R_pageGate, R_pageElimination }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_2(MyMenu::m_ModeChooserPageChanged, this));
 	createSlider(String::createWithFormat("%s:7", G_str("Gates").c_str())->getCString(), m_currGatesNumb, 24, m_currGatesNumb, CC_CALLBACK_2(MyMenu::m_GatesSliderChanged, this), L_MULTIFREELOCALRUN, B_M_GATESLIDER, LAB_M_GATESLIDER);
 	createSlider(String::createWithFormat("%s:2", G_str("Players").c_str())->getCString(), m_currPlayersNumber, 4, m_currPlayersNumber, CC_CALLBACK_2(MyMenu::m_PlayerSliderChanged, this), L_MULTIFREELOCALRUN, B_M_PLAYERSLIDER, LAB_M_PLAYERSNUMBER);
 	createSlider(String::createWithFormat("%s:1", G_str("Computers").c_str())->getCString(), m_currOpponentsNumber, 4, m_currOpponentsNumber, CC_CALLBACK_2(MyMenu::m_OpponentsSliderChanged, this), L_MULTIFREELOCALRUN, B_M_OPPONENTSSLIDER, LAB_M_OPPONENTSNUMBER);
 	createSlider(String::createWithFormat("%s:Medium", G_str("Difficulty").c_str())->getCString(), m_currDiffValue, 4, m_currDiffValue, CC_CALLBACK_2(MyMenu::m_DifficultySliderChanged, this), L_MULTIFREELOCALRUN, B_M_DIFFICULTYSLIDER, LAB_M_DIFFLABELSLIDER);
-	createBtn("btnOn.png", "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
+	createBtn(R_btnOn[0], "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
-	createBtn("btnOn.png", "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
+	createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
 		createTextEdit("Player1", CC_CALLBACK_2(MyMenu::m_textFieldChanged, this), L_M_CHOOSENAMES, i);
-		createPages("", { "crazy nigga", "mustache faggot", "regular guy" }, { "box.png", "box.png", "box.png" }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
+		createPages("", { "crazy nigga", "mustache faggot", "regular guy" }, { R_Box[0], R_Box[0], R_Box[0] }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
 	}
 	//*GENERAL BUTTONS*//
-	createBtn("btnBackOn.png", "btnBackOf.png","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
+	createBtn(R_btnBack[0], R_btnBack[1],"", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	//*MODIFICATION*//
 	auto backbtn = this->getChildByTag(B_BACK);
 	backbtn->setPosition(2 * srodek.height*0.1f, 2 * srodek.height*0.9f);
@@ -174,9 +174,9 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 void MyMenu::createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag)
 {
 	Slider* slider = Slider::create();
-	slider->loadBarTexture("slider.png");
-	slider->loadSlidBallTextures("sliderDot.png", "sliderDot.png", "");
-	slider->loadProgressBarTexture("sliderActive.png");
+	slider->loadBarTexture(R_slider[0]);
+	slider->loadSlidBallTextures(R_sliderDot, R_sliderDot, "");
+	slider->loadProgressBarTexture(R_slider[1]);
 	slider->setCapInsets(Rect(0, 0, 0, 0));
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
@@ -194,7 +194,7 @@ void MyMenu::preload()
 {
 	G_srodek = Director::getInstance()->getVisibleSize() / 2;
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Res1.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
 }
 void MyMenu::hide(int menutypedef)
 {
@@ -276,21 +276,21 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	{
 		auto scene = SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue);
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		world->setSinglePlayer(Player::create(R_Box[0], "Kuba", world->getGravitySpace()));
 		G_dir()->replaceScene(scene);
 	}
 	else if (currModeSelected == 1)
 	{
 		auto scene = SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue);
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		world->setSinglePlayer(Player::create(R_Box[0], "Kuba", world->getGravitySpace()));
 		G_dir()->replaceScene(scene);
 	}
 	else if (currModeSelected == 2)
 	{
 		auto scene = EndlessWorld::createScene();
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		world->setSinglePlayer(Player::create(R_Box[0], "Kuba", world->getGravitySpace()));
 		G_dir()->replaceScene(scene);
 	}
 }
@@ -435,7 +435,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 		for (int i = 1; i <= m_currPlayersNumber; i++)
 		{
-			players.pushBack(Player::create("Box.png", String::createWithFormat("%s %d",G_str("Player").c_str(), i)->getCString(), world->getGravitySpace()));
+			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace()));
 		}
 		world->setMultiplayer(players);
 		G_dir()->replaceScene(scene);
@@ -444,7 +444,11 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	{
 		auto scene = SingleEliminationWorld::createScene(m_currOpponentsNumber + m_currPlayersNumber, currDiffValue);
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create("Boxx.png", "Kuba", world->getGravitySpace()));
+		for (int i = 1; i <= m_currPlayersNumber; i++)
+		{
+			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace()));
+		}
+		world->setMultiplayer(players);
 		G_dir()->replaceScene(scene);
 	}
 }
