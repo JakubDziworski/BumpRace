@@ -71,7 +71,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\renderer;$(EngineRoot);$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)cocos\scripting;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;$(EngineRoot);..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -138,46 +138,46 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AIOpponent.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Boxx.cpp" />
+    <ClCompile Include="..\Classes\Checkpoint.cpp" />
     <ClCompile Include="..\Classes\EndlessHud.cpp" />
     <ClCompile Include="..\Classes\EndlessWorld.cpp" />
+    <ClCompile Include="..\Classes\Globals.cpp" />
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Hud.cpp" />
     <ClCompile Include="..\Classes\myLayout.cpp" />
+    <ClCompile Include="..\Classes\MyMenu.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\SingleElimHUD.cpp" />
     <ClCompile Include="..\Classes\SingleEliminationWorld.cpp" />
     <ClCompile Include="..\Classes\SingleGateWorld.cpp" />
-    <ClCompile Include="..\Classes\Checkpoint.cpp" />
-    <ClCompile Include="..\Classes\MyMenu.cpp" />
-    <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\SingleHud.cpp" />
-    <ClCompile Include="..\Classes\World.cpp" />
-    <ClCompile Include="..\Classes\Globals.cpp" />
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\U.cpp" />
     <ClCompile Include="..\Classes\VisibleRect.cpp" />
+    <ClCompile Include="..\Classes\World.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AIOpponent.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Boxx.h" />
+    <ClInclude Include="..\Classes\Checkpoint.h" />
     <ClInclude Include="..\Classes\EndlessHud.h" />
     <ClInclude Include="..\Classes\EndlessWorld.h" />
+    <ClInclude Include="..\Classes\Globals.h" />
+    <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\Hud.h" />
-    <ClInclude Include="..\Classes\myLayout.h" />
-    <ClInclude Include="..\Classes\SingleElimHUD.h" />
-    <ClInclude Include="..\Classes\SingleEliminationWorld.h" />
-    <ClInclude Include="..\Classes\SingleGateWorld.h" />
-    <ClInclude Include="..\Classes\Checkpoint.h" />
     <ClInclude Include="..\Classes\Macros.h" />
+    <ClInclude Include="..\Classes\myLayout.h" />
     <ClInclude Include="..\Classes\MyMenu.h" />
     <ClInclude Include="..\Classes\Paths.h" />
     <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\SingleElimHUD.h" />
+    <ClInclude Include="..\Classes\SingleEliminationWorld.h" />
+    <ClInclude Include="..\Classes\SingleGateWorld.h" />
     <ClInclude Include="..\Classes\SingleHud.h" />
-    <ClInclude Include="..\Classes\World.h" />
-    <ClInclude Include="..\Classes\Globals.h" />
-    <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\U.h" />
     <ClInclude Include="..\Classes\VisibleRect.h" />
+    <ClInclude Include="..\Classes\World.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

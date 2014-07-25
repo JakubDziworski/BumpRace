@@ -62,34 +62,6 @@
 		50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629517ECD46A001EB2F8 /* Icon-100.png */; };
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
-		8C1E51481970109B0047F33D /* Checkpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C1E51461970109B0047F33D /* Checkpoint.cpp */; };
-		8C1E51491970109B0047F33D /* Checkpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C1E51461970109B0047F33D /* Checkpoint.cpp */; };
-		8CF13AC51970003500A0D99C /* AIOpponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AB71970003500A0D99C /* AIOpponent.cpp */; };
-		8CF13AC61970003500A0D99C /* AIOpponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AB71970003500A0D99C /* AIOpponent.cpp */; };
-		8CF13AC71970003500A0D99C /* Boxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AB91970003500A0D99C /* Boxx.cpp */; };
-		8CF13AC81970003500A0D99C /* Boxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AB91970003500A0D99C /* Boxx.cpp */; };
-		8CF13AC91970003500A0D99C /* CarrerWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13ABB1970003500A0D99C /* CarrerWorld.cpp */; };
-		8CF13ACA1970003500A0D99C /* CarrerWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13ABB1970003500A0D99C /* CarrerWorld.cpp */; };
-		8CF13ACB1970003500A0D99C /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13ABD1970003500A0D99C /* Globals.cpp */; };
-		8CF13ACC1970003500A0D99C /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13ABD1970003500A0D99C /* Globals.cpp */; };
-		8CF13ACD1970003500A0D99C /* U.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13ABF1970003500A0D99C /* U.cpp */; };
-		8CF13ACE1970003500A0D99C /* U.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13ABF1970003500A0D99C /* U.cpp */; };
-		8CF13ACF1970003500A0D99C /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AC11970003500A0D99C /* VisibleRect.cpp */; };
-		8CF13AD01970003500A0D99C /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AC11970003500A0D99C /* VisibleRect.cpp */; };
-		8CF13AD11970003500A0D99C /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AC31970003500A0D99C /* World.cpp */; };
-		8CF13AD21970003500A0D99C /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF13AC31970003500A0D99C /* World.cpp */; };
-		8CF13ADD197000D200A0D99C /* BOX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD5197000D200A0D99C /* BOX.png */; };
-		8CF13ADE197000D200A0D99C /* BOX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD5197000D200A0D99C /* BOX.png */; };
-		8CF13ADF197000D200A0D99C /* FLAT.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD6197000D200A0D99C /* FLAT.png */; };
-		8CF13AE0197000D200A0D99C /* FLAT.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD6197000D200A0D99C /* FLAT.png */; };
-		8CF13AE1197000D200A0D99C /* Marker Felt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD8197000D200A0D99C /* Marker Felt.ttf */; };
-		8CF13AE2197000D200A0D99C /* Marker Felt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD8197000D200A0D99C /* Marker Felt.ttf */; };
-		8CF13AE3197000D200A0D99C /* Res1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD9197000D200A0D99C /* Res1.plist */; };
-		8CF13AE4197000D200A0D99C /* Res1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13AD9197000D200A0D99C /* Res1.plist */; };
-		8CF13AE5197000D200A0D99C /* Res1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13ADA197000D200A0D99C /* Res1.png */; };
-		8CF13AE6197000D200A0D99C /* Res1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13ADA197000D200A0D99C /* Res1.png */; };
-		8CF13AE7197000D200A0D99C /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13ADB197000D200A0D99C /* Res1.tps */; };
-		8CF13AE8197000D200A0D99C /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8CF13ADB197000D200A0D99C /* Res1.tps */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -135,6 +107,20 @@
 			remoteGlobalIDString = A03F2ED617814268006731B9;
 			remoteInfo = "CocosDenshion Mac";
 		};
+		1AC6FB02180E9839004C840B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A03F31FD1781479B006731B9;
+			remoteInfo = "jsbindings Mac";
+		};
+		1AC6FB04180E9839004C840B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1A6FB53017854BC300CDF010;
+			remoteInfo = "luabindings Mac";
+		};
 		1AC6FB06180E9839004C840B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
@@ -169,6 +155,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = A07A4FB4178387730073F6A7;
 			remoteInfo = "CocosDenshion iOS";
+		};
+		1AC6FB10180E9839004C840B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A07A5030178387750073F6A7;
+			remoteInfo = "jsbindings iOS";
+		};
+		1AC6FB12180E9839004C840B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1A119791178526AA00D62A44;
+			remoteInfo = "luabindings iOS";
 		};
 		1AC6FB15180E9959004C840B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -253,7 +253,7 @@
 		1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* BumpRaceAndro iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BumpRaceAndro iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* BumpRace iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BumpRace iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 		503AE10417EB98FF00D1A890 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = mac/Prefix.pch; sourceTree = "<group>"; };
 		503AE11117EB99EE00D1A890 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		503AE11A17EB9C5A00D1A890 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		5087E76F17EB910900C73F5D /* BumpRaceAndro Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BumpRaceAndro Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5087E76F17EB910900C73F5D /* BumpRace Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BumpRace Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5087E77217EB970100C73F5D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5087E77317EB970100C73F5D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5087E77417EB970100C73F5D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -288,28 +288,6 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
-		8C1E51461970109B0047F33D /* Checkpoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Checkpoint.cpp; path = ../Classes/Checkpoint.cpp; sourceTree = "<group>"; };
-		8C1E51471970109B0047F33D /* Checkpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkpoint.h; path = ../Classes/Checkpoint.h; sourceTree = "<group>"; };
-		8CF13AB71970003500A0D99C /* AIOpponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOpponent.cpp; path = ../Classes/AIOpponent.cpp; sourceTree = "<group>"; };
-		8CF13AB81970003500A0D99C /* AIOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOpponent.h; path = ../Classes/AIOpponent.h; sourceTree = "<group>"; };
-		8CF13AB91970003500A0D99C /* Boxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Boxx.cpp; path = ../Classes/Boxx.cpp; sourceTree = "<group>"; };
-		8CF13ABA1970003500A0D99C /* Boxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Boxx.h; path = ../Classes/Boxx.h; sourceTree = "<group>"; };
-		8CF13ABB1970003500A0D99C /* CarrerWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CarrerWorld.cpp; path = ../Classes/CarrerWorld.cpp; sourceTree = "<group>"; };
-		8CF13ABC1970003500A0D99C /* CarrerWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarrerWorld.h; path = ../Classes/CarrerWorld.h; sourceTree = "<group>"; };
-		8CF13ABD1970003500A0D99C /* Globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Globals.cpp; path = ../Classes/Globals.cpp; sourceTree = "<group>"; };
-		8CF13ABE1970003500A0D99C /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globals.h; path = ../Classes/Globals.h; sourceTree = "<group>"; };
-		8CF13ABF1970003500A0D99C /* U.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = U.cpp; path = ../Classes/U.cpp; sourceTree = "<group>"; };
-		8CF13AC01970003500A0D99C /* U.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = U.h; path = ../Classes/U.h; sourceTree = "<group>"; };
-		8CF13AC11970003500A0D99C /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
-		8CF13AC21970003500A0D99C /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
-		8CF13AC31970003500A0D99C /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = World.cpp; path = ../Classes/World.cpp; sourceTree = "<group>"; };
-		8CF13AC41970003500A0D99C /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = World.h; path = ../Classes/World.h; sourceTree = "<group>"; };
-		8CF13AD5197000D200A0D99C /* BOX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BOX.png; sourceTree = "<group>"; };
-		8CF13AD6197000D200A0D99C /* FLAT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FLAT.png; sourceTree = "<group>"; };
-		8CF13AD8197000D200A0D99C /* Marker Felt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Marker Felt.ttf"; sourceTree = "<group>"; };
-		8CF13AD9197000D200A0D99C /* Res1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Res1.plist; sourceTree = "<group>"; };
-		8CF13ADA197000D200A0D99C /* Res1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Res1.png; sourceTree = "<group>"; };
-		8CF13ADB197000D200A0D99C /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -386,26 +364,10 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8CF13AB71970003500A0D99C /* AIOpponent.cpp */,
-				8CF13AB81970003500A0D99C /* AIOpponent.h */,
-				8CF13AB91970003500A0D99C /* Boxx.cpp */,
-				8CF13ABA1970003500A0D99C /* Boxx.h */,
-				8CF13ABB1970003500A0D99C /* CarrerWorld.cpp */,
-				8CF13ABC1970003500A0D99C /* CarrerWorld.h */,
-				8CF13ABD1970003500A0D99C /* Globals.cpp */,
-				8CF13ABE1970003500A0D99C /* Globals.h */,
-				8CF13ABF1970003500A0D99C /* U.cpp */,
-				8CF13AC01970003500A0D99C /* U.h */,
-				8CF13AC11970003500A0D99C /* VisibleRect.cpp */,
-				8CF13AC21970003500A0D99C /* VisibleRect.h */,
-				8CF13AC31970003500A0D99C /* World.cpp */,
-				8CF13AC41970003500A0D99C /* World.h */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
-				8C1E51461970109B0047F33D /* Checkpoint.cpp */,
-				8C1E51471970109B0047F33D /* Checkpoint.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -414,8 +376,8 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* BumpRaceAndro iOS.app */,
-				5087E76F17EB910900C73F5D /* BumpRaceAndro Mac.app */,
+				1D6058910D05DD3D006BFB54 /* BumpRace iOS.app */,
+				5087E76F17EB910900C73F5D /* BumpRace Mac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -428,11 +390,15 @@
 				1AC6FAFD180E9839004C840B /* libchipmunk Mac.a */,
 				1AC6FAFF180E9839004C840B /* libbox2d Mac.a */,
 				1AC6FB01180E9839004C840B /* libCocosDenshion Mac.a */,
+				1AC6FB03180E9839004C840B /* libjsbindings Mac.a */,
+				1AC6FB05180E9839004C840B /* libluabindings Mac.a */,
 				1AC6FB07180E9839004C840B /* libcocos2dx iOS.a */,
 				1AC6FB09180E9839004C840B /* libcocos2dx-extensions iOS.a */,
 				1AC6FB0B180E9839004C840B /* libchipmunk iOS.a */,
 				1AC6FB0D180E9839004C840B /* libbox2d iOS.a */,
 				1AC6FB0F180E9839004C840B /* libCocosDenshion iOS.a */,
+				1AC6FB11180E9839004C840B /* libjsbindings iOS.a */,
+				1AC6FB13180E9839004C840B /* libluabindings iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -521,13 +487,6 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8CF13AD5197000D200A0D99C /* BOX.png */,
-				8CF13AD6197000D200A0D99C /* FLAT.png */,
-				8CF13AD7197000D200A0D99C /* fonts */,
-				8CF13AD9197000D200A0D99C /* Res1.plist */,
-				8CF13ADA197000D200A0D99C /* Res1.png */,
-				8CF13ADB197000D200A0D99C /* Res1.tps */,
-				8CF13ADC197000D200A0D99C /* scripts */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 				1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */,
@@ -536,27 +495,12 @@
 			path = ../Resources;
 			sourceTree = "<group>";
 		};
-		8CF13AD7197000D200A0D99C /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				8CF13AD8197000D200A0D99C /* Marker Felt.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
-		8CF13ADC197000D200A0D99C /* scripts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = scripts;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* BumpRaceAndro iOS */ = {
+		1D6058900D05DD3D006BFB54 /* BumpRace iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "BumpRaceAndro iOS" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "BumpRace iOS" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -571,14 +515,14 @@
 				1AC6FB2B180E99E1004C840B /* PBXTargetDependency */,
 				1AC6FB2D180E99E1004C840B /* PBXTargetDependency */,
 			);
-			name = "BumpRaceAndro iOS";
+			name = "BumpRace iOS";
 			productName = iphone;
-			productReference = 1D6058910D05DD3D006BFB54 /* BumpRaceAndro iOS.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* BumpRace iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5087E73D17EB910900C73F5D /* BumpRaceAndro Mac */ = {
+		5087E73D17EB910900C73F5D /* BumpRace Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5087E76C17EB910900C73F5D /* Build configuration list for PBXNativeTarget "BumpRaceAndro Mac" */;
+			buildConfigurationList = 5087E76C17EB910900C73F5D /* Build configuration list for PBXNativeTarget "BumpRace Mac" */;
 			buildPhases = (
 				5087E74817EB910900C73F5D /* Resources */,
 				5087E75617EB910900C73F5D /* Sources */,
@@ -593,9 +537,9 @@
 				1AC6FB1A180E9959004C840B /* PBXTargetDependency */,
 				1AC6FB1C180E9959004C840B /* PBXTargetDependency */,
 			);
-			name = "BumpRaceAndro Mac";
+			name = "BumpRace Mac";
 			productName = iphone;
-			productReference = 5087E76F17EB910900C73F5D /* BumpRaceAndro Mac.app */;
+			productReference = 5087E76F17EB910900C73F5D /* BumpRace Mac.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -611,7 +555,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BumpRaceAndro" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BumpRace" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -631,8 +575,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* BumpRaceAndro iOS */,
-				5087E73D17EB910900C73F5D /* BumpRaceAndro Mac */,
+				1D6058900D05DD3D006BFB54 /* BumpRace iOS */,
+				5087E73D17EB910900C73F5D /* BumpRace Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -673,6 +617,20 @@
 			remoteRef = 1AC6FB00180E9839004C840B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1AC6FB03180E9839004C840B /* libjsbindings Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjsbindings Mac.a";
+			remoteRef = 1AC6FB02180E9839004C840B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1AC6FB05180E9839004C840B /* libluabindings Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libluabindings Mac.a";
+			remoteRef = 1AC6FB04180E9839004C840B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1AC6FB07180E9839004C840B /* libcocos2dx iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -708,6 +666,20 @@
 			remoteRef = 1AC6FB0E180E9839004C840B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1AC6FB11180E9839004C840B /* libjsbindings iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjsbindings iOS.a";
+			remoteRef = 1AC6FB10180E9839004C840B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1AC6FB13180E9839004C840B /* libluabindings iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libluabindings iOS.a";
+			remoteRef = 1AC6FB12180E9839004C840B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -716,28 +688,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
-				8CF13AE7197000D200A0D99C /* Res1.tps in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
-				8CF13AE5197000D200A0D99C /* Res1.png in Resources */,
-				8CF13AE3197000D200A0D99C /* Res1.plist in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				8CF13AE1197000D200A0D99C /* Marker Felt.ttf in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
-				8CF13ADD197000D200A0D99C /* BOX.png in Resources */,
 				1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
-				8CF13ADF197000D200A0D99C /* FLAT.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
@@ -747,16 +713,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CF13AE6197000D200A0D99C /* Res1.png in Resources */,
-				8CF13AE0197000D200A0D99C /* FLAT.png in Resources */,
 				5087E75317EB910900C73F5D /* CloseNormal.png in Resources */,
-				8CF13AE2197000D200A0D99C /* Marker Felt.ttf in Resources */,
-				8CF13ADE197000D200A0D99C /* BOX.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
-				8CF13AE8197000D200A0D99C /* Res1.tps in Resources */,
 				5087E75417EB910900C73F5D /* CloseSelected.png in Resources */,
 				5087E75517EB910900C73F5D /* HelloWorld.png in Resources */,
-				8CF13AE4197000D200A0D99C /* Res1.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,19 +727,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CF13AC71970003500A0D99C /* Boxx.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
-				8C1E51481970109B0047F33D /* Checkpoint.cpp in Sources */,
-				8CF13AD11970003500A0D99C /* World.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
-				8CF13AC51970003500A0D99C /* AIOpponent.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				8CF13ACD1970003500A0D99C /* U.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
-				8CF13ACB1970003500A0D99C /* Globals.cpp in Sources */,
-				8CF13ACF1970003500A0D99C /* VisibleRect.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
-				8CF13AC91970003500A0D99C /* CarrerWorld.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,17 +739,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CF13AC61970003500A0D99C /* AIOpponent.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
-				8CF13AD01970003500A0D99C /* VisibleRect.cpp in Sources */,
-				8C1E51491970109B0047F33D /* Checkpoint.cpp in Sources */,
 				5087E75817EB910900C73F5D /* HelloWorldScene.cpp in Sources */,
-				8CF13ACE1970003500A0D99C /* U.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				8CF13AD21970003500A0D99C /* World.cpp in Sources */,
-				8CF13ACC1970003500A0D99C /* Globals.cpp in Sources */,
-				8CF13AC81970003500A0D99C /* Boxx.cpp in Sources */,
-				8CF13ACA1970003500A0D99C /* CarrerWorld.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -861,7 +805,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = fakeappdevacc;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -892,7 +836,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = fakeappdevacc;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -978,7 +922,6 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = fakeappdevacc;
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -998,8 +941,8 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CODE_SIGN_FLAGS = "-gta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1010,7 +953,6 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = fakeappdevacc;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1028,8 +970,8 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_CODE_SIGN_FLAGS = "-gta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
@@ -1039,7 +981,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "BumpRaceAndro iOS" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "BumpRace iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -1048,7 +990,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		5087E76C17EB910900C73F5D /* Build configuration list for PBXNativeTarget "BumpRaceAndro Mac" */ = {
+		5087E76C17EB910900C73F5D /* Build configuration list for PBXNativeTarget "BumpRace Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5087E76D17EB910900C73F5D /* Debug */,
@@ -1057,7 +999,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BumpRaceAndro" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "BumpRace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
