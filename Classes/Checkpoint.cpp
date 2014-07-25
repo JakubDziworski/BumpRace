@@ -8,6 +8,8 @@
 
 #include "Checkpoint.h"
 #include "Player.h"
+#include "Paths.h"
+#include "Globals.h"
 using namespace cocos2d;
 Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName)
 {
@@ -65,15 +67,19 @@ void Chcekpoint::tick(float dt)
 	//sprawdzenie czy ktos przekroczyl
 	if (aktualny->getBoundingBox().getMaxX() > this->getPositionX())
 	{
-		if (aktualny == sprawdzany && sprawdzajPierwszych) pierwszyZlapal = true;
+		if (aktualny == sprawdzany && sprawdzajPierwszych)
+		{
+			triggerFirstVisualEffects(aktualny);
+			pierwszyZlapal = true;
+		}
 		else if (actualpos == sprawdzany->getRacePos()-2) 
 			pierwszyZlapal = true;
 		world->checkpointReachedBase(aktualny,actualpos+1);
 		actualpos++;
 	}
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
-	//if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
-	//else					 checkIfCloseToLast(sprawdzany);
+	if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
+	else					 checkIfCloseToLast(sprawdzany);
 }
 
 void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
@@ -176,4 +182,17 @@ void Chcekpoint::zwolnij(float dt)
 			timee += 10 * dt;
 		return;
 	}
+}
+
+void Chcekpoint::triggerFirstVisualEffects(Boxx *box)
+{
+	auto particleSystem = ParticleSystemQuad::create(R_checkpointParticle);
+	particleSystem->setStartSize(G_wF(15));
+	particleSystem->setEndSize(G_wF(15));
+	particleSystem->setSpeed(G_wF(500));
+	particleSystem->setSpeedVar(G_wF(500));
+	particleSystem->setPosVar(Vec2(G_wF(35), G_hF(35)));
+	particleSystem->setPosition(Vec2(box->getBoundingBox().getMaxX(),box->getPositionY()));
+	//particleSystem->setPosVar(Vec2(G_wF(25), box->getContentSize().height));
+	this->getParent()->addChild(particleSystem);
 }

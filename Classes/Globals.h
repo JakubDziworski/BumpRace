@@ -24,5 +24,6 @@ extern void G_initLanguage();
 extern cocos2d::Dictionary *G_strings;
 extern std::string G_str(const std::string& input);
 extern cocos2d::Color3B G_getRandomColor();
+extern const cocos2d::Color3B G_colors[6];
 #endif
 

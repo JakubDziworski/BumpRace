@@ -50,9 +50,9 @@ bool World::myInit(int numberOfPlayers,int gates)
 	gravitySpace = cpSpaceNew();
 	gravitySpace->gravity = cpv(0, -2000);
 	//****************//
-	auto _debugLayer = extension::PhysicsDebugNode::create(gravitySpace);
-	rotationLayer->addChild(_debugLayer, 100);
-	_debugLayer->setVisible(true);
+	//auto _debugLayer = extension::PhysicsDebugNode::create(gravitySpace);
+	//rotationLayer->addChild(_debugLayer, 100);
+	//_debugLayer->setVisible(true);
 	//****************//
 	createBackground();
 	createFloor();
@@ -419,7 +419,8 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 	}
 	for (int i = 1; i <= boxesNumber-playersNumber; i++)
 	{
-		AIOpponent *opp = AIOpponent::create(R_Box[0], String::createWithFormat("Opponent%d", i)->getCString(), gravitySpace, aiSmart);
+
+		AIOpponent *opp = AIOpponent::create(R_Box[0], String::createWithFormat("Opponent%d", i)->getCString(), gravitySpace, aiSmart,G_colors[i-1+playersNumber]);
 		opp->addOrderedOpponents(orderedOpponents);
 		opponentz.pushBack(opp);
 	}
@@ -470,13 +471,13 @@ void World::replaceSceneGenereal(Scene *scene,World *world)
 		Vector<Player*> plyrz;
 		for (auto plyr : players)
 		{
-			plyrz.pushBack(Player::create(plyr->getFileName(), plyr->getID(), world->getGravitySpace()));
+			plyrz.pushBack(Player::create(plyr->getFileName(), plyr->getID(), world->getGravitySpace(),plyr->getBoxColor()));
 		}
 		world->setMultiplayer(plyrz);
 	}
 	else
 	{
-		world->setSinglePlayer(Player::create(player->getFileName(), player->getID(), world->getGravitySpace()));
+		world->setSinglePlayer(Player::create(player->getFileName(), player->getID(), world->getGravitySpace(),player->getBoxColor()));
 	}
 	G_dir()->replaceScene(scene);
 }

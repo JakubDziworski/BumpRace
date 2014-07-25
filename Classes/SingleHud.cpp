@@ -15,7 +15,6 @@ bool SingleGateHud::init()
 	//GAME OVER VIEW//
 	return true;
 }
-
 void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 {
 	orderedBoxes = orderedByPointsBoxes;
@@ -28,7 +27,6 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 		scoreNode->addWidget(text);
 	}
 }
-
 void SingleGateHud::gameIsOver()
 {
 	//general disabling

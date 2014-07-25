@@ -25,6 +25,7 @@ public:
 	void tick(float dt);
 	static Chcekpoint *create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName);
 	bool init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string imagefileName);
+	void triggerFirstVisualEffects(Boxx *box);
 };
 
 #endif /* defined(__BumpRaceAndro__Checkpoint__) */

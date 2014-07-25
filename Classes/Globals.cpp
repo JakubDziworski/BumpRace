@@ -14,6 +14,7 @@ int G_maxVelocity = 1000;
 const int G_maxVelConstant = 500;
 const int G_maxVelAddition = 2000;
 cocos2d::Dictionary *G_strings;
+const cocos2d::Color3B G_colors[6] = { cocos2d::Color3B(0, 0, 200), cocos2d::Color3B(225, 0, 15), cocos2d::Color3B(0, 255, 35), cocos2d::Color3B(238, 0, 200), cocos2d::Color3B(255, 255, 0), cocos2d::Color3B(0, 255, 255) };
 void G_setCurrAngle(float angle)
 {
 	G_Currangle = angle;
@@ -65,7 +66,6 @@ std::string G_str(const std::string& input)
 	std::string str = G_strings->valueForKey(input)->getCString();
 	return str;
 }
-
 cocos2d::Color3B G_getRandomColor()
 {
 	int tab[3];

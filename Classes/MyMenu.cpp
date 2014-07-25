@@ -127,7 +127,7 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	magrinparam->setGravity(LinearGravity::CENTER_VERTICAL);
 	LinearLayoutParameter *param = LinearLayoutParameter::create();
 	param->setGravity(LinearGravity::CENTER_HORIZONTAL);
-	param->setMargin(Margin(0, G_hF(20), 0, 0));
+	//param->setMargin(Margin(0, G_hF(20), 0, 0));
 	valueText->setLayoutParameter(magrinparam);
 	verLayout->setLayoutParameter(param);
 	horLayout->addWidget(minusBtn);
@@ -441,7 +441,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 		for (int i = 1; i <= m_currPlayersNumber; i++)
 		{
-			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace()));
+			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace(),G_colors[i-1]));
 		}
 		world->setMultiplayer(players);
 		G_dir()->replaceScene(scene);
@@ -452,7 +452,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 		for (int i = 1; i <= m_currPlayersNumber; i++)
 		{
-			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace()));
+			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace(), G_colors[i - 1]));
 		}
 		world->setMultiplayer(players);
 		G_dir()->replaceScene(scene);
