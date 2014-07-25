@@ -68,6 +68,7 @@ void SingleElimHud::lateinit(World *worldd)
 	for (Boxx *box : *world->getBoxes())
 	{
 		Text* text = Text::create("", R_defaultFont, G_wF(25));
+		text->enableShadow();
 		text->setAnchorPoint(Vec2(0, 0));
 		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
 		text->setString(box->getID());

@@ -53,16 +53,16 @@ bool MyMenu::init()
 	//*FRE RUN BUTTONS*//
 	createLabel(G_str("FreeRun"), L_FREERUN, LAB_FREERUN);
 	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination"),G_str("Endless")}, { R_pageGate, R_pageEndless, R_pageElimination }, currModeSelected, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
-	createSpinner("7", G_str("Gates"), currGatesNumb, 24, 3,B_GATESLIDER, L_FREERUN);
-	createSpinner("4", G_str("Opponents"), currOpponentsNumber, maxOpponentsNumber, 1, B_OPPONENTSSLIDE, L_FREERUN);
+	createSpinner(std::to_string(currGatesNumb), G_str("Gates"), currGatesNumb, 24, 3,B_GATESLIDER, L_FREERUN);
+	createSpinner(std::to_string(currOpponentsNumber), G_str("Opponents"), currOpponentsNumber, maxOpponentsNumber, 1, B_OPPONENTSSLIDE, L_FREERUN);
 	createSpinner("Medium", G_str("Difficulty"), currDiffValue, 2, 0, B_DIFFICULTYSLIDER,L_FREERUN, CC_CALLBACK_1(MyMenu::difficultySpinnerChanged, this));
 	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
 	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { R_pageGate, R_pageElimination }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_2(MyMenu::m_ModeChooserPageChanged, this));
-	createSpinner("7", G_str("Gates"), m_currGatesNumb, 24, 3, B_M_GATESLIDER,L_MULTIFREELOCALRUN);
-	createSpinner("2", G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
-	createSpinner("1", G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
+	createSpinner(std::to_string(m_currGatesNumb), G_str("Gates"), m_currGatesNumb, 24, 3, B_M_GATESLIDER, L_MULTIFREELOCALRUN);
+	createSpinner(std::to_string(m_currPlayersNumber), G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
+	createSpinner(std::to_string(m_currOpponentsNumber), G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
 	createSpinner("Medium", G_str("Difficulty"), m_currDiffValue, 2, 0,B_M_DIFFICULTYSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
 	createBtn(R_btnOn[0], "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//

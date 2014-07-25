@@ -52,6 +52,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	cpSpaceAddShape(space, shape);
 	//tweaks and adchild//
 	debugL->setPosition(bounding.width / 2.0f, bounding.height*1.5f);
+	debugL->enableShadow();
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);

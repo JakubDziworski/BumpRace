@@ -10,7 +10,7 @@ private:
 	World* world;
 	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
-	cocos2d::ui::Layout *scoreNode;
+	myLayout *scoreNode;
 	myLayout *gmOverNode;
 public:
 	virtual bool init();

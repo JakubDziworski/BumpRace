@@ -125,3 +125,8 @@ void myLayout::enableWidgets()
 	this->setColor(Color3B::WHITE);
 	this->setEnabled(true);
 }
+
+void myLayout::removeAllWidgets()
+{
+	child->removeAllChildren();
+}
