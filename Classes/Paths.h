@@ -19,6 +19,8 @@ const std::string R_reapeatBtn = { "repeatBtnOn.png" };
 const std::string R_res1 = "Res1.plist";
 const std::string R_resumebtn = "resumeBtnOf.png";
 const std::string R_slider[2] = { "slider.png", "sliderActive.png" };
-const std::string R_sliderDot = R_sliderDot;
+const std::string R_sliderDot = "sliderDot.png";
+const std::string R_minusBtn = "minusBtn.png";
+const std::string R_plusBtn = "plusBtn.png";
 
 #endif // __PATHS__H__

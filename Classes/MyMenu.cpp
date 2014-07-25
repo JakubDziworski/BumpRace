@@ -8,6 +8,7 @@
 #include "EndlessWorld.h"
 #include "Hud.h"
 #include "AIOpponent.h"
+#include "myLayout.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -52,17 +53,17 @@ bool MyMenu::init()
 	//*FRE RUN BUTTONS*//
 	createLabel(G_str("FreeRun"), L_FREERUN, LAB_FREERUN);
 	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination"),G_str("Endless")}, { R_pageGate, R_pageEndless, R_pageElimination }, currModeSelected, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_2(MyMenu::modeChooserPageChanged, this));
-	createSlider(String::createWithFormat("%s:7",G_str("Gates").c_str())->getCString(), currGatesNumb, 24, currGatesNumb, CC_CALLBACK_2(MyMenu::gatesSliderChanged, this), L_FREERUN, B_GATESLIDER, LAB_GATESNUMBER);
-	createSlider(String::createWithFormat("%s:4", G_str("Opponents").c_str())->getCString(), currOpponentsNumber, maxOpponentsNumber - 1, currOpponentsNumber, CC_CALLBACK_2(MyMenu::opponentsSliderChanged, this), L_FREERUN, B_AMOUNTOFOPPONENTSSLIDE, LAB_OPPONENTSNUMBERSLIDER);
-	createSlider(String::createWithFormat("%s:Medium", G_str("Difficulty").c_str())->getCString(), currDiffValue, 2, currDiffValue, CC_CALLBACK_2(MyMenu::difficultySliderChanged, this), L_FREERUN, B_DIFFICULTYSLIDER, LAB_DIFFICULTYLABEL);
+	createSpinner("7", G_str("Gates"), currGatesNumb, 24, 3,B_GATESLIDER, L_FREERUN);
+	createSpinner("4", G_str("Opponents"), currOpponentsNumber, maxOpponentsNumber, 1, B_OPPONENTSSLIDE, L_FREERUN);
+	createSpinner("Medium", G_str("Difficulty"), currDiffValue, 2, 0, B_DIFFICULTYSLIDER,L_FREERUN, CC_CALLBACK_1(MyMenu::difficultySpinnerChanged, this));
 	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
 	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { R_pageGate, R_pageElimination }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_2(MyMenu::m_ModeChooserPageChanged, this));
-	createSlider(String::createWithFormat("%s:7", G_str("Gates").c_str())->getCString(), m_currGatesNumb, 24, m_currGatesNumb, CC_CALLBACK_2(MyMenu::m_GatesSliderChanged, this), L_MULTIFREELOCALRUN, B_M_GATESLIDER, LAB_M_GATESLIDER);
-	createSlider(String::createWithFormat("%s:2", G_str("Players").c_str())->getCString(), m_currPlayersNumber, 4, m_currPlayersNumber, CC_CALLBACK_2(MyMenu::m_PlayerSliderChanged, this), L_MULTIFREELOCALRUN, B_M_PLAYERSLIDER, LAB_M_PLAYERSNUMBER);
-	createSlider(String::createWithFormat("%s:1", G_str("Computers").c_str())->getCString(), m_currOpponentsNumber, 4, m_currOpponentsNumber, CC_CALLBACK_2(MyMenu::m_OpponentsSliderChanged, this), L_MULTIFREELOCALRUN, B_M_OPPONENTSSLIDER, LAB_M_OPPONENTSNUMBER);
-	createSlider(String::createWithFormat("%s:Medium", G_str("Difficulty").c_str())->getCString(), m_currDiffValue, 4, m_currDiffValue, CC_CALLBACK_2(MyMenu::m_DifficultySliderChanged, this), L_MULTIFREELOCALRUN, B_M_DIFFICULTYSLIDER, LAB_M_DIFFLABELSLIDER);
+	createSpinner("7", G_str("Gates"), m_currGatesNumb, 24, 3, B_M_GATESLIDER,L_MULTIFREELOCALRUN);
+	createSpinner("2", G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
+	createSpinner("1", G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
+	createSpinner("Medium", G_str("Difficulty"), m_currDiffValue, 2, 0,B_M_DIFFICULTYSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
 	createBtn(R_btnOn[0], "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
@@ -91,6 +92,51 @@ cocos2d::Scene* MyMenu::createScene()
 	return scena;
 }
 //**CREATING**//
+void MyMenu::createSpinner(const std::string &defaultText, const std::string &labelText,int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction)
+{
+	myLayout *verLayout = myLayout::create();
+	verLayout->setType(0);
+	myLayout *horLayout = myLayout::create();
+	horLayout->setType(1);
+	Text *titleText = Text::create(labelText, R_defaultFont, G_wF(25));
+	Text *valueText = Text::create(defaultText, R_defaultFont, G_wF(25));
+	Button *minusBtn = Button::create(R_minusBtn);
+	Button *plusbtn = Button::create(R_plusBtn);
+	minusBtn->addTouchEventListener([&changinVal, minVal, valueText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
+		if (type != Widget::TouchEventType::ENDED) return;
+		if (changinVal-1 >= minVal)
+		{
+			changinVal = changinVal - 1;
+			valueText->setString(String::createWithFormat("%d",changinVal)->getCString());
+			if (additionalFunction != nullptr)
+				additionalFunction(valueText);
+		}
+	});
+	plusbtn->addTouchEventListener([&changinVal, maxVal, valueText ,additionalFunction](Ref* pSender, Widget::TouchEventType type) {
+		if (type != Widget::TouchEventType::ENDED) return;
+		if (changinVal + 1 <= maxVal)
+		{
+			changinVal = changinVal + 1;
+			valueText->setString(String::createWithFormat("%d", changinVal)->getCString());
+			if (additionalFunction != nullptr)
+				additionalFunction(valueText);
+		}
+	});
+	LinearLayoutParameter *magrinparam = LinearLayoutParameter::create();
+	magrinparam->setMargin(Margin(G_wF(15), 0, G_wF(15), 0));
+	magrinparam->setGravity(LinearGravity::CENTER_VERTICAL);
+	LinearLayoutParameter *param = LinearLayoutParameter::create();
+	param->setGravity(LinearGravity::CENTER_HORIZONTAL);
+	param->setMargin(Margin(0, G_hF(20), 0, 0));
+	valueText->setLayoutParameter(magrinparam);
+	verLayout->setLayoutParameter(param);
+	horLayout->addWidget(minusBtn);
+	horLayout->addWidgetCustomParam(valueText);
+	horLayout->addWidget(plusbtn);
+	verLayout->addWidget(titleText);
+	verLayout->addWidget(horLayout);
+	this->getChildByTag(parenttag)->addChild(verLayout,0,tag);
+}
 void MyMenu::createTextEdit(const std::string &text,TextField::ccTextFieldCallback callback,int parenttag, int tag)
 {
 	auto textField = TextField::create();
@@ -236,6 +282,14 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 		hide(B_BACK);
 		hide(L_MULTIFREELOCALRUN);
 		break;
+	case L_M_CHOOSENAMES:
+		show(L_MULTIFREELOCALRUN);
+		hide(L_M_CHOOSENAMES);
+		break;
+	case L_MULTIFREELOCALRUN:
+		show(L_MAINMENU);
+		hide(L_MULTIFREELOCALRUN);
+		break;
 	default:
 		break;
 	}
@@ -294,107 +348,52 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 		G_dir()->replaceScene(scene);
 	}
 }
-void MyMenu::opponentsSliderChanged(cocos2d::Ref* stg, Slider::EventType evnt)
-{
-	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_AMOUNTOFOPPONENTSSLIDE));
-	Text* lbl = ((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_OPPONENTSNUMBERSLIDER));
-	//
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*(maxOpponentsNumber-1) / 100.0f);
-	slid->setPercent(nearest / (maxOpponentsNumber-1) * 100);
-	lbl->setString(String::createWithFormat("%s:%d",G_str("Opponents").c_str(), nearest+1)->getCString());
-	currOpponentsNumber = nearest+1;
-}
-void MyMenu::difficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type)
-{
-	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER));
-	Text* lbl = ((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_DIFFICULTYLABEL));
-	
-	const float maxdiffLevel = 2;
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*maxdiffLevel / 100.0f);
-	slid->setPercent(nearest/maxdiffLevel*100);
-	std::string poziom = "";
-	if (nearest == 0) poziom = "Easy";
-	else if (nearest == 1) poziom = "Medium";
-	else if (nearest == 2) poziom = "Hard";
-	lbl->setString(String::createWithFormat("%s:%s",G_str("Difficulty").c_str(), poziom.c_str())->getCString());
-	currDiffValue = nearest;
-}
 void MyMenu::modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 {
 	PageView *pages = ((PageView*)this->getChildByTag(L_FREERUN)->getChildByTag(PG_CHOOSEMODE));
 	currModeSelected = pages->getCurPageIndex();
+	
+	if (currModeSelected == 0)
+	{
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->enableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->enableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
+	}
+	else if (currModeSelected == 1)
+	{
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->disableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->enableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
+	}
+	else
+	{
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->disableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->disableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->disableWidgets();
+	}
 }
-void MyMenu::gatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type)
+void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
-	Slider *slid = ((Slider*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER));
-	Text* lbl = ((Text*)this->getChildByTag(L_FREERUN)->getChildByTag(LAB_GATESNUMBER));
-
-	const float maxdiffLevel = 24;
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*maxdiffLevel / 100.0f);
-	slid->setPercent(nearest / maxdiffLevel * 100);
-	lbl->setString(String::createWithFormat("%s:%d", G_str("Gates").c_str(), nearest + 1)->getCString());
-	currGatesNumb = nearest+1;
+	std::string str = "";
+	if (currDiffValue == 0) str = "Easy";
+	else if (currDiffValue == 1) str = "Medium";
+	else if (currDiffValue == 2) str = "Hard";
+	textTochange->setString(str);
 }
 //**CUSTOM MULTI PLAYER EVENTS**//
-void MyMenu::m_PlayerSliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type)
-{
-
-	Slider *slid = ((Slider*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_PLAYERSLIDER));
-	Text* lbl = ((Text*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(LAB_M_PLAYERSNUMBER));
-	//
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*(m_maxPlayersNumber - 2) / 100.0f);
-	slid->setPercent(nearest / (m_maxPlayersNumber - 2) * 100);
-	lbl->setString(String::createWithFormat("%s:%d",G_str("Players").c_str(), nearest + 2)->getCString());
-	m_currPlayersNumber = nearest + 2;
-}
-void MyMenu::m_OpponentsSliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type)
-{
-
-	Slider *slid = ((Slider*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_OPPONENTSSLIDER));
-	Text* lbl = ((Text*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(LAB_M_OPPONENTSNUMBER));
-	//
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*(m_maxOpponentsNumber) / 100.0f);
-	slid->setPercent(nearest / (m_maxOpponentsNumber) * 100);
-	lbl->setString(String::createWithFormat("%s:%d",G_str("Computers").c_str(), nearest)->getCString());
-	m_currOpponentsNumber = nearest;
-}
-void MyMenu::m_DifficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type)
-{
-	Slider *slid = ((Slider*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER));
-	Text* lbl = ((Text*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(LAB_M_DIFFLABELSLIDER));
-
-	const float maxdiffLevel = 2;
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*maxdiffLevel / 100.0f);
-	slid->setPercent(nearest / maxdiffLevel * 100);
-	std::string poziom = "";
-	if (nearest == 0) poziom = "Easy";
-	else if (nearest == 1) poziom = "Medium";
-	else if (nearest == 2) poziom = "Hard";
-	lbl->setString(String::createWithFormat("%s:%s",G_str("Difficulty").c_str(), poziom.c_str())->getCString());
-	m_currDiffValue = nearest;
-}
 void MyMenu::m_ModeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 {
 	PageView *pages = ((PageView*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(PG_MULTICHOSEMODE));
-	currModeSelected = pages->getCurPageIndex();
-}
-void MyMenu::m_GatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type)
-{
-	Slider *slid = ((Slider*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_GATESLIDER));
-	Text* lbl = ((Text*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(LAB_M_GATESLIDER));
+	m_currModeSelected = pages->getCurPageIndex();
 
-	const float maxdiffLevel = 24;
-	const float percent = slid->getPercent();
-	int nearest = std::round(percent*maxdiffLevel / 100.0f);
-	slid->setPercent(nearest / maxdiffLevel * 100);
-	lbl->setString(String::createWithFormat("%s:%d",G_str("Gates").c_str(), nearest + 1)->getCString());
-	m_currGatesNumb = nearest + 1;
+	if (m_currModeSelected == 0)
+	{
+		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_GATESLIDER))->enableWidgets();
+	}
+	else
+	{
+		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_GATESLIDER))->disableWidgets();
+	}
 }
 void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -416,6 +415,14 @@ void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
 	show(L_M_CHOOSENAMES);
 	hide(L_MULTIFREELOCALRUN);
 }
+void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
+{
+	std::string str = "";
+	if (m_currDiffValue == 0) str = "Easy";
+	else if (m_currDiffValue == 1) str = "Medium";
+	else if (m_currDiffValue == 2) str = "Hard";
+	textTochange->setString(str);
+}
 //*MUTLI CHOOSE BOXES *//
 void MyMenu::m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type)
 {
@@ -423,7 +430,6 @@ void MyMenu::m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::E
 }
 void MyMenu::m_pageBoxChosechanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 {
-
 }
 void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -452,7 +458,17 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		G_dir()->replaceScene(scene);
 	}
 }
-
+void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
+{
+	if (m_currOpponentsNumber == 0)
+	{ 
+		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER))->disableWidgets();
+	}
+	else
+	{
+		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER))->enableWidgets();
+	}
+}
 
 
 

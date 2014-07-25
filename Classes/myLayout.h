@@ -17,6 +17,9 @@ public:
 	void setMargin(const float l, const float t, const float r, const float b);
 	void addWidget(cocos2d::ui::Widget* node);
 	void addWidgetCustomParam(cocos2d::ui::Widget *node);
+	cocos2d::Vector<cocos2d::Node*> getWidgets(){ return child->getChildren(); }
+	void disableWidgets();
+	void enableWidgets();
 	virtual bool init();
 	CREATE_FUNC(myLayout);
 };

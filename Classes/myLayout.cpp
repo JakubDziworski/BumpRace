@@ -112,3 +112,16 @@ void myLayout::addWidgetCustomParam(cocos2d::ui::Widget *node)
 		this->autoResizeHorizontally();
 	}
 }
+
+void myLayout::disableWidgets()
+{
+
+		this->setColor(Color3B(100, 100, 100));
+		this->setEnabled(false);
+}
+
+void myLayout::enableWidgets()
+{
+	this->setColor(Color3B::WHITE);
+	this->setEnabled(true);
+}

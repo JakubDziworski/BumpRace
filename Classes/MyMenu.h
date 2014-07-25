@@ -30,6 +30,7 @@ private:
 	void preload();
 	void hide(int menutypedef);
 	void show(int menutypedef);
+	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
 	void createTextEdit(const std::string &text, cocos2d::ui::TextField::ccTextFieldCallback callback, int parenttag, int tag);
 	void createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int defaultState, const int tag, int parent, cocos2d::ui::PageView::ccPageViewCallback callback);
 	void createLabel(const std::string &text, int parenttag, int tag);
@@ -54,19 +55,17 @@ public:
 	void goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//CALLBACKS
 	//SINGLE PLAYER SLIDER VALUE CHANGED
-	void opponentsSliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
-	void difficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
 	void modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
-	void gatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type);
 	//MULTIPLAYER SLIDER VALUE CHANGED
-	void m_PlayerSliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
-	void m_OpponentsSliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
-	void m_DifficultySliderChanged(cocos2d::Ref *pSender, cocos2d::ui::Slider::EventType type);
 	void m_ModeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
-	void m_GatesSliderChanged(cocos2d::Ref* pSender, cocos2d::ui::Slider::EventType type);
 	//wybieranie gracza
-	void m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type);
 	void m_pageBoxChosechanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
+	void m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type);
 	void playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+
+	//additional callbacks
+	void m_OpponentsChanged(cocos2d::ui::Text *textToChange);
+	void difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
+	void m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
 };
 #endif // !__MENU_H__
