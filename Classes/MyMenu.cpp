@@ -29,8 +29,17 @@ bool MyMenu::init()
 	m_currDiffValue=1;
     m_currModeSelected=0;
 	m_currGatesNumb=7;
+	m_playersNames[0] = G_str("Player") + std::to_string(1);
+	m_playersNames[1] = G_str("Player") + std::to_string(2);
+	m_playersNames[2] = G_str("Player") + std::to_string(3);
+	m_playersNames[3] = G_str("Player") + std::to_string(4);
 	srodek = Director::getInstance()->getVisibleSize() / 2.0f;
 	currMenu = L_MAINMENU;
+	//bg//
+	Sprite *bg = Sprite::createWithSpriteFrameName(R_tlo);
+	bg->setAnchorPoint(Vec2(0, 0));
+	G_scaleToFitScreen(bg);
+	this->addChild(bg);
 	//*layout init*//
 	createLayout(L_MAINMENU);
 		createLayout(L_PLAYSINGLE);
@@ -70,7 +79,7 @@ bool MyMenu::init()
 	createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
-		createTextEdit("Player1", CC_CALLBACK_2(MyMenu::m_textFieldChanged, this), L_M_CHOOSENAMES, i);
+		createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
 		createPages("", { "crazy nigga", "mustache faggot", "regular guy" }, { R_Box[0], R_Box[0], R_Box[0] }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
 	}
 	//*GENERAL BUTTONS*//
@@ -137,19 +146,28 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	verLayout->addWidget(horLayout);
 	this->getChildByTag(parenttag)->addChild(verLayout,0,tag);
 }
-void MyMenu::createTextEdit(const std::string &text,TextField::ccTextFieldCallback callback,int parenttag, int tag)
+void MyMenu::createTextEdit(std::string &text,cocos2d::Color3B textColor,int parenttag, int tag)
 {
+	Layout *bgLayout = Layout::create();
+	bgLayout->setSize(Sprite::create(R_multiBtn)->getContentSize());
+	bgLayout->setBackGroundImage(R_multiBtn);
+	bgLayout->setClippingEnabled(true);
 	auto textField = TextField::create();
-	textField->setFontSize(35);
+	textField->setFontSize(G_wF(35));
+	textField->setColor(textColor);
 	textField->setPlaceHolder("Player 1");
 	textField->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	textField->setTextVerticalAlignment(TextVAlignment::CENTER);
-	textField->addEventListener(callback);
+	textField->setNormalizedPosition(Vec2(0.5, 0.5));
+	textField->addEventListener([&text, textField](Ref*, TextField::EventType type)
+	{
+		text = textField->getStringValue();
+	});
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	textField->setLayoutParameter(par);
-
-	this->getChildByTag(parenttag)->addChild(textField, 1, tag);
+	bgLayout->addChild(textField);
+	bgLayout->setLayoutParameter(par);
+	this->getChildByTag(parenttag)->addChild(bgLayout, 1, tag);
 }
 void MyMenu::createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int defaultState, const int tag, int parent, PageView::ccPageViewCallback callback)
 {
@@ -435,28 +453,22 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 {
 	Vector<Player*> players;
 	Vector<AIOpponent*> opponentz;
+	Scene *scene;
 	if (currModeSelected == 0)
 	{
-		auto scene = SingleGateWorld::createScene(m_currOpponentsNumber +m_currPlayersNumber, currGatesNumb, currDiffValue);
-		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		for (int i = 1; i <= m_currPlayersNumber; i++)
-		{
-			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace(),G_colors[i-1]));
-		}
-		world->setMultiplayer(players);
-		G_dir()->replaceScene(scene);
+		scene = SingleGateWorld::createScene(m_currOpponentsNumber +m_currPlayersNumber, currGatesNumb, currDiffValue);
 	}
 	else if (currModeSelected == 1)
 	{
-		auto scene = SingleEliminationWorld::createScene(m_currOpponentsNumber + m_currPlayersNumber, currDiffValue);
-		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		for (int i = 1; i <= m_currPlayersNumber; i++)
-		{
-			players.pushBack(Player::create(R_Box[0], String::createWithFormat("%s %d", G_str("Player").c_str(), i)->getCString(), world->getGravitySpace(), G_colors[i - 1]));
-		}
-		world->setMultiplayer(players);
-		G_dir()->replaceScene(scene);
+		scene = SingleEliminationWorld::createScene(m_currOpponentsNumber + m_currPlayersNumber, currDiffValue);
 	}
+	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	for (int i = 0; i < m_currPlayersNumber; i++)
+	{
+		players.pushBack(Player::create(R_Box[0], m_playersNames[i], world->getGravitySpace(), G_colors[i]));
+	}
+	world->setMultiplayer(players);
+	G_dir()->replaceScene(scene);
 }
 void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
 {

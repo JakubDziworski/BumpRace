@@ -15,6 +15,7 @@ private:
 	int currMenu;
 	int currGatesNumb;
 	int currPlayersNumber;
+	std::string m_playersNames[4];
 	//multi
 	const float m_maxOpponentsNumber = 2;
 	const float m_maxPlayersNumber = 4;
@@ -31,7 +32,7 @@ private:
 	void hide(int menutypedef);
 	void show(int menutypedef);
 	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
-	void createTextEdit(const std::string &text, cocos2d::ui::TextField::ccTextFieldCallback callback, int parenttag, int tag);
+	void createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag);
 	void createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int defaultState, const int tag, int parent, cocos2d::ui::PageView::ccPageViewCallback callback);
 	void createLabel(const std::string &text, int parenttag, int tag);
 	void createLayout(int layoutTag);
