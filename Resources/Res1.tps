@@ -154,6 +154,7 @@
             <filename>sliderActive.png</filename>
             <filename>drzewka.png</filename>
             <filename>brodacz.png</filename>
+            <filename>multiBtn.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

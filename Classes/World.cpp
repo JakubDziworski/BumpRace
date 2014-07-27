@@ -69,7 +69,7 @@ bool World::myInitWithAI(int numberOfPlayers, int gates, int aiSmartness)
 void World::createFloor()
 {
 	floorBody = cpBodyNew(INFINITY,INFINITY);
-	float lengtht = (gatesNumber )*G_odlegloscmiedzyBramkami;
+	float lengtht = (gatesNumber + 1)*G_odlegloscmiedzyBramkami;
 	cpVect verts[] = {
 		cpv(0,-2000),
 		cpv(0, 0),
@@ -93,7 +93,6 @@ void World::createFloor()
 }
 void World::rozmiescCheckpointy()
 {
-	const int dlugosc = floor->bb.r - floor->bb.l;
 	for (int i = 1; i <= gatesNumber; i++)
 	{
 		auto chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
@@ -315,7 +314,7 @@ void World::s_cameraFollow()
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
-	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
+	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
 //_______MULTIPLAYER__________//
 void World::setMultiplayer(cocos2d::Vector<Player*> players)
@@ -334,6 +333,7 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
 	lateInit();
 	getHud()->setMultiplayer(this);
+	this->setPositionY(Sprite::createWithSpriteFrameName(R_multiBtn)->getContentSize().height);	//podwyzszamy troche zeby przyciski nie zaslanialy nic
 }
 bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
@@ -462,7 +462,7 @@ void World::m_cameraFollow()
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
-	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY + maxpierwszyOffset));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
+	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
 void World::replaceSceneGenereal(Scene *scene,World *world)
 {

@@ -33,7 +33,7 @@
             <key>brodacz.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3334,140},{188,166}}</string>
+                <string>{{3334,206},{188,166}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -121,6 +121,19 @@
                 <key>sourceSize</key>
                 <string>{2048,256}</string>
             </dict>
+            <key>multiBtn.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3334,140},{256,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{256,64}}</string>
+                <key>sourceSize</key>
+                <string>{256,64}</string>
+            </dict>
             <key>slider.png</key>
             <dict>
                 <key>frame</key>
@@ -150,11 +163,11 @@
             <key>sliderDot.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3524,140},{37,25}}</string>
+                <string>{{3592,140},{37,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{37,25}}</string>
                 <key>sourceSize</key>
@@ -183,7 +196,7 @@
             <key>size</key>
             <string>{4096,4096}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9702f3fb7ad0dc19c0b13e335386b1a7$</string>
+            <string>$TexturePacker:SmartUpdate:9b9b84c755586b416be058b6f7fbe3d2$</string>
             <key>textureFileName</key>
             <string>Res1.png</string>
         </dict>

@@ -36,13 +36,12 @@ bool MyMenu::init()
 	m_playersNames[1] = G_str("Player") + std::to_string(2);
 	m_playersNames[2] = G_str("Player") + std::to_string(3);
 	m_playersNames[3] = G_str("Player") + std::to_string(4);
-	playerboxFileName = R_Box[0];
-	m_playersBoxesFileNames[0] = R_Box[0];
-	m_playersBoxesFileNames[1] = R_Box[1];
-	m_playersBoxesFileNames[2] = R_Box[0];
-	m_playersBoxesFileNames[3] = R_Box[1];
+	playerboxFileNameIndex = 0;
+	m_playersBoxesFileNamesIndexes[0] = 0;
+	m_playersBoxesFileNamesIndexes[1] = 1;
+	m_playersBoxesFileNamesIndexes[2] = 0;
+	m_playersBoxesFileNamesIndexes[3] = 1;
 	srodek = Director::getInstance()->getVisibleSize() / 2.0f;
-	currentlyScaledNode = NULL;
 	currMenu = L_MAINMENU;
 	//bg//
 	Sprite *bg = Sprite::createWithSpriteFrameName(R_tlo);
@@ -79,7 +78,7 @@ bool MyMenu::init()
 	//SINGLE CHOOSE BOX
 	createLabel(G_str("Choose_Name"), L_CHOOSENAMES, LAB_CHOSENAMES);
 	createTextEdit(playerName, Color3B::BLACK, L_CHOOSENAMES, -1);
-	createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[1], R_Box[0] }, 0, PG_PLAYERBOX, L_CHOOSENAMES, CC_CALLBACK_1(MyMenu::pageBoxChanged, this));
+	createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[1], R_Box[0] }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES);
 	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
@@ -94,7 +93,7 @@ bool MyMenu::init()
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
 		createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
-		createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[1], R_Box[2] }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_1(MyMenu::m_pageBoxChosechanged, this));
+		createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[1], R_Box[2] },m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES);
 	}
     createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	//*GENERAL BUTTONS*//
@@ -106,7 +105,7 @@ bool MyMenu::init()
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
-	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.4f);
+	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -185,7 +184,7 @@ void MyMenu::createTextEdit(std::string &text,cocos2d::Color3B textColor,int par
 	bgLayout->setLayoutParameter(par);
 	this->getChildByTag(parenttag)->addChild(bgLayout, 1, tag);
 }
-void MyMenu::createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
+void MyMenu::createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
 {
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
@@ -228,18 +227,15 @@ void MyMenu::createPages(const std::string title,const std::vector<const std::st
 	PageViewController *controller = PageViewController::create();
 	this->getChildByTag(parent)->addChild(pageView, 1, tag);
 	controller->setControlledpageView(pageView);
-	pageView->addEventListener([this, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
-	{
+    pageView->addEventListener([this,&defaultState, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
+    {
 		if (type != PageView::EventType::TURNING) return;
-		if (currentlyScaledNode)
-		{
-			currentlyScaledNode->runAction(ScaleTo::create(scaleTime, 1));
-		}
-		currentlyScaledNode = layouts.at(pageView->getCurPageIndex());
-		currentlyScaledNode->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
-		callback(pageView);
+        layouts.at(defaultState)->runAction(ScaleTo::create(scaleTime, 1));
+        defaultState = pageView->getCurPageIndex();
+        layouts.at(defaultState)->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
+		if(callback != nullptr)callback(pageView);
 	});
-	pageView->scrollToPage(defaultState);
+   	pageView->scrollToPage(defaultState);
 }
 void MyMenu::createLayout(int layoutTag)
 {
@@ -303,7 +299,8 @@ void MyMenu::preload()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(R_bgmusic.c_str());
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(R_bgmusic.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(R_bgmusic.c_str(),true);
+
 }
 void MyMenu::hide(int menutypedef)
 {
@@ -403,7 +400,7 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 		scene = EndlessWorld::createScene();
 	}
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setSinglePlayer(Player::create(playerboxFileName, playerName, world->getGravitySpace()));
+	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace()));
 	G_dir()->replaceScene(scene);
 }
 void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
@@ -437,11 +434,7 @@ void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 	else if (currDiffValue == 2) str = "Hard";
 	textTochange->setString(str);
 }
-//SINGLE CHOOSE BOXES//
-void MyMenu::pageBoxChanged(PageView *page)
-{
-	playerboxFileName = R_Box[page->getCurPageIndex()];
-}
+
 //**CUSTOM MULTI PLAYER EVENTS**//
 void MyMenu::m_ModeChooserPageChanged(cocos2d::ui::PageView *pages)
 {
@@ -501,10 +494,7 @@ void MyMenu::m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::E
 {
 
 }
-void MyMenu::m_pageBoxChosechanged(cocos2d::ui::PageView *page)
-{
-	playerboxFileName = R_Box[page->getCurPageIndex()];
-}
+
 void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	Vector<Player*> players;

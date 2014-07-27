@@ -62,6 +62,22 @@
 		50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629517ECD46A001EB2F8 /* Icon-100.png */; };
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
+		8C2298F71985519E00FAE6C4 /* brodacz.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298EF1985519E00FAE6C4 /* brodacz.png */; };
+		8C2298F81985519E00FAE6C4 /* brodacz.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298EF1985519E00FAE6C4 /* brodacz.png */; };
+		8C2298F91985519E00FAE6C4 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F01985519E00FAE6C4 /* fonts */; };
+		8C2298FA1985519E00FAE6C4 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F01985519E00FAE6C4 /* fonts */; };
+		8C2298FB1985519E00FAE6C4 /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F11985519E00FAE6C4 /* multilanguage */; };
+		8C2298FC1985519E00FAE6C4 /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F11985519E00FAE6C4 /* multilanguage */; };
+		8C2298FD1985519E00FAE6C4 /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F21985519E00FAE6C4 /* music */; };
+		8C2298FE1985519E00FAE6C4 /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F21985519E00FAE6C4 /* music */; };
+		8C2298FF1985519E00FAE6C4 /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F31985519E00FAE6C4 /* particles */; };
+		8C2299001985519E00FAE6C4 /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F31985519E00FAE6C4 /* particles */; };
+		8C2299011985519E00FAE6C4 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F41985519E00FAE6C4 /* scripts */; };
+		8C2299021985519E00FAE6C4 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F41985519E00FAE6C4 /* scripts */; };
+		8C2299031985519E00FAE6C4 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F51985519E00FAE6C4 /* Shaders */; };
+		8C2299041985519E00FAE6C4 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F51985519E00FAE6C4 /* Shaders */; };
+		8C2299051985519E00FAE6C4 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F61985519E00FAE6C4 /* sounds */; };
+		8C2299061985519E00FAE6C4 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C2298F61985519E00FAE6C4 /* sounds */; };
 		8C2995601983A56A00BD0096 /* BOX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C29953B1983A56A00BD0096 /* BOX.png */; };
 		8C2995611983A56A00BD0096 /* BOX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C29953B1983A56A00BD0096 /* BOX.png */; };
 		8C2995621983A56A00BD0096 /* btnBackOf.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C29953C1983A56A00BD0096 /* btnBackOf.png */; };
@@ -369,6 +385,14 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
+		8C2298EF1985519E00FAE6C4 /* brodacz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brodacz.png; sourceTree = "<group>"; };
+		8C2298F01985519E00FAE6C4 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		8C2298F11985519E00FAE6C4 /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
+		8C2298F21985519E00FAE6C4 /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
+		8C2298F31985519E00FAE6C4 /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
+		8C2298F41985519E00FAE6C4 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
+		8C2298F51985519E00FAE6C4 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		8C2298F61985519E00FAE6C4 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		8C29953B1983A56A00BD0096 /* BOX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BOX.png; sourceTree = "<group>"; };
 		8C29953C1983A56A00BD0096 /* btnBackOf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnBackOf.png; sourceTree = "<group>"; };
 		8C29953D1983A56A00BD0096 /* btnBackOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnBackOn.png; sourceTree = "<group>"; };
@@ -677,6 +701,14 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8C2298EF1985519E00FAE6C4 /* brodacz.png */,
+				8C2298F01985519E00FAE6C4 /* fonts */,
+				8C2298F11985519E00FAE6C4 /* multilanguage */,
+				8C2298F21985519E00FAE6C4 /* music */,
+				8C2298F31985519E00FAE6C4 /* particles */,
+				8C2298F41985519E00FAE6C4 /* scripts */,
+				8C2298F51985519E00FAE6C4 /* Shaders */,
+				8C2298F61985519E00FAE6C4 /* sounds */,
 				8C29953B1983A56A00BD0096 /* BOX.png */,
 				8C29953C1983A56A00BD0096 /* btnBackOf.png */,
 				8C29953D1983A56A00BD0096 /* btnBackOn.png */,
@@ -890,21 +922,26 @@
 				8C29956C1983A56A00BD0096 /* checkpoint.png in Resources */,
 				8C2995921983A56A00BD0096 /* Res1.plist in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				8C2298FB1985519E00FAE6C4 /* multilanguage in Resources */,
 				8C2995941983A56A00BD0096 /* Res1.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				8C29956E1983A56A00BD0096 /* chkboxactive.png in Resources */,
+				8C2299031985519E00FAE6C4 /* Shaders in Resources */,
 				8C29958C1983A56A00BD0096 /* pauseBtnOn.png in Resources */,
+				8C2298FF1985519E00FAE6C4 /* particles in Resources */,
 				8C29958E1983A56A00BD0096 /* plusbtn.png in Resources */,
 				8C29957E1983A56A00BD0096 /* multilanguage in Resources */,
 				8C29959C1983A56A00BD0096 /* Shaders in Resources */,
 				8C2995841983A56A00BD0096 /* pageGate.png in Resources */,
+				8C2299011985519E00FAE6C4 /* scripts in Resources */,
 				8C2995861983A56A00BD0096 /* particles in Resources */,
 				8C2995A41983A56A00BD0096 /* sounds in Resources */,
 				8C2995721983A56A00BD0096 /* drzewka.png in Resources */,
 				8C29958A1983A56A00BD0096 /* pauseBtnOn — kopia.png in Resources */,
 				8C29959A1983A56A00BD0096 /* scripts in Resources */,
 				8C2995801983A56A00BD0096 /* PageElimination.png in Resources */,
+				8C2298F71985519E00FAE6C4 /* brodacz.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
 				8C2995761983A56A00BD0096 /* fonts in Resources */,
 				8C29957A1983A56A00BD0096 /* minusBtn.png in Resources */,
@@ -915,6 +952,7 @@
 				8C29957C1983A56A00BD0096 /* multiBtn.png in Resources */,
 				8C2995701983A56A00BD0096 /* chkboxclicked.png in Resources */,
 				8C2995741983A56A00BD0096 /* FLAT.png in Resources */,
+				8C2299051985519E00FAE6C4 /* sounds in Resources */,
 				8C2995621983A56A00BD0096 /* btnBackOf.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				8C2995981983A56A00BD0096 /* resumeBtnOf.png in Resources */,
@@ -924,7 +962,9 @@
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				8C2995661983A56A00BD0096 /* btnOf.png in Resources */,
 				8C2995641983A56A00BD0096 /* btnBackOn.png in Resources */,
+				8C2298F91985519E00FAE6C4 /* fonts in Resources */,
 				8C2995601983A56A00BD0096 /* BOX.png in Resources */,
+				8C2298FD1985519E00FAE6C4 /* music in Resources */,
 				1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				8C2995A81983A56A00BD0096 /* tlo.png in Resources */,
@@ -961,9 +1001,13 @@
 				8C2995971983A56A00BD0096 /* Res1.tps in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				8C2995871983A56A00BD0096 /* particles in Resources */,
+				8C2298FE1985519E00FAE6C4 /* music in Resources */,
 				8C2995711983A56A00BD0096 /* chkboxclicked.png in Resources */,
+				8C2298FA1985519E00FAE6C4 /* fonts in Resources */,
 				8C29957D1983A56A00BD0096 /* multiBtn.png in Resources */,
+				8C2299061985519E00FAE6C4 /* sounds in Resources */,
 				8C29959B1983A56A00BD0096 /* scripts in Resources */,
+				8C2298FC1985519E00FAE6C4 /* multilanguage in Resources */,
 				5087E75417EB910900C73F5D /* CloseSelected.png in Resources */,
 				8C29956B1983A56A00BD0096 /* chboxInactive.png in Resources */,
 				8C29959F1983A56A00BD0096 /* slider.png in Resources */,
@@ -972,11 +1016,14 @@
 				8C2995A11983A56A00BD0096 /* sliderActive.png in Resources */,
 				8C29958D1983A56A00BD0096 /* pauseBtnOn.png in Resources */,
 				8C2995731983A56A00BD0096 /* drzewka.png in Resources */,
+				8C2299001985519E00FAE6C4 /* particles in Resources */,
+				8C2299021985519E00FAE6C4 /* scripts in Resources */,
 				8C2995A91983A56A00BD0096 /* tlo.png in Resources */,
 				8C2995931983A56A00BD0096 /* Res1.plist in Resources */,
 				8C2995631983A56A00BD0096 /* btnBackOf.png in Resources */,
 				8C29958F1983A56A00BD0096 /* plusbtn.png in Resources */,
 				8C29956D1983A56A00BD0096 /* checkpoint.png in Resources */,
+				8C2299041985519E00FAE6C4 /* Shaders in Resources */,
 				8C2995A51983A56A00BD0096 /* sounds in Resources */,
 				8C2995811983A56A00BD0096 /* PageElimination.png in Resources */,
 				8C2995911983A56A00BD0096 /* repeatBtnOn.png in Resources */,
@@ -986,6 +1033,7 @@
 				8C2995851983A56A00BD0096 /* pageGate.png in Resources */,
 				8C2995671983A56A00BD0096 /* btnOf.png in Resources */,
 				8C2995751983A56A00BD0096 /* FLAT.png in Resources */,
+				8C2298F81985519E00FAE6C4 /* brodacz.png in Resources */,
 				8C29957F1983A56A00BD0096 /* multilanguage in Resources */,
 				5087E75517EB910900C73F5D /* HelloWorld.png in Resources */,
 				8C2995651983A56A00BD0096 /* btnBackOn.png in Resources */,
@@ -1168,6 +1216,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};

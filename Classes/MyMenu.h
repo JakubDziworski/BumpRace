@@ -16,12 +16,11 @@ private:
 	int currGatesNumb;
 	const float scaleFactor = 1.3f;
 	const float scaleTime = 0.2f;
-	cocos2d::Node *currentlyScaledNode;
-	int currPlayersNumber;
+    int currPlayersNumber;
 	std::string playerName;
-	std::string playerboxFileName;
+	int playerboxFileNameIndex;
 	std::string m_playersNames[4];
-	std::string m_playersBoxesFileNames[4];
+	int m_playersBoxesFileNamesIndexes[4];
 	//multi
 	const float m_maxOpponentsNumber = 2;
 	const float m_maxPlayersNumber = 4;
@@ -39,7 +38,7 @@ private:
 	void show(int menutypedef);
 	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
 	void createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag);
-	void createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback);
+	void createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback=nullptr);
 	void createLabel(const std::string &text, int parenttag, int tag);
 	void createLayout(int layoutTag);
 	void createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, cocos2d::ui::Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag);
@@ -63,12 +62,10 @@ public:
 	//CALLBACKS
 	//SINGLE PLAYER SLIDER VALUE CHANGED
 	void modeChooserPageChanged(cocos2d::ui::PageView *page);
-	void pageBoxChanged(cocos2d::ui::PageView *page);
 	void continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//MULTIPLAYER SLIDER VALUE CHANGED
 	void m_ModeChooserPageChanged(cocos2d::ui::PageView *page);
 	//wybieranie gracza
-	void m_pageBoxChosechanged(cocos2d::ui::PageView *page);
 	void m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type);
 	void playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//additional callbacks
