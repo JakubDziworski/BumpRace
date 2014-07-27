@@ -153,6 +153,7 @@
             <filename>sliderDot.png</filename>
             <filename>sliderActive.png</filename>
             <filename>drzewka.png</filename>
+            <filename>brodacz.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

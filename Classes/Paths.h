@@ -1,10 +1,10 @@
 #ifndef __PATHS__H__
 #define __PATHS__H__
 #include "cocos2d.h"
-const std::string R_MP3_punch = "sounds/punch.mp3";
+//IMAGES
 const std::string R_SPRITE_checkpoint = "checkpoint.png";
 const std::string R_defaultFont = "fonts/Aleo-Regular.otf";
-const std::string R_Box[2] = { "BOX.png", "BOX.png" };
+const std::string R_Box[6] = { "BOX.png", "brodacz.png", "BOX.png", "brodacz.png", "BOX.png", "brodacz.png" };
 const std::string R_tlo = "tlo.png";
 const std::string R_btnBack[2] = { "btnBackOn.png", "btnBackOf.png" };
 const std::string R_btnOn[2] = { "btnOn.png", "btnOf.png" };
@@ -23,4 +23,7 @@ const std::string R_sliderDot = "sliderDot.png";
 const std::string R_minusBtn = "minusBtn.png";
 const std::string R_plusBtn = "plusbtn.png";
 const std::string R_checkpointParticle = "particles/chkptParticle.plist";
+//MUSIC 
+const std::string R_MP3_punch = "sounds/punch.mp3";
+const std::string R_bgmusic = "music/main.mp3";
 #endif // __PATHS__H__

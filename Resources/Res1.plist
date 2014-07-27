@@ -30,14 +30,27 @@
                 <key>sourceSize</key>
                 <string>{2048,1024}</string>
             </dict>
-            <key>btnBackOf.png</key>
+            <key>brodacz.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3453,140},{117,113}}</string>
+                <string>{{3334,140},{188,166}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{188,166}}</string>
+                <key>sourceSize</key>
+                <string>{188,166}</string>
+            </dict>
+            <key>btnBackOf.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3643,208},{117,113}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{117,113}}</string>
                 <key>sourceSize</key>
@@ -46,7 +59,7 @@
             <key>btnBackOn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3334,140},{117,113}}</string>
+                <string>{{3524,208},{117,113}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +150,7 @@
             <key>sliderDot.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3572,140},{37,25}}</string>
+                <string>{{3524,140},{37,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -170,7 +183,7 @@
             <key>size</key>
             <string>{4096,4096}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2b69fd7b60862f4bb2f705385fb79b44$</string>
+            <string>$TexturePacker:SmartUpdate:9702f3fb7ad0dc19c0b13e335386b1a7$</string>
             <key>textureFileName</key>
             <string>Res1.png</string>
         </dict>

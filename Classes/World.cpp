@@ -466,6 +466,7 @@ void World::m_cameraFollow()
 }
 void World::replaceSceneGenereal(Scene *scene,World *world)
 {
+	G_dir()->getScheduler()->setTimeScale(1);
 	if (multiplayerEnabled)
 	{
 		Vector<Player*> plyrz;

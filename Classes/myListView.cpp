@@ -17,7 +17,7 @@ void PageViewController::setControlledpageView(PageView *pgv)
 	pageview = pgv;
 	pageview->setTouchEnabled(false);
 	this->setAnchorPoint(Vec2(0.5, 0));
-	this->setSize(Size(4*G_srodek.x,pgv->getSize().height));
+	this->setSize(Size(8*G_srodek.x,pgv->getSize().height));
 	pageview->addChild(this);
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [this](Touch* touch, Event* eventt)
