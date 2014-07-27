@@ -145,6 +145,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Hud.cpp" />
     <ClCompile Include="..\Classes\myLayout.cpp" />
+    <ClCompile Include="..\Classes\myListView.cpp" />
     <ClCompile Include="..\Classes\MyMenu.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\SingleElimHUD.cpp" />
@@ -168,6 +169,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Hud.h" />
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\myLayout.h" />
+    <ClInclude Include="..\Classes\myListView.h" />
     <ClInclude Include="..\Classes\MyMenu.h" />
     <ClInclude Include="..\Classes\Paths.h" />
     <ClInclude Include="..\Classes\Player.h" />

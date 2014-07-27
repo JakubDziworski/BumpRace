@@ -8,7 +8,7 @@ const std::string R_Box[2] = { "BOX.png", "BOX.png" };
 const std::string R_tlo = "tlo.png";
 const std::string R_btnBack[2] = { "btnBackOn.png", "btnBackOf.png" };
 const std::string R_btnOn[2] = { "btnOn.png", "btnOf.png" };
-const std::string R_flat = "flat.png";
+const std::string R_flat = "FLAT.png";
 const std::string R_gotoMenuBtn = "gotoMenuBtnOf.png";
 const std::string R_multiBtn = "multiBtn.png";
 const std::string R_pageElimination = "PageElimination.png";
@@ -21,6 +21,6 @@ const std::string R_resumebtn = "resumeBtnOf.png";
 const std::string R_slider[2] = { "slider.png", "sliderActive.png" };
 const std::string R_sliderDot = "sliderDot.png";
 const std::string R_minusBtn = "minusBtn.png";
-const std::string R_plusBtn = "plusBtn.png";
+const std::string R_plusBtn = "plusbtn.png";
 const std::string R_checkpointParticle = "particles/chkptParticle.plist";
 #endif // __PATHS__H__

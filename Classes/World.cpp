@@ -420,7 +420,7 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 	for (int i = 1; i <= boxesNumber-playersNumber; i++)
 	{
 
-		AIOpponent *opp = AIOpponent::create(R_Box[0], String::createWithFormat("Opponent%d", i)->getCString(), gravitySpace, aiSmart,G_colors[i-1+playersNumber]);
+		AIOpponent *opp = AIOpponent::create(R_Box[0], String::createWithFormat("%s%d",G_str("Opponent").c_str(), i)->getCString(), gravitySpace, aiSmart,G_colors[i-1+playersNumber]);
 		opp->addOrderedOpponents(orderedOpponents);
 		opponentz.pushBack(opp);
 	}

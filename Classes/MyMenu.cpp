@@ -1,3 +1,4 @@
+#define DEBUG_COCOS2D 2
 #include "MyMenu.h"
 #include "Macros.h"
 #include "SingleGateWorld.h"
@@ -9,6 +10,7 @@
 #include "Hud.h"
 #include "AIOpponent.h"
 #include "myLayout.h"
+#include "myListView.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -76,12 +78,12 @@ bool MyMenu::init()
 	createBtn(R_btnOn[0], "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
-	createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
 		createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
 		createPages("", { "crazy nigga", "mustache faggot", "regular guy" }, { R_Box[0], R_Box[0], R_Box[0] }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
 	}
+    createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	//*GENERAL BUTTONS*//
 	createBtn(R_btnBack[0], R_btnBack[1],"", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	//*MODIFICATION*//
@@ -91,6 +93,7 @@ bool MyMenu::init()
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
+	this->setScale(0.4f);
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -155,7 +158,7 @@ void MyMenu::createTextEdit(std::string &text,cocos2d::Color3B textColor,int par
 	auto textField = TextField::create();
 	textField->setFontSize(G_wF(35));
 	textField->setColor(textColor);
-	textField->setPlaceHolder("Player 1");
+	textField->setPlaceHolder(text);
 	textField->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	textField->setTextVerticalAlignment(TextVAlignment::CENTER);
 	textField->setNormalizedPosition(Vec2(0.5, 0.5));
@@ -173,7 +176,7 @@ void MyMenu::createPages(const std::string title,const std::vector<const std::st
 {
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	createLabel(title, parent,999);
+	createLabel(title, parent, 999);
 	PageView* pageView = PageView::create();
 	pageView->setClippingEnabled(false);
 	pageView->setBackGroundColor(Color3B(100, 100, 100));
@@ -185,7 +188,7 @@ void MyMenu::createPages(const std::string title,const std::vector<const std::st
 		Layout *layout = Layout::create();
 		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
 		ImageView *imageView = ImageView::create(filepaths.at(i));
-		Text *text = Text::create(names.at(i),R_defaultFont,G_wF(25));
+		Text *text = Text::create(names.at(i), R_defaultFont, G_wF(25));
 		text->setLayoutParameter(par);
 		imageView->setLayoutParameter(par);
 		layout->addChild(text);
@@ -195,8 +198,10 @@ void MyMenu::createPages(const std::string title,const std::vector<const std::st
 		i++;
 	}
 	pageView->setLayoutParameter(par);
-	pageView->addEventListener(callback);
+	PageViewController *controller = PageViewController::create();
 	this->getChildByTag(parent)->addChild(pageView, 1, tag);
+	controller->setControlledpageView(pageView);
+	pageView->addEventListener(callback);
 }
 void MyMenu::createLayout(int layoutTag)
 {
@@ -415,23 +420,36 @@ void MyMenu::m_ModeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageVi
 }
 void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+    if(type != Widget::TouchEventType::ENDED) return;
 	auto choosemenu = this->getChildByTag(L_M_CHOOSENAMES);
-	for (int i = T_PLAYER4NAME, j = PG_PLAYER4BOX, k = 4; k > 0; k--, i--, j--)
+	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 1; k <= 4; k++, i++, j++)
 	{
 		if (k > m_currPlayersNumber)
 		{
-			choosemenu->getChildByTag(i)->setVisible(false);
-			choosemenu->getChildByTag(j)->setVisible(false);
-		}
+			//wpierdol na koniec kolejki i ukryj
+			Node *child1 = choosemenu->getChildByTag(i);
+			child1->setVisible(false);
+		//	child1->retain();
+		//	child1->removeFromParent();
+		//	choosemenu->addChild(child1, 0, i);
+		//	child1->release();
+			Node *child2 = choosemenu->getChildByTag(j);
+			child2->setVisible(false);
+		//	child2->retain();
+		//	child2->removeFromParent();
+		//	choosemenu->addChild(child2, 0, j);
+		//	child2->release();
+        }
 		else
 		{
 			choosemenu->getChildByTag(i)->setVisible(true);
 			choosemenu->getChildByTag(j)->setVisible(true);
 		}
-		
+        
 	}
-	show(L_M_CHOOSENAMES);
-	hide(L_MULTIFREELOCALRUN);
+    show(L_M_CHOOSENAMES);
+    hide(L_MULTIFREELOCALRUN);
+    
 }
 void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
@@ -481,11 +499,3 @@ void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
 		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER))->enableWidgets();
 	}
 }
-
-
-
-
-
-
-
-
