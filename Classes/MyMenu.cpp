@@ -35,6 +35,7 @@ bool MyMenu::init()
 	m_playersNames[1] = G_str("Player") + std::to_string(2);
 	m_playersNames[2] = G_str("Player") + std::to_string(3);
 	m_playersNames[3] = G_str("Player") + std::to_string(4);
+	playerName = G_str("Player");
 	srodek = Director::getInstance()->getVisibleSize() / 2.0f;
 	currMenu = L_MAINMENU;
 	//bg//
@@ -47,6 +48,7 @@ bool MyMenu::init()
 		createLayout(L_PLAYSINGLE);
 			createLayout(L_CARRER);
 			createLayout(L_FREERUN);
+			createLayout(L_CHOOSENAMES);
 		createLayout(L_PLAYMULTI);
 			createLayout(L_MULTIFREELOCALRUN);
 				createLayout(L_M_CHOOSENAMES);
@@ -67,7 +69,12 @@ bool MyMenu::init()
 	createSpinner(std::to_string(currGatesNumb), G_str("Gates"), currGatesNumb, 24, 3,B_GATESLIDER, L_FREERUN);
 	createSpinner(std::to_string(currOpponentsNumber), G_str("Opponents"), currOpponentsNumber, maxOpponentsNumber, 1, B_OPPONENTSSLIDE, L_FREERUN);
 	createSpinner("Medium", G_str("Difficulty"), currDiffValue, 2, 0, B_DIFFICULTYSLIDER,L_FREERUN, CC_CALLBACK_1(MyMenu::difficultySpinnerChanged, this));
-	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_FREERUN));
+	createBtn(R_btnOn[0], R_btnOn[1], "Continue", CC_CALLBACK_2(MyMenu::continueToBoxChoose, this), B_CONTINUETOCHOSEBOX, this->getChildByTag(L_FREERUN));
+	//SINGLE CHOOSE BOX
+	createLabel(G_str("Choose_Name"), L_CHOOSENAMES, LAB_CHOSENAMES);
+	createTextEdit(playerName, Color3B::BLACK, L_CHOOSENAMES, -1);
+	createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[0], R_Box[0] }, 0,-1,L_CHOOSENAMES, CC_CALLBACK_2(MyMenu::pageBoxChanged, this));
+	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
 	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { R_pageGate, R_pageElimination }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_2(MyMenu::m_ModeChooserPageChanged, this));
@@ -81,7 +88,7 @@ bool MyMenu::init()
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
 		createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
-		createPages("", { "crazy nigga", "mustache faggot", "regular guy" }, { R_Box[0], R_Box[0], R_Box[0] }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
+		createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[0], R_Box[0] }, 0, j, L_M_CHOOSENAMES, CC_CALLBACK_2(MyMenu::m_pageBoxChosechanged, this));
 	}
     createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	//*GENERAL BUTTONS*//
@@ -349,27 +356,22 @@ void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 //**CUSTOM SINGLE PLAYER EVENTS**//
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	Scene *scene;
 	if (currModeSelected == 0)
 	{
-		auto scene = SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue);
-		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create(R_Box[0], "Kuba", world->getGravitySpace()));
-		G_dir()->replaceScene(scene);
+		scene = SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue);
 	}
 	else if (currModeSelected == 1)
 	{
-		auto scene = SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue);
-		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create(R_Box[0], "Kuba", world->getGravitySpace()));
-		G_dir()->replaceScene(scene);
+		scene = SingleEliminationWorld::createScene(currOpponentsNumber + 1, currDiffValue);
 	}
 	else if (currModeSelected == 2)
 	{
-		auto scene = EndlessWorld::createScene();
-		World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create(R_Box[0], "Kuba", world->getGravitySpace()));
-		G_dir()->replaceScene(scene);
+		scene = EndlessWorld::createScene();
 	}
+	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	world->setSinglePlayer(Player::create(R_Box[0], playerName, world->getGravitySpace()));
+	G_dir()->replaceScene(scene);
 }
 void MyMenu::modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 {
@@ -402,6 +404,10 @@ void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 	else if (currDiffValue == 1) str = "Medium";
 	else if (currDiffValue == 2) str = "Hard";
 	textTochange->setString(str);
+}
+//SINGLE CHOOSE BOXES//
+void MyMenu::pageBoxChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
+{
 }
 //**CUSTOM MULTI PLAYER EVENTS**//
 void MyMenu::m_ModeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
@@ -498,4 +504,17 @@ void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
 	{
 		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER))->enableWidgets();
 	}
+}
+void MyMenu::continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (type != Widget::TouchEventType::ENDED) return;
+	if (currMenu == L_FREERUN)
+	{
+		hide(L_FREERUN);
+	}
+	else
+	{
+		hide(L_CARRER);
+	}
+	show(L_CHOOSENAMES);
 }

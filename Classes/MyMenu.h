@@ -15,6 +15,7 @@ private:
 	int currMenu;
 	int currGatesNumb;
 	int currPlayersNumber;
+	std::string playerName;
 	std::string m_playersNames[4];
 	//multi
 	const float m_maxOpponentsNumber = 2;
@@ -57,13 +58,14 @@ public:
 	//CALLBACKS
 	//SINGLE PLAYER SLIDER VALUE CHANGED
 	void modeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
+	void pageBoxChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
+	void continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//MULTIPLAYER SLIDER VALUE CHANGED
 	void m_ModeChooserPageChanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
 	//wybieranie gracza
 	void m_pageBoxChosechanged(cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type);
 	void m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type);
 	void playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-
 	//additional callbacks
 	void m_OpponentsChanged(cocos2d::ui::Text *textToChange);
 	void difficultySpinnerChanged(cocos2d::ui::Text *textTochange);

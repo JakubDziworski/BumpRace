@@ -8,14 +8,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	{
 		return false;
 	}
-	if (boxColorr == Color3B::BLACK)
-	{
-		this->boxColor = G_getRandomColor();
-	}
-	else
-	{
-		this->boxColor = boxColorr;
-	}
+	this->boxColor = boxColorr;
 	//init variables//
 	this->fileName = filename;
 	maxVel = 1000;
@@ -57,7 +50,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
 	this->ID = ID;
-	additionalDebugInfo();
+	displayDebugInfo();
 	return true;
 };
 Boxx* Boxx::create(const std::string& filename, std::string ID,cpSpace *space, cocos2d::Color3B boxColorr)
@@ -75,20 +68,16 @@ Boxx* Boxx::create(const std::string& filename, std::string ID,cpSpace *space, c
 		return NULL;
 	}
 }
-
 void Boxx::updateBox()
 {
 	updatePhysPos();
 	updateTransform();
-	displayDebugInfo();
 }
-
 void Boxx::jump()
 {
 	if (isJumping()) return;
 	cpBodyApplyImpulse(myBody, cpv(0, 1000),cpv(0, 0));
 }
-
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	Boxx *box = ((Boxx*)body->data);
@@ -102,34 +91,28 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 	}
 	cpBodyUpdateVelocity(body, gravity, damping, dt);
 }
-
 bool Boxx::isJumping()
 {
 	if (abs(cpBodyGetVel(myBody).y) > 10.0f)
 	return true;
 	return false;
 }
-
 void Boxx::updateTransform()
 {
 	cpVect cpPos = cpBodyGetPos(myBody);
 	this->setPosition(Vec2(cpPos.x, cpPos.y));
 	this->setRotation(-cpBodyGetAngle(myBody)*G_radToAngle);
 }
-
 void Boxx::setBodyPosition(const Vec2 pos)
 {
 	myBody->p = cpv(pos.x, pos.y);
 	updateTransform();
 }
-
 bool Boxx::isOnFlat()
 {
 	if (this->getPositionY() > 63 && this->getPositionY() < 120) return true;
 	return false;
 }
-
-
 void Boxx::updatePhysPos()
 {
 	if (deactivated)
@@ -186,19 +169,17 @@ void Boxx::updatePhysPos()
 		break;
 	}
 }
-
 void Boxx::displayDebugInfo()
 {
 	additionalDebugInfo();
 	//if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
 	//debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
 	//debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
 	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
 	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
 }
-
 void Boxx::additionalDebugInfo()
 {
 	debugL->setString(ID);
@@ -206,15 +187,14 @@ void Boxx::additionalDebugInfo()
 	if (deactivated) 
 		debugL->setString(debugL->getString() + "\ndeactivated");
 }
-
 void Boxx::addPoint()
 {
 	points++;
-	additionalDebugInfo();
+	displayDebugInfo();
 }
-
 void Boxx::deactivate()
 {
+	displayDebugInfo();
 	deactivated = true;
 }
 

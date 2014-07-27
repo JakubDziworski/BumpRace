@@ -27,7 +27,7 @@ public:
 	//COCOS PATTERN//
 	cocos2d::Color3B getBoxColor() const { return boxColor; }
 	bool myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr);
-	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space,cocos2d::Color3B boxColorr = cocos2d::Color3B::BLACK);
+	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space,cocos2d::Color3B boxColorr = cocos2d::Color3B::WHITE);
 	//GETTERS SETTERS//
 	std::string getFileName() const { return fileName; }
 	bool isDeactivated() const { return deactivated; }

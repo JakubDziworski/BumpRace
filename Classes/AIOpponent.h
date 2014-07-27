@@ -13,7 +13,7 @@ private:
 public:
 	void simulate(float dt);
 	bool myInit(const std::string& filename, std::string ID, cpSpace *space, int smartnez, cocos2d::Color3B boxColorr);
-	static AIOpponent* create(const std::string& filename, std::string ID,  cpSpace *space, int smartnez, cocos2d::Color3B boxColorr = cocos2d::Color3B::BLACK);
+	static AIOpponent* create(const std::string& filename, std::string ID,  cpSpace *space, int smartnez, cocos2d::Color3B boxColorr = cocos2d::Color3B::WHITE);
 	void addOrderedOpponents(cocos2d::Vector<Boxx*> &orderedOpponents){this->orderedOpponents = &orderedOpponents; }
 
 };
