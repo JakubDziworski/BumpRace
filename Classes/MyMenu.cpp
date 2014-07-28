@@ -11,6 +11,8 @@
 #include "AIOpponent.h"
 #include "myLayout.h"
 #include "myListView.h"
+#include "editor-support/cocostudio/CCSGUIReader.h"
+#include "editor-support/cocostudio/CocoStudio.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -36,18 +38,18 @@ bool MyMenu::init()
 	m_playersNames[1] = G_str("Player") + std::to_string(2);
 	m_playersNames[2] = G_str("Player") + std::to_string(3);
 	m_playersNames[3] = G_str("Player") + std::to_string(4);
-	playerboxFileNameIndex = 0;
+	playerboxFileNameIndex = 2;
 	m_playersBoxesFileNamesIndexes[0] = 0;
 	m_playersBoxesFileNamesIndexes[1] = 1;
-	m_playersBoxesFileNamesIndexes[2] = 0;
-	m_playersBoxesFileNamesIndexes[3] = 1;
+	m_playersBoxesFileNamesIndexes[2] = 2;
+	m_playersBoxesFileNamesIndexes[3] = 3;
 	srodek = Director::getInstance()->getVisibleSize() / 2.0f;
 	currMenu = L_MAINMENU;
 	//bg//
 	Sprite *bg = Sprite::createWithSpriteFrameName(R_tlo);
 	bg->setAnchorPoint(Vec2(0, 0));
 	G_scaleToFitScreen(bg);
-	this->addChild(bg);
+	this->addChild(bg,-3);
 	//*layout init*//
 	createLayout(L_MAINMENU);
 		createLayout(L_PLAYSINGLE);
@@ -77,8 +79,12 @@ bool MyMenu::init()
 	createBtn(R_btnOn[0], R_btnOn[1], "Continue", CC_CALLBACK_2(MyMenu::continueToBoxChoose, this), B_CONTINUETOCHOSEBOX, this->getChildByTag(L_FREERUN));
 	//SINGLE CHOOSE BOX
 	createLabel(G_str("Choose_Name"), L_CHOOSENAMES, LAB_CHOSENAMES);
-	createTextEdit(playerName, Color3B::BLACK, L_CHOOSENAMES, -1);
-	createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[1], R_Box[0] }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES);
+	auto singletextField = createTextEdit(playerName, G_colors[playerboxFileNameIndex], L_CHOOSENAMES, -1);
+	createPages("", { "BLUE", "GREEN", "PURPLE", "RON", "RED", "BLUE" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], R_Box[5] }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES,
+		[singletextField](PageView *pgview)
+	{
+		singletextField->setColor(G_colors[pgview->getCurPageIndex()]);
+	});
 	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
@@ -92,8 +98,12 @@ bool MyMenu::init()
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
-		createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
-		createPages("", { "nigga", "faggot", "regular" }, { R_Box[0], R_Box[1], R_Box[2] },m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES);
+		auto textfield = createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
+		auto page = createPages("", { "BLUE", "GREEN", "PURPLE","RON","RED","BLUE" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3] , R_Box[4] , R_Box[5] }, m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES,
+			[textfield](PageView *pgview)
+		{
+			textfield->setColor(G_colors[pgview->getCurPageIndex()]);
+		});
 	}
     createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	//*GENERAL BUTTONS*//
@@ -161,7 +171,7 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	verLayout->addWidget(horLayout);
 	this->getChildByTag(parenttag)->addChild(verLayout,0,tag);
 }
-void MyMenu::createTextEdit(std::string &text,cocos2d::Color3B textColor,int parenttag, int tag)
+cocos2d::ui::TextField* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(TextField*)> callback)
 {
 	Layout *bgLayout = Layout::create();
 	bgLayout->setSize(Sprite::create(R_multiBtn)->getContentSize());
@@ -174,17 +184,19 @@ void MyMenu::createTextEdit(std::string &text,cocos2d::Color3B textColor,int par
 	textField->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	textField->setTextVerticalAlignment(TextVAlignment::CENTER);
 	textField->setNormalizedPosition(Vec2(0.5, 0.5));
-	textField->addEventListener([&text, textField](Ref*, TextField::EventType type)
+	textField->addEventListener([&text, textField,callback](Ref*, TextField::EventType type)
 	{
 		text = textField->getStringValue();
+		if (callback != nullptr) callback(textField);
 	});
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	bgLayout->addChild(textField);
 	bgLayout->setLayoutParameter(par);
 	this->getChildByTag(parenttag)->addChild(bgLayout, 1, tag);
+	return textField;
 }
-void MyMenu::createPages(const std::string title,const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
+cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
 {
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
@@ -236,6 +248,7 @@ void MyMenu::createPages(const std::string title,const std::vector<const std::st
 		if(callback != nullptr)callback(pageView);
 	});
    	pageView->scrollToPage(defaultState);
+	return pageView;
 }
 void MyMenu::createLayout(int layoutTag)
 {
@@ -386,6 +399,7 @@ void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 //**CUSTOM SINGLE PLAYER EVENTS**//
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (!m_checkPlayersOverlap()) return;
 	Scene *scene;
 	if (currModeSelected == 0)
 	{
@@ -400,7 +414,7 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 		scene = EndlessWorld::createScene();
 	}
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace()));
+	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(),G_colors[playerboxFileNameIndex]));
 	G_dir()->replaceScene(scene);
 }
 void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
@@ -434,7 +448,6 @@ void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 	else if (currDiffValue == 2) str = "Hard";
 	textTochange->setString(str);
 }
-
 //**CUSTOM MULTI PLAYER EVENTS**//
 void MyMenu::m_ModeChooserPageChanged(cocos2d::ui::PageView *pages)
 {
@@ -490,13 +503,10 @@ void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 	textTochange->setString(str);
 }
 //*MUTLI CHOOSE BOXES *//
-void MyMenu::m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type)
-{
-
-}
-
 void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
+	if (!m_checkPlayersOverlap()) return;
 	Vector<Player*> players;
 	Vector<AIOpponent*> opponentz;
 	Scene *scene;
@@ -511,7 +521,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	for (int i = 0; i < m_currPlayersNumber; i++)
 	{
-		players.pushBack(Player::create(R_Box[0], m_playersNames[i], world->getGravitySpace(), G_colors[i]));
+		players.pushBack(Player::create(R_Box[m_playersBoxesFileNamesIndexes[i]], m_playersNames[i], world->getGravitySpace(), G_colors[m_playersBoxesFileNamesIndexes[i]]));
 	}
 	world->setMultiplayer(players);
 	G_dir()->replaceScene(scene);
@@ -539,4 +549,100 @@ void MyMenu::continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::Tou
 		hide(L_CARRER);
 	}
 	show(L_CHOOSENAMES);
+}
+//FIXES
+bool MyMenu::m_checkPlayersOverlap()
+{
+	bool ok = true;
+	for (int i = PG_PLAYER1BOX; i < PG_PLAYER1BOX+m_currPlayersNumber-1; i++)
+	{
+		for (int j = i + 1; j < PG_PLAYER1BOX + m_currPlayersNumber; j++)
+		{
+			PageView *pageviewAtI = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(i);
+			PageView *pageviewAtJ = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(j);
+			if (pageviewAtI->getCurPageIndex() == pageviewAtJ->getCurPageIndex())
+			{
+				//REST
+				pageviewAtJ->setColor(Color3B(255, 255, 254));//chujowyt kolor
+				ok = false;
+			}
+		}
+	}
+	if (!ok)
+	{
+		//GUI HANDLING
+		Layout *layout = dynamic_cast<Layout*>(this->getChildByTag(E_DIALOGREPAIR));
+		if (layout == NULL)
+		{
+			layout = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile("Dialog_1.json"));
+			this->addChild(layout, 1, E_DIALOGREPAIR);
+		}
+		layout->enumerateChildren("//closeBtn", [this, layout](Node *node) -> bool
+		{
+			Button *btn = (Button*)node;
+			btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
+			{
+				if (type != Widget::TouchEventType::ENDED) return;
+				auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
+				auto czekaj = DelayTime::create(1);
+				cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
+				this->runAction(Sequence::createWithTwoActions(czekaj, usun));
+			});
+			return false;
+		});
+		layout->enumerateChildren("//autocorrectBtn", [this,layout](Node *node)
+		{
+			auto btn = (Button*)node;
+			btn->addTouchEventListener([this,layout](Ref*, Widget::TouchEventType type)
+			{
+				if (type != Widget::TouchEventType::ENDED) return;
+				auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
+				auto czekaj = DelayTime::create(1);
+				cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
+				this->runAction(Sequence::createWithTwoActions(czekaj, usun));
+				this->m_autocorrectWrongPlayerChoose();
+			});
+			return false;
+		});
+		cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation0");
+	}
+	return ok;
+}
+
+void MyMenu::m_autocorrectWrongPlayerChoose()
+{
+	bool zajete[6] = { false, false, false, false, false, false };
+	for (int i = PG_PLAYER1BOX; i < PG_PLAYER1BOX + m_currPlayersNumber; i++)
+	{
+		PageView *pageviewAtI = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(i);
+		zajete[pageviewAtI->getCurPageIndex()] = true;
+	}
+	for (int i = PG_PLAYER1BOX; i < PG_PLAYER1BOX + m_currPlayersNumber; i++)
+	{
+		PageView *pageviewAtI = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(i);
+		if (pageviewAtI->getColor() == Color3B(255, 255, 254))	//chujowy kolor
+		{
+			bool moved = false;
+			int k = 1;
+			const int curpost = pageviewAtI->getCurPageIndex();
+			while (moved == false)
+			{
+				if (curpost + k <= 6 && !zajete[curpost + k])
+				{
+					pageviewAtI->getColor() == Color3B(255, 255, 255);
+					pageviewAtI->scrollToPage(curpost + k);
+					zajete[curpost + k] = true;
+					moved = true;
+				}
+				else if (curpost - k >= 0 && !zajete[curpost - k])
+				{
+					pageviewAtI->getColor() == Color3B(255, 255, 255);
+					pageviewAtI->scrollToPage(curpost - k);
+					zajete[curpost - k] = true;
+					moved = true;
+				}
+				k++;
+			}
+		}
+	}
 }

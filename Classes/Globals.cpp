@@ -14,7 +14,8 @@ int G_maxVelocity = 1000;
 const int G_maxVelConstant = 500;
 const int G_maxVelAddition = 2000;
 cocos2d::Dictionary *G_strings;
-const cocos2d::Color3B G_colors[6] = { cocos2d::Color3B(0, 0, 200), cocos2d::Color3B(225, 0, 15), cocos2d::Color3B(0, 255, 35), cocos2d::Color3B(238, 0, 200), cocos2d::Color3B(255, 255, 0), cocos2d::Color3B(0, 255, 255) };
+const int G_ALLboxesNumber = 6;
+const cocos2d::Color3B G_colors[6] = { cocos2d::Color3B(115, 207, 231), cocos2d::Color3B(178, 210, 53), cocos2d::Color3B(130, 85, 127), cocos2d::Color3B(244, 191, 26), cocos2d::Color3B(226, 54, 39), cocos2d::Color3B(115, 207, 231) };
 void G_setCurrAngle(float angle)
 {
 	G_Currangle = angle;

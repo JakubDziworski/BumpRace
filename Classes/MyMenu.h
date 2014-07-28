@@ -37,8 +37,8 @@ private:
 	void hide(int menutypedef);
 	void show(int menutypedef);
 	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
-	void createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag);
-	void createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback=nullptr);
+	cocos2d::ui::TextField* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(cocos2d::ui::TextField*)> callback=nullptr);
+	cocos2d::ui::PageView* createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback = nullptr);
 	void createLabel(const std::string &text, int parenttag, int tag);
 	void createLayout(int layoutTag);
 	void createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, cocos2d::ui::Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag);
@@ -67,10 +67,12 @@ public:
 	void m_ModeChooserPageChanged(cocos2d::ui::PageView *page);
 	//wybieranie gracza
 	void m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type);
+	bool m_checkPlayersOverlap();
 	void playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//additional callbacks
 	void m_OpponentsChanged(cocos2d::ui::Text *textToChange);
 	void difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
 	void m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
+	void m_autocorrectWrongPlayerChoose();
 };
 #endif // !__MENU_H__

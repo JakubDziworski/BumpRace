@@ -141,7 +141,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>BOX.png</filename>
             <filename>FLAT.png</filename>
             <filename>checkpoint.png</filename>
             <filename>tlo.png</filename>
@@ -153,8 +152,14 @@
             <filename>sliderDot.png</filename>
             <filename>sliderActive.png</filename>
             <filename>drzewka.png</filename>
-            <filename>brodacz.png</filename>
             <filename>multiBtn.png</filename>
+            <filename>Box_yellow.png</filename>
+            <filename>Box_blue.png</filename>
+            <filename>Box_green.png</filename>
+            <filename>Box_purple.png</filename>
+            <filename>Box_red.png</filename>
+            <filename>closebtn.png</filename>
+            <filename>BOX.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

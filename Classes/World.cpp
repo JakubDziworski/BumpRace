@@ -412,15 +412,29 @@ void World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 }
 void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 {
+	bool used[6] = { false, false, false, false, false, false };
 	for (auto player : players)
 	{
+		for (int i = 0; i < 6; i++)
+		{
+			if (player->getBoxColor() == G_colors[i])
+				used[i] = true;
+		}
 		opponentz.pushBack(player);
 		this->players.pushBack(player);
 	}
-	for (int i = 1; i <= boxesNumber-playersNumber; i++)
+	for (int j = 1; j <= boxesNumber-playersNumber; j++)
 	{
-
-		AIOpponent *opp = AIOpponent::create(R_Box[0], String::createWithFormat("%s%d",G_str("Opponent").c_str(), i)->getCString(), gravitySpace, aiSmart,G_colors[i-1+playersNumber]);
+		int wolny;
+		for (int i = 0; i < 6; i++)
+		{
+			if (used[i] == false)
+			{
+				wolny = i;
+				used[i] = true;
+			}
+		}
+		AIOpponent *opp = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s%d", G_str("Opponent").c_str(),j)->getCString(), gravitySpace, aiSmart, G_colors[wolny]);
 		opp->addOrderedOpponents(orderedOpponents);
 		opponentz.pushBack(opp);
 	}

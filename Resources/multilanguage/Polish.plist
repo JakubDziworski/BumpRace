@@ -40,5 +40,12 @@
 	<string>Nieskończony</string>
 	<key>Choose_Name</key>
 	<string>Wybierz Imię</string>
+	<key>Łatwy</key>
+	<string>Easy</string>
+	<key>Średni</key>
+	<string>Medium</string>
+	<key>Trudny</key>
+	<string>Hard</string>
+	
 </dict>
 </plist>
