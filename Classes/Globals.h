@@ -15,7 +15,7 @@ extern int G_maxVelocity;
 const extern int G_ALLboxesNumber;
 const extern int G_maxVelConstant;
 const extern int G_maxVelAddition;
-extern void G_scaleToFitScreen(cocos2d::Sprite *spr);
+extern void G_scaleToFitScreen(cocos2d::Node *spr);
 cocos2d::Director *G_dir();
 extern void G_setCurrAngle(float angle);
 extern float G_wF(float inp);

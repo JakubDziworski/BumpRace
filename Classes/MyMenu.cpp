@@ -575,6 +575,7 @@ bool MyMenu::m_checkPlayersOverlap()
 		if (layout == NULL)
 		{
 			layout = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile("Dialog_1.json"));
+			G_scaleToFitScreen(layout);
 			this->addChild(layout, 1, E_DIALOGREPAIR);
 		}
 		layout->enumerateChildren("//closeBtn", [this, layout](Node *node) -> bool

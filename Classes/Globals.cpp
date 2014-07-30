@@ -77,7 +77,7 @@ cocos2d::Color3B G_getRandomColor()
 	return cocos2d::Color3B(tab[0], tab[1], tab[2]);
 }
 
-void G_scaleToFitScreen(cocos2d::Sprite *spr)
+void G_scaleToFitScreen(cocos2d::Node *spr)
 {
 	spr->setScale(G_dir()->getWinSize().width / spr->getContentSize().width, G_dir()->getWinSize().height / spr->getContentSize().height);
 }

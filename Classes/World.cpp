@@ -266,11 +266,27 @@ void World::s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 }
 void World::s_putOnPlayers(Player* playerr)
 {
+	bool used[6] = { false, false, false, false, false, false };
 	player = playerr;
+	for (int i = 0; i < 6; i++)
+	{
+		if (player->getBoxColor() == G_colors[i])
+			used[i] = true;
+	}
 	opponentz.pushBack(player);
 	for (int i = 1; i < boxesNumber; i++)
 	{
-		auto aiop = AIOpponent::create(R_Box[0], CCString::createWithFormat("AI_%d", i)->getCString(), gravitySpace, aiSmart);
+		int wolny;
+		for (int j = 0; j < 6; j++)
+		{
+			if (used[j] == false)
+			{
+				wolny = j;
+				used[j] = true;
+				break;
+			}
+		}
+		auto aiop = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s %d", G_str("Opponent").c_str(), i)->getCString(), gravitySpace, aiSmart, G_colors[wolny]);
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}
@@ -432,9 +448,10 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 			{
 				wolny = i;
 				used[i] = true;
+				break;
 			}
 		}
-		AIOpponent *opp = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s%d", G_str("Opponent").c_str(),j)->getCString(), gravitySpace, aiSmart, G_colors[wolny]);
+		AIOpponent *opp = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s %d", G_str("Opponent").c_str(),j)->getCString(), gravitySpace, aiSmart, G_colors[wolny]);
 		opp->addOrderedOpponents(orderedOpponents);
 		opponentz.pushBack(opp);
 	}
