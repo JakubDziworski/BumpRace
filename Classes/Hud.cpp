@@ -15,13 +15,17 @@ bool Hud::init()
 	isGameOver = false;
 	//PAUSE//
 	pauseNode = Node::create();
-	Button* pauseBtn = Button::create(R_pauseBtn[0], R_pauseBtn[1]);
+	Button* pauseBtn = Button::create(R_pauseBtn[0], R_pauseBtn[1], "", TextureResType::PLIST);
+	pauseBtn->setTitleFontName(R_defaultFont);
 	pauseBtn->setPosition(Vec2(2 * G_srodek.x - pauseBtn->getContentSize().height*0.75f, 2 * G_srodek.y - pauseBtn->getContentSize().width*0.75f));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_2(Hud::pauseTouchCallback,this));
 	const int margin = G_srodek.y / 20;
-	Button *resume = Button::create(R_resumebtn, R_resumebtn);
-	Button *repeat = Button::create(R_reapeatBtn, R_reapeatBtn);
-	Button *goToMenu = Button::create(R_gotoMenuBtn, R_gotoMenuBtn);
+	Button *resume = Button::create(R_resumebtn, R_resumebtn,  "", TextureResType::PLIST);
+	Button *repeat = Button::create(R_reapeatBtn, R_reapeatBtn,  "", TextureResType::PLIST);
+	Button *goToMenu = Button::create(R_gotoMenuBtn, R_gotoMenuBtn,  "", TextureResType::PLIST);
+	resume->setTitleFontName(R_defaultFont);
+	repeat->setTitleFontName(R_defaultFont);
+	goToMenu->setTitleFontName(R_defaultFont);
 	resume->setPositionY(resume->getContentSize().height + margin);
 	goToMenu->setPositionY(-goToMenu->getContentSize().height - margin);
 	resume->addTouchEventListener(CC_CALLBACK_2(Hud::resumeBtnListenerBase, this));
@@ -35,8 +39,7 @@ bool Hud::init()
 	this->addChild(pauseNode);
 	this->addChild(pauseBtn, 1, B_PAUSE);
 	//INFO
-	infoNode = Label::create();
-	infoNode->setSystemFontSize(G_wF(35));
+	infoNode = Label::create("",R_defaultFont,G_wF(35));
 	infoNode->setPosition(G_srodek);
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);
@@ -101,7 +104,8 @@ void Hud::setMultiplayer(World *world)
 	int sizey;
 	for (Player *player : *world->getPlayers())
 	{
-		auto btn = Button::create(R_multiBtn,"");
+		auto btn = Button::create(R_multiBtn, "", "", TextureResType::PLIST);
+		btn->setTitleFontName(R_defaultFont);
 		btn->setScale9Enabled(true);
 		btn->setScaleX(2 * G_srodek.x / btn->getContentSize().width / playerznumber);
 		btn->setAnchorPoint(Vec2(0, 0));

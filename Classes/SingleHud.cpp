@@ -58,14 +58,16 @@ void SingleGateHud::gameIsOver()
 	myLayout *btnlayout = myLayout::create();
 	btnlayout->setType(1);
 	btnlayout->setMargin(0, G_hF(25), 0, 0);
-	Button *menuBtn = Button::create(R_gotoMenuBtn);
-	Button *retryBtn = Button::create(R_reapeatBtn);
+	Button *menuBtn = Button::create(R_gotoMenuBtn, "", "", TextureResType::PLIST);
+	Button *retryBtn = Button::create(R_reapeatBtn, "", "", TextureResType::PLIST);
+	menuBtn->setTitleFontName(R_defaultFont);
+	retryBtn->setTitleFontName(R_defaultFont);
 	btnlayout->addWidget(menuBtn);
 	btnlayout->addWidget(retryBtn);
 	gmOverNode->setMargin(25, 25);
 	gmOverNode->addWidget(btnlayout);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn[0]);
+	gmOverNode->setBackGroundImage(R_btnOn[0], Widget::TextureResType::PLIST);
 	gmOverNode->setPosition(G_srodek);
 	//listeners
 	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoMenuBtnListenerBase, this));

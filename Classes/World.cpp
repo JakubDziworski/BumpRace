@@ -79,9 +79,9 @@ void World::createFloor()
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - Director::getInstance()->getWinSize().width) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
-	SpriteBatchNode *node = SpriteBatchNode::create(R_flat);
+	SpriteBatchNode *node = SpriteBatchNode::createWithTexture(SpriteFrameCache::getInstance()->getSpriteFrameByName(R_flat)->getTexture());
 	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
-	node->getTexture()->setTexParameters(&tp);
+	node->getTexture()->setTexParameters(tp);
 	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
 	flatsprite->setCPBody(floorBody);
 	node->addChild(flatsprite);
@@ -105,7 +105,7 @@ void World::rozmiescCheckpointy()
 void World::createBackground()
 {
 
-	bgImg = Sprite::create(R_tlo);
+	bgImg = Sprite::createWithSpriteFrameName(R_tlo);
 	bgImg->setScale(srodek.x * 4 / bgImg->getContentSize().width, srodek.y * 2 / bgImg->getContentSize().height);
 	bgImg->setPosition(srodek.x, srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));

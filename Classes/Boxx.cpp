@@ -16,8 +16,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	points = 0;
 	deactivated = false;
 	//create cocos stuff//
-	debugL = Label::create();
-	debugL->setSystemFontSize(35);
+	debugL = Label::create("",R_defaultFont,G_wF(45));
 	debugL->setColor(this->boxColor);
 	//physics//
 	auto bounding = this->getContentSize();

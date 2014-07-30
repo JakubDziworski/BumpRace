@@ -134,8 +134,10 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	horLayout->setType(1);
 	Text *titleText = Text::create(labelText, R_defaultFont, G_wF(25));
 	Text *valueText = Text::create(defaultText, R_defaultFont, G_wF(25));
-	Button *minusBtn = Button::create(R_minusBtn);
-	Button *plusbtn = Button::create(R_plusBtn);
+	Button *minusBtn = Button::create(R_minusBtn,"","",TextureResType::PLIST);
+	Button *plusbtn = Button::create(R_plusBtn, "", "", TextureResType::PLIST);
+	minusBtn->setTitleFontName(R_defaultFont);
+	plusbtn->setTitleFontName(R_defaultFont);
 	minusBtn->addTouchEventListener([&changinVal, minVal, valueText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
 		if (changinVal-1 >= minVal)
@@ -174,13 +176,15 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 cocos2d::ui::TextField* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(TextField*)> callback)
 {
 	Layout *bgLayout = Layout::create();
-	bgLayout->setSize(Sprite::create(R_multiBtn)->getContentSize());
-	bgLayout->setBackGroundImage(R_multiBtn);
+	bgLayout->setSize(Sprite::createWithSpriteFrameName(R_multiBtn)->getContentSize());
+	bgLayout->setClippingType(Layout::ClippingType::SCISSOR);
 	bgLayout->setClippingEnabled(true);
-	auto textField = TextField::create();
-	textField->setFontSize(G_wF(35));
+	bgLayout->setBackGroundImage(R_multiBtn,TextureResType::PLIST);
+	auto textField = TextField::create("",R_defaultFont,G_wF(35));
 	textField->setColor(textColor);
 	textField->setPlaceHolder(text);
+	textField->setMaxLengthEnabled(true);
+	textField->setMaxLength(8);
 	textField->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	textField->setTextVerticalAlignment(TextVAlignment::CENTER);
 	textField->setNormalizedPosition(Vec2(0.5, 0.5));
@@ -213,7 +217,7 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 	{
 		Layout *layout = Layout::create();
 		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
-		ImageView *imageView = ImageView::create(filepaths.at(i));
+		ImageView *imageView = ImageView::create(filepaths.at(i), TextureResType::PLIST);
 		Text *text = Text::create(names.at(i), R_defaultFont, G_wF(25));
 		text->setLayoutParameter(par);
 		imageView->setLayoutParameter(par);
@@ -273,10 +277,10 @@ void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 }
 void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
 {
-	cocos2d::ui::Button* btn = cocos2d::ui::Button::create();
+	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
+	btn->setTitleFontName(R_defaultFont);
 	btn->setTitleFontSize(35);
 	btn->setTouchEnabled(true);
-	btn->loadTextures(imgOn, imgOf, "");
 	if (btnText != "")
 	{
 		btn->setTitleText(G_str(btnText));
@@ -290,9 +294,9 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 void MyMenu::createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag)
 {
 	Slider* slider = Slider::create();
-	slider->loadBarTexture(R_slider[0]);
-	slider->loadSlidBallTextures(R_sliderDot, R_sliderDot, "");
-	slider->loadProgressBarTexture(R_slider[1]);
+	slider->loadBarTexture(R_slider[0], TextureResType::PLIST);
+	slider->loadSlidBallTextures(R_sliderDot, R_sliderDot, "", TextureResType::PLIST);
+	slider->loadProgressBarTexture(R_slider[1], TextureResType::PLIST);
 	slider->setCapInsets(Rect(0, 0, 0, 0));
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);

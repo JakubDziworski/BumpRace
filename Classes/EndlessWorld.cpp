@@ -74,7 +74,7 @@ void EndlessWorld::extendFlat()
 	cpSpaceAddStaticShape(gravitySpace, floor);
 	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
 	//bg
-	Sprite *bgNext = Sprite::create(R_tlo);
+	Sprite *bgNext = Sprite::createWithSpriteFrameName(R_tlo);
 	bgNext->setAnchorPoint(Vec2(-1 * iterations, 0));
 	if(iterations%2 == 1)bgNext->setFlippedX(true);
 	bgImg->addChild(bgNext, 0, iterations);
