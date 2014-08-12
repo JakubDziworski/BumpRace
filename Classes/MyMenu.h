@@ -43,6 +43,8 @@ private:
 	void createLayout(int layoutTag);
 	void createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, cocos2d::ui::Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag);
 	void createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed,cocos2d::Node *layout);
+	void createSinglePlayerTutorialDialog();
+	void createLevelMapUI();
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
@@ -74,5 +76,8 @@ public:
 	void difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
 	void m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
 	void m_autocorrectWrongPlayerChoose();
+	//SETUPO
+	void m_setupAutoCorrectDialog(cocos2d::ui::Layout *root);
+	
 };
 #endif // !__MENU_H__

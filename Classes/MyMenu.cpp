@@ -53,7 +53,7 @@ bool MyMenu::init()
 	//*layout init*//
 	createLayout(L_MAINMENU);
 		createLayout(L_PLAYSINGLE);
-			createLayout(L_CARRER);
+			createLevelMapUI();
 			createLayout(L_FREERUN);
 			createLayout(L_CHOOSENAMES);
 		createLayout(L_PLAYMULTI);
@@ -108,6 +108,8 @@ bool MyMenu::init()
     createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	//*GENERAL BUTTONS*//
 	createBtn(R_btnBack[0], R_btnBack[1],"", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
+	//tutorial
+	//createSinglePlayerTutorialDialog();
 	//*MODIFICATION*//
 	auto backbtn = this->getChildByTag(B_BACK);
 	backbtn->setPosition(2 * srodek.height*0.1f, 2 * srodek.height*0.9f);
@@ -289,7 +291,7 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	btn->setLayoutParameter(par);
-	layout->addChild(btn, 1, typed);
+	layout->addChild(btn, 15, typed);
 }
 void MyMenu::createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag)
 {
@@ -349,6 +351,10 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 		show(L_PLAYSINGLE);
 		hide(L_FREERUN);
 		break;
+	case L_CARRER:
+		show(L_PLAYSINGLE);
+		hide(L_CARRER);
+		break;
 	case L_OPTIONS:
 		show(L_MAINMENU);
 		hide(B_BACK);
@@ -374,6 +380,7 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 //**MAIN MENU EVENTS**//
 void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
 	show(B_BACK);
 	show(L_PLAYSINGLE);
 	hide(L_MAINMENU);
@@ -393,7 +400,9 @@ void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 //**SINGLE PLAYER EVENTS**//
 void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-
+	if (type != Widget::TouchEventType::ENDED) return;
+	hide(L_PLAYSINGLE);
+	show(L_CARRER);
 }
 void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -579,41 +588,13 @@ bool MyMenu::m_checkPlayersOverlap()
 		if (layout == NULL)
 		{
 			layout = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile("Dialog_1.json"));
-			G_scaleToFitScreen(layout);
+			m_setupAutoCorrectDialog(layout);
 			this->addChild(layout, 1, E_DIALOGREPAIR);
 		}
-		layout->enumerateChildren("//closeBtn", [this, layout](Node *node) -> bool
-		{
-			Button *btn = (Button*)node;
-			btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
-			{
-				if (type != Widget::TouchEventType::ENDED) return;
-				auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
-				auto czekaj = DelayTime::create(1);
-				cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
-				this->runAction(Sequence::createWithTwoActions(czekaj, usun));
-			});
-			return false;
-		});
-		layout->enumerateChildren("//autocorrectBtn", [this,layout](Node *node)
-		{
-			auto btn = (Button*)node;
-			btn->addTouchEventListener([this,layout](Ref*, Widget::TouchEventType type)
-			{
-				if (type != Widget::TouchEventType::ENDED) return;
-				auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
-				auto czekaj = DelayTime::create(1);
-				cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
-				this->runAction(Sequence::createWithTwoActions(czekaj, usun));
-				this->m_autocorrectWrongPlayerChoose();
-			});
-			return false;
-		});
 		cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation0");
 	}
 	return ok;
 }
-
 void MyMenu::m_autocorrectWrongPlayerChoose()
 {
 	bool zajete[6] = { false, false, false, false, false, false };
@@ -650,4 +631,81 @@ void MyMenu::m_autocorrectWrongPlayerChoose()
 			}
 		}
 	}
+}
+void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
+{
+	layout->enumerateChildren("//closeBtn", [this, layout](Node *node) -> bool
+	{
+		Button *btn = (Button*)node;
+		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
+			auto czekaj = DelayTime::create(1);
+			cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
+			this->runAction(Sequence::createWithTwoActions(czekaj, usun));
+		});
+		return false;
+	});
+	layout->enumerateChildren("//autocorrectBtn", [this, layout](Node *node)
+	{
+		auto btn = (Button*)node;
+		btn->setTitleFontSize(G_wF(20));
+		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
+			auto czekaj = DelayTime::create(1);
+			cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
+			this->runAction(Sequence::createWithTwoActions(czekaj, usun));
+			this->m_autocorrectWrongPlayerChoose();
+		});
+		return false;
+	});
+	layout->enumerateChildren("//dialogText", [layout](Node *node)
+	{
+		auto border = utils::findChildren(*layout, "//textBorder").at(0)->getContentSize();
+		auto labell = ((Text*)node);
+		labell->setString(G_str("AutoCorrectDialogText"));
+		labell->setTextAreaSize(border);
+		labell->enableShadow();
+		labell->setFontSize(G_wF(20));
+		return false;
+	});
+}
+void MyMenu::createSinglePlayerTutorialDialog()
+{
+		int taps=0;
+		Layout *dialogRoot = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile(R_tutorialDialog.c_str()));
+		dialogRoot->setTouchEnabled(false);
+		auto button = (Button*)utils::findChildren(*dialogRoot, "//Button_3").at(0);
+		auto text = (Text*)utils::findChildren(*dialogRoot, "//Label_4").at(0);
+		cocostudio::ActionManagerEx::getInstance()->playActionByName(R_tutorialDialog.c_str(), "WelcomeAnimation");
+		bool singleConfirmed=false;
+		button->addTouchEventListener([text, taps](Ref*, Widget::TouchEventType type) mutable
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			switch (taps)
+			{
+			case 0:
+				cocostudio::ActionManagerEx::getInstance()->playActionByName(R_tutorialDialog.c_str(), "MoveToTop");
+				text->setString(G_str("Tutorial_Single/Multiplayer"));
+				taps++;
+				break;
+			case 1:
+				cocostudio::ActionManagerEx::getInstance()->playActionByName(R_tutorialDialog.c_str(), "Notification");
+				text->setString(G_str("Tutorial_Single/Multiplayer"));
+				taps++;
+				break;
+			}
+		});
+		this->addChild(dialogRoot, 1, E_TUTORIALDIALOG);
+}
+void MyMenu::createLevelMapUI()
+{
+	Layout *dialogRoot = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile(R_LevelMapUI.c_str()));
+	cocostudio::ActionManagerEx::getInstance()->playActionByName(R_LevelMapUI.c_str(), "Animation0");
+	dialogRoot->setVisible(false);
+	dialogRoot->setOpacity(0);
+	this->addChild(dialogRoot,2,L_CARRER);
 }

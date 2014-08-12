@@ -173,7 +173,8 @@ void World::checkpointReachedBase(Boxx *box, int pos)
 		if ((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))
 			((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->displayGameOver();
 	}
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str());
+	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 }
 //----****SORTING FUNCTIONS***-----//
 cocos2d::Vector<Boxx*> * World::getSortedBoxesByScore()

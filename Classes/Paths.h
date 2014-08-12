@@ -26,4 +26,7 @@ const std::string R_checkpointParticle = "particles/chkptParticle.plist";
 //MUSIC 
 const std::string R_MP3_punch = "sounds/punch.mp3";
 const std::string R_bgmusic = "music/main.mp3";
+//DIALOGS
+const std::string R_tutorialDialog = "tutorialintro_1.json";
+const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";
 #endif // __PATHS__H__

@@ -44,8 +44,11 @@
 	<string>Easy</string>
 	<key>Średni</key>
 	<string>Medium</string>
-	<key>Trudny</key>
-	<string>Hard</string>
-	
+	<key>Hard</key>
+	<string>Trudny</string>
+	<key>AutoCorrectDialogText</key>
+	<string>Kilku graczy dokonało tego samego wyboru.Popraw ręcznie albo zastosuj autokorektę.</string>
+	<key>Tutorial_Single/Multiplayer</key>
+	<string>Wybierz grę dla pojedynczego gracza albo dla dwóch graczy</string>
 </dict>
 </plist>
