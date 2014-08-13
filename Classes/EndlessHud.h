@@ -13,7 +13,7 @@ private:
 public:
 	virtual bool init();
 	CREATE_FUNC(EndlessHud);
-	virtual void gameIsOver();
+	virtual void gameIsOver(bool win);
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	virtual void lateinit(World *world);
 

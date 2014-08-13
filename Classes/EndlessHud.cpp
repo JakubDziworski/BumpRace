@@ -18,7 +18,7 @@ bool EndlessHud::init()
 	this->addChild(scoreText);
 	return true;
 }
-void EndlessHud::gameIsOver()
+void EndlessHud::gameIsOver(bool win)
 {
 	//general disabling
 	const float margin = G_srodek.x / 15;

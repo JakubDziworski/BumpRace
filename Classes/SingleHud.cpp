@@ -27,7 +27,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 		scoreNode->addWidget(text);
 	}
 }
-void SingleGateHud::gameIsOver()
+void SingleGateHud::gameIsOver(bool win)
 {
 	//general disabling
 	const float margin = G_srodek.x / 15;

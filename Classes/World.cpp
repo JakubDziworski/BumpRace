@@ -28,6 +28,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 		return false;
 	}
 	//****************//
+	win = false;
 	rotationLayer = Node::create();
 	moveLayer = Node::create();
 	scaleeLayer = Node::create();
@@ -171,7 +172,7 @@ void World::checkpointReachedBase(Boxx *box, int pos)
 	if (remainingGates == 0)
 	{
 		if ((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))
-			((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->displayGameOver();
+			((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->displayGameOver(true);
 	}
 	
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());

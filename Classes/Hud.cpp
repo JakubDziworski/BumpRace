@@ -69,7 +69,7 @@ void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::To
 	gotoMenuBtnListenerExtended();
 	Director::getInstance()->replaceScene(MyMenu::createScene());
 }
-void Hud::displayGameOver()
+void Hud::displayGameOver(bool win)
 {
 	if (isGameOver) return;
 	isGameOver = true;
@@ -78,7 +78,7 @@ void Hud::displayGameOver()
 	((World*)G_dir()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->gameIsOver();
 	G_dir()->getScheduler()->setTimeScale(0.1f);
 	FiniteTimeAction *wait = DelayTime::create(0.1f);
-	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(); });
+	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(win); });
 	this->runAction(Sequence::create(wait, lategameover, NULL));
 }
 void Hud::displayInfo(const std::string &stringToDisplay, Boxx* boxabout)

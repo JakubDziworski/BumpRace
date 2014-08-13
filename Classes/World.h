@@ -28,6 +28,7 @@ private:
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
 	std::function<void()> cameraFollowFunction;
 protected:
+	bool win;
 	cocos2d::extension::PhysicsSprite *flatsprite;
 	cocos2d::Sprite *bgImg;
 	cpBody *floorBody;

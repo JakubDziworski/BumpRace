@@ -14,7 +14,7 @@ bool SingleElimHud::init()
 	
 	return true;
 }
-void SingleElimHud::gameIsOver()
+void SingleElimHud::gameIsOver(bool win)
 {
 	//general disabling
 	const float margin = G_srodek.x / 15;
@@ -22,7 +22,7 @@ void SingleElimHud::gameIsOver()
 	gmOverNode->setType(0);
 	//gmover text
 	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
-	if (dynamic_cast<Player*>(world->getOstaniActive()))	//WYGRANA
+	if (win)	//WYGRANA
 	{
 		gmOverText->setString("WYGRANA!");
 	}

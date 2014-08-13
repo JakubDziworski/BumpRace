@@ -412,7 +412,6 @@ void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 //**CUSTOM SINGLE PLAYER EVENTS**//
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	if (!m_checkPlayersOverlap()) return;
 	Scene *scene;
 	if (currModeSelected == 0)
 	{
@@ -704,8 +703,44 @@ void MyMenu::createSinglePlayerTutorialDialog()
 void MyMenu::createLevelMapUI()
 {
 	Layout *dialogRoot = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile(R_LevelMapUI.c_str()));
-	cocostudio::ActionManagerEx::getInstance()->playActionByName(R_LevelMapUI.c_str(), "Animation0");
 	dialogRoot->setVisible(false);
 	dialogRoot->setOpacity(0);
 	this->addChild(dialogRoot,2,L_CARRER);
+	//listeners
+	for (auto childd : utils::findChildren(*dialogRoot, "mainscroll").at(0)->getChildren())
+	{
+		Button *btn = (Button*)childd;
+		btn->addTouchEventListener([btn](Ref *reff, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			Scene *scene = NULL;
+			if (btn->getName() == "Level1Btn")
+			{
+				scene = SingleGateWorld::createScene(4, 5, 1);
+			}
+			else if (btn->getName() == "Level2Btn")
+			{
+				scene = SingleEliminationWorld::createScene(4, 1);
+			}
+			else if (btn->getName() == "Level3Btn")
+			{
+			}
+			else if (btn->getName() == "Level4Btn")
+			{
+			}
+			else if (btn->getName() == "Level5Btn")
+			{
+			}
+			else if (btn->getName() == "Level6Btn")
+			{
+			}
+			else if (btn->getName() == "Level7Btn")
+			{
+			}
+			if (scene == NULL) return;
+			World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+			world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+			G_dir()->replaceScene(scene);
+		});
+	}
 }

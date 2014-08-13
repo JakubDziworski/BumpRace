@@ -54,7 +54,7 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		orderedOpponents.at(remainingGates+1)->deactivate();
 		hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 		if (orderedOpponents.at(remainingGates+1) == player) 
-			hud->displayGameOver();
+			hud->displayGameOver(false);
 	}
 }
 void SingleEliminationWorld::restartLevel()

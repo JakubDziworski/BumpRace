@@ -20,13 +20,13 @@ protected:
 	virtual void resumeBtnListenerExtended(){}
 	virtual void gotoMenuBtnListenerExtended(){}
 	virtual void repeatBtnListenerExtended(){}
-	virtual void gameIsOver(){}
+	virtual void gameIsOver(bool win){}
 	virtual void additionalMulti(int heightY){}
 public:
 	void setMultiplayer(World *world);
 	virtual void lateinit(World *world){}
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes){}
-	void displayGameOver();
+	void displayGameOver(bool win);
 	virtual bool init();
 	void displayInfo(const std::string &stringToDisplay, Boxx* boxabout = NULL);
 };

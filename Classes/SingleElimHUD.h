@@ -15,7 +15,7 @@ private:
 public:
 	virtual bool init();
 	CREATE_FUNC(SingleElimHud);
-	virtual void gameIsOver();
+	virtual void gameIsOver(bool win);
 	virtual void boxEliminated(Boxx* ostatni);
 	virtual void lateinit(World *world);
 	virtual void additionalMulti(int heightY);
