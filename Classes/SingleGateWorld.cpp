@@ -28,7 +28,6 @@ bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 	G_dir()->getScheduler()->setTimeScale(1);
 	return true;
 }
-
 void SingleGateWorld::customWorldUpdate()
 {
 	//throw std::logic_error("The method or operation is not implemented.");
@@ -50,6 +49,15 @@ SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiL
 }
 void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
+	if (pos == 1)
+	{
+		box->addPoint();
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
+	}
+	if (remainingGates == 0)
+	{
+		this->gameIsOver(false);
+	}
 	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
 }
 void SingleGateWorld::restartLevel()
@@ -58,6 +66,7 @@ void SingleGateWorld::restartLevel()
 	auto scene = SingleGateWorld::createScene(boxesNumber, gatesNumber, aiSmart);
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	this->replaceSceneGenereal(scene, world);
+	if (carrerLevel != 0) world->setCarrierLevel(carrerLevel);
 }
 void SingleGateWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {

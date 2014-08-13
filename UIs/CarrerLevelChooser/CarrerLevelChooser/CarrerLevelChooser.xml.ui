@@ -8,6 +8,7 @@
   <JsonFolder>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\Json</JsonFolder>
   <JsonList>
     <string>CarrerLevelChooser_1.json</string>
+    <string>levelLockedDialog.json</string>
   </JsonList>
   <CanvasSize>
     <Width>960</Width>

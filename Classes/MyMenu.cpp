@@ -24,6 +24,15 @@ bool MyMenu::init()
 		return false;
 	}
 	preload();
+	/*Button *btnn = Button::create(R_multiBtn,"","",TextureResType::PLIST);
+	btnn->setPosition(G_srodek);
+	this->addChild(btnn,54);
+	btnn->addTouchEventListener([btnn](Ref* reff, Widget::TouchEventType type)
+	{
+	if (type != Widget::TouchEventType::ENDED) return;
+	btnn->setPositionY(2 * G_srodek.y);
+	btnn->runAction(EaseBackOut::create(MoveTo::create(0.5f, G_srodek)));
+	});*/
 	currOpponentsNumber=3;
 	currDiffValue=1;
 	currModeSelected=0;
@@ -716,9 +725,25 @@ void MyMenu::createLevelMapUI()
 		if (!DbReader::getInstance()->isLevelUnlocked(levelNumber))
 		{
 			btn->setColor(Color3B::GRAY);
-			btn->addTouchEventListener([](Ref *reff, Widget::TouchEventType type)
+			btn->addTouchEventListener([this](Ref *reff, Widget::TouchEventType type)
 			{
-
+				if (type != Widget::TouchEventType::ENDED) return;
+				if (levelLockedDialog == NULL)
+				{
+					levelLockedDialog = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("levelLockedDialog.json");
+					((Text*)utils::findChildren(*levelLockedDialog, "//DialogText").at(0))->setText(G_str("completePrev"));
+					this->addChild(levelLockedDialog);
+				}
+				cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimIn");
+				levelLockedDialog->enumerateChildren("//DialogButton", [](Node *buttn)
+				{
+					((Button*)buttn)->addTouchEventListener([](Ref *refff, Widget::TouchEventType typee)
+					{
+						if (typee != Widget::TouchEventType::ENDED) return;
+						cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimOut");
+					});
+					return false;
+				});
 			});
 			continue;
 		}

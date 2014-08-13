@@ -16,7 +16,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(SingleGateHud);
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
-	virtual void gameIsOver(bool win);
+	virtual void displayGameIsOverAdditional(bool win);
 	virtual void lateinit(World *world);
 	virtual void additionalMulti(int heightY);
 

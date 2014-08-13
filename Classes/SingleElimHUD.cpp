@@ -14,7 +14,7 @@ bool SingleElimHud::init()
 	
 	return true;
 }
-void SingleElimHud::gameIsOver(bool win)
+void SingleElimHud::displayGameIsOverAdditional(bool win)
 {
 	//general disabling
 	const float margin = G_srodek.x / 15;
@@ -96,7 +96,6 @@ void SingleElimHud::boxEliminated(Boxx* ostatni)
 	wyeliminowany->setColor(Color3B(100, 100, 100));
 	eliminated++;
 }
-
 void SingleElimHud::additionalMulti(int heightY)
 {
 	scoreNode->setPositionY(scoreNode->getPositionY() + heightY);

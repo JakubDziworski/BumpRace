@@ -11,7 +11,7 @@ private:
 	int score;
 	void extendFlat();
 public:
-	int getScore() const { return score; }
+	int getScore() { return score; }
 	void setMinGates(int number){ minliczbabramek = number; }
 	static cocos2d::Scene *createScene();
 	virtual bool init();

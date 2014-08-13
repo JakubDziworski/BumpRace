@@ -4,4 +4,8 @@
     <Project>CarrerLevelChooser_1</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>levelLockedDialog</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

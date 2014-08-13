@@ -18,6 +18,7 @@ bool EndlessWorld::init()
 	koniec = G_endlessGateNumber*G_odlegloscmiedzyBramkami;
 	dodatek = koniec;
 	minliczbabramek = 0;
+	score = 0;
 	return true;
 }
 cocos2d::Scene * EndlessWorld::createScene()
@@ -37,20 +38,25 @@ void EndlessWorld::restartLevel()
 	EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
 	this->replaceSceneGenereal(scene, world);
 	world->setMinGates(minliczbabramek);
-	
+	if (carrerLevel != 0) world->setCarrierLevel(carrerLevel);
 }
 void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (box == player && pos == boxesNumber)
 	{
 		getHud()->displayGameOver(false);
+		return;
 	}
-	score++;
-	if (score == minliczbabramek)
+	if (box == player)
+	{
+		score++;
+		getHud()->pointsChanged(&orderedOppByScore);
+	}
+	if (score == minliczbabramek && minliczbabramek != 0)
 	{
 		getHud()->displayGameOver(true);
+		return;
 	}
-	getHud()->pointsChanged(&orderedOppByScore);
 	remainingGates++;
 }
 void EndlessWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)

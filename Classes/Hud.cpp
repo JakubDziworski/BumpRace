@@ -65,6 +65,7 @@ void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 }
 void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
+	if (touchType != Button::TouchEventType::ENDED) return;
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	gotoMenuBtnListenerExtended();
 	Director::getInstance()->replaceScene(MyMenu::createScene());
@@ -75,10 +76,9 @@ void Hud::displayGameOver(bool win)
 	isGameOver = true;
 	((Button*)this->getChildByTag(B_PAUSE))->setTouchEnabled(false);
 	((Button*)this->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
-	((World*)G_dir()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->gameIsOver();
 	G_dir()->getScheduler()->setTimeScale(0.1f);
 	FiniteTimeAction *wait = DelayTime::create(0.1f);
-	FiniteTimeAction *lategameover = CallFunc::create([&](){this->gameIsOver(win); });
+	FiniteTimeAction *lategameover = CallFunc::create([this,win](){this->displayGameIsOverAdditional(win); });
 	this->runAction(Sequence::create(wait, lategameover, NULL));
 }
 void Hud::displayInfo(const std::string &stringToDisplay, Boxx* boxabout)

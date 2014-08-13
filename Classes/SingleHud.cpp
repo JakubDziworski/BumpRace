@@ -27,7 +27,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 		scoreNode->addWidget(text);
 	}
 }
-void SingleGateHud::gameIsOver(bool win)
+void SingleGateHud::displayGameIsOverAdditional(bool win)
 {
 	//general disabling
 	const float margin = G_srodek.x / 15;
@@ -68,14 +68,13 @@ void SingleGateHud::gameIsOver(bool win)
 	gmOverNode->addWidget(btnlayout);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
 	gmOverNode->setBackGroundImage(R_btnOn[0], Widget::TextureResType::PLIST);
-	gmOverNode->setPosition(G_srodek);
+	gmOverNode->setPosition(Vec2(G_srodek.x,2*G_srodek.y+gmOverNode->getContentSize().height));
+	gmOverNode->runAction(EaseBackOut::create(MoveTo::create(0.3f*Director::getInstance()->getScheduler()->getTimeScale(), G_srodek)));
 	//listeners
 	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoMenuBtnListenerBase, this));
 	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::repeatBtnListenerBase, this));
 	//oapcity
-	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
-	gmOverNode->setOpacity(0);
-	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
+	scoreNode->runAction(FadeOut::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
 }
 void SingleGateHud::lateinit(World *world)

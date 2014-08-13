@@ -20,7 +20,7 @@ protected:
 	virtual void resumeBtnListenerExtended(){}
 	virtual void gotoMenuBtnListenerExtended(){}
 	virtual void repeatBtnListenerExtended(){}
-	virtual void gameIsOver(bool win){}
+	virtual void displayGameIsOverAdditional(bool win){}
 	virtual void additionalMulti(int heightY){}
 public:
 	void setMultiplayer(World *world);

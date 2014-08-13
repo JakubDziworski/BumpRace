@@ -51,11 +51,20 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 	if (hud == NULL) hud = ((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
 	if (box == orderedOpponents.at(remainingGates))
 	{
+		//deactivate
 		orderedOpponents.at(remainingGates+1)->deactivate();
 		hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
-		if (orderedOpponents.at(remainingGates+1) == player) 
-			hud->displayGameOver(false);
+		//game over
+		if (remainingGates == 0 && orderedOpponents.at(remainingGates) == player)
+		{
+			this->gameIsOver(true);
+		}
+		else if (orderedOpponents.at(remainingGates + 1) == player)
+		{
+			this->gameIsOver(false);
+		}
 	}
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 }
 void SingleEliminationWorld::restartLevel()
 {
@@ -63,6 +72,7 @@ void SingleEliminationWorld::restartLevel()
 	auto scene = SingleEliminationWorld::createScene(boxesNumber, aiSmart);
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	this->replaceSceneGenereal(scene, world);
+	if (carrerLevel != 0) world->setCarrierLevel(carrerLevel);
 }
 void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {

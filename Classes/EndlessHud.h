@@ -6,14 +6,14 @@
 class EndlessHud : public Hud
 {
 private:
-	World* world;
+	EndlessWorld* world;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	cocos2d::Label *scoreText;
 	myLayout *gmOverNode;
 public:
 	virtual bool init();
 	CREATE_FUNC(EndlessHud);
-	virtual void gameIsOver(bool win);
+	virtual void displayGameIsOverAdditional(bool win);
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	virtual void lateinit(World *world);
 

@@ -28,7 +28,7 @@ private:
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
 	std::function<void()> cameraFollowFunction;
 protected:
-	bool win;
+	int carrerLevel = 0;
 	cocos2d::extension::PhysicsSprite *flatsprite;
 	cocos2d::Sprite *bgImg;
 	cpBody *floorBody;
@@ -69,6 +69,7 @@ protected:
 	void lateInit();
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
 public:
+	void setCarrierLevel(int val){ carrerLevel = val; }
 	cpSpace * getGravitySpace() const { return gravitySpace; }
 	void setMultiplayer(cocos2d::Vector<Player*> players);
 	void setSinglePlayer(Player* player);
@@ -94,6 +95,6 @@ public:
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first){}
 	Hud* getHud();
 	void setHud(Hud *hudd){ hud = hudd; }
-	virtual void gameIsOver();
+	virtual void gameIsOver(bool win);
 };
 #endif // __GAMETEST_SCENE_H__

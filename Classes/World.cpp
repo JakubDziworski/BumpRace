@@ -28,7 +28,6 @@ bool World::myInit(int numberOfPlayers,int gates)
 		return false;
 	}
 	//****************//
-	win = false;
 	rotationLayer = Node::create();
 	moveLayer = Node::create();
 	scaleeLayer = Node::create();
@@ -165,17 +164,9 @@ void World::checkpointReachedBase(Boxx *box, int pos)
 {
 	if (pos == 1)
 	{
-		box->addPoint();
 		remainingGates--;
 	}
 	checkpointReachedExtended(box, pos);
-	if (remainingGates == 0)
-	{
-		if ((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))
-			((Hud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->displayGameOver(true);
-	}
-	
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 }
 //----****SORTING FUNCTIONS***-----//
 cocos2d::Vector<Boxx*> * World::getSortedBoxesByScore()
@@ -235,9 +226,11 @@ Hud* World::getHud()
 	}
 	return hud;
 }
-void World::gameIsOver()
+void World::gameIsOver(bool win)
 {
 	this->setTouchEnabled(false);
+	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
+	getHud()->displayGameOver(win);
 }
 //_________SINGLE PLAYER_________//
 void World::setSinglePlayer(Player* player)

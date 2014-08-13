@@ -50,5 +50,7 @@
 	<string>Kilku graczy dokonało tego samego wyboru.Popraw ręcznie albo zastosuj autokorektę.</string>
 	<key>Tutorial_Single/Multiplayer</key>
 	<string>Wybierz grę dla pojedynczego gracza albo dla dwóch graczy</string>
+	<key>completePrev</key>
+	<string>Ukończ poprzednie poziomy aby odblokować</string>
 </dict>
 </plist>

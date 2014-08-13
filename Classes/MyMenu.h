@@ -7,6 +7,8 @@
 class MyMenu : public cocos2d::Layer
 {
 private:
+	//UI DIALOGS
+	cocos2d::ui::Widget *levelLockedDialog = NULL;
 	//single
 	const float maxOpponentsNumber = 10;
 	int currOpponentsNumber;

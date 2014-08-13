@@ -18,7 +18,7 @@ bool EndlessHud::init()
 	this->addChild(scoreText);
 	return true;
 }
-void EndlessHud::gameIsOver(bool win)
+void EndlessHud::displayGameIsOverAdditional(bool win)
 {
 	//general disabling
 	const float margin = G_srodek.x / 15;
@@ -34,7 +34,7 @@ void EndlessHud::gameIsOver(bool win)
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	//SCORE INFO
 	Text *score = Text::create("SCORE:", R_defaultFont, G_wF(25));
-	score->setString(String::createWithFormat("SCORE:%d", world->getPlayer()->getScore())->getCString());
+	score->setString(String::createWithFormat("SCORE:%d", world->getScore())->getCString());
 	gmOverNode->addWidget(score);
 	//BUTTONS
 	myLayout *btnlayout = myLayout::create();
@@ -62,10 +62,11 @@ void EndlessHud::gameIsOver(bool win)
 }
 void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 {
-	scoreText->setString(String::createWithFormat("SCORE:%d",world->getPlayer()->getScore())->getCString());
+	int x = world->getScore();
+	scoreText->setString(String::createWithFormat("SCORE:%d", world->getScore())->getCString());
+	//scoreText->setString(String::createWithFormat("SCORE:%d", world->getPlayer()->getScore())->getCString());
 }
-
 void EndlessHud::lateinit(World *world)
 {
-	this->world = world;
+	this->world = (EndlessWorld*)world;
 }

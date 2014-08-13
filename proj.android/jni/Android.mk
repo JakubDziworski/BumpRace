@@ -30,7 +30,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/U.cpp \
                    ../../Classes/World.cpp \
                    ../../Classes/SingleGateWorld.cpp \
-                   ../../Classes/VisibleRect.cpp
+                   ../../Classes/VisibleRect.cpp \
+                   ../../Classes/DbReader.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(LOCAL_PATH)/../../cocos2d/cocos/ui
