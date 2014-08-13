@@ -75,6 +75,9 @@
     <ClCompile Include="..\Classes\myListView.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\DbReader.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -144,6 +147,9 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\myListView.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DbReader.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

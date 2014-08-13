@@ -29,4 +29,9 @@ const std::string R_bgmusic = "music/main.mp3";
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";
+//DB NAMES
+const std::string levelCompleted = "lvlCmplt";
+const std::string boxUnlocked = "boxUnlck";
+const std::string tutorialEnabled = "tutEnabl";
+const std::string endlessHighScore = "endlScore";
 #endif // __PATHS__H__

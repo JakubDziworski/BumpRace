@@ -13,6 +13,7 @@
 #include "myListView.h"
 #include "editor-support/cocostudio/CCSGUIReader.h"
 #include "editor-support/cocostudio/CocoStudio.h"
+#include "DbReader.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -710,32 +711,33 @@ void MyMenu::createLevelMapUI()
 	for (auto childd : utils::findChildren(*dialogRoot, "mainscroll").at(0)->getChildren())
 	{
 		Button *btn = (Button*)childd;
-		btn->addTouchEventListener([btn](Ref *reff, Widget::TouchEventType type)
+		int levelNumber = std::stoi(btn->getTitleText());
+		//ZABLOKOWANE
+		if (!DbReader::getInstance()->isLevelUnlocked(levelNumber))
+		{
+			btn->setColor(Color3B::GRAY);
+			btn->addTouchEventListener([](Ref *reff, Widget::TouchEventType type)
+			{
+
+			});
+			continue;
+		}
+		btn->addTouchEventListener([levelNumber](Ref *reff, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
 			Scene *scene = NULL;
-			if (btn->getName() == "Level1Btn")
+			switch (levelNumber)
 			{
+			case 1:
 				scene = SingleGateWorld::createScene(4, 5, 1);
-			}
-			else if (btn->getName() == "Level2Btn")
-			{
+				break;
+			case 2:
 				scene = SingleEliminationWorld::createScene(4, 1);
-			}
-			else if (btn->getName() == "Level3Btn")
-			{
-			}
-			else if (btn->getName() == "Level4Btn")
-			{
-			}
-			else if (btn->getName() == "Level5Btn")
-			{
-			}
-			else if (btn->getName() == "Level6Btn")
-			{
-			}
-			else if (btn->getName() == "Level7Btn")
-			{
+				break;
+			case 3:
+				break;
+			default:
+				break;
 			}
 			if (scene == NULL) return;
 			World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
@@ -743,4 +745,5 @@ void MyMenu::createLevelMapUI()
 			G_dir()->replaceScene(scene);
 		});
 	}
+	DbReader::getInstance()->flush();
 }
