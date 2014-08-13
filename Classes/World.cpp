@@ -13,6 +13,7 @@
 #include "Checkpoint.h"
 #include "Player.h"
 #include "AIOpponent.h"
+#include "DbReader.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
@@ -140,7 +141,7 @@ void World::tick(float delta)
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(1000 * G_mySin, -2000 * G_myCos);
+	gravitySpace->gravity = cpv(G_wF(1000) * G_mySin, G_wF(-2000) * G_myCos);
 }
 void World::checkPosition(float dt)
 {
@@ -229,8 +230,12 @@ Hud* World::getHud()
 void World::gameIsOver(bool win)
 {
 	this->setTouchEnabled(false);
-	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
 	getHud()->displayGameOver(win);
+	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
+	if (win && carrerLevel != 0)
+	{
+		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
+	}
 }
 //_________SINGLE PLAYER_________//
 void World::setSinglePlayer(Player* player)

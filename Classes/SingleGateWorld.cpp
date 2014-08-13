@@ -56,7 +56,17 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 	}
 	if (remainingGates == 0)
 	{
-		this->gameIsOver(false);
+		if (player && carrerLevel != 0)
+		{
+			if (orderedOppByScore.at(0)->getScore() == player->getScore())
+			{
+				this->gameIsOver(true);
+			}
+		}
+		else
+		{
+			this->gameIsOver(false);
+		}
 	}
 	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
 }

@@ -14,38 +14,38 @@ DbReader * DbReader::getInstance()
 
 int DbReader::getEndlessBestScore()
 {
-	return db->getIntegerForKey(endlessHighScore.c_str(),0);
+	return db->getIntegerForKey(R_endlessHighScore.c_str(),0);
 }
 
 void DbReader::setEndlessBestScore(const int value)
 {
-	db->setIntegerForKey(endlessHighScore.c_str(), value);
+	db->setIntegerForKey(R_endlessHighScore.c_str(), value);
 }
 
 void DbReader::unlockLevel(const int val)
 {
-	String *tmp = String::createWithFormat("%s%d", levelCompleted.c_str(), val);
+	String *tmp = String::createWithFormat("%s%d", R_levelCompleted.c_str(), val);
 	db->setBoolForKey(tmp->getCString(), true);
 }
 
 bool DbReader::isLevelUnlocked(const int val)
 {
 	if (val == 1) return true;
-	String *tmp = String::createWithFormat("%s%d", levelCompleted.c_str(), val);
+	String *tmp = String::createWithFormat("%s%d", R_levelCompleted.c_str(), val);
 	std::string str = db->getXMLFilePath();
 	return db->getBoolForKey(tmp->getCString(), false);
 }
 
 void DbReader::unlockBox(const int val)
 {
-	String *tmp = String::createWithFormat("%s%d", boxUnlocked.c_str(), val);
+	String *tmp = String::createWithFormat("%s%d", R_boxUnlocked.c_str(), val);
 	db->setBoolForKey(tmp->getCString(), true);
 }
 
 bool DbReader::isBoxUnlocked(const int val)
 {
 	if (val == 1) return true;
-	String *tmp = String::createWithFormat("%s%d", boxUnlocked.c_str(), val);
+	String *tmp = String::createWithFormat("%s%d", R_boxUnlocked.c_str(), val);
 	return db->getBoolForKey(tmp->getCString(),false);
 }
 

@@ -99,4 +99,8 @@ void EndlessWorld::extendFlat()
 		rotationLayer->addChild(chkpt);
 	}
 }
+void EndlessWorld::modifyGate(Chcekpoint *chkpt)
+{
+	chkpt->setSprawdzajPierwszych(false);
+}
 

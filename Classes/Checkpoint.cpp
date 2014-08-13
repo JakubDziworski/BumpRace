@@ -45,7 +45,6 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	schedule(schedule_selector(Chcekpoint::tick));
 	return true;
 }
-
 void Chcekpoint::tick(float dt)
 {
 	if (actualpos == world->getBoxesNumber() || (actualpos == world->getRemainingGates()+1 && !sprawdzajPierwszych))	//WSZYSTKIE PRZESZLY
@@ -61,7 +60,7 @@ void Chcekpoint::tick(float dt)
 	Boxx *sprawdzany = NULL;
 	Boxx *pierwszy = orderedBoxes->at(0); //pierwszy
 	if (sprawdzajPierwszych) sprawdzany = pierwszy; //pierwszy
-	else sprawdzany = world->getOstaniActive(); //przedostatni
+	else sprawdzany = world->getOstaniActive(); //ostatni aktywny
 	if (pierwszy->getPositionX() < this->getPositionX() - 2.5f * pierwszy->getContentSize().width) return;
 	Boxx *aktualny = orderedBoxes->at(actualpos); //aktualny
 	//sprawdzenie czy ktos przekroczyl
@@ -81,7 +80,6 @@ void Chcekpoint::tick(float dt)
 	if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
 	else					 checkIfCloseToLast(sprawdzany);
 }
-
 void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
@@ -155,19 +153,16 @@ void Chcekpoint::checkIfCloseToFirst(Boxx* pierwszy)
 	//*************//
 	enableSlowmo();
 }
-
 void Chcekpoint::setSprawdzajPierwszych(bool inp)
 {
 	sprawdzajPierwszych = inp;
 }
-
 void Chcekpoint::enableSlowmo()
 {
 	director->getScheduler()->setTimeScale(0.1f);
 	slowmoTriggered = true;
 	schedule(schedule_selector(Chcekpoint::zwolnij));
 }
-
 void Chcekpoint::zwolnij(float dt)
 {
 	if (timee > 0.5f)
@@ -183,7 +178,6 @@ void Chcekpoint::zwolnij(float dt)
 		return;
 	}
 }
-
 void Chcekpoint::triggerFirstVisualEffects(Boxx *box)
 {
 	auto particleSystem = ParticleSystemQuad::create(R_checkpointParticle);

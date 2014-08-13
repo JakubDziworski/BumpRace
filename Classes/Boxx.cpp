@@ -11,7 +11,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	this->boxColor = boxColorr;
 	//init variables//
 	this->fileName = filename;
-	maxVel = 1000;
+	maxVel = G_wF(1000);
 	wind = 0;
 	points = 0;
 	deactivated = false;
@@ -75,7 +75,7 @@ void Boxx::updateBox()
 void Boxx::jump()
 {
 	if (isJumping()) return;
-	cpBodyApplyImpulse(myBody, cpv(0, 1000),cpv(0, 0));
+	cpBodyApplyImpulse(myBody, cpv(0, G_wF(1000)), cpv(0, 0));
 }
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
@@ -92,7 +92,7 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 }
 bool Boxx::isJumping()
 {
-	if (abs(cpBodyGetVel(myBody).y) > 10.0f)
+	if (abs(cpBodyGetVel(myBody).y) > 5.0f)
 	return true;
 	return false;
 }

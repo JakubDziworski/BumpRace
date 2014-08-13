@@ -20,6 +20,8 @@ public:
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first);
 	virtual void customWorldUpdate();
+	virtual void modifyGate(Chcekpoint *chkpt);
+
 };
 #endif
 

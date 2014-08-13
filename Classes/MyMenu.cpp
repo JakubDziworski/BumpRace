@@ -335,6 +335,7 @@ void MyMenu::hide(int menutypedef)
 {
 	Node *nodetiHide = this->getChildByTag(menutypedef);
 	FiniteTimeAction *fadeout = FadeOut::create(0.5f);
+	//EaseBackIn *fadeout = EaseBackIn::create(MoveTo::create(0.4f, Vec2(G_srodek.x * 2, nodetiHide->getPositionY())));
 	FiniteTimeAction *disableTouch = CallFunc::create([nodetiHide](){nodetiHide->setVisible(false); });
 	nodetiHide->runAction(Sequence::createWithTwoActions(fadeout, disableTouch));
 }
@@ -342,6 +343,8 @@ void MyMenu::show(int menutypedef)
 {
 	Node *nodetoShow = this->getChildByTag(menutypedef);
 	FiniteTimeAction *fadeIn = FadeIn::create(0.5f);
+	//nodetoShow->setPosition(Vec2(-2*G_srodek.x, nodetoShow->getPositionY()));
+	//EaseBackIn *fadeIn = EaseBackIn::create(MoveTo::create(0.4f, Vec2(G_srodek.x, nodetoShow->getPositionY())));
 	FiniteTimeAction *doNothung = DelayTime::create(0.5f);
 	FiniteTimeAction *enableTouch = CallFunc::create([nodetoShow](){nodetoShow->setVisible(true); });
 	nodetoShow->runAction(Sequence::create(doNothung, enableTouch, fadeIn, NULL));
@@ -767,6 +770,7 @@ void MyMenu::createLevelMapUI()
 			if (scene == NULL) return;
 			World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 			world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+			world->setCarrierLevel(levelNumber);
 			G_dir()->replaceScene(scene);
 		});
 	}

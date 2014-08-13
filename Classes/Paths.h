@@ -31,8 +31,8 @@ const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";
 const std::string R_completePreviousDialog = "levelLockedDialog.json";
 //DB NAMES
-const std::string levelCompleted = "lvlCmplt";
-const std::string boxUnlocked = "boxUnlck";
-const std::string tutorialEnabled = "tutEnabl";
-const std::string endlessHighScore = "endlScore";
+const std::string R_levelCompleted = "lvlCmplt";
+const std::string R_boxUnlocked = "boxUnlck";
+const std::string R_tutorialEnabled = "tutEnabl";
+const std::string R_endlessHighScore = "endlScore";
 #endif // __PATHS__H__
