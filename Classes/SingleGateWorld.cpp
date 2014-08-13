@@ -62,6 +62,7 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 			{
 				this->gameIsOver(true);
 			}
+			else this->gameIsOver(false);
 		}
 		else
 		{

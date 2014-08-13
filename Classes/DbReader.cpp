@@ -1,9 +1,11 @@
+#define COCOS2D_DEBUG 2
 #include "DbReader.h"
 #include "Paths.h"
 USING_NS_CC;
 DbReader::DbReader()
 {
 	db = UserDefault::getInstance();
+	CCLOG("%s", db->getXMLFilePath().c_str());
 }
 
 DbReader * DbReader::getInstance()

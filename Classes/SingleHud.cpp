@@ -34,7 +34,9 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
+	auto gmOverText = Text::create("Game Over!", R_defaultFont, G_wF(40));
+	if (world->getCarrerLevel() != 0 && win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
+	else if (world->getCarrerLevel() != 0 && !win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
@@ -50,7 +52,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 		text->enableShadow();
 		text->setAnchorPoint(Vec2(0.5f, 0));
 		text->setColor(box->getBoxColor());
-		text->setString(String::createWithFormat("%d.%s(%d gates collected)", i, box->getID().c_str(), box->getScore())->getCString());
+		text->setString(String::createWithFormat("%d.%s (%d %s)", i, box->getID().c_str(), box->getScore(),G_str("GatesCollected").c_str())->getCString());
 		gmOverNode->addWidget(text);
 		i++;
 	}

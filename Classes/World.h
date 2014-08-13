@@ -69,7 +69,9 @@ protected:
 	void lateInit();
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
 public:
+	bool isMultiplayer(){ return multiplayerEnabled; }
 	void setCarrierLevel(int val){ carrerLevel = val; }
+	int getCarrerLevel(){ return carrerLevel; }
 	cpSpace * getGravitySpace() const { return gravitySpace; }
 	void setMultiplayer(cocos2d::Vector<Player*> players);
 	void setSinglePlayer(Player* player);

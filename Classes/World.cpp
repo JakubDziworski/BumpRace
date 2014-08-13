@@ -1,4 +1,3 @@
-#define COCOS2D_DEBUG 2
 #include "World.h"
 #include "U.h"
 #include "Boxx.h"

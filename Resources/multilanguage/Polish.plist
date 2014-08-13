@@ -52,5 +52,18 @@
 	<string>Wybierz grę dla pojedynczego gracza albo dla dwóch graczy</string>
 	<key>completePrev</key>
 	<string>Ukończ poprzednie poziomy aby odblokować</string>
+	<key>Level</key>
+	<string>Poziom</string>
+	<key>Completed</key>
+	<string>zaliczony</string>
+	<key>Failed</key>
+	<string>nie zaliczony</string>
+	<key>GatesCollected</key>
+	<string>zebranych bramek</string>
+	<key>Eliminated</key>
+	<string>ZOSTAŁEŚ WYELIMINOWANY!</string>
+	<key>YOUWON</key>
+	<string>WYGRAŁEŚ!</string>
+	
 </dict>
 </plist>

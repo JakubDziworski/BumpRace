@@ -22,13 +22,17 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverNode->setType(0);
 	//gmover text
 	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
-	if (win)	//WYGRANA
+	if (world->getCarrerLevel() != 0 && win)
 	{
-		gmOverText->setString("WYGRANA!");
+		gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
+	}
+	else if (win && !world->isMultiplayer())	//WYGRANA
+	{
+		gmOverText->setString(G_str("YOUWON").c_str());
 	}
 	else
 	{
-		gmOverText->setString("ELIMINATED!");
+		gmOverText->setString(G_str("Eliminated").c_str());
 	}
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();

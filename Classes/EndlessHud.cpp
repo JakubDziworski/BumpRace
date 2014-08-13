@@ -26,6 +26,8 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverNode->setType(0);
 	//gmover text
 	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
+	if (win && world->getCarrerLevel() != 0) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
+	else if (!win && world->getCarrerLevel() != 0) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
