@@ -15,7 +15,7 @@ int G_maxVelocity = 1000;
 const int G_maxVelConstant = 500;
 const int G_maxVelAddition = 2000;
 const int G_powerUpOdleglos = 5000;
-const int G_powerUpOdlegloscVar = 5000;
+const int G_powerUpOdlegloscVar = 50;
 const int G_powerUpsNumbers = 2;
 cocos2d::Dictionary *G_strings;
 const int G_ALLboxesNumber = 6;

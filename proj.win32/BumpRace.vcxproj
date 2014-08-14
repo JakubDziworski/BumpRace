@@ -154,7 +154,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\SingleEliminationWorld.cpp" />
     <ClCompile Include="..\Classes\SingleGateWorld.cpp" />
     <ClCompile Include="..\Classes\SingleHud.cpp" />
-    <ClCompile Include="..\Classes\SpeedPowerUp.cpp" />
     <ClCompile Include="..\Classes\U.cpp" />
     <ClCompile Include="..\Classes\VisibleRect.cpp" />
     <ClCompile Include="..\Classes\World.cpp" />
@@ -182,7 +181,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\SingleEliminationWorld.h" />
     <ClInclude Include="..\Classes\SingleGateWorld.h" />
     <ClInclude Include="..\Classes\SingleHud.h" />
-    <ClInclude Include="..\Classes\SpeedPowerUp.h" />
     <ClInclude Include="..\Classes\U.h" />
     <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="..\Classes\World.h" />

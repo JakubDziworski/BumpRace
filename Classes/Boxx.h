@@ -10,6 +10,7 @@ private:
 	int points;
 	cpShape *shapes[3];
 	cpBody *myBody;
+	cpBody *getBody()  { return myBody; }
 	bool deactivated;
 	float wind;
 	std::string fileName;

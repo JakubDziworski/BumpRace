@@ -39,7 +39,7 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 {
 	active = false;
 	int losuj = 0;
-	losuj = 1;// rand() % 1;
+	losuj = 2;// rand() % 2;
 	if (!Sprite::initWithSpriteFrameName(R_powerUps[losuj]))
 	{
 		return false;
@@ -52,6 +52,9 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 		break;
 	case 1:
 		pwrupType = PowerUpType::GHOST;
+		break;
+	case 2:
+		pwrupType = PowerUpType::THUNDER;
 		break;
 	}
 	boxez = boxess;

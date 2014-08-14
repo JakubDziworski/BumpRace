@@ -81,6 +81,7 @@ public:
 	virtual void restartLevel() = 0;
 	cocos2d::Vector<Player*> *getPlayers() { return &players; }
 	cocos2d::Vector<Boxx*> *getBoxes(){ return &opponentz; }
+	cocos2d::Vector<Boxx*> *getOrderedBoxes(){ return &orderedOpponents; }
 	cocos2d::Vector<Boxx*> *getSortedBoxesByScore();
 	int getBoxesNumber() const { return boxesNumber; }
 	void setBoxesNumber(int val) { boxesNumber = val; }

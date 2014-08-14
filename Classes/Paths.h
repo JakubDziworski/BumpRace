@@ -21,9 +21,9 @@ const std::string R_resumebtn = "resumeBtnOf.png";
 const std::string R_slider[2] = { "slider.png", "sliderActive.png" };
 const std::string R_sliderDot = "sliderDot.png";
 const std::string R_minusBtn = "minusBtn.png";
-const std::string R_powerUps[2] = { "speedPowerUp.png", "ghostPowerUp.png" };
+const std::string R_powerUps[3] = { "speedPowerUp.png", "ghostPowerUp.png", "slowDownPowerUp.png"};
 const std::string R_plusBtn = "plusbtn.png";
-const std::string R_checkpointParticle = "particles/chkptParticle.plist";
+const std::string R_rocket = "rocket.png";
 //MUSIC 
 const std::string R_MP3_punch = "sounds/punch.mp3";
 const std::string R_bgmusic = "music/main.mp3";
@@ -31,6 +31,10 @@ const std::string R_bgmusic = "music/main.mp3";
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";
 const std::string R_completePreviousDialog = "levelLockedDialog.json";
+//particles
+const std::string R_explosParticle = "particles/explosionParticle.plist";
+const std::string R_checkpointParticle = "particles/chkptParticle.plist";
+const std::string R_pushPreviousPlayerParticle = "particles/magicPowerUpParticle.plist";
 //DB NAMES
 const std::string R_levelCompleted = "lvlCmplt";
 const std::string R_boxUnlocked = "boxUnlck";

@@ -93,9 +93,6 @@
     <ClCompile Include="..\Classes\World.cpp">
       <Filter>Classes\worlds</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SpeedPowerUp.cpp">
-      <Filter>Classes\PowerUps</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\PowerUp.cpp">
       <Filter>Classes\PowerUps</Filter>
     </ClCompile>
@@ -172,9 +169,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\World.h">
       <Filter>Classes\worlds</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SpeedPowerUp.h">
-      <Filter>Classes\PowerUps</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PowerUp.h">
       <Filter>Classes\PowerUps</Filter>

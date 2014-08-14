@@ -9,6 +9,7 @@ public:
 	{
 		SPEED,
 		GHOST,
+		THUNDER,
 		NONE
 	};
 	static PowerUp *create(cocos2d::Vector<Boxx*> *boxess);

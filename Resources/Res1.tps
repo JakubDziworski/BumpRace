@@ -141,43 +141,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>PackerResource/closebtn.png</filename>
-            <filename>PackerResource/CloseNormal.png</filename>
-            <filename>PackerResource/drzewka.png</filename>
-            <filename>PackerResource/Flat.png</filename>
-            <filename>PackerResource/gotoMenuBtnOf.png</filename>
-            <filename>PackerResource/HelloWorld.png</filename>
-            <filename>PackerResource/minusBtn.png</filename>
-            <filename>PackerResource/multiBtn.png</filename>
-            <filename>PackerResource/PageElimination.png</filename>
-            <filename>PackerResource/pageEndlessRun.png</filename>
-            <filename>PackerResource/pageGate.png</filename>
-            <filename>PackerResource/pauseBtnOf.png</filename>
-            <filename>PackerResource/pauseBtnOn.png</filename>
-            <filename>PackerResource/plusbtn.png</filename>
-            <filename>PackerResource/repeatBtnOn.png</filename>
-            <filename>PackerResource/resumeBtnOf.png</filename>
-            <filename>PackerResource/slider.png</filename>
-            <filename>PackerResource/sliderActive.png</filename>
-            <filename>PackerResource/sliderDot.png</filename>
-            <filename>PackerResource/tlo.png</filename>
-            <filename>PackerResource/closeSelected.png</filename>
-            <filename>PackerResource/BOX.png</filename>
-            <filename>PackerResource/Box_blue.png</filename>
-            <filename>PackerResource/Box_green.png</filename>
-            <filename>PackerResource/Box_purple.png</filename>
-            <filename>PackerResource/Box_red.png</filename>
-            <filename>PackerResource/Box_yellow.png</filename>
-            <filename>PackerResource/btnBackOf.png</filename>
-            <filename>PackerResource/btnBackOn.png</filename>
-            <filename>PackerResource/btnOf.png</filename>
-            <filename>PackerResource/btnOn.png</filename>
-            <filename>PackerResource/chboxInactive.png</filename>
-            <filename>PackerResource/checkpoint.png</filename>
-            <filename>PackerResource/chkboxactive.png</filename>
-            <filename>PackerResource/chkboxclicked.png</filename>
-            <filename>PackerResource/ghostPowerUp.png</filename>
-            <filename>PackerResource/speedPowerUp.png</filename>
+            <filename>PackerResource</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
