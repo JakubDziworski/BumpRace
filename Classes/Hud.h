@@ -5,6 +5,7 @@
 #include "UI/CocosGUI.h"
 #include "Boxx.h"
 #include "World.h"
+#include "PowerUp.h"
 class Hud : public cocos2d::Layer
 {
 protected:
@@ -23,6 +24,7 @@ protected:
 	virtual void displayGameIsOverAdditional(bool win){}
 	virtual void additionalMulti(int heightY){}
 public:
+	virtual void powerUpCollected(PowerUp::PowerUpType type, Boxx* box);
 	void setMultiplayer(World *world);
 	virtual void lateinit(World *world){}
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes){}

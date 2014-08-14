@@ -98,6 +98,7 @@ void EndlessWorld::extendFlat()
 		chkpt->setPosition(i, floor->bb.t);
 		rotationLayer->addChild(chkpt);
 	}
+	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 }
 void EndlessWorld::modifyGate(Chcekpoint *chkpt)
 {

@@ -22,6 +22,9 @@
     <Filter Include="Classes\globals and singletons">
       <UniqueIdentifier>{4ca34437-349f-49a5-9f01-47fcf68676b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\PowerUps">
+      <UniqueIdentifier>{ae6486aa-bd48-4ac2-be9e-92d9246bec4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,6 +92,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\World.cpp">
       <Filter>Classes\worlds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SpeedPowerUp.cpp">
+      <Filter>Classes\PowerUps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PowerUp.cpp">
+      <Filter>Classes\PowerUps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\World.h">
       <Filter>Classes\worlds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpeedPowerUp.h">
+      <Filter>Classes\PowerUps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PowerUp.h">
+      <Filter>Classes\PowerUps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

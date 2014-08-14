@@ -1,6 +1,7 @@
 #include "Boxx.h"
 #include "Globals.h"
 #include "Paths.h"
+#include "Macros.h"
 using namespace cocos2d;
 bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr)
 {
@@ -30,15 +31,15 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	};
 	cpVect topa = cpv(-bounding.width / 2.2f, bounding.height / 2.0f);
 	cpVect topb = cpv(bounding.width / 2.2f, bounding.height / 2.0f);
-	cpShape* topShape = cpSegmentShapeNew(myBody, topa, topb, bounding.height*0.05f);
+	cpShape* topShape = cpSegmentShapeNew(myBody, topa, topb, bounding.height*0.05f); shapes[0] = topShape;
 	topShape->e = 0;
 	topShape->u = 0;
 	cpVect bota = cpv(-bounding.width / 2.2f, -bounding.height / 2.0f);
 	cpVect botb = cpv(bounding.width / 2.2f,-bounding.height / 2.0f);
-	cpShape* botShape = cpSegmentShapeNew(myBody, bota, botb, bounding.height*0.05f);
+	cpShape* botShape = cpSegmentShapeNew(myBody, bota, botb, bounding.height*0.05f); shapes[1] = botShape;
 	botShape->e = 0;
 	botShape->u = 0;
-	cpShape* shape = cpPolyShapeNew(myBody, 4, verts, cpvzero);
+	cpShape* shape = cpPolyShapeNew(myBody, 4, verts, cpvzero); shapes[2] = shape;
 	shape->e = 1.1f; shape->u = 0.1f;
 	cpSpaceAddShape(space, topShape);
 	cpSpaceAddShape(space, shape);
@@ -49,6 +50,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
 	this->ID = ID;
+	for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES);
 	displayDebugInfo();
 	return true;
 };
@@ -102,7 +104,7 @@ void Boxx::updateTransform()
 	this->setPosition(Vec2(cpPos.x, cpPos.y));
 	this->setRotation(-cpBodyGetAngle(myBody)*G_radToAngle);
 }
-void Boxx::setBodyPosition(const Vec2 pos)
+void Boxx::setBodyPosition(const cocos2d::Vec2 pos)
 {
 	myBody->p = cpv(pos.x, pos.y);
 	updateTransform();
@@ -195,6 +197,39 @@ void Boxx::deactivate()
 {
 	displayDebugInfo();
 	deactivated = true;
+}
+void Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
+{
+	this->pwrupType = pwruptype;
+	switch (pwruptype)
+	{
+	case PowerUp::PowerUpType::SPEED:
+		break;
+	case PowerUp::PowerUpType::GHOST:
+		break;
+	default:
+		break;
+	}
+}
+
+void Boxx::activatePowerUp()
+{
+	switch (pwrupType)
+	{
+	case PowerUp::PowerUpType::SPEED:
+		cpBodyApplyImpulse(myBody, cpv(G_wF(8000), 0), cpv(0, 0));
+		break;
+	case PowerUp::PowerUpType::GHOST:
+		auto fadeout = FadeTo::create(0.3f, 100);
+		auto fadein = FadeTo::create(0.3f, 255);
+		auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); });
+		auto idle = DelayTime::create(3);
+		this->runAction(Sequence::create(fadeout, idle, fadein, recolide, NULL));
+		for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPUNCOLIDEWITHBOXES);
+		break;
+	}
+	pwrupType = PowerUp::PowerUpType::NONE;
+	
 }
 
 

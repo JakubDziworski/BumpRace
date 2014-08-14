@@ -1,12 +1,14 @@
 #ifndef __BOXX_H__
 #define __BOXX_H__
-#define DEBUG_COCOS2D 2
 #include "cocos2d.h"
 #include "external/chipmunk/include/chipmunk/chipmunk.h"
+#include "PowerUp.h"
 class Boxx : public cocos2d::Sprite
 {
 private:
+	PowerUp::PowerUpType pwrupType;
 	int points;
+	cpShape *shapes[3];
 	cpBody *myBody;
 	bool deactivated;
 	float wind;
@@ -27,7 +29,7 @@ public:
 	//COCOS PATTERN//
 	cocos2d::Color3B getBoxColor() const { return boxColor; }
 	bool myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr);
-	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space,cocos2d::Color3B boxColorr = cocos2d::Color3B::WHITE);
+	static Boxx* create(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr = cocos2d::Color3B::WHITE);
 	//GETTERS SETTERS//
 	std::string getFileName() const { return fileName; }
 	bool isDeactivated() const { return deactivated; }
@@ -44,9 +46,11 @@ public:
 	void jump();
 	bool isOnFlat();
 	void updateBox();
-	float getVelocity(){if(myBody != nullptr) return  myBody->v.x;}
+	float getVelocity(){ if (myBody != nullptr) return  myBody->v.x; }
 	void addPoint();
 	int getScore(){ return points; }
 	void deactivate();
+	void collectedPowerUp(PowerUp::PowerUpType pwruptype);
+	void activatePowerUp();
 };
 #endif

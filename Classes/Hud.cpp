@@ -123,3 +123,33 @@ void Hud::setMultiplayer(World *world)
 	}
 	additionalMulti(sizey);
 }
+
+void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
+{
+	if (!dynamic_cast<Player*> (box)) return;
+	if (G_getWorld()->isMultiplayer())
+	{
+
+	}
+	else
+	{
+		auto activatorBtn = Button::create(R_powerUps[int(type)],"","",TextureResType::PLIST);
+		activatorBtn->setScale(0);
+		activatorBtn->setPosition(Vec2(G_srodek.x, activatorBtn->getContentSize().height));
+		auto scaleUp = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1.2f));
+		auto scaleDown = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1));
+		auto idle = DelayTime::create(Director::getInstance()->getScheduler()->getTimeScale() * 2);
+		activatorBtn->runAction(RepeatForever::create(Sequence::create(scaleUp,scaleDown,idle,NULL)));
+		this->addChild(activatorBtn);
+		activatorBtn->addTouchEventListener([box,activatorBtn](Ref *reff, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			box->activatePowerUp();
+			activatorBtn->setTouchEnabled(false);
+			activatorBtn->stopAllActions();
+			auto scaleDown = EaseBackIn::create(ScaleTo::create(G_getFTimeScale(0.3f), 0));
+			auto destroy = CallFunc::create([activatorBtn](){activatorBtn->removeFromParentAndCleanup(true); });
+			activatorBtn->runAction(Sequence::createWithTwoActions(scaleDown, destroy));
+		});
+	}
+}

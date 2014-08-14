@@ -21,6 +21,7 @@ const std::string R_resumebtn = "resumeBtnOf.png";
 const std::string R_slider[2] = { "slider.png", "sliderActive.png" };
 const std::string R_sliderDot = "sliderDot.png";
 const std::string R_minusBtn = "minusBtn.png";
+const std::string R_powerUps[2] = { "speedPowerUp.png", "ghostPowerUp.png" };
 const std::string R_plusBtn = "plusbtn.png";
 const std::string R_checkpointParticle = "particles/chkptParticle.plist";
 //MUSIC 

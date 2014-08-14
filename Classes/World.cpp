@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "AIOpponent.h"
 #include "DbReader.h"
+#include "PowerUp.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
@@ -89,6 +90,7 @@ void World::createFloor()
 	rotationLayer->addChild(node);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
+	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 	cpSpaceAddStaticShape(gravitySpace, floor);
 }
 void World::rozmiescCheckpointy()
@@ -101,6 +103,18 @@ void World::rozmiescCheckpointy()
 		if (i == gatesNumber) chkpt->setIsLast(true);
 		modifyGate(chkpt);
 	}
+	//POWER UPY
+	int i = 0;
+	do
+	{
+		int wysokosc =  rand() % int(G_hF(600));
+		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_wF(G_powerUpOdlegloscVar));
+		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
+		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));
+		i = odleglosc;
+		rotationLayer->addChild(pwrup);
+	} 
+	while (i < floor->bb.r);
 }
 void World::createBackground()
 {

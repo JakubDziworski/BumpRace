@@ -1,6 +1,8 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 #include "cocos2d.h"
+#include "World.h"
+#include "Hud.h"
 extern int G_endlessGateNumber;
 extern cocos2d::Director *G_director;
 extern int G_odlegloscmiedzyBramkami;
@@ -15,6 +17,9 @@ extern int G_maxVelocity;
 const extern int G_ALLboxesNumber;
 const extern int G_maxVelConstant;
 const extern int G_maxVelAddition;
+const extern int G_powerUpOdleglos;
+const extern int G_powerUpOdlegloscVar;
+const extern int G_powerUpsNumbers;
 extern void G_scaleToFitScreen(cocos2d::Node *spr);
 cocos2d::Director *G_dir();
 extern void G_setCurrAngle(float angle);
@@ -27,5 +32,8 @@ extern cocos2d::Dictionary *G_strings;
 extern std::string G_str(const std::string& input);
 extern cocos2d::Color3B G_getRandomColor();
 extern const cocos2d::Color3B G_colors[6];
+extern World* G_getWorld();
+extern Hud* G_getHud();
+extern float G_getFTimeScale(float val);
 #endif
 

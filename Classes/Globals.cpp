@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "cocos2d.h"
+#include "Macros.h"
 int G_endlessGateNumber = 5;
 int G_odlegloscmiedzyBramkami = 7000;
 cocos2d::Director *G_director = NULL;
@@ -13,6 +14,9 @@ const float Globals_radWsp = M_PI / 180.0f;
 int G_maxVelocity = 1000;
 const int G_maxVelConstant = 500;
 const int G_maxVelAddition = 2000;
+const int G_powerUpOdleglos = 5000;
+const int G_powerUpOdlegloscVar = 5000;
+const int G_powerUpsNumbers = 2;
 cocos2d::Dictionary *G_strings;
 const int G_ALLboxesNumber = 6;
 const cocos2d::Color3B G_colors[6] = { cocos2d::Color3B(115, 207, 231), cocos2d::Color3B(178, 210, 53), cocos2d::Color3B(130, 85, 127), cocos2d::Color3B(244, 191, 26), cocos2d::Color3B(226, 54, 39), cocos2d::Color3B(115, 207, 231) };
@@ -79,6 +83,21 @@ cocos2d::Color3B G_getRandomColor()
 void G_scaleToFitScreen(cocos2d::Node *spr)
 {
 	spr->setScale(G_dir()->getWinSize().width / spr->getContentSize().width, G_dir()->getWinSize().height / spr->getContentSize().height);
+}
+
+World* G_getWorld()
+{
+	return (World*)G_director->getRunningScene()->getChildByTag(LAYER_GAMEPLAY);
+}
+
+Hud* G_getHud()
+{
+	return (Hud*)cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD);
+}
+
+float G_getFTimeScale(float val)
+{
+	return G_director->getScheduler()->getTimeScale()*val;
 }
 
 

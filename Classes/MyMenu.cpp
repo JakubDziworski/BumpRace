@@ -329,7 +329,6 @@ void MyMenu::preload()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(R_bgmusic.c_str());
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(R_bgmusic.c_str(),true);
-
 }
 void MyMenu::hide(int menutypedef)
 {

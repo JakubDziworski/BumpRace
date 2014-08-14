@@ -176,6 +176,8 @@
             <filename>PackerResource/checkpoint.png</filename>
             <filename>PackerResource/chkboxactive.png</filename>
             <filename>PackerResource/chkboxclicked.png</filename>
+            <filename>PackerResource/ghostPowerUp.png</filename>
+            <filename>PackerResource/speedPowerUp.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
