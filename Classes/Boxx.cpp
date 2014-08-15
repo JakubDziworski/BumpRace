@@ -54,6 +54,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	rocket = NULL;
 	jetpack = NULL;
 	ghost = NULL;
+	pwrupType = PowerUp::PowerUpType::NONE;
 	displayDebugInfo();
 	return true;
 };
@@ -216,6 +217,7 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 	case PowerUp::PowerUpType::GHOST:
 		ghost = Sprite::createWithSpriteFrameName(String::createWithFormat("%s1.png",R_ghostPrefix.c_str())->getCString());
 		ghost->setNormalizedPosition(Vec2(0.5f, 0.5f));
+		ghost->setOpacity(100);
 		this->addChild(ghost);
 		break;
 	case PowerUp::PowerUpType::THUNDER:
@@ -254,9 +256,11 @@ void Boxx::activatePowerUp()
 										auto animate = Animate::create(Animation::createWithSpriteFrames(animFrames, 0.07f));
 										auto fadeout = FadeTo::create(0.3f, 100);
 										auto fadein = FadeTo::create(0.3f, 255);
-										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); rocket->removeFromParent(); rocket = NULL; pwrupType = PowerUp::PowerUpType::NONE; });
+										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); ghost->removeFromParent(); ghost = NULL; pwrupType = PowerUp::PowerUpType::NONE; });
 										auto idle = DelayTime::create(3);
-										ghost->runAction(Sequence::create(animate, fadeout));
+										auto totallyFade = FadeTo::create(0.3f, 0);
+										ghost->runAction(animate);
+										ghost->runAction(Sequence::create(fadeout, idle, totallyFade,NULL));
 										this->runAction(Sequence::create(fadeout, idle, fadein, recolide, NULL));
 										for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPUNCOLIDEWITHBOXES);
 										break;

@@ -17,8 +17,8 @@ void PowerUp::tick(float dt)
 	{
 		if (box->getBoundingBox().intersectsRect(this->getBoundingBox()))
 		{
+			if(!box->collectedPowerUp(pwrupType)) return;
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
-			box->collectedPowerUp(pwrupType);
 			((Hud*)cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->powerUpCollected(pwrupType, box);
 			this->unscheduleAllSelectors();
 			this->removeFromParentAndCleanup(true);
