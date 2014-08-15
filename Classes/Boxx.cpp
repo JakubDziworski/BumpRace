@@ -54,6 +54,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	rocket = NULL;
 	jetpack = NULL;
 	ghost = NULL;
+	powerUpExecuted = false;
 	pwrupType = PowerUp::PowerUpType::NONE;
 	displayDebugInfo();
 	return true;
@@ -205,7 +206,26 @@ void Boxx::deactivate()
 }
 bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 {
-	if (pwrupType != PowerUp::PowerUpType::NONE) return false;
+	if (powerUpExecuted) return false;
+	switch (pwrupType)
+	{
+	case PowerUp::PowerUpType::SPEED:
+		jetpack->removeFromParent();
+		jetpack = NULL;
+		break;
+	case PowerUp::PowerUpType::GHOST:
+		ghost->removeFromParent();
+		ghost = NULL;
+		break;
+	case PowerUp::PowerUpType::THUNDER:
+		rocket->removeFromParent();
+		rocket = NULL;
+		break;
+	case PowerUp::PowerUpType::NONE:
+		break;
+	default:
+		break;
+	}
 	this->pwrupType = pwruptype;
 	switch (pwruptype)
 	{
@@ -233,15 +253,16 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 }
 void Boxx::activatePowerUp()
 {
+	powerUpExecuted = true;
 	switch (pwrupType)
 	{
 	case PowerUp::PowerUpType::SPEED:
 	{
-										cpBodyApplyImpulse(myBody, cpv(G_wF(8000), 0), cpv(0, 0));
+										cpBodyApplyImpulse(myBody, cpv(G_wF(1000), 0), cpv(0, 0));
 										auto jetpackFire = ParticleSystemQuad::create(R_jetpackFire);
 										jetpackFire->setNormalizedPosition(Vec2(0, 0.5f));
 										jetpack->addChild(jetpackFire);
-										auto rmvjetpack = CallFunc::create([this](){jetpack->removeFromParent(); jetpack = NULL; pwrupType = PowerUp::PowerUpType::NONE; });
+										auto rmvjetpack = CallFunc::create([this](){jetpack->removeFromParent(); jetpack = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
 										auto wait = DelayTime::create(jetpackFire->getDuration() + jetpackFire->getLife());
 										this->runAction(Sequence::createWithTwoActions(wait, rmvjetpack));
 										break;
@@ -256,7 +277,7 @@ void Boxx::activatePowerUp()
 										auto animate = Animate::create(Animation::createWithSpriteFrames(animFrames, 0.07f));
 										auto fadeout = FadeTo::create(0.3f, 100);
 										auto fadein = FadeTo::create(0.3f, 255);
-										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); ghost->removeFromParent(); ghost = NULL; pwrupType = PowerUp::PowerUpType::NONE; });
+										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); ghost->removeFromParent(); ghost = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
 										auto idle = DelayTime::create(3);
 										auto totallyFade = FadeTo::create(0.3f, 0);
 										ghost->runAction(animate);
@@ -290,7 +311,7 @@ void Boxx::activatePowerUp()
 											  cpBodyApplyImpulse(target->getBody(), cpv(G_wF(-3000), G_wF(3000)), cpv(0, 0));
 											  rocketNew->addChild(explosion);
 										  });
-										  auto remove = CallFunc::create([rocketNew,this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; });
+										  auto remove = CallFunc::create([rocketNew, this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
 										  rocketNew->runAction(Sequence::create(fly, explode, wait, remove, NULL));
 										  rocket->removeFromParent();
 										  rocket = NULL;

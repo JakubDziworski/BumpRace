@@ -27,6 +27,7 @@ private:
 	cocos2d::Sprite *rocket;
 	cocos2d::Sprite *jetpack;
 	cocos2d::Sprite *ghost;
+	bool powerUpExecuted;
 protected:
 	int racePos;
 	cocos2d::Label *debugL;
