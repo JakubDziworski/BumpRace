@@ -51,6 +51,9 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	this->addChild(debugL);
 	this->ID = ID;
 	for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES);
+	rocket = NULL;
+	jetpack = NULL;
+	ghost = NULL;
 	displayDebugInfo();
 	return true;
 };
@@ -73,11 +76,12 @@ void Boxx::updateBox()
 {
 	updatePhysPos();
 	updateTransform();
+	updatePowerUp();
 }
 void Boxx::jump()
 {
 	if (isJumping()) return;
-	cpBodyApplyImpulse(myBody, cpv(0, G_wF(1000)), cpv(0, 0));
+	cpBodyApplyImpulse(myBody, cpv(0, G_hF(1000)), cpv(0, 0));
 }
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
@@ -198,18 +202,32 @@ void Boxx::deactivate()
 	displayDebugInfo();
 	deactivated = true;
 }
-void Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
+bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 {
+	if (pwrupType != PowerUp::PowerUpType::NONE) return false;
 	this->pwrupType = pwruptype;
 	switch (pwruptype)
 	{
 	case PowerUp::PowerUpType::SPEED:
+		jetpack = Sprite::createWithSpriteFrameName(R_jetpack);
+		jetpack->setNormalizedPosition(Vec2(0, 0.5f));
+		this->addChild(jetpack);
 		break;
 	case PowerUp::PowerUpType::GHOST:
+		ghost = Sprite::createWithSpriteFrameName(String::createWithFormat("%s1.png",R_ghostPrefix.c_str())->getCString());
+		ghost->setNormalizedPosition(Vec2(0.5f, 0.5f));
+		this->addChild(ghost);
 		break;
+	case PowerUp::PowerUpType::THUNDER:
+		rocket = Sprite::createWithSpriteFrameName(R_rocket);
+		rocket->setNormalizedPosition(Vec2(0, 0.5f));
+		this->addChild(rocket);
+		break;
+
 	default:
 		break;
 	}
+	return true;
 }
 void Boxx::activatePowerUp()
 {
@@ -218,14 +236,27 @@ void Boxx::activatePowerUp()
 	case PowerUp::PowerUpType::SPEED:
 	{
 										cpBodyApplyImpulse(myBody, cpv(G_wF(8000), 0), cpv(0, 0));
+										auto jetpackFire = ParticleSystemQuad::create(R_jetpackFire);
+										jetpackFire->setNormalizedPosition(Vec2(0, 0.5f));
+										jetpack->addChild(jetpackFire);
+										auto rmvjetpack = CallFunc::create([this](){jetpack->removeFromParent(); jetpack = NULL; pwrupType = PowerUp::PowerUpType::NONE; });
+										auto wait = DelayTime::create(jetpackFire->getDuration() + jetpackFire->getLife());
+										this->runAction(Sequence::createWithTwoActions(wait, rmvjetpack));
 										break;
 	}
 	case PowerUp::PowerUpType::GHOST:
 	{
+										cocos2d::Vector<SpriteFrame*> animFrames(7);
+										for (int i = 1; i < 8; i++)
+										{
+											animFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("%s%d.png", R_ghostPrefix.c_str(), i)->getCString()));
+										}
+										auto animate = Animate::create(Animation::createWithSpriteFrames(animFrames, 0.07f));
 										auto fadeout = FadeTo::create(0.3f, 100);
 										auto fadein = FadeTo::create(0.3f, 255);
-										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); });
+										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); rocket->removeFromParent(); rocket = NULL; pwrupType = PowerUp::PowerUpType::NONE; });
 										auto idle = DelayTime::create(3);
+										ghost->runAction(Sequence::create(animate, fadeout));
 										this->runAction(Sequence::create(fadeout, idle, fadein, recolide, NULL));
 										for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPUNCOLIDEWITHBOXES);
 										break;
@@ -238,30 +269,44 @@ void Boxx::activatePowerUp()
 										  auto p2 = this->getPosition();
 										  float angle = G_radToAngle*atan2(p1.x - p2.x, p1.y - p2.y);
 										  //rocket
-										  auto rocket = Sprite::createWithSpriteFrameName(R_rocket);
+										  auto rocketNew = Sprite::createWithSpriteFrameName(R_rocket);
 										  auto particle = ParticleSystemQuad::create(R_pushPreviousPlayerParticle);
 										  auto explosion = ParticleSystemQuad::create(R_explosParticle);
-										  rocket->addChild(particle);
+										  rocketNew->addChild(particle);
 										  particle->setNormalizedPosition(Vec2(0.5f, 0));
-										  this->getParent()->addChild(rocket);
-										  rocket->setPosition(this->getPosition());
-										  rocket->setRotation(angle);
+										  rocketNew->setPosition(this->getPositionX()-this->getContentSize().width/2,this->getPositionY());
+										  rocketNew->setRotation(angle);
 										  //actions
-										  auto fly = MoveTo::create(0.2f, Vec2(target->getBoundingBox().getMaxX() + target->getVelocity()*0.2f,p1.y));
+										  auto timeToFly = 0.3f;//(0.3f / (2 * target->getContentSize().width))*(this->getPositionX() - target->getPositionX());
+										  auto fly = MoveTo::create(timeToFly, Vec2(target->getBoundingBox().getMaxX() + target->getVelocityX()*timeToFly, target->getPositionY() + target->getVelocityY()*timeToFly));
 										  DelayTime *wait = DelayTime::create(explosion->getDuration() + explosion->getLife());
-										  auto explode = CallFunc::create([rocket,target]() mutable
+										  auto explode = CallFunc::create([rocketNew, target]() mutable
 										  {
 											  auto explosion = ParticleSystemQuad::create(R_explosParticle);
 											  cpBodyApplyImpulse(target->getBody(), cpv(G_wF(-3000), G_wF(3000)), cpv(0, 0));
-											  rocket->addChild(explosion);
+											  rocketNew->addChild(explosion);
 										  });
-										  auto remove = CallFunc::create([rocket](){rocket->removeFromParent(); });
-										  rocket->runAction(Sequence::create(fly, explode, wait, remove,NULL));
+										  auto remove = CallFunc::create([rocketNew,this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; });
+										  rocketNew->runAction(Sequence::create(fly, explode, wait, remove, NULL));
+										  rocket->removeFromParent();
+										  rocket = NULL;
+										  this->getParent()->addChild(rocketNew);
 										  break;
 	}
 	}
-	pwrupType = PowerUp::PowerUpType::NONE;
 	
+}
+void Boxx::updatePowerUp()
+{
+	if (pwrupType == PowerUp::PowerUpType::THUNDER && rocket != NULL)
+	{
+		if (G_getWorld()->getOrderedBoxes()->back() == this) return;
+		Boxx *target = G_getWorld()->getOrderedBoxes()->at(G_getWorld()->getOrderedBoxes()->getIndex(this) + 1);
+		auto p1 = target->getPosition();
+		auto p2 = this->getPosition();
+		const float angle = G_radToAngle*atan2(p1.x - p2.x, p1.y - p2.y);
+		rocket->setRotation(angle);
+	}
 }
 
 

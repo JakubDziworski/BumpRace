@@ -12,6 +12,7 @@ bool Hud::init()
 	{
 		return false;
 	}
+	activatorBtn = NULL;
 	isGameOver = false;
 	//PAUSE//
 	pauseNode = Node::create();
@@ -133,7 +134,8 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 	}
 	else
 	{
-		auto activatorBtn = Button::create(R_powerUps[int(type)],"","",TextureResType::PLIST);
+		if (activatorBtn != NULL) activatorBtn->removeFromParent();
+		activatorBtn = Button::create(R_powerUps[int(type)], "", "", TextureResType::PLIST);
 		activatorBtn->setScale(0);
 		activatorBtn->setPosition(Vec2(G_srodek.x, activatorBtn->getContentSize().height));
 		auto scaleUp = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1.2f));
@@ -141,14 +143,14 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 		auto idle = DelayTime::create(Director::getInstance()->getScheduler()->getTimeScale() * 2);
 		activatorBtn->runAction(RepeatForever::create(Sequence::create(scaleUp,scaleDown,idle,NULL)));
 		this->addChild(activatorBtn);
-		activatorBtn->addTouchEventListener([box,activatorBtn](Ref *reff, Widget::TouchEventType type)
+		activatorBtn->addTouchEventListener([box,this](Ref *reff, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
 			box->activatePowerUp();
 			activatorBtn->setTouchEnabled(false);
 			activatorBtn->stopAllActions();
 			auto scaleDown = EaseBackIn::create(ScaleTo::create(G_getFTimeScale(0.3f), 0));
-			auto destroy = CallFunc::create([activatorBtn](){activatorBtn->removeFromParentAndCleanup(true); });
+			auto destroy = CallFunc::create([this](){activatorBtn->removeFromParentAndCleanup(true); activatorBtn = NULL; });
 			activatorBtn->runAction(Sequence::createWithTwoActions(scaleDown, destroy));
 		});
 	}

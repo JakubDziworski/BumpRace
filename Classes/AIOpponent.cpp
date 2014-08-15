@@ -5,11 +5,11 @@ void AIOpponent::simulate(float dt)
 	if (orderedOpponents == NULL) return;
 	if (orderedOpponents->size() == 0) return;
 	this->setPrzedniTylni();
-	if (tylni && tylni->getVelocity() > 1.2f*this->getVelocity() && tylni->isJumping())
+	if (tylni && tylni->getVelocityX() > 1.2f*this->getVelocityX() && tylni->isJumping())
 	{
 		jump();
 	}
-	else if (przedni && przedni->getVelocity() < 0.8f*this->getVelocity())
+	else if (przedni && przedni->getVelocityX() < 0.8f*this->getVelocityX())
 	{
 		jump();
 	}

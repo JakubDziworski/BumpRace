@@ -22,6 +22,11 @@ private:
 	void displayDebugInfo();
 	void updatePhysPos();
 	void updateTransform();
+	void updatePowerUp();
+	//powerUP SECTION
+	cocos2d::Sprite *rocket;
+	cocos2d::Sprite *jetpack;
+	cocos2d::Sprite *ghost;
 protected:
 	int racePos;
 	cocos2d::Label *debugL;
@@ -47,11 +52,12 @@ public:
 	void jump();
 	bool isOnFlat();
 	void updateBox();
-	float getVelocity(){ if (myBody != nullptr) return  myBody->v.x; }
+	float getVelocityX(){ if (myBody != nullptr) return  myBody->v.x; }
+	float getVelocityY(){ if (myBody != nullptr) return  myBody->v.y; }
 	void addPoint();
 	int getScore(){ return points; }
 	void deactivate();
-	void collectedPowerUp(PowerUp::PowerUpType pwruptype);
+	bool collectedPowerUp(PowerUp::PowerUpType pwruptype);
 	void activatePowerUp();
 };
 #endif

@@ -13,6 +13,7 @@ protected:
 	Node *pauseNode;
 	Node *gameOverNode;
 	cocos2d::Label *infoNode;
+	cocos2d::ui::Button *activatorBtn;
 	void pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);

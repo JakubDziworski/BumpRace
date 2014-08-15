@@ -107,7 +107,7 @@ void World::rozmiescCheckpointy()
 	int i = 0;
 	do
 	{
-		int wysokosc =  rand() % int(G_hF(600));
+		int wysokosc = 2 * G_hF(150);//rand() % int(G_hF(600));
 		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_wF(G_powerUpOdlegloscVar));
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));

@@ -39,13 +39,12 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 {
 	active = false;
 	int losuj = 0;
-	losuj = 2;// rand() % 2;
+	losuj = 1;//rand() % 3;
 	if (!Sprite::initWithSpriteFrameName(R_powerUps[losuj]))
 	{
 		return false;
 	}
-	PowerUpType type;
-	switch (losuj)
+    switch (losuj)
 	{
 	case 0:
 		pwrupType = PowerUpType::SPEED;
@@ -58,8 +57,10 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 		break;
 	}
 	boxez = boxess;
-	auto goUp = EaseBackOut::create(MoveBy::create(0.7f, Vec2(0, G_hF(100))));
-	auto goDown = EaseBackOut::create(MoveBy::create(0.7f, Vec2(0, G_hF(-100))));
+	//auto goUp = EaseBackOut::create(MoveBy::create(0.7f, Vec2(0, G_hF(100))));
+	//auto goDown = EaseBackOut::create(MoveBy::create(0.7f, Vec2(0, G_hF(-100))));
+	auto goUp = EaseBackOut::create(ScaleTo::create(0.3f,1.2f));
+	auto goDown = EaseBackOut::create(ScaleTo::create(0.3f, 0.9f));
 	this->runAction(RepeatForever::create(Sequence::createWithTwoActions(goUp, goDown)));
 	this->schedule(schedule_selector(PowerUp::tick));
 	return true;
