@@ -146,7 +146,7 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 		activatorBtn->addTouchEventListener([box,this](Ref *reff, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
-			box->activatePowerUp();
+			if(!box->activatePowerUp()) return;
 			activatorBtn->setTouchEnabled(false);
 			activatorBtn->stopAllActions();
 			auto scaleDown = EaseBackIn::create(ScaleTo::create(G_getFTimeScale(0.3f), 0));

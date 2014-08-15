@@ -122,6 +122,11 @@ bool Boxx::isOnFlat()
 }
 void Boxx::updatePhysPos()
 {
+	if (powerUpExecuted == true && pwrupType == PowerUp::PowerUpType::GHOST)
+	{
+		maxVel = G_maxVelocity * wind;
+		return;
+	}
 	if (deactivated)
 	{
 		wind = 0;
@@ -251,7 +256,7 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 	}
 	return true;
 }
-void Boxx::activatePowerUp()
+bool Boxx::activatePowerUp()
 {
 	powerUpExecuted = true;
 	switch (pwrupType)
@@ -277,8 +282,8 @@ void Boxx::activatePowerUp()
 										auto animate = Animate::create(Animation::createWithSpriteFrames(animFrames, 0.07f));
 										auto fadeout = FadeTo::create(0.3f, 100);
 										auto fadein = FadeTo::create(0.3f, 255);
-										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); ghost->removeFromParent(); ghost = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
-										auto idle = DelayTime::create(3);
+										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); ghost->removeFromParent(); ghost = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; updatePhysPos(); });
+										auto idle = DelayTime::create(2);
 										auto totallyFade = FadeTo::create(0.3f, 0);
 										ghost->runAction(animate);
 										ghost->runAction(Sequence::create(fadeout, idle, totallyFade,NULL));
@@ -288,11 +293,17 @@ void Boxx::activatePowerUp()
 	}
 	case PowerUp::PowerUpType::THUNDER:
 	{
-										  if (G_getWorld()->getOrderedBoxes()->back() == this) return;
+										  if (G_getWorld()->getOrderedBoxes()->back() == this)
+										  {
+											  powerUpExecuted = false;
+											  return false;
+										  }
 										  Boxx *target = G_getWorld()->getOrderedBoxes()->at(G_getWorld()->getOrderedBoxes()->getIndex(this) + 1);
-										  auto p1 = target->getPosition();
+										  auto timeToFly = 0.3f;//(0.3f / (2 * target->getContentSize().width))*(this->getPositionX() - target->getPositionX());
+										  auto p1 = Vec2(target->getBoundingBox().getMaxX() + target->getVelocityX()*timeToFly, target->getPositionY() + target->getVelocityY()*timeToFly);
 										  auto p2 = this->getPosition();
 										  float angle = G_radToAngle*atan2(p1.x - p2.x, p1.y - p2.y);
+										  if (p1.x > p2.x) angle = G_radToAngle*atan2(target->getBoundingBox().getMaxX()-p2.x, p1.y - p2.y);
 										  //rocket
 										  auto rocketNew = Sprite::createWithSpriteFrameName(R_rocket);
 										  auto particle = ParticleSystemQuad::create(R_pushPreviousPlayerParticle);
@@ -302,8 +313,8 @@ void Boxx::activatePowerUp()
 										  rocketNew->setPosition(this->getPositionX()-this->getContentSize().width/2,this->getPositionY());
 										  rocketNew->setRotation(angle);
 										  //actions
-										  auto timeToFly = 0.3f;//(0.3f / (2 * target->getContentSize().width))*(this->getPositionX() - target->getPositionX());
-										  auto fly = MoveTo::create(timeToFly, Vec2(target->getBoundingBox().getMaxX() + target->getVelocityX()*timeToFly, target->getPositionY() + target->getVelocityY()*timeToFly));
+										  auto fadeOutRocket = FadeOut::create(0.1f);
+										  auto fly = MoveTo::create(timeToFly, p1);
 										  DelayTime *wait = DelayTime::create(explosion->getDuration() + explosion->getLife());
 										  auto explode = CallFunc::create([rocketNew, target]() mutable
 										  {
@@ -312,14 +323,14 @@ void Boxx::activatePowerUp()
 											  rocketNew->addChild(explosion);
 										  });
 										  auto remove = CallFunc::create([rocketNew, this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
-										  rocketNew->runAction(Sequence::create(fly, explode, wait, remove, NULL));
+										  rocketNew->runAction(Sequence::create(fly, explode, fadeOutRocket, wait, remove, NULL));
 										  rocket->removeFromParent();
 										  rocket = NULL;
 										  this->getParent()->addChild(rocketNew);
 										  break;
 	}
 	}
-	
+	return true;
 }
 void Boxx::updatePowerUp()
 {
@@ -327,9 +338,10 @@ void Boxx::updatePowerUp()
 	{
 		if (G_getWorld()->getOrderedBoxes()->back() == this) return;
 		Boxx *target = G_getWorld()->getOrderedBoxes()->at(G_getWorld()->getOrderedBoxes()->getIndex(this) + 1);
-		auto p1 = target->getPosition();
+		auto timeToFly = 0.3f;
+		auto p1 = target->getPosition(); (target->getBoundingBox().getMaxX() + target->getVelocityX()*timeToFly, target->getPositionY() + target->getVelocityY()*timeToFly);
 		auto p2 = this->getPosition();
-		const float angle = G_radToAngle*atan2(p1.x - p2.x, p1.y - p2.y);
+		const  float angle = G_radToAngle*atan2(p1.x - p2.x, p1.y - p2.y);
 		rocket->setRotation(angle);
 	}
 }

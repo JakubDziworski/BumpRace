@@ -59,6 +59,6 @@ public:
 	int getScore(){ return points; }
 	void deactivate();
 	bool collectedPowerUp(PowerUp::PowerUpType pwruptype);
-	void activatePowerUp();
+	bool activatePowerUp();
 };
 #endif
