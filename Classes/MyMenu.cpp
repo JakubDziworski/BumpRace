@@ -14,6 +14,7 @@
 #include "editor-support/cocostudio/CCSGUIReader.h"
 #include "editor-support/cocostudio/CocoStudio.h"
 #include "DbReader.h"
+#include "VisibleRect.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -53,10 +54,9 @@ bool MyMenu::init()
 	m_playersBoxesFileNamesIndexes[1] = 1;
 	m_playersBoxesFileNamesIndexes[2] = 2;
 	m_playersBoxesFileNamesIndexes[3] = 3;
-	srodek = Director::getInstance()->getVisibleSize() / 2.0f;
 	currMenu = L_MAINMENU;
 	//bg//
-	Sprite *bg = Sprite::createWithSpriteFrameName(R_tlo);
+	Sprite *bg = Sprite::createWithSpriteFrameName(R_mainMenuBg);
 	bg->setAnchorPoint(Vec2(0, 0));
 	G_scaleToFitScreen(bg);
 	this->addChild(bg,-3);
@@ -71,13 +71,13 @@ bool MyMenu::init()
 				createLayout(L_M_CHOOSENAMES);
 		createLayout(L_OPTIONS);
 	//*MAIN MENU BUTTNS*//
-	createBtn(R_btnOn[0], R_btnOn[1], "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
-	createBtn(R_btnOn[0], R_btnOn[1], "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
-	createBtn(R_btnOn[0], R_btnOn[1], "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
+	createBtn(R_btnOn, "", "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
+	createBtn(R_btnOn,"", "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
+	createBtn(R_btnOn, "", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
 	//*SINGLE PLAYER BUTTONS*//
 	createLabel(G_str("Single_Player"), L_PLAYSINGLE, LAB_SINGLEPLAYER);
-	createBtn(R_btnOn[0], R_btnOn[1], "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
-	createBtn(R_btnOn[0], R_btnOn[1], "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
+	createBtn(R_btnOn,"", "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
+	createBtn(R_btnOn,"", "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
 	//*CARRER BUTTONS*//
 	//TODO
 	//*FRE RUN BUTTONS*//
@@ -86,7 +86,7 @@ bool MyMenu::init()
 	createSpinner(std::to_string(currGatesNumb), G_str("Gates"), currGatesNumb, 24, 3,B_GATESLIDER, L_FREERUN);
 	createSpinner(std::to_string(currOpponentsNumber), G_str("Opponents"), currOpponentsNumber, maxOpponentsNumber, 1, B_OPPONENTSSLIDE, L_FREERUN);
 	createSpinner("Medium", G_str("Difficulty"), currDiffValue, 2, 0, B_DIFFICULTYSLIDER,L_FREERUN, CC_CALLBACK_1(MyMenu::difficultySpinnerChanged, this));
-	createBtn(R_btnOn[0], R_btnOn[1], "Continue", CC_CALLBACK_2(MyMenu::continueToBoxChoose, this), B_CONTINUETOCHOSEBOX, this->getChildByTag(L_FREERUN));
+	createBtn(R_btnOn,"", "Continue", CC_CALLBACK_2(MyMenu::continueToBoxChoose, this), B_CONTINUETOCHOSEBOX, this->getChildByTag(L_FREERUN));
 	//SINGLE CHOOSE BOX
 	createLabel(G_str("Choose_Name"), L_CHOOSENAMES, LAB_CHOSENAMES);
 	auto singletextField = createTextEdit(playerName, G_colors[playerboxFileNameIndex], L_CHOOSENAMES, -1);
@@ -95,7 +95,7 @@ bool MyMenu::init()
 	{
 		singletextField->setColor(G_colors[pgview->getCurPageIndex()]);
 	});
-	createBtn(R_btnOn[0], R_btnOn[1], "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
+	createBtn(R_btnOn,"", "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
 	//**LOCAL MULTIPLAYER**//
 	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
 	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { R_pageGate, R_pageElimination }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_ModeChooserPageChanged,this));
@@ -103,9 +103,10 @@ bool MyMenu::init()
 	createSpinner(std::to_string(m_currPlayersNumber), G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
 	createSpinner(std::to_string(m_currOpponentsNumber), G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
 	createSpinner("Medium", G_str("Difficulty"), m_currDiffValue, 2, 0,B_M_DIFFICULTYSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
-	createBtn(R_btnOn[0], "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
+	createBtn(R_btnOn, "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
+	createBtn(R_btnOn, "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
 		auto textfield = createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
@@ -115,19 +116,19 @@ bool MyMenu::init()
 			textfield->setColor(G_colors[pgview->getCurPageIndex()]);
 		});
 	}
-    createBtn(R_btnOn[0], "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	//*GENERAL BUTTONS*//
-	createBtn(R_btnBack[0], R_btnBack[1],"", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
+	createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	//tutorial
 	//createSinglePlayerTutorialDialog();
 	//*MODIFICATION*//
 	auto backbtn = this->getChildByTag(B_BACK);
-	backbtn->setPosition(2 * srodek.height*0.1f, 2 * srodek.height*0.9f);
+	backbtn->setAnchorPoint(Vec2(0, 1));
+	backbtn->setPosition(VR::leftTop().x + G_wF(25),VR::leftTop().y - G_wF(25));
 	backbtn->setOpacity(0);
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
-	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
+	//if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -144,8 +145,8 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	verLayout->setType(0);
 	myLayout *horLayout = myLayout::create();
 	horLayout->setType(1);
-	Text *titleText = Text::create(labelText, R_defaultFont, G_wF(25));
-	Text *valueText = Text::create(defaultText, R_defaultFont, G_wF(25));
+	Text *titleText = Text::create(labelText, R_defaultFont, G_hF(25));
+	Text *valueText = Text::create(defaultText, R_defaultFont, G_hF(25));
 	Button *minusBtn = Button::create(R_minusBtn,"","",TextureResType::PLIST);
 	Button *plusbtn = Button::create(R_plusBtn, "", "", TextureResType::PLIST);
 	minusBtn->setTitleFontName(R_defaultFont);
@@ -188,10 +189,10 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 cocos2d::ui::TextField* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(TextField*)> callback)
 {
 	Layout *bgLayout = Layout::create();
-	bgLayout->setSize(Sprite::createWithSpriteFrameName(R_multiBtn)->getContentSize());
+	bgLayout->setSize(Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize());
 	bgLayout->setClippingType(Layout::ClippingType::SCISSOR);
 	bgLayout->setClippingEnabled(true);
-	bgLayout->setBackGroundImage(R_multiBtn,TextureResType::PLIST);
+	bgLayout->setBackGroundImage(R_multiBtn[0],TextureResType::PLIST);
 	auto textField = TextField::create("",R_defaultFont,G_wF(35));
 	textField->setColor(textColor);
 	textField->setPlaceHolder(text);
@@ -268,8 +269,9 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 }
 void MyMenu::createLayout(int layoutTag)
 {
+	Menu *menu = Menu::create();
 	cocos2d::ui::Layout *mylater = cocos2d::ui::Layout::create();
-	mylater->setPosition(Vec2(srodek.width,srodek.height*2));
+	mylater->setPosition(VR::top());
 	mylater->setLayoutType(LAYOUT_LINEAR_VERTICAL);
 	mylater->setVisible(false);
 	mylater->setOpacity(0);
@@ -279,9 +281,7 @@ void MyMenu::createLayout(int layoutTag)
 }
 void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 {
-	auto label = Text::create(text, R_defaultFont,G_wF(35));
-	label->setFontSize(35);
-	label->setString(text);
+	auto label = Text::create(text, R_defaultFont,G_hF(25));
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	label->setLayoutParameter(par);
@@ -291,7 +291,7 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 {
 	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
 	btn->setTitleFontName(R_defaultFont);
-	btn->setTitleFontSize(35);
+	btn->setTitleFontSize(G_hF(25));
 	btn->setTouchEnabled(true);
 	if (btnText != "")
 	{
@@ -305,7 +305,7 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 }
 void MyMenu::createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag)
 {
-	Slider* slider = Slider::create();
+	/*Slider* slider = Slider::create();
 	slider->loadBarTexture(R_slider[0], TextureResType::PLIST);
 	slider->loadSlidBallTextures(R_sliderDot, R_sliderDot, "", TextureResType::PLIST);
 	slider->loadProgressBarTexture(R_slider[1], TextureResType::PLIST);
@@ -319,12 +319,13 @@ void MyMenu::createSlider(const char *defaultText, const float defaultval, const
 	slider->addEventListener(callback);
 	changingValue = defaultval;
 	this->getChildByTag(parenttag)->addChild(txt, 1, labelTag);
-	this->getChildByTag(parenttag)->addChild(slider, 1, tag);
+	this->getChildByTag(parenttag)->addChild(slider, 1, tag);*/
 }
 //**MISC**
 void MyMenu::preload()
 {
-	G_srodek = Director::getInstance()->getVisibleSize() / 2;
+	G_srodek = VR::center();
+	VR::setShouldLazyInit(false);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(R_bgmusic.c_str());
@@ -384,6 +385,11 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 	case L_MULTIFREELOCALRUN:
 		show(L_MAINMENU);
 		hide(L_MULTIFREELOCALRUN);
+		hide(B_BACK);
+		break;
+	case L_CHOOSENAMES:
+		show(L_FREERUN);
+		hide(L_CHOOSENAMES);
 		break;
 	default:
 		break;
@@ -715,13 +721,17 @@ void MyMenu::createSinglePlayerTutorialDialog()
 void MyMenu::createLevelMapUI()
 {
 	Layout *dialogRoot = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile(R_LevelMapUI.c_str()));
+	//cocostudio::ActionManagerEx::getInstance()->playActionByName(R_LevelMapUI.c_str(), "Animation0");
 	dialogRoot->setVisible(false);
 	dialogRoot->setOpacity(0);
+	auto scroll = (ScrollView*)utils::findChildren(*dialogRoot, "//mainscroll").at(0);
+	scroll->setInnerContainerSize(Size(6 * G_srodek.x, 2 * G_srodek.y));
 	this->addChild(dialogRoot,2,L_CARRER);
 	//listeners
-	for (auto childd : utils::findChildren(*dialogRoot, "mainscroll").at(0)->getChildren())
+	for (auto childd : utils::findChildren(*dialogRoot, "//mainscroll").at(0)->getChildren())
 	{
-		Button *btn = (Button*)childd;
+		Button *btn = dynamic_cast<Button*>(childd);
+		if (!btn) continue;
 		int levelNumber = std::stoi(btn->getTitleText());
 		//ZABLOKOWANE
 		if (!DbReader::getInstance()->isLevelUnlocked(levelNumber))
@@ -773,5 +783,7 @@ void MyMenu::createLevelMapUI()
 			G_dir()->replaceScene(scene);
 		});
 	}
-	DbReader::getInstance()->flush();
+}
+void MyMenu::resizeLayouts()
+{
 }

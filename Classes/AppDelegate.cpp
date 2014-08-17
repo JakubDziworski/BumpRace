@@ -23,15 +23,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     // turn on display FPS
     director->setDisplayStats(true);
-
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
-
     // create a scene. it's an autorelease object
 	G_initLanguage();
+	auto screenSize = glview->getFrameSize();
+	prepareImageRes(screenSize);
     auto scene = MyMenu::createScene();
-
-    // run
     director->runWithScene(scene);
 
     return true;
@@ -51,4 +49,30 @@ void AppDelegate::applicationWillEnterForeground() {
 
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+}
+
+void AppDelegate::prepareImageRes(cocos2d::Size scrSize)
+{
+	std::vector<std::string> resPaths;
+	GLView *glView = Director::getInstance()->getOpenGLView();
+	//IPHONE SECTION
+	if (scrSize.width >= 2048) 
+	{
+		resPaths.push_back("HDR");
+		resPaths.push_back("HD");
+		resPaths.push_back("SD");
+		glView->setDesignResolutionSize(2048, 1366, ResolutionPolicy::NO_BORDER); //IPAD RETINA RES
+	}
+	else if (scrSize.width >= 1024) //IPAD RES
+	{
+		resPaths.push_back("HD");
+		resPaths.push_back("SD");
+		glView->setDesignResolutionSize(1024, 684, ResolutionPolicy::NO_BORDER);
+	}
+	else 
+	{
+		resPaths.push_back("SD");
+		glView->setDesignResolutionSize(512,342, ResolutionPolicy::NO_BORDER);
+	}
+	FileUtils::getInstance()->setSearchPaths(resPaths);
 }

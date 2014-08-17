@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "MyMenu.h"
 #include "Paths.h"
+#include "VisibleRect.h"
 USING_NS_CC;
 using namespace ui;
 bool Hud::init()
@@ -16,9 +17,9 @@ bool Hud::init()
 	isGameOver = false;
 	//PAUSE//
 	pauseNode = Node::create();
-	Button* pauseBtn = Button::create(R_pauseBtn[0], R_pauseBtn[1], "", TextureResType::PLIST);
+	Button* pauseBtn = Button::create(R_pauseBtn, R_pauseBtn, "", TextureResType::PLIST);
 	pauseBtn->setTitleFontName(R_defaultFont);
-	pauseBtn->setPosition(Vec2(2 * G_srodek.x - pauseBtn->getContentSize().height*0.75f, 2 * G_srodek.y - pauseBtn->getContentSize().width*0.75f));
+	pauseBtn->setPosition(Vec2(VR::rightTop().x - pauseBtn->getContentSize().width*0.75f, VR::rightTop().y - pauseBtn->getContentSize().width*0.75f));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_2(Hud::pauseTouchCallback,this));
 	const int margin = G_srodek.y / 20;
 	Button *resume = Button::create(R_resumebtn, R_resumebtn,  "", TextureResType::PLIST);
@@ -105,7 +106,7 @@ void Hud::setMultiplayer(World *world)
 	int sizey;
 	for (Player *player : *world->getPlayers())
 	{
-		auto btn = Button::create(R_multiBtn, "", "", TextureResType::PLIST);
+		auto btn = Button::create(R_multiBtn[0],R_multiBtn[1], "", TextureResType::PLIST);
 		btn->setTitleFontName(R_defaultFont);
 		btn->setScale9Enabled(true);
 		btn->setScaleX(2 * G_srodek.x / btn->getContentSize().width / playerznumber);
@@ -124,7 +125,6 @@ void Hud::setMultiplayer(World *world)
 	}
 	additionalMulti(sizey);
 }
-
 void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 {
 	if (!dynamic_cast<Player*> (box)) return;
@@ -137,7 +137,7 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 		if (activatorBtn != NULL) activatorBtn->removeFromParent();
 		activatorBtn = Button::create(R_powerUps[int(type)], "", "", TextureResType::PLIST);
 		activatorBtn->setScale(0);
-		activatorBtn->setPosition(Vec2(G_srodek.x, activatorBtn->getContentSize().height));
+		activatorBtn->setPosition(Vec2(G_srodek.x, VR::bottom().y + activatorBtn->getContentSize().height));
 		auto scaleUp = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1.2f));
 		auto scaleDown = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1));
 		auto idle = DelayTime::create(Director::getInstance()->getScheduler()->getTimeScale() * 2);

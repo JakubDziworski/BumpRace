@@ -3,12 +3,12 @@
 
 #include "cocos2d.h"
 
-class VisibleRect
+class VR
 {
 public:
     static cocos2d::Rect getVisibleRect();
-
-    static cocos2d::Vec2 left();
+	static void setShouldLazyInit(bool val);
+	static cocos2d::Vec2 left();
     static cocos2d::Vec2 right();
     static cocos2d::Vec2 top();
     static cocos2d::Vec2 bottom();
@@ -18,7 +18,9 @@ public:
     static cocos2d::Vec2 leftBottom();
     static cocos2d::Vec2 rightBottom();
 private:
+	VR();
     static void lazyInit();
+	static bool shouldLazyInit;
     static cocos2d::Rect s_visibleRect;
 };
 

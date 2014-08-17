@@ -83,7 +83,7 @@ void Boxx::updateBox()
 void Boxx::jump()
 {
 	if (isJumping()) return;
-	cpBodyApplyImpulse(myBody, cpv(0, G_hF(1000)), cpv(0, 0));
+	cpBodyApplyImpulse(myBody, cpv(0, G_wF(500)), cpv(0, 0));
 }
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
@@ -116,8 +116,9 @@ void Boxx::setBodyPosition(const cocos2d::Vec2 pos)
 	updateTransform();
 }
 bool Boxx::isOnFlat()
+
 {
-	if (this->getPositionY() > 63 && this->getPositionY() < 120) return true;
+	if (this->getBoundingBox().getMinY() <  G_hF(5)) return true;
 	return false;
 }
 void Boxx::updatePhysPos()
@@ -263,7 +264,7 @@ bool Boxx::activatePowerUp()
 	{
 	case PowerUp::PowerUpType::SPEED:
 	{
-										cpBodyApplyImpulse(myBody, cpv(G_wF(1000), 0), cpv(0, 0));
+										cpBodyApplyImpulse(myBody, cpv(G_wF(800), 0), cpv(0, 0));
 										auto jetpackFire = ParticleSystemQuad::create(R_jetpackFire);
 										jetpackFire->setNormalizedPosition(Vec2(0, 0.5f));
 										jetpack->addChild(jetpackFire);

@@ -33,7 +33,6 @@ private:
 	int m_currPlayersNumber;
 	//dla zmieniania wartosc playerow;
 	int currChangingPlayer = 0;
-	cocos2d::Size srodek;
 	cocos2d::ui::Layout* layout;
 	void preload();
 	void hide(int menutypedef);
@@ -47,6 +46,7 @@ private:
 	void createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed,cocos2d::Node *layout);
 	void createSinglePlayerTutorialDialog();
 	void createLevelMapUI();
+	void resizeLayouts();
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();

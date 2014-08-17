@@ -51,7 +51,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverNode->setMargin(25, 25);
 	gmOverNode->addWidget(btnlayout);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn[0], Widget::TextureResType::PLIST);
+	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
 	gmOverNode->setPosition(G_srodek);
 	//listeners
 	menuBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::gotoMenuBtnListenerBase, this));

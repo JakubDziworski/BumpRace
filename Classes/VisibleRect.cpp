@@ -26,71 +26,82 @@
 
 USING_NS_CC;
 
-Rect VisibleRect::s_visibleRect;
+Rect VR::s_visibleRect;
+bool VR::shouldLazyInit = true;
 
-void VisibleRect::lazyInit()
+void VR::lazyInit()
 {
     // no lazy init
     // Useful if we change the resolution in runtime
-    s_visibleRect = Director::getInstance()->getOpenGLView()->getVisibleRect();
+    if(shouldLazyInit) s_visibleRect = Director::getInstance()->getOpenGLView()->getVisibleRect();
 }
 
-Rect VisibleRect::getVisibleRect()
+Rect VR::getVisibleRect()
 {
     lazyInit();
     return s_visibleRect;
 }
 
-Vec2 VisibleRect::left()
+Vec2 VR::left()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x, s_visibleRect.origin.y+s_visibleRect.size.height/2);
 }
 
-Vec2 VisibleRect::right()
+Vec2 VR::right()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y+s_visibleRect.size.height/2);
 }
 
-Vec2 VisibleRect::top()
+Vec2 VR::top()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y+s_visibleRect.size.height);
 }
 
-Vec2 VisibleRect::bottom()
+Vec2 VR::bottom()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y);
 }
 
-Vec2 VisibleRect::center()
+Vec2 VR::center()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y+s_visibleRect.size.height/2);
 }
 
-Vec2 VisibleRect::leftTop()
+Vec2 VR::leftTop()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x, s_visibleRect.origin.y+s_visibleRect.size.height);
 }
 
-Vec2 VisibleRect::rightTop()
+Vec2 VR::rightTop()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y+s_visibleRect.size.height);
 }
 
-Vec2 VisibleRect::leftBottom()
+Vec2 VR::leftBottom()
 {
     lazyInit();
     return s_visibleRect.origin;
 }
 
-Vec2 VisibleRect::rightBottom()
+Vec2 VR::rightBottom()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y);
+}
+
+VR::VR()
+{
+	shouldLazyInit = true;
+}
+
+void VR::setShouldLazyInit(bool val)
+{
+	shouldLazyInit = val;
 }

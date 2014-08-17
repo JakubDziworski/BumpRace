@@ -69,7 +69,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	gmOverNode->setMargin(25, 25);
 	gmOverNode->addWidget(btnlayout);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn[0], Widget::TextureResType::PLIST);
+	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
 	gmOverNode->setPosition(Vec2(G_srodek.x,2*G_srodek.y+gmOverNode->getContentSize().height));
 	gmOverNode->runAction(EaseBackOut::create(MoveTo::create(0.3f*Director::getInstance()->getScheduler()->getTimeScale(), G_srodek)));
 	//listeners

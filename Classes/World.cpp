@@ -34,8 +34,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	scaleeLayer = Node::create();
 	moveLayer->addChild(rotationLayer);
 	scaleeLayer->addChild(moveLayer);
-	srodek = VisibleRect::getVisibleRect().size/2;
-	scaleeLayer->setPosition(srodek);
+	scaleeLayer->setPosition(G_srodek);
 	this->addChild(scaleeLayer,1);
 	//****************//
 	hud = NULL;
@@ -46,7 +45,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	opponentz = Vector<Boxx*>(boxesNumber);
 	angle = 0;
 	timee = 0;
-	screenRatio = Director::getInstance()->getWinSize().width / Director::getInstance()->getWinSize().height;
+	screenRatio = G_srodek.x / G_srodek.y;
 	//****************//
 	gravitySpace = cpSpaceNew();
 	gravitySpace->gravity = cpv(0, -2000);
@@ -72,12 +71,12 @@ void World::createFloor()
 	floorBody = cpBodyNew(INFINITY,INFINITY);
 	float lengtht = (gatesNumber + 1)*G_odlegloscmiedzyBramkami;
 	cpVect verts[] = {
-		cpv(0,-2000),
+		cpv(0,-G_hF(1300)),
 		cpv(0, 0),
 		cpv(lengtht, 0),
-		cpv(lengtht, -2000),
+		cpv(lengtht, -G_hF(1300)),
 	};
-	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - Director::getInstance()->getWinSize().width) / verts[3].x;
+	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - VR::right().x) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
 	SpriteBatchNode *node = SpriteBatchNode::createWithTexture(SpriteFrameCache::getInstance()->getSpriteFrameByName(R_flat)->getTexture());
@@ -107,7 +106,7 @@ void World::rozmiescCheckpointy()
 	int i = 0;
 	do
 	{
-		int wysokosc = 2 * G_hF(150);//rand() % int(G_hF(600));
+		int wysokosc = 2 * G_hF(35);//rand() % int(G_hF(600));
 		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_wF(G_powerUpOdlegloscVar));
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));
@@ -120,11 +119,11 @@ void World::createBackground()
 {
 
 	bgImg = Sprite::createWithSpriteFrameName(R_tlo);
-	bgImg->setScale(srodek.x * 4 / bgImg->getContentSize().width, srodek.y * 2 / bgImg->getContentSize().height);
-	bgImg->setPosition(srodek.x, srodek.y);
+	bgImg->setScale(G_srodek.x * 4 / bgImg->getContentSize().width, G_srodek.y * 2 / bgImg->getContentSize().height);
+	bgImg->setPosition(G_srodek.x, G_srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));
 	this->addChild(bgImg, -1);
-	scaleeLayer->setScale(srodek.x / 1280.0f);
+	scaleeLayer->setScale((512.0f / 200.0f)/(VR::right().x / (float)Device::getDPI()));
 }
 //----****UPDATE****----///
 void World::tick(float delta)
@@ -139,9 +138,7 @@ void World::tick(float delta)
 	//*******************//
 	if (rotationLayer->getNumberOfRunningActions() == 0)
 	{
-		const int critical = rand() % 3;
-		//if (critical == 0) angle = rand() % 50 - 100; else 
-		angle = rand() % 60;
+		angle = rand() % 70;
 		const float duration = (rand() % 6 + 1) / 2.0f;
 		rotationLayer->runAction(RotateTo::create(duration, angle));
 	}
@@ -154,7 +151,7 @@ void World::tick(float delta)
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(G_wF(1000) * G_mySin, G_wF(-2000) * G_myCos);
+	gravitySpace->gravity = cpv(G_wF(700) * G_mySin, G_wF(-1000) * G_myCos);
 }
 void World::checkPosition(float dt)
 {
@@ -224,7 +221,7 @@ void World::pauseGame()
 }
 bool World::nodeOutOfWindow(Node *node)
 {
-	if (node->getPositionX() + 2 * srodek.x/scaleeLayer->getScale() < getOstaniActive()->getPositionX()) return true;
+	if (node->getPositionX() + 2 * G_srodek.x/scaleeLayer->getScale() < getOstaniActive()->getPositionX()) return true;
 	return false;
 }
 void World::resumeGame()
@@ -250,7 +247,7 @@ void World::gameIsOver(bool win)
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
 	}
 }
-//_________SINGLE PLAYER_________//
+//_________SINGLE PLAYER_________//f
 void World::setSinglePlayer(Player* player)
 {
 	//DOTYK
@@ -268,9 +265,6 @@ void World::setSinglePlayer(Player* player)
 bool World::s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
 	player->jump();
-	/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) opponentz.at(0)->jump();
-	else if (keyCode == EventKeyboard::KeyCode::KEY_CTRL) opponentz.at(1)->jump();
-	else if (keyCode == EventKeyboard::KeyCode::KEY_ALT) opponentz.at(2)->jump();*/
 	return true;
 }
 void World::s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -315,7 +309,7 @@ void World::s_putOnPlayers(Player* playerr)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2 * srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -337,9 +331,9 @@ void World::s_cameraFollow()
 	posY = player->getPositionX()*G_mySin;
 	const float lastposX = -followMate->getPositionX()*G_myCos;
 	const float lastposY = +followMate->getPositionX()*G_mySin;
-	const float maxOffsetX = srodek.x / scaleeLayer->getScale() / screenRatio;
-	const float maxOffsetY = srodek.y / scaleeLayer->getScale() / screenRatio;
-	const float maxpierwszyOffset = 0.8f*srodek.y / scaleeLayer->getScale();
+	const float maxOffsetX = G_srodek.x / scaleeLayer->getScale() / screenRatio;
+	const float maxOffsetY = G_srodek.y / scaleeLayer->getScale() / screenRatio;
+	const float maxpierwszyOffset = 0.8f*G_srodek.y / scaleeLayer->getScale();
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
@@ -362,14 +356,14 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
 	lateInit();
 	getHud()->setMultiplayer(this);
-	this->setPositionY(Sprite::createWithSpriteFrameName(R_multiBtn)->getContentSize().height);	//podwyzszamy troche zeby przyciski nie zaslanialy nic
+	this->setPositionY(Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height);	//podwyzszamy troche zeby przyciski nie zaslanialy nic
 }
 bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
 	auto location = touch->getLocation();
 	if (playersNumber == 2)
 	{
-		if (location.x > srodek.x)
+		if (location.x > G_srodek.x)
 		{
 			players.at(1)->jump();
 		}
@@ -380,11 +374,11 @@ bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 	}
 	else if (playersNumber == 3)
 	{
-		if (location.x < 0.66f*srodek.x)
+		if (location.x < 0.66f*G_srodek.x)
 		{
 			players.at(0)->jump();
 		}
-		else if (location.x < 1.32f*srodek.x)
+		else if (location.x < 1.32f*G_srodek.x)
 		{
 			players.at(1)->jump();
 		}
@@ -395,15 +389,15 @@ bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 	}
 	else if (playersNumber == 4)
 	{
-		if (location.x < 0.5f*srodek.x)
+		if (location.x < 0.5f*G_srodek.x)
 		{
 			players.at(0)->jump();
 		}
-		else if (location.x < srodek.x)
+		else if (location.x < G_srodek.x)
 		{
 			players.at(1)->jump();
 		}
-		else if (location.x < 1.5f*srodek.x)
+		else if (location.x < 1.5f*G_srodek.x)
 		{
 			players.at(2)->jump();
 		}
@@ -480,7 +474,7 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2 * srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -500,9 +494,9 @@ void World::m_cameraFollow()
 	posY = pierwszyy->getPositionX()*G_mySin;
 	const float lastposX = -ostatni->getPositionX()*G_myCos;
 	const float lastposY = +ostatni->getPositionX()*G_mySin;
-	const float maxOffsetX = srodek.x / scaleeLayer->getScale() / screenRatio;
-	const float maxOffsetY = srodek.y / scaleeLayer->getScale() / screenRatio;
-	const float maxpierwszyOffset = 0.8f*srodek.y / scaleeLayer->getScale();
+	const float maxOffsetX = G_srodek.x / scaleeLayer->getScale() / screenRatio;
+	const float maxOffsetY = G_srodek.y / scaleeLayer->getScale() / screenRatio;
+	const float maxpierwszyOffset = 0.8f*G_srodek.y / scaleeLayer->getScale();
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));

@@ -52,7 +52,6 @@ protected:
 	Node *rotationLayer;
 	Node *moveLayer;
 	Node *scaleeLayer;
-	cocos2d::Point srodek;
 	float paralexFactor;
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
@@ -69,6 +68,7 @@ protected:
 	void lateInit();
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
 public:
+	cpShape *getFloor() { return floor; }
 	bool isMultiplayer(){ return multiplayerEnabled; }
 	void setCarrierLevel(int val){ carrerLevel = val; }
 	int getCarrerLevel(){ return carrerLevel; }
