@@ -5,11 +5,11 @@ void AIOpponent::simulate(float dt)
 	if (orderedOpponents == NULL) return;
 	if (orderedOpponents->size() == 0) return;
 	this->setPrzedniTylni();
-	if (tylni && tylni->getVelocityX() > 1.2f*this->getVelocityX() && tylni->isJumping())
+	if (tylni && tylni->getVelocityX() > 1.1f*this->getVelocityX() && tylni->isJumping())
 	{
 		jump();
 	}
-	else if (przedni && przedni->getVelocityX() < 0.8f*this->getVelocityX())
+	else if (przedni && przedni->getVelocityX() < 0.9f*this->getVelocityX())
 	{
 		jump();
 	}
@@ -74,7 +74,7 @@ void AIOpponent::setPrzedniTylni()
 bool AIOpponent::stykasie()
 {
 	if (przedni == NULL) return false;
-	if (przedni->getBoundingBox().getMinX() - this->getBoundingBox().getMaxX() < 2)return true;
+	if (przedni->getBoundingBox().getMinX() < 1.05f*this->getBoundingBox().getMaxX())return true;
 	return false;
 }
 

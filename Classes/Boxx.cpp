@@ -92,7 +92,7 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 	Boxx *box = ((Boxx*)body->data);
 	if (body->v.x > box->maxVel)
 	{
-		gravity.x = -1.3f*gravity.x;
+		gravity.x = -1.1f*gravity.x;
 	}
 	else
 	{
@@ -147,19 +147,19 @@ void Boxx::updatePhysPos()
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 3:
-		wind = 1.7f;
+		wind = 1.4f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 4:
-		wind = 2.1f;
+		wind = 1.6f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 5:
-		wind = 2.3f;
+		wind = 1.4f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 6:
-		wind = 2.5f;
+		wind = 1.5f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 7:
