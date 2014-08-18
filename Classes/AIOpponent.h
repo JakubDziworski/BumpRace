@@ -1,3 +1,5 @@
+#ifndef __AIOPPONENT__
+#define __AIOPPONENT__
 #include "Boxx.h"
 #include "cocos2d.h"
 class AIOpponent : public Boxx
@@ -17,3 +19,4 @@ public:
 	void addOrderedOpponents(cocos2d::Vector<Boxx*> &orderedOpponents){this->orderedOpponents = &orderedOpponents; }
 
 };
+#endif

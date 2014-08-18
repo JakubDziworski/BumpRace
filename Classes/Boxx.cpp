@@ -46,6 +46,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	//tweaks and adchild//
 	debugL->setPosition(bounding.width / 2.0f, bounding.height*1.5f);
 	debugL->enableShadow();
+	debugL->setHorizontalAlignment(TextHAlignment::CENTER);
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
@@ -79,6 +80,7 @@ void Boxx::updateBox()
 	updatePhysPos();
 	updateTransform();
 	updatePowerUp();
+	displayDebugInfo();
 }
 void Boxx::jump()
 {
@@ -186,12 +188,12 @@ void Boxx::displayDebugInfo()
 {
 	additionalDebugInfo();
 	//if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
-	//debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
-	//debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
-	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
-	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
-	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
-	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
 }
 void Boxx::additionalDebugInfo()
 {
@@ -320,7 +322,7 @@ bool Boxx::activatePowerUp()
 										  auto explode = CallFunc::create([rocketNew, target]() mutable
 										  {
 											  auto explosion = ParticleSystemQuad::create(R_explosParticle);
-											  cpBodyApplyImpulse(target->getBody(), cpv(G_wF(-3000), G_wF(3000)), cpv(0, 0));
+											  cpBodyApplyImpulse(target->getBody(), cpv(G_wF(-2000), G_wF(1200)), cpv(0, 0));
 											  rocketNew->addChild(explosion);
 										  });
 										  auto remove = CallFunc::create([rocketNew, this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });

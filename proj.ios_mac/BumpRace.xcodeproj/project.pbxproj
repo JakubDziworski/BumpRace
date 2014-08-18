@@ -93,22 +93,24 @@
 		8C2BC5E9199D322F001E6BB3 /* DbReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BC5E3199D322F001E6BB3 /* DbReader.cpp */; };
 		8C2BC5EA199D322F001E6BB3 /* PowerUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BC5E5199D322F001E6BB3 /* PowerUp.cpp */; };
 		8C2BC5EB199D322F001E6BB3 /* SpeedPowerUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BC5E7199D322F001E6BB3 /* SpeedPowerUp.cpp */; };
-		8C2D7969199EA3530041639B /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7959199EA3530041639B /* CarrerLevelChooser_1.json */; };
-		8C2D796A199EA3530041639B /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D795A199EA3530041639B /* Dialog_1.json */; };
-		8C2D796B199EA3530041639B /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D795B199EA3530041639B /* fonts */; };
-		8C2D796C199EA3530041639B /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D795C199EA3530041639B /* HD */; };
-		8C2D796D199EA3530041639B /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D795D199EA3530041639B /* HDR */; };
-		8C2D796E199EA3530041639B /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D795E199EA3530041639B /* levelLockedDialog.json */; };
-		8C2D796F199EA3530041639B /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D795F199EA3530041639B /* multilanguage */; };
-		8C2D7970199EA3530041639B /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7960199EA3530041639B /* music */; };
-		8C2D7971199EA3530041639B /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7961199EA3530041639B /* PackerResource */; };
-		8C2D7972199EA3530041639B /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7962199EA3530041639B /* particles */; };
-		8C2D7973199EA3530041639B /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7963199EA3530041639B /* Res1.tps */; };
-		8C2D7974199EA3530041639B /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7964199EA3530041639B /* scripts */; };
-		8C2D7975199EA3530041639B /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7965199EA3530041639B /* SD */; };
-		8C2D7976199EA3530041639B /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7966199EA3530041639B /* Shaders */; };
-		8C2D7977199EA3530041639B /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7967199EA3530041639B /* sounds */; };
-		8C2D7978199EA3530041639B /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D7968199EA3530041639B /* tutorialintro_1.json */; };
+		8C310BF619A1444300A3EA6F /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BE419A1444300A3EA6F /* CarrerLevelChooser_1.json */; };
+		8C310BF719A1444300A3EA6F /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BE519A1444300A3EA6F /* Dialog_1.json */; };
+		8C310BF819A1444300A3EA6F /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BE619A1444300A3EA6F /* fonts */; };
+		8C310BF919A1444300A3EA6F /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BE719A1444300A3EA6F /* HD */; };
+		8C310BFA19A1444300A3EA6F /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BE819A1444300A3EA6F /* HDR */; };
+		8C310BFB19A1444300A3EA6F /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BE919A1444300A3EA6F /* levelLockedDialog.json */; };
+		8C310BFC19A1444300A3EA6F /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BEA19A1444300A3EA6F /* multilanguage */; };
+		8C310BFD19A1444300A3EA6F /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BEB19A1444300A3EA6F /* music */; };
+		8C310BFE19A1444300A3EA6F /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BEC19A1444300A3EA6F /* PackerResource */; };
+		8C310BFF19A1444300A3EA6F /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BED19A1444300A3EA6F /* particles */; };
+		8C310C0019A1444300A3EA6F /* Res1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BEE19A1444300A3EA6F /* Res1.plist */; };
+		8C310C0119A1444300A3EA6F /* Res1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BEF19A1444300A3EA6F /* Res1.png */; };
+		8C310C0219A1444300A3EA6F /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BF019A1444300A3EA6F /* Res1.tps */; };
+		8C310C0319A1444300A3EA6F /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BF119A1444300A3EA6F /* scripts */; };
+		8C310C0419A1444300A3EA6F /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BF219A1444300A3EA6F /* SD */; };
+		8C310C0519A1444300A3EA6F /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BF319A1444300A3EA6F /* Shaders */; };
+		8C310C0619A1444300A3EA6F /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BF419A1444300A3EA6F /* sounds */; };
+		8C310C0719A1444300A3EA6F /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C310BF519A1444300A3EA6F /* tutorialintro_1.json */; };
 		8C6DFAB519850BB600055AF5 /* myListView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DFAB319850BB600055AF5 /* myListView.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -347,22 +349,24 @@
 		8C2BC5E6199D322F001E6BB3 /* PowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUp.h; sourceTree = "<group>"; };
 		8C2BC5E7199D322F001E6BB3 /* SpeedPowerUp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeedPowerUp.cpp; sourceTree = "<group>"; };
 		8C2BC5E8199D322F001E6BB3 /* SpeedPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedPowerUp.h; sourceTree = "<group>"; };
-		8C2D7959199EA3530041639B /* CarrerLevelChooser_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CarrerLevelChooser_1.json; sourceTree = "<group>"; };
-		8C2D795A199EA3530041639B /* Dialog_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dialog_1.json; sourceTree = "<group>"; };
-		8C2D795B199EA3530041639B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		8C2D795C199EA3530041639B /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HD; sourceTree = "<group>"; };
-		8C2D795D199EA3530041639B /* HDR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HDR; sourceTree = "<group>"; };
-		8C2D795E199EA3530041639B /* levelLockedDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = levelLockedDialog.json; sourceTree = "<group>"; };
-		8C2D795F199EA3530041639B /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
-		8C2D7960199EA3530041639B /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
-		8C2D7961199EA3530041639B /* PackerResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PackerResource; sourceTree = "<group>"; };
-		8C2D7962199EA3530041639B /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
-		8C2D7963199EA3530041639B /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
-		8C2D7964199EA3530041639B /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
-		8C2D7965199EA3530041639B /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SD; sourceTree = "<group>"; };
-		8C2D7966199EA3530041639B /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
-		8C2D7967199EA3530041639B /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
-		8C2D7968199EA3530041639B /* tutorialintro_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialintro_1.json; sourceTree = "<group>"; };
+		8C310BE419A1444300A3EA6F /* CarrerLevelChooser_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CarrerLevelChooser_1.json; sourceTree = "<group>"; };
+		8C310BE519A1444300A3EA6F /* Dialog_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dialog_1.json; sourceTree = "<group>"; };
+		8C310BE619A1444300A3EA6F /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		8C310BE719A1444300A3EA6F /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HD; sourceTree = "<group>"; };
+		8C310BE819A1444300A3EA6F /* HDR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HDR; sourceTree = "<group>"; };
+		8C310BE919A1444300A3EA6F /* levelLockedDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = levelLockedDialog.json; sourceTree = "<group>"; };
+		8C310BEA19A1444300A3EA6F /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
+		8C310BEB19A1444300A3EA6F /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
+		8C310BEC19A1444300A3EA6F /* PackerResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PackerResource; sourceTree = "<group>"; };
+		8C310BED19A1444300A3EA6F /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
+		8C310BEE19A1444300A3EA6F /* Res1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Res1.plist; sourceTree = "<group>"; };
+		8C310BEF19A1444300A3EA6F /* Res1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Res1.png; sourceTree = "<group>"; };
+		8C310BF019A1444300A3EA6F /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
+		8C310BF119A1444300A3EA6F /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
+		8C310BF219A1444300A3EA6F /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SD; sourceTree = "<group>"; };
+		8C310BF319A1444300A3EA6F /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		8C310BF419A1444300A3EA6F /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		8C310BF519A1444300A3EA6F /* tutorialintro_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialintro_1.json; sourceTree = "<group>"; };
 		8C6DFAB319850BB600055AF5 /* myListView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = myListView.cpp; path = ../Classes/myListView.cpp; sourceTree = "<group>"; };
 		8C6DFAB419850BB600055AF5 /* myListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myListView.h; path = ../Classes/myListView.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -604,22 +608,24 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8C2D7959199EA3530041639B /* CarrerLevelChooser_1.json */,
-				8C2D795A199EA3530041639B /* Dialog_1.json */,
-				8C2D795B199EA3530041639B /* fonts */,
-				8C2D795C199EA3530041639B /* HD */,
-				8C2D795D199EA3530041639B /* HDR */,
-				8C2D795E199EA3530041639B /* levelLockedDialog.json */,
-				8C2D795F199EA3530041639B /* multilanguage */,
-				8C2D7960199EA3530041639B /* music */,
-				8C2D7961199EA3530041639B /* PackerResource */,
-				8C2D7962199EA3530041639B /* particles */,
-				8C2D7963199EA3530041639B /* Res1.tps */,
-				8C2D7964199EA3530041639B /* scripts */,
-				8C2D7965199EA3530041639B /* SD */,
-				8C2D7966199EA3530041639B /* Shaders */,
-				8C2D7967199EA3530041639B /* sounds */,
-				8C2D7968199EA3530041639B /* tutorialintro_1.json */,
+				8C310BE419A1444300A3EA6F /* CarrerLevelChooser_1.json */,
+				8C310BE519A1444300A3EA6F /* Dialog_1.json */,
+				8C310BE619A1444300A3EA6F /* fonts */,
+				8C310BE719A1444300A3EA6F /* HD */,
+				8C310BE819A1444300A3EA6F /* HDR */,
+				8C310BE919A1444300A3EA6F /* levelLockedDialog.json */,
+				8C310BEA19A1444300A3EA6F /* multilanguage */,
+				8C310BEB19A1444300A3EA6F /* music */,
+				8C310BEC19A1444300A3EA6F /* PackerResource */,
+				8C310BED19A1444300A3EA6F /* particles */,
+				8C310BEE19A1444300A3EA6F /* Res1.plist */,
+				8C310BEF19A1444300A3EA6F /* Res1.png */,
+				8C310BF019A1444300A3EA6F /* Res1.tps */,
+				8C310BF119A1444300A3EA6F /* scripts */,
+				8C310BF219A1444300A3EA6F /* SD */,
+				8C310BF319A1444300A3EA6F /* Shaders */,
+				8C310BF419A1444300A3EA6F /* sounds */,
+				8C310BF519A1444300A3EA6F /* tutorialintro_1.json */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -789,38 +795,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C2D7975199EA3530041639B /* SD in Resources */,
-				8C2D796D199EA3530041639B /* HDR in Resources */,
+				8C310BFA19A1444300A3EA6F /* HDR in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				8C310C0319A1444300A3EA6F /* scripts in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
-				8C2D796B199EA3530041639B /* fonts in Resources */,
+				8C310C0619A1444300A3EA6F /* sounds in Resources */,
+				8C310BF819A1444300A3EA6F /* fonts in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
-				8C2D7977199EA3530041639B /* sounds in Resources */,
-				8C2D7970199EA3530041639B /* music in Resources */,
-				8C2D7973199EA3530041639B /* Res1.tps in Resources */,
+				8C310BFD19A1444300A3EA6F /* music in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
-				8C2D7972199EA3530041639B /* particles in Resources */,
-				8C2D7978199EA3530041639B /* tutorialintro_1.json in Resources */,
-				8C2D796F199EA3530041639B /* multilanguage in Resources */,
+				8C310BFF19A1444300A3EA6F /* particles in Resources */,
+				8C310BFC19A1444300A3EA6F /* multilanguage in Resources */,
+				8C310C0719A1444300A3EA6F /* tutorialintro_1.json in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				8C310C0019A1444300A3EA6F /* Res1.plist in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
-				8C2D7974199EA3530041639B /* scripts in Resources */,
-				8C2D796C199EA3530041639B /* HD in Resources */,
+				8C310BF919A1444300A3EA6F /* HD in Resources */,
+				8C310C0519A1444300A3EA6F /* Shaders in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				8C310C0419A1444300A3EA6F /* SD in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
-				8C2D796E199EA3530041639B /* levelLockedDialog.json in Resources */,
-				8C2D7976199EA3530041639B /* Shaders in Resources */,
-				8C2D7971199EA3530041639B /* PackerResource in Resources */,
-				8C2D7969199EA3530041639B /* CarrerLevelChooser_1.json in Resources */,
+				8C310BFB19A1444300A3EA6F /* levelLockedDialog.json in Resources */,
+				8C310BFE19A1444300A3EA6F /* PackerResource in Resources */,
+				8C310BF619A1444300A3EA6F /* CarrerLevelChooser_1.json in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				8C310C0219A1444300A3EA6F /* Res1.tps in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
-				8C2D796A199EA3530041639B /* Dialog_1.json in Resources */,
+				8C310C0119A1444300A3EA6F /* Res1.png in Resources */,
+				8C310BF719A1444300A3EA6F /* Dialog_1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
