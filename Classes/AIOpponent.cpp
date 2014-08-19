@@ -83,18 +83,19 @@ bool AIOpponent::stykasie()
 }
 void AIOpponent::maintainPowerUp()
 {
+	Boxx *target=NULL;
 	switch (pwrupType)
 	{
 	case PowerUp::PowerUpType::SPEED:
 		if (tylni && abs(tylni->getPositionY() - this->getPositionY()) > this->getContentSize().height
 				  && abs(tylni->getPositionX() - this->getPositionX()) < 2*this->getContentSize().width)
 		{
-			activatePowerUp();
+			target = tylni;
 		}
 		else if (przedni && abs(przedni->getPositionY() - this->getPositionY()) > this->getContentSize().height
 						 && abs(przedni->getPositionX() - this->getPositionX()) < 2 * this->getContentSize().width)
 		{
-			activatePowerUp();
+			target = przedni;
 		}
 		break;
 	case PowerUp::PowerUpType::GHOST:
@@ -102,19 +103,39 @@ void AIOpponent::maintainPowerUp()
 		if (racePos == G_getWorld()->getBoxesNumber()
 			&& przedni->getPositionX() - this->getPositionX() < 2*this->getContentSize().width)
 		{
-			activatePowerUp();
+			target = przedni;
 		}
 		break;
 	case PowerUp::PowerUpType::THUNDER:
 		if (tylni && tylni->getPositionX() - this->getPositionX() < 4 * this->getContentSize().width
 				  && abs(tylni->getPositionY() - this->getPositionY()) >= this->getContentSize().height)
 		{
-			activatePowerUp();
+			target = tylni;
 		}
 		break;
 	case PowerUp::PowerUpType::NONE:
 		break;
 	default:
 		break;
+	}
+	if (target)
+	{
+		if (target == G_getWorld()->getPlayer())
+		{
+			const int randVal = rand() % 10;
+			switch (smartness)
+			{
+				case 0:
+					if (randVal > 5) activatePowerUp();
+					break;
+				case 1:
+					if (randVal > 3) activatePowerUp();
+					break;
+				case 2:
+					activatePowerUp();
+					break;
+			}
+		}
+		activatePowerUp();
 	}
 }
