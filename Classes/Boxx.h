@@ -6,7 +6,6 @@
 class Boxx : public cocos2d::Sprite
 {
 private:
-	PowerUp::PowerUpType pwrupType;
 	int points;
 	cpShape *shapes[3];
 	cpBody *myBody;
@@ -27,8 +26,9 @@ private:
 	cocos2d::Sprite *rocket;
 	cocos2d::Sprite *jetpack;
 	cocos2d::Sprite *ghost;
-	bool powerUpExecuted;
 protected:
+	bool powerUpExecuted;
+	PowerUp::PowerUpType pwrupType;
 	int racePos;
 	cocos2d::Label *debugL;
 	virtual void additionalDebugInfo();

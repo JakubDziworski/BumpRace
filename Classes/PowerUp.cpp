@@ -39,7 +39,7 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 {
 	active = false;
 	int losuj = 0;
-	losuj = 2;// rand() % 3;
+	losuj =  rand() % 3;
 	if (!Sprite::initWithSpriteFrameName(R_powerUps[losuj]))
 	{
 		return false;

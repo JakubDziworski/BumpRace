@@ -106,7 +106,7 @@ void World::rozmiescCheckpointy()
 	int i = 0;
 	do
 	{
-		int wysokosc = 2 * G_hF(35);//rand() % int(G_hF(600));
+		int wysokosc = 0.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_wF(G_powerUpOdlegloscVar));
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));
@@ -151,7 +151,7 @@ void World::tick(float delta)
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(G_wF(700) * G_mySin, G_wF(-1000) * G_myCos);
+	gravitySpace->gravity = cpv(G_wF(800) * G_mySin, G_wF(-1000) * G_myCos);
 }
 void World::checkPosition(float dt)
 {

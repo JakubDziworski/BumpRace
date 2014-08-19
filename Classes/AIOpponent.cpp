@@ -1,15 +1,18 @@
 #include "AIOpponent.h"
+#include "Globals.h"
 USING_NS_CC;
 void AIOpponent::simulate(float dt)
 {
 	if (orderedOpponents == NULL) return;
+	if (powerUpExecuted && pwrupType == PowerUp::PowerUpType::GHOST) return;
+	if (powerUpExecuted && pwrupType == PowerUp::PowerUpType::SPEED) return;
 	if (orderedOpponents->size() == 0) return;
 	this->setPrzedniTylni();
-	if (tylni && tylni->getVelocityX() > 1.1f*this->getVelocityX() && tylni->isJumping())
+	if (tylni && tylni->getVelocityX() > 1.2f*this->getVelocityX() && tylni->isJumping())
 	{
 		jump();
 	}
-	else if (przedni && przedni->getVelocityX() < 0.9f*this->getVelocityX())
+	else if (przedni && przedni->getVelocityX() < 0.8f*this->getVelocityX())
 	{
 		jump();
 	}
@@ -17,6 +20,7 @@ void AIOpponent::simulate(float dt)
 	{
 		jump();
 	}
+	if (pwrupType != PowerUp::PowerUpType::NONE) maintainPowerUp();
 }
 bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *space, int smartnez, cocos2d::Color3B boxColorr)
 {
@@ -77,4 +81,40 @@ bool AIOpponent::stykasie()
 	if (przedni->getBoundingBox().getMinX() < 1.05f*this->getBoundingBox().getMaxX())return true;
 	return false;
 }
-
+void AIOpponent::maintainPowerUp()
+{
+	switch (pwrupType)
+	{
+	case PowerUp::PowerUpType::SPEED:
+		if (tylni && abs(tylni->getPositionY() - this->getPositionY()) > this->getContentSize().height
+				  && abs(tylni->getPositionX() - this->getPositionX()) < 2*this->getContentSize().width)
+		{
+			activatePowerUp();
+		}
+		else if (przedni && abs(przedni->getPositionY() - this->getPositionY()) > this->getContentSize().height
+						 && abs(przedni->getPositionX() - this->getPositionX()) < 2 * this->getContentSize().width)
+		{
+			activatePowerUp();
+		}
+		break;
+	case PowerUp::PowerUpType::GHOST:
+		if (!przedni) break;
+		if (racePos == G_getWorld()->getBoxesNumber()
+			&& przedni->getPositionX() - this->getPositionX() < 2*this->getContentSize().width)
+		{
+			activatePowerUp();
+		}
+		break;
+	case PowerUp::PowerUpType::THUNDER:
+		if (tylni && tylni->getPositionX() - this->getPositionX() < 4 * this->getContentSize().width
+				  && abs(tylni->getPositionY() - this->getPositionY()) >= this->getContentSize().height)
+		{
+			activatePowerUp();
+		}
+		break;
+	case PowerUp::PowerUpType::NONE:
+		break;
+	default:
+		break;
+	}
+}

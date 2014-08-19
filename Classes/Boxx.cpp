@@ -26,6 +26,8 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	cpVect verts[] = {
 		cpv(-bounding.width / 2.0f, -bounding.height / 2.0f),
 		cpv(-bounding.width / 2.0f, bounding.height / 2.0f),
+		//cpv(-bounding.width / 4.0f, bounding.height / 2.0f),
+		//cpv(bounding.width / 4.0f, bounding.height / 2.0f),
 		cpv(bounding.width / 2.0f, bounding.height/2.0f ),
 		cpv(bounding.width / 2.0f, -bounding.height / 2.0f),
 	};
@@ -80,7 +82,7 @@ void Boxx::updateBox()
 	updatePhysPos();
 	updateTransform();
 	updatePowerUp();
-	displayDebugInfo();
+	//displayDebugInfo();
 }
 void Boxx::jump()
 {
@@ -92,7 +94,7 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 	Boxx *box = ((Boxx*)body->data);
 	if (body->v.x > box->maxVel)
 	{
-		gravity.x = -1.1f*gravity.x;
+		gravity.x = -0.4f*gravity.x;
 	}
 	else
 	{
@@ -102,9 +104,20 @@ void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt
 }
 bool Boxx::isJumping()
 {
-	if (abs(cpBodyGetVel(myBody).y) > 5.0f)
+	if (isOnFlat()) return false;
+	for (auto boxx : *G_getWorld()->getOrderedBoxes())
+	{
+		if (boxx == this) continue;
+		const float odlegloscY = this->getBoundingBox().getMinY() - boxx->getBoundingBox().getMaxY();
+		const float margin = this->getContentSize().height*0.05f;
+		if ((boxx->getBoundingBox().getMaxX() > this->getBoundingBox().getMinX()) && boxx->getBoundingBox().getMinX() < this->getBoundingBox().getMaxX() && odlegloscY < margin && odlegloscY >= 0)
+		{
+			return false;
+		}
+	}
+	//if (abs(cpBodyGetVel(myBody).y) > 5.0f)
+	//return true;
 	return true;
-	return false;
 }
 void Boxx::updateTransform()
 {
@@ -188,12 +201,12 @@ void Boxx::displayDebugInfo()
 {
 	additionalDebugInfo();
 	//if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
-	debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
+	/*debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());*/
 }
 void Boxx::additionalDebugInfo()
 {
@@ -261,6 +274,7 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 }
 bool Boxx::activatePowerUp()
 {
+	if (powerUpExecuted) return false;
 	powerUpExecuted = true;
 	switch (pwrupType)
 	{
