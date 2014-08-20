@@ -12,6 +12,7 @@ class World :public cocos2d::Layer
 {
 private:
 	//**regular stuff**//
+	bool gameOver;
 	float timee;
 	float angle;
 	//**chipmunk stuff**//
@@ -68,6 +69,7 @@ protected:
 	void lateInit();
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
 public:
+	bool isGameOver() const { return gameOver; }
 	cpShape *getFloor() { return floor; }
 	bool isMultiplayer(){ return multiplayerEnabled; }
 	void setCarrierLevel(int val){ carrerLevel = val; }

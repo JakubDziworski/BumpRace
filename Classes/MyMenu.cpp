@@ -15,6 +15,7 @@
 #include "editor-support/cocostudio/CocoStudio.h"
 #include "DbReader.h"
 #include "VisibleRect.h"
+#include "soundManager.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -326,10 +327,9 @@ void MyMenu::preload()
 {
 	G_srodek = VR::center();
 	VR::setShouldLazyInit(false);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(R_MP3_punch.c_str());
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(R_bgmusic.c_str());
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(R_bgmusic.c_str(),true);
+	SoundManager::getInstance()->preloadSounds();
+	SoundManager::getInstance()->playBgMusicMenu();
 }
 void MyMenu::hide(int menutypedef)
 {
@@ -727,61 +727,67 @@ void MyMenu::createLevelMapUI()
 	auto scroll = (ScrollView*)utils::findChildren(*dialogRoot, "//mainscroll").at(0);
 	scroll->setInnerContainerSize(Size(6 * G_srodek.x, 2 * G_srodek.y));
 	this->addChild(dialogRoot,2,L_CARRER);
-	//listeners
-	for (auto childd : utils::findChildren(*dialogRoot, "//mainscroll").at(0)->getChildren())
+	int i = 0;
+	for (auto childdd : dialogRoot->getChildren())
 	{
-		Button *btn = dynamic_cast<Button*>(childd);
-		if (!btn) continue;
-		int levelNumber = std::stoi(btn->getTitleText());
-		//ZABLOKOWANE
-		if (!DbReader::getInstance()->isLevelUnlocked(levelNumber))
+		for (auto childd : childdd->getChildren())
 		{
-			btn->setColor(Color3B::GRAY);
-			btn->addTouchEventListener([this](Ref *reff, Widget::TouchEventType type)
+			for (auto chi : childd->getChildren())
 			{
-				if (type != Widget::TouchEventType::ENDED) return;
-				if (levelLockedDialog == NULL)
+				Button *btn = dynamic_cast<Button*>(chi);
+				if (!btn) continue;
+				int levelNumber = std::stoi(btn->getTitleText());
+				//ZABLOKOWANE
+				if (!DbReader::getInstance()->isLevelUnlocked(levelNumber))
 				{
-					levelLockedDialog = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("levelLockedDialog.json");
-					((Text*)utils::findChildren(*levelLockedDialog, "//DialogText").at(0))->setText(G_str("completePrev"));
-					this->addChild(levelLockedDialog);
-				}
-				cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimIn");
-				levelLockedDialog->enumerateChildren("//DialogButton", [](Node *buttn)
-				{
-					((Button*)buttn)->addTouchEventListener([](Ref *refff, Widget::TouchEventType typee)
+					btn->setColor(Color3B::GRAY);
+					btn->addTouchEventListener([this](Ref *reff, Widget::TouchEventType type)
 					{
-						if (typee != Widget::TouchEventType::ENDED) return;
-						cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimOut");
+						if (type != Widget::TouchEventType::ENDED) return;
+						if (levelLockedDialog == NULL)
+						{
+							levelLockedDialog = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("levelLockedDialog.json");
+							((Text*)utils::findChildren(*levelLockedDialog, "//DialogText").at(0))->setText(G_str("completePrev"));
+							this->addChild(levelLockedDialog);
+						}
+						cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimIn");
+						levelLockedDialog->enumerateChildren("//DialogButton", [](Node *buttn)
+						{
+							((Button*)buttn)->addTouchEventListener([](Ref *refff, Widget::TouchEventType typee)
+							{
+								if (typee != Widget::TouchEventType::ENDED) return;
+								cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimOut");
+							});
+							return false;
+						});
 					});
-					return false;
+					continue;
+				}
+				btn->addTouchEventListener([levelNumber](Ref *reff, Widget::TouchEventType type)
+				{
+					if (type != Widget::TouchEventType::ENDED) return;
+					Scene *scene = NULL;
+					switch (levelNumber)
+					{
+					case 1:
+						scene = SingleGateWorld::createScene(4, 5, 1);
+						break;
+					case 2:
+						scene = SingleEliminationWorld::createScene(4, 1);
+						break;
+					case 3:
+						break;
+					default:
+						break;
+					}
+					if (scene == NULL) return;
+					World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+					world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+					world->setCarrierLevel(levelNumber);
+					G_dir()->replaceScene(scene);
 				});
-			});
-			continue;
-		}
-		btn->addTouchEventListener([levelNumber](Ref *reff, Widget::TouchEventType type)
-		{
-			if (type != Widget::TouchEventType::ENDED) return;
-			Scene *scene = NULL;
-			switch (levelNumber)
-			{
-			case 1:
-				scene = SingleGateWorld::createScene(4, 5, 1);
-				break;
-			case 2:
-				scene = SingleEliminationWorld::createScene(4, 1);
-				break;
-			case 3:
-				break;
-			default:
-				break;
 			}
-			if (scene == NULL) return;
-			World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-			world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
-			world->setCarrierLevel(levelNumber);
-			G_dir()->replaceScene(scene);
-		});
+		}
 	}
 }
 void MyMenu::resizeLayouts()

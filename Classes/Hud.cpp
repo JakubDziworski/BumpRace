@@ -79,7 +79,7 @@ void Hud::displayGameOver(bool win)
 	((Button*)this->getChildByTag(B_PAUSE))->setTouchEnabled(false);
 	((Button*)this->getChildByTag(B_PAUSE))->runAction(FadeOut::create(0.5f*G_director->getScheduler()->getTimeScale()));
 	G_dir()->getScheduler()->setTimeScale(0.1f);
-	FiniteTimeAction *wait = DelayTime::create(0.1f);
+	FiniteTimeAction *wait = DelayTime::create(0.4f);
 	FiniteTimeAction *lategameover = CallFunc::create([this,win](){this->displayGameIsOverAdditional(win); });
 	this->runAction(Sequence::create(wait, lategameover, NULL));
 }

@@ -20,4 +20,8 @@
     <Project>CarrerLevelChooser_5</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>MainMenuChoose</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

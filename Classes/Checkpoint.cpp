@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Paths.h"
 #include "Globals.h"
+#include "soundManager.h"
 using namespace cocos2d;
 Chcekpoint * Chcekpoint::create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName)
 {
@@ -69,10 +70,14 @@ void Chcekpoint::tick(float dt)
 		if (aktualny == sprawdzany && sprawdzajPierwszych)
 		{
 			triggerFirstVisualEffects(aktualny);
+			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
 		}
 		else if (actualpos == sprawdzany->getRacePos()-2) 
+		{
+			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
+		}
 		world->checkpointReachedBase(aktualny,actualpos+1);
 		actualpos++;
 	}
@@ -160,6 +165,7 @@ void Chcekpoint::setSprawdzajPierwszych(bool inp)
 void Chcekpoint::enableSlowmo()
 {
 	director->getScheduler()->setTimeScale(0.1f);
+	SoundManager::getInstance()->enableSlowMo();
 	slowmoTriggered = true;
 	schedule(schedule_selector(Chcekpoint::zwolnij));
 }
@@ -167,8 +173,11 @@ void Chcekpoint::zwolnij(float dt)
 {
 	if (timee > 0.5f)
 	{
-		director->getScheduler()->setTimeScale(1);
-		this->unschedule(schedule_selector(Chcekpoint::zwolnij));
+		if (!G_getWorld()->isGameOver())
+		{
+			director->getScheduler()->setTimeScale(1);
+			this->unschedule(schedule_selector(Chcekpoint::zwolnij));
+		}
 		return;
 	}
 	if (director->getScheduler()->getTimeScale() <= 0.1f)

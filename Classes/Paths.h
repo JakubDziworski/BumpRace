@@ -10,7 +10,7 @@ const std::string R_btnBack ="btnBackOf.png";
 const std::string R_btnOn = "btnOf.png";
 const std::string R_flat = "Flat.png";
 const std::string R_gotoMenuBtn = "gotoMenuBtnOf.png";
-const std::string R_multiBtn[2] = {"multiBtn.png","multiBtn.png"};
+const std::string R_multiBtn[2] = {"multiBtnOn.png","multiBtnOff.png"};
 const std::string R_pageElimination = "PageElimination.png";
 const std::string R_pageEndless = "pageEndlessRun.png";
 const std::string R_pageGate = "pageGate.png";
@@ -27,8 +27,13 @@ const std::string R_jetpack = "jetpack.png";
 const std::string R_ghostPrefix = "ghostAnim";
 const std::string R_mainMenuBg = "menu_bg.png";
 //MUSIC 
+const std::string R_bgmusicMenu = "music/main.mp3";
+const std::string R_bgmusicGameplay = "music/gameplayMusic.mp3";
 const std::string R_MP3_punch = "sounds/punch.mp3";
-const std::string R_bgmusic = "music/main.mp3";
+const std::string R_slide = "sounds/slide.mp3";
+const std::string R_slideRampDown = "sounds/slideRampDown.mp3";
+const std::string R_slideSlow = "sounds/slideSlow.mp3";
+const std::string R_slideRampUp = "sounds/slideRampUp.mp3";
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";

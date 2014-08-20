@@ -14,12 +14,14 @@
 #include "AIOpponent.h"
 #include "DbReader.h"
 #include "PowerUp.h"
+#include "soundManager.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
 void World::lateInit()
 {
 	hud->lateinit(this);
+	SoundManager::getInstance()->playBgMusicGameplay();
 	schedule(schedule_selector(World::tick));
 }
 bool World::myInit(int numberOfPlayers,int gates)
@@ -38,6 +40,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	this->addChild(scaleeLayer,1);
 	//****************//
 	hud = NULL;
+	gameOver = false;
 	multiplayerEnabled = false;
 	boxesNumber = numberOfPlayers;
 	gatesNumber = gates;
@@ -144,8 +147,8 @@ void World::tick(float delta)
 	}
 	changeGravity();
 	checkPosition(delta);
-	cameraFollowFunction();
-	bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
+	if(cameraFollowFunction != nullptr) cameraFollowFunction();
+	if(cameraFollowFunction != nullptr) bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
 	customWorldUpdate();
 }
 void World::changeGravity()
@@ -239,13 +242,24 @@ Hud* World::getHud()
 }
 void World::gameIsOver(bool win)
 {
+	if (gameOver) return;
+	gameOver = true;
 	this->setTouchEnabled(false);
-	getHud()->displayGameOver(win);
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
+	getHud()->displayGameOver(win);
 	if (win && carrerLevel != 0)
 	{
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
 	}
+	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
+	const float offset1 = G_wF(700);
+	const float offset2 = abs(G_srodek.y * 2 - moveLayer->getPositionY());
+	const float goRight = -offset2*G_myCos;
+	const float velocitty = G_wF(4500);
+	auto delay = DelayTime::create(0.3f);
+	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; });
+	auto moveToEnd = MoveTo::create(offset2 / velocitty*0.1f, Vec2(moveLayer->getPositionX() + goRight, -G_srodek.y * 2));
+	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, NULL));
 }
 //_________SINGLE PLAYER_________//f
 void World::setSinglePlayer(Player* player)

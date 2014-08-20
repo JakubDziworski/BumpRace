@@ -11,7 +11,7 @@
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>0.5</double>
+                <double>1</double>
                 <key>extension</key>
                 <string>/HD/</string>
                 <key>acceptFractionalValues</key>
@@ -26,7 +26,7 @@
             </struct>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>0.25</double>
+                <double>1</double>
                 <key>extension</key>
                 <string>/SD/</string>
                 <key>acceptFractionalValues</key>
@@ -156,7 +156,7 @@
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
-            <double>1</double>
+            <double>0.25</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>innerPadding</key>
