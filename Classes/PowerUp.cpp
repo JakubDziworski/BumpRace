@@ -17,6 +17,7 @@ void PowerUp::tick(float dt)
 	{
 		if (box->getBoundingBox().intersectsRect(this->getBoundingBox()))
 		{
+			if (G_getWorld()->isGameOver()) return;
 			if(!box->collectedPowerUp(pwrupType)) return;
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_powerUp.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 			((Hud*)cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->powerUpCollected(pwrupType, box);
