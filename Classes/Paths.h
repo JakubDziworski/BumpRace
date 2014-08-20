@@ -34,6 +34,11 @@ const std::string R_slide = "sounds/slide.mp3";
 const std::string R_slideRampDown = "sounds/slideRampDown.mp3";
 const std::string R_slideSlow = "sounds/slideSlow.mp3";
 const std::string R_slideRampUp = "sounds/slideRampUp.mp3";
+const std::string R_failure = "sounds/failure.wav";
+const std::string R_powerUp = "sounds/powerUpCollected.wav";
+const std::string R_victory = "sounds/victory.wav";
+const std::string R_popUp = "sounds/popUp.wav";
+
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";

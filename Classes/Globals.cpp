@@ -58,7 +58,7 @@ void G_initLanguage()
 {
 	//values
 	G_srodek = VR::center();
-	G_odlegloscmiedzyBramkami = G_wF(700);
+	G_odlegloscmiedzyBramkami = G_wF(7000);
 	G_maxVelocity = G_wF(300);
 	G_maxVelConstant = G_wF(250);
 	G_maxVelAddition = G_wF(600);

@@ -30,6 +30,8 @@ bool World::myInit(int numberOfPlayers,int gates)
 	{
 		return false;
 	}
+	//*stop music*//
+	SoundManager::getInstance()->fadeOutMusic();
 	//****************//
 	rotationLayer = Node::create();
 	moveLayer = Node::create();
@@ -144,6 +146,7 @@ void World::tick(float delta)
 		angle = rand() % 70;
 		const float duration = (rand() % 6 + 1) / 2.0f;
 		rotationLayer->runAction(RotateTo::create(duration, angle));
+		calculateSredniaPredkoscDoDzwieku();
 	}
 	changeGravity();
 	checkPosition(delta);
@@ -219,6 +222,7 @@ bool World::physPosSortingFun(Boxx *a, Boxx *b)
 //----****MISC***-----//
 void World::pauseGame()
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
 	rotationLayer->pause();
 	this->pause();
 }
@@ -229,6 +233,7 @@ bool World::nodeOutOfWindow(Node *node)
 }
 void World::resumeGame()
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->resumeAllEffects();
 	rotationLayer->resume();
 	this->resume();
 }
@@ -246,6 +251,7 @@ void World::gameIsOver(bool win)
 	gameOver = true;
 	this->setTouchEnabled(false);
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
+	SoundManager::getInstance()->enableSlowMo();
 	getHud()->displayGameOver(win);
 	if (win && carrerLevel != 0)
 	{
@@ -260,6 +266,8 @@ void World::gameIsOver(bool win)
 	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; });
 	auto moveToEnd = MoveTo::create(offset2 / velocitty*0.1f, Vec2(moveLayer->getPositionX() + goRight, -G_srodek.y * 2));
 	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, NULL));
+	//sound
+	SoundManager::getInstance()->gameIsOver(win);
 }
 //_________SINGLE PLAYER_________//f
 void World::setSinglePlayer(Player* player)
@@ -533,4 +541,15 @@ void World::replaceSceneGenereal(Scene *scene,World *world)
 		world->setSinglePlayer(Player::create(player->getFileName(), player->getID(), world->getGravitySpace(),player->getBoxColor()));
 	}
 	G_dir()->replaceScene(scene);
+}
+void World::calculateSredniaPredkoscDoDzwieku()
+{
+	float suma = 0;
+	const float defaultSpeed = G_wF(800);
+	for (auto child : orderedOpponents)
+	{
+		suma+=child->getVelocityX();
+	}
+	const float srednia = suma / boxesNumber;
+	SoundManager::getInstance()->playSlideEffect(clampf(srednia / defaultSpeed, 0.5f, 1.6f));
 }

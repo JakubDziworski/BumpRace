@@ -50,10 +50,11 @@ void SoundManager::disableSlowMo()
 	fadeInTime = 0.0f;
 	audioEngine->stopEffect(slowEffect);
 	audioEngine->playEffect(R_slideRampUp.c_str());
-	auto delay = DelayTime::create(0.65f*director->getScheduler()->getTimeScale());
+	auto delay = DelayTime::create(0.1f);//do tego jeszce pó³ sekundy dojdzie 0,5*1/10 tego
 	auto volumeUp = CallFunc::create([this]
 	{
 		director->getScheduler()->scheduleSelector(schedule_selector(SoundManager::fadeInMusicScheduler), me, 0, false);
+		if (normalSlideEffect != NULL) audioEngine->resumeEffect(normalSlideEffect);
 	});
 	director->getActionManager()->addAction(Sequence::createWithTwoActions(delay, volumeUp),me,false);
 }
@@ -61,11 +62,12 @@ void SoundManager::enableSlowMo()
 {
 	slowMoEnabled = true;
 	fadeOutTime = 0.0f;
+	if (normalSlideEffect != NULL) audioEngine->pauseEffect(normalSlideEffect);
 	rampDownEffect = audioEngine->playEffect(R_slideRampDown.c_str());
 	auto delay = DelayTime::create(0.65f*director->getScheduler()->getTimeScale());
 	auto triggerNormal = CallFunc::create([this]()
 	{
-		slowEffect = audioEngine->playEffect(R_slideSlow.c_str());
+		slowEffect = audioEngine->playEffect(R_slideSlow.c_str(),true);
 	});
 	director->getActionManager()->addAction(Sequence::createWithTwoActions(delay, triggerNormal), me, false);
 	director->getScheduler()->scheduleSelector(schedule_selector(SoundManager::fadeOutMusicScheduler), me, 0, false);
@@ -116,11 +118,11 @@ void SoundManager::waitForRampDown(float dt)
 }
 void SoundManager::playBgMusicGameplay()
 {
-	audioEngine->playBackgroundMusic(R_bgmusicGameplay.c_str(),true);
+	playBgmusic(R_bgmusicGameplay);
 }
 void SoundManager::playBgMusicMenu()
 {
-	audioEngine->playBackgroundMusic(R_bgmusicMenu.c_str(),true);
+	playBgmusic(R_bgmusicMenu);
 }
 void SoundManager::fadeOutMusic()
 {
@@ -132,4 +134,31 @@ void SoundManager::fadeInMusic()
 	fadeInTime = 0;
 	director->getScheduler()->scheduleSelector(schedule_selector(SoundManager::fadeInMusicScheduler), me, 0, false);
 }
+void SoundManager::playBgmusic(const std::string &inp)
+{
+	audioEngine->playBackgroundMusic(inp.c_str(),true);
+	fadeInMusic();
+}
+void SoundManager::playSlideEffect(float speedVal)
+{
+	if (slowMoEnabled) return;
+	if (normalSlideEffect != NULL)
+	{
+		audioEngine->stopEffect(normalSlideEffect);
+	}
+	normalSlideEffect = audioEngine->playEffect(R_slide.c_str(), true, speedVal);
+}
+void SoundManager::gameIsOver(bool win)
+{
+	if (win) audioEngine->playEffect(R_victory.c_str());
+	else	 audioEngine->playEffect(R_failure.c_str());
+}
+void SoundManager::fadeOutEffect(int effect)
+{
+	auto changeDown = ActionTween::create(0.5*director->getScheduler()->getTimeScale(), String::createWithFormat("fadeOutEffect%d", effect)->getCString(), 1, 0);
+	changeDown->startWithTarget(this);
+}
+void SoundManager::updateTweenAction(float value, const std::string& key)
+{
 
+}

@@ -101,5 +101,6 @@ public:
 	Hud* getHud();
 	void setHud(Hud *hudd){ hud = hudd; }
 	virtual void gameIsOver(bool win);
+	void calculateSredniaPredkoscDoDzwieku();
 };
 #endif // __GAMETEST_SCENE_H__

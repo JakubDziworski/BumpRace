@@ -2,7 +2,7 @@
 #define __SOUBD_MMANAGEr__
 #include "cocos2d.h"
 namespace CocosDenshion{class SimpleAudioEngine;}
-class SoundManager : public cocos2d::Node
+class SoundManager : public cocos2d::Node,public cocos2d::ActionTweenDelegate
 {
 private:
 	bool slowMoEnabled;
@@ -10,6 +10,7 @@ private:
 	cocos2d::Node *mainater;
 	int rampDownEffect;
 	int slowEffect;
+	int normalSlideEffect=NULL;
 	const float slowLenght = 0.3f;
 	const float rampDownLength = 0.1f;
 	const float rampUpLength = 0.1f;
@@ -34,5 +35,12 @@ public:
 	void stopBgMusic();
 	void fadeOutMusic();
 	void fadeInMusic();
+	void playBgmusic(const std::string &inp);
+	void playSlideEffect(float speedVal);
+	void gameIsOver(bool win);
+	void fadeOutEffect(int effect);
+	void pauseEffects();
+	virtual void updateTweenAction(float value, const std::string& key);
+
 };
 #endif // !__SOUBD_MMANAGEr__

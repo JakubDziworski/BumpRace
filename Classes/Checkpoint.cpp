@@ -62,7 +62,7 @@ void Chcekpoint::tick(float dt)
 	Boxx *pierwszy = orderedBoxes->at(0); //pierwszy
 	if (sprawdzajPierwszych) sprawdzany = pierwszy; //pierwszy
 	else sprawdzany = world->getOstaniActive(); //ostatni aktywny
-	if (pierwszy->getPositionX() < this->getPositionX() - 2.5f * pierwszy->getContentSize().width) return;
+	if (sprawdzany->getPositionX() < this->getPositionX() - 2.5f * sprawdzany->getContentSize().width) return;
 	Boxx *aktualny = orderedBoxes->at(actualpos); //aktualny
 	//sprawdzenie czy ktos przekroczyl
 	if (aktualny->getBoundingBox().getMaxX() > this->getPositionX())
@@ -70,17 +70,20 @@ void Chcekpoint::tick(float dt)
 		if (aktualny == sprawdzany && sprawdzajPierwszych)
 		{
 			triggerFirstVisualEffects(aktualny);
+			if (!isLast)
 			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
 		}
 		else if (actualpos == sprawdzany->getRacePos()-2) 
 		{
+			if (!isLast)
 			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
 		}
 		world->checkpointReachedBase(aktualny,actualpos+1);
 		actualpos++;
 	}
+	if (pierwszyZlapal) return;
 	//***************// SPRADZENIE CCZY JEST BLISKO PLAYER ABY WLACZYC SLOWMO
 	if (sprawdzajPierwszych) checkIfCloseToFirst(sprawdzany);
 	else					 checkIfCloseToLast(sprawdzany);
