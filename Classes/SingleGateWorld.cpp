@@ -54,6 +54,7 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 	{
 		box->addPoint();
 		box->positiveGateAction();
+		G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
 	}
 	if (remainingGates == 0)
 	{
@@ -70,8 +71,8 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 			this->gameIsOver(false);
 		}
 	}
+	if(dynamic_cast<Player*>(box))
 	G_getHud()->pointsChanged(getSortedBoxesByScore());
-	G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
 }
 void SingleGateWorld::restartLevel()
 {

@@ -24,7 +24,9 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 {
 	bool beating = false;
 	bool newRecord=false;
-	int bestSCore = DbReader::getInstance()->getEndlessBestScore();
+    bool carrer = false;
+    int bestSCore = DbReader::getInstance()->getEndlessBestScore();
+    if (world->getCarrerLevel() !=0) carrer = true;
 	if (world->getMinliczbabramek() == 0) beating = true;
 	if (world->getScore() > bestSCore && beating)
 	{
@@ -39,8 +41,8 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	//gmover text
 	auto gmOverText = Text::create("Game Over", R_defaultFont, G_wF(40));
 	if (newRecord) gmOverText->setString(G_str("newRecord").c_str());
-	if (win && !beating) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
-	else if (!win && !beating) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
+	if (win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
+	else if (!win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
@@ -51,9 +53,9 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	if(beating)
 	{
 		Text *score = Text::create("SCORE:", R_defaultFont, G_wF(25));
-		score->setString(String::createWithFormat("%s%s%d",G_str("score").c_str(),":", world->getScore())->getCString());
+		score->setString(String::createWithFormat(G_str("score").c_str(), world->getScore())->getCString());
 		gmOverNode->addWidget(score);
-		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str(),":",bestSCore)->getCString(), R_defaultFont, G_wF(25));
+		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, G_wF(25));
 		gmOverNode->addWidget(bestScore);
 	}
 	//BUTTONS
@@ -66,7 +68,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	retryBtn->setTitleFontName(R_defaultFont);
 	btnlayout->addWidget(menuBtn);
 	btnlayout->addWidget(retryBtn);
-	if (world->getCarrerLevel() != 0 && win)
+	if (carrer && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
 		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::gotoLevelSelector, this));

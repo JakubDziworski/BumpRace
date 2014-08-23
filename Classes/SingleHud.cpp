@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Player.h"
 #include "Paths.h"
+#include "VisibleRect.h"
 USING_NS_CC;
 using namespace ui;
 bool SingleGateHud::init()
@@ -66,7 +67,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	retryBtn->setTitleFontName(R_defaultFont);
 	btnlayout->addWidget(menuBtn);
 	btnlayout->addWidget(retryBtn);
-	if (world->getCarrerLevel() != 0)
+	if (world->getCarrerLevel() != 0 && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
 		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoLevelSelector, this));
@@ -102,12 +103,8 @@ void SingleGateHud::lateinit(World *world)
 		scoreTable.insert(box, text);
 	}
 	scoreNode->setAnchorPoint(Vec2(0, 0));
-	scoreNode->setPosition(Vec2(G_srodek.x / 15, G_srodek.x / 15));
+	scoreNode->setPosition(Vec2(VR::leftBottom().x+G_srodek.x / 15,VR::leftBottom().y+ G_srodek.x / 15));
 	this->addChild(scoreNode);
-}
-void SingleGateHud::additionalMulti(int heightY)
-{
-	scoreNode->setPositionY(heightY);
 }
 
 

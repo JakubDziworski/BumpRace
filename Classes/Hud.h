@@ -12,6 +12,7 @@ protected:
 	bool isGameOver;
 	Node *pauseNode;
 	Node *gameOverNode;
+	Node *scoreTableNode;
 	cocos2d::Label *infoNode;
 	cocos2d::ui::Button *activatorBtns[4];
 	cocos2d::ui::Button *multiBtns[4];

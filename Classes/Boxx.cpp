@@ -223,6 +223,21 @@ void Boxx::addPoint()
 {
 	if (deactivated) return;
 	points++;
+	const float offset = this->getContentSize().height;
+    Label *plus1 = Label::create("+1",R_defaultFont,G_wF(100));
+	this->addChild(plus1,25);
+	plus1->setAnchorPoint(Vec2(0.5f,0.0f));
+	plus1->setNormalizedPosition(Vec2(0.5f,1.0f));
+	plus1->setOpacity(0);
+	plus1->enableShadow();
+	plus1->setColor(boxColor);
+	auto goUp = MoveBy::create(2,Vec2(0,offset));
+	auto fadeOut = FadeOut::create(0.4f);
+	auto fadeIn = FadeIn::create(0.4f);
+	auto idle = DelayTime::create(2.0f-0.8f);
+	auto destroy = CallFunc::create([plus1](){plus1->removeFromParent();});
+	plus1->runAction(Sequence::create(fadeIn,idle,fadeOut,destroy,NULL));
+	plus1->runAction(Sequence::createWithTwoActions(goUp,destroy));
 	displayDebugInfo();
 }
 void Boxx::deactivate()
@@ -325,7 +340,7 @@ bool Boxx::activatePowerUp()
 	}
 	case PowerUp::PowerUpType::THUNDER:
 	{
-										  if (G_getWorld()->getOstaniActive() == this)
+										  if (G_getWorld()->getOstaniActive() == this || this == G_getWorld()->getOrderedBoxes()->back())
 										  {
 											  powerUpExecuted = false;
 											  return false;
@@ -376,7 +391,7 @@ void Boxx::updatePowerUp()
 	if (deactivated) return;
 	if (pwrupType == PowerUp::PowerUpType::THUNDER && rocket != NULL)
 	{
-		if (G_getWorld()->getOstaniActive() == this) return;
+		if (G_getWorld()->getOstaniActive() == this || G_getWorld()->getOrderedBoxes()->back() == this) return;
 		Boxx *target = G_getWorld()->getOrderedBoxes()->at(G_getWorld()->getOrderedBoxes()->getIndex(this) + 1);
 		auto timeToFly = 0.3f;
 		auto p1 = target->getPosition(); (target->getBoundingBox().getMaxX() + target->getVelocityX()*timeToFly, target->getPositionY() + target->getVelocityY()*timeToFly);

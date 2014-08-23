@@ -81,7 +81,7 @@
 	<key>gatesLeft</key>
 	<string>Pozostało %d Punktów Kontrolnych</string>
 	<key>score</key>
-	<string>Punkty</string>
+	<string>Punkty : %d</string>
 	<key>newRecord</key>
 	<string>Nowy Rekord!</string>
 	<key>bestScore</key>

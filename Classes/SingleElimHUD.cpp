@@ -51,7 +51,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	retryBtn->setTitleFontName(R_defaultFont);
 	btnlayout->addWidget(menuBtn);
 	btnlayout->addWidget(retryBtn);
-	if (world->getCarrerLevel() != 0)
+	if (world->getCarrerLevel() != 0 && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
 		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::gotoLevelSelector, this));
