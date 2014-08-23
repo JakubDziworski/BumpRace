@@ -69,7 +69,6 @@ void Chcekpoint::tick(float dt)
 	{
 		if (aktualny == sprawdzany && sprawdzajPierwszych)
 		{
-			triggerFirstVisualEffects(aktualny);
 			if (!isLast)
 			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
@@ -92,7 +91,6 @@ void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
 	if ((this->getPositionX() - ostatni->getPositionX()) / ostatni->getVelocityX()>3) return;
-	CCLOG("%f", ostatni->getVelocityX() / (this->getPositionX() - ostatni->getPositionX()));
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (ostatni)) != NULL)	//ostatni to player
 	{
@@ -129,7 +127,6 @@ void Chcekpoint::checkIfCloseToFirst(Boxx* pierwszy)
 {
 	if (slowmoTriggered) return;
 	if ((this->getPositionX() - pierwszy->getPositionX()) / pierwszy->getVelocityX() > 3) return;
-	CCLOG("%f", pierwszy->getVelocityX() / (this->getPositionX() - pierwszy->getPositionX()));
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
 	{
@@ -193,13 +190,13 @@ void Chcekpoint::zwolnij(float dt)
 }
 void Chcekpoint::triggerFirstVisualEffects(Boxx *box)
 {
-	auto particleSystem = ParticleSystemQuad::create(R_checkpointParticle);
-	particleSystem->setStartSize(G_wF(15));
-	particleSystem->setEndSize(G_wF(15));
-	particleSystem->setSpeed(G_wF(500));
-	particleSystem->setSpeedVar(G_wF(500));
-	particleSystem->setPosVar(Vec2(G_wF(35), G_hF(35)));
-	particleSystem->setPosition(Vec2(box->getBoundingBox().getMaxX(),box->getPositionY()));
-	//particleSystem->setPosVar(Vec2(G_wF(25), box->getContentSize().height));
-	this->getParent()->addChild(particleSystem);
+	////auto particleSystem = G_getParticleFromFile(R_checkpointParticle);
+	//particleSystem->setStartSize(G_wF(15));
+	//particleSystem->setEndSize(G_wF(15));
+	//particleSystem->setSpeed(G_wF(500));
+	//particleSystem->setSpeedVar(G_wF(500));
+	//particleSystem->setPosVar(Vec2(G_wF(35), G_hF(35)));
+	//particleSystem->setPosition(Vec2(box->getBoundingBox().getMaxX(),box->getPositionY()));
+	////particleSystem->setPosVar(Vec2(G_wF(25), box->getContentSize().height));
+	//this->getParent()->addChild(particleSystem);
 }

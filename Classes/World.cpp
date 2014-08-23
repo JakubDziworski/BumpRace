@@ -142,7 +142,7 @@ void World::tick(float delta)
 		cpSpaceStep(gravitySpace, dt);
 	}
 	//*******************//
-	if (rotationLayer->getNumberOfRunningActions() == 0)
+	if (rotationLayer->getNumberOfRunningActions() == 0 && !gameOver)
 	{
 		angle = rand() % 70;
 		const float duration = (rand() % 6 + 1) / 2.0f;
@@ -265,14 +265,16 @@ void World::gameIsOver(bool win)
 	{
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
 	}
+	rotationLayer->stopAllActions();
+
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
-	const float offset1 = G_wF(700);
-	const float offset2 = abs(G_srodek.y * 2 - moveLayer->getPositionY());
-	const float goRight = -offset2*G_myCos;
+	const float offset1 = 2*G_srodek.y / scaleeLayer->getScale();
+	const float guUp = offset1 * G_myCos;
+	const float goRight = offset1*G_mySin;
 	const float velocitty = G_wF(4500);
 	auto delay = DelayTime::create(0.3f);
 	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; });
-	auto moveToEnd = MoveTo::create(offset2 / velocitty*0.1f, Vec2(moveLayer->getPositionX() + goRight, -G_srodek.y * 2));
+	auto moveToEnd = MoveTo::create(offset1 / velocitty*0.1f, Vec2(moveLayer->getPositionX() - goRight, moveLayer->getPositionY() - guUp));
 	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, NULL));
 	//sound
 	SoundManager::getInstance()->gameIsOver(win);

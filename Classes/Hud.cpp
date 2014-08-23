@@ -192,3 +192,12 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 	});
 	activatorBtns[i]->setPosition(position);
 }
+void Hud::gotoLevelSelector(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
+{
+	if (touchType != Button::TouchEventType::ENDED) return;
+	Director::getInstance()->getScheduler()->setTimeScale(1);
+	Scene *scena = MyMenu::createScene();
+	MyMenu *menu = (MyMenu*)scena->getChildByTag(1);
+	menu->goToLevelChooserMenu();
+	Director::getInstance()->replaceScene(scena);
+}

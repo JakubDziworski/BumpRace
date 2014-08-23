@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "SingleElimHud.h"
 #include "Paths.h"
+#include "VisibleRect.h"
 USING_NS_CC;
 using namespace ui;
 bool SingleElimHud::init()
@@ -50,6 +51,12 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	retryBtn->setTitleFontName(R_defaultFont);
 	btnlayout->addWidget(menuBtn);
 	btnlayout->addWidget(retryBtn);
+	if (world->getCarrerLevel() != 0)
+	{
+		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
+		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::gotoLevelSelector, this));
+		btnlayout->addWidget(nextLevelBtn);
+	}
 	gmOverNode->setMargin(25, 25);
 	gmOverNode->addWidget(btnlayout);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
@@ -84,7 +91,7 @@ void SingleElimHud::lateinit(World *worldd)
 		scoreTable.insert(box, text);
 	}
 	eliminated = 0;
-	scoreNode->setPosition(Vec2(G_srodek.x / 15, G_srodek.x / 15));
+	scoreNode->setPosition(Vec2(VR::leftBottom().x+G_srodek.x / 15, VR::leftBottom().y+G_srodek.x / 15));
 	this->addChild(scoreNode);
 	//GAME OVER VIEW//
 }

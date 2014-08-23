@@ -66,6 +66,12 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	retryBtn->setTitleFontName(R_defaultFont);
 	btnlayout->addWidget(menuBtn);
 	btnlayout->addWidget(retryBtn);
+	if (world->getCarrerLevel() != 0)
+	{
+		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
+		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoLevelSelector, this));
+		btnlayout->addWidget(nextLevelBtn);
+	}
 	gmOverNode->setMargin(25, 25);
 	gmOverNode->addWidget(btnlayout);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));

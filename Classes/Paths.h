@@ -26,6 +26,7 @@ const std::string R_rocket = "rocket.png";
 const std::string R_jetpack = "jetpack.png";
 const std::string R_ghostPrefix = "ghostAnim";
 const std::string R_mainMenuBg = "menu_bg.png";
+const std::string R_positiveActionFormat = "positiveAction_%.5d.png";
 //MUSIC 
 const std::string R_bgmusicMenu = "music/main.mp3";
 const std::string R_bgmusicGameplay = "music/gameplayMusic.mp3";
@@ -38,16 +39,18 @@ const std::string R_failure = "sounds/failure.wav";
 const std::string R_powerUp = "sounds/powerUpCollected.wav";
 const std::string R_victory = "sounds/victory.wav";
 const std::string R_popUp = "sounds/popUp.wav";
-
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";
 const std::string R_completePreviousDialog = "levelLockedDialog.json";
 //particles
-const std::string R_explosParticle = "particles/explosionParticle.plist";
-const std::string R_checkpointParticle = "particles/chkptParticle.plist";
-const std::string R_pushPreviousPlayerParticle = "particles/magicPowerUpParticle.plist";
-const std::string R_jetpackFire = "particles/jetPackFire.plist";
+const std::string R_explosParticle = "particles/explosion.plist";
+const std::string R_rocketFire = "particles/rocketFire.plist";
+const std::string R_rocketSmoke = "particles/rocketSmoke.plist";
+const std::string R_jetpackFire = "particles/jetpackFire.plist";
+const std::string R_jetpackSmoke = "particles/jetpackSmoke.plist";
+const std::string R_boxDeactivatedFire = "particles/boxDeactivatedFire.plist";
+const std::string R_boxDeactivatedSmoke = "particles/boxDeactivatedSmoke.plist";
 //DB NAMES
 const std::string R_levelCompleted = "lvlCmplt";
 const std::string R_boxUnlocked = "boxUnlck";

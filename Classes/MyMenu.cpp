@@ -79,7 +79,8 @@ bool MyMenu::init()
 	//*SINGLE PLAYER BUTTONS*//
 	createLabel(G_str("Single_Player"), L_PLAYSINGLE, LAB_SINGLEPLAYER);
 	createBtn(R_btnOn,"", "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
-	createBtn(R_btnOn,"", "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
+	createBtn(R_btnOn, "", "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
+	createBtn(R_btnOn,"", "BestRun", CC_CALLBACK_2(MyMenu::playtBestScoreNow, this), B_BESTSCORERUN, this->getChildByTag(L_PLAYSINGLE));
 	//*CARRER BUTTONS*//
 	//TODO
 	//*FRE RUN BUTTONS*//
@@ -137,7 +138,7 @@ cocos2d::Scene* MyMenu::createScene()
 {
 	Scene *scena = Scene::create();
 	MyMenu *menu = MyMenu::create();
-	scena->addChild(menu);
+	scena->addChild(menu,1,1);
 	return scena;
 }
 //**CREATING**//
@@ -443,6 +444,8 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	else if (currModeSelected == 2)
 	{
 		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue);
+		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setMinGates(currGatesNumb);
 	}
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(),G_colors[playerboxFileNameIndex]));
@@ -467,9 +470,9 @@ void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
 	}
 	else
 	{
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->disableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->disableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->disableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->enableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->enableWidgets();
+		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
 	}
 }
 void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
@@ -732,6 +735,7 @@ void MyMenu::createLevelMapUI()
 	{
 		const std::string name = "Level" + std::to_string(i) + "Btn";
 		auto btn = (Button*)DialogReader::getInstance()->getWidget(R_LevelMapUI, name);
+		btn->setColor(Color3B::WHITE);
 		if (!DbReader::getInstance()->isLevelUnlocked(i))
 		{
 			btn->setColor(Color3B::GRAY);
@@ -857,4 +861,17 @@ void MyMenu::retain()
 {
 	int x = 5;
 	Ref::retain();
+}
+void MyMenu::playtBestScoreNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+	auto scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue);
+	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
+	G_dir()->replaceScene(scene);
+}
+void MyMenu::goToLevelChooserMenu()
+{
+	show(B_BACK);
+	hide(L_MAINMENU);
+	show(L_CARRER);
 }

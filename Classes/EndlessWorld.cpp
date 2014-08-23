@@ -44,12 +44,14 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (box == player && pos == boxesNumber)
 	{
+		box->deactivate();
 		G_getWorld()->gameIsOver(false);
 		return;
 	}
 	if (box == player)
 	{
 		score++;
+		box->positiveGateAction();
 		getHud()->pointsChanged(&orderedOppByScore);
 	}
 	if (score == minliczbabramek && minliczbabramek != 0)

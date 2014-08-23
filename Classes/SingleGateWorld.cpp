@@ -49,10 +49,11 @@ SingleGateWorld* SingleGateWorld::create(int numberOfPlayers,int gatess, int aiL
 }
 void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
+
 	if (pos == 1)
 	{
 		box->addPoint();
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
+		box->positiveGateAction();
 	}
 	if (remainingGates == 0)
 	{
@@ -69,7 +70,8 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 			this->gameIsOver(false);
 		}
 	}
-	((SingleGateHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->pointsChanged(getSortedBoxesByScore());
+	G_getHud()->pointsChanged(getSortedBoxesByScore());
+	G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
 }
 void SingleGateWorld::restartLevel()
 {

@@ -108,4 +108,22 @@ float G_getFTimeScale(float val)
 	return G_director->getScheduler()->getTimeScale()*val;
 }
 
+extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type/*= cocos2d::ParticleSystemQuad::PositionType::RELATIVE*/)
+{
+	auto particle = cocos2d::ParticleSystemQuad::create(filename.c_str());
+	auto val = G_srodek.x / 256.0f;
+	particle->setPosVar(cocos2d::Vec2(particle->getPosVar().x*val, particle->getPosVar().y*val));
+	particle->setEndSize(val*particle->getEndSize());
+	particle->setEndSizeVar(val*particle->getEndSizeVar());
+	particle->setStartSize(val*particle->getStartSize());
+	particle->setStartSizeVar(val*particle->getStartSizeVar());
+	if (particle->getEmitterMode() == cocos2d::ParticleSystem::Mode::GRAVITY)
+	{
+		particle->setSpeed(val*particle->getSpeed());
+		particle->setSpeedVar(val*particle->getSpeedVar());
+	}
+	particle->setPositionType(type);
+	return particle;
+}
+
 

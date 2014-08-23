@@ -26,6 +26,7 @@ private:
 	cocos2d::Sprite *rocket;
 	cocos2d::Sprite *jetpack;
 	cocos2d::Sprite *ghost;
+	cocos2d::Sprite *positiveSprite;
 protected:
 	bool powerUpExecuted;
 	PowerUp::PowerUpType pwrupType;
@@ -60,5 +61,6 @@ public:
 	void deactivate();
 	bool collectedPowerUp(PowerUp::PowerUpType pwruptype);
 	bool activatePowerUp();
+	void positiveGateAction();
 };
 #endif

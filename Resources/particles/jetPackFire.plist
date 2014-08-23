@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>angle</key>
-    <real>180</real>
+    <real>-180</real>
     <key>angleVariance</key>
     <real>10</real>
     <key>blendFuncDestination</key>
@@ -41,7 +41,7 @@
     <key>rotationEndVariance</key>
     <real>0</real>
     <key>finishParticleSize</key>
-    <real>50</real>
+    <real>30</real>
     <key>finishParticleSizeVariance</key>
     <real>0</real>
     <key>gravityx</key>
@@ -99,7 +99,7 @@
     <key>startColorVarianceRed</key>
     <real>0</real>
     <key>startParticleSize</key>
-    <real>80</real>
+    <real>50</real>
     <key>startParticleSizeVariance</key>
     <real>10</real>
     <key>tangentialAccelVariance</key>

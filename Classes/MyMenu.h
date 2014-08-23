@@ -59,6 +59,7 @@ public:
 		void playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 			//custom single//
 			void playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+			void playtBestScoreNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	void playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 		void m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	void optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
@@ -79,7 +80,9 @@ public:
 	void difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
 	void m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
 	void m_autocorrectWrongPlayerChoose();
+	void goToLevelChooserMenu();
 	//SETUPO
 	void m_setupAutoCorrectDialog(cocos2d::ui::Layout *root);
+	
 };
 #endif // !__MENU_H__

@@ -10,6 +10,8 @@
 	<string>Opcje</string>
 	<key>Carrer</key>
 	<string>Tryb Kariery</string>
+	<key>BestRun</key>
+	<string>Bicie rekordu</string>
 	<key>FreeRun</key>
 	<string>Własny tryb</string>
 	<key>Play</key>
@@ -76,7 +78,13 @@
 	<string>głupi</string>
 	<key>medium</key>
 	<string>zwykli</string>
-	
-	
+	<key>gatesLeft</key>
+	<string>Pozostało %d Punktów Kontrolnych</string>
+	<key>score</key>
+	<string>Punkty</string>
+	<key>newRecord</key>
+	<string>Nowy Rekord!</string>
+	<key>bestScore</key>
+	<string>Najlepszy Wynik</string>
 </dict>
 </plist>

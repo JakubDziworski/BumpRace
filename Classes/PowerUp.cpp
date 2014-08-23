@@ -10,7 +10,10 @@ void PowerUp::tick(float dt)
 	if (boxez->front()->getBoundingBox().getMaxX() < this->getBoundingBox().getMinX()) return;
 	if (boxez->back()->getPositionX() > this->getPositionX() && G_getWorld()->nodeOutOfWindow(this))//out of window
 	{
+		this->stopAllActions();
+		this->unscheduleAllSelectors();
 		this->removeFromParentAndCleanup(true);
+		return;
 	}
 	for (auto box : *boxez)
 	{
@@ -37,7 +40,7 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 {
 	active = false;
 	int losuj = 0;
-	losuj =  rand() % 3;
+	losuj = 2;// rand() % 3;
 	if (!Sprite::initWithSpriteFrameName(R_powerUps[losuj]))
 	{
 		return false;
