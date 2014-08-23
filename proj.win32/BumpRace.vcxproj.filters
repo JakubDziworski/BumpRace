@@ -99,6 +99,9 @@
     <ClCompile Include="..\Classes\soundManager.cpp">
       <Filter>Classes\globals and singletons</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\dialogReader.cpp">
+      <Filter>Classes\globals and singletons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -177,6 +180,9 @@
       <Filter>Classes\PowerUps</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\soundManager.h">
+      <Filter>Classes\globals and singletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dialogReader.h">
       <Filter>Classes\globals and singletons</Filter>
     </ClInclude>
   </ItemGroup>

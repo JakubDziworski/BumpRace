@@ -140,6 +140,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Boxx.cpp" />
     <ClCompile Include="..\Classes\Checkpoint.cpp" />
     <ClCompile Include="..\Classes\DbReader.cpp" />
+    <ClCompile Include="..\Classes\dialogReader.cpp" />
     <ClCompile Include="..\Classes\EndlessHud.cpp" />
     <ClCompile Include="..\Classes\EndlessWorld.cpp" />
     <ClCompile Include="..\Classes\Globals.cpp" />
@@ -166,6 +167,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Boxx.h" />
     <ClInclude Include="..\Classes\Checkpoint.h" />
     <ClInclude Include="..\Classes\DbReader.h" />
+    <ClInclude Include="..\Classes\dialogReader.h" />
     <ClInclude Include="..\Classes\EndlessHud.h" />
     <ClInclude Include="..\Classes\EndlessWorld.h" />
     <ClInclude Include="..\Classes\Globals.h" />

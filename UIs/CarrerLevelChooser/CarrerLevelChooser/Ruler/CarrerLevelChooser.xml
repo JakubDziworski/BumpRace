@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuidesProject>
-    <Project>CarrerLevelChooser_1_512</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>levelLockedDialog</Project>
     <GuidesList />
   </GuidesProject>
@@ -22,6 +18,10 @@
   </GuidesProject>
   <GuidesProject>
     <Project>MainMenuChoose</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>CarrerLevelChooser_1</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

@@ -8,10 +8,9 @@ USING_NS_CC;
 void PowerUp::tick(float dt)
 {
 	if (boxez->front()->getBoundingBox().getMaxX() < this->getBoundingBox().getMinX()) return;
-	if (boxez->back()->getPositionX() > this->getPositionX() + 3*G_srodek.x)//out of window
+	if (boxez->back()->getPositionX() > this->getPositionX() && G_getWorld()->nodeOutOfWindow(this))//out of window
 	{
-		//TODO uncomment
-		//this->removeFromParentAndCleanup(true);
+		this->removeFromParentAndCleanup(true);
 	}
 	for (auto box : *boxez)
 	{
@@ -27,7 +26,6 @@ void PowerUp::tick(float dt)
 		}
 	}
 }
-
 PowerUp * PowerUp::create(cocos2d::Vector<Boxx*> *boxess)
 {
 	PowerUp *me = new PowerUp();
@@ -35,7 +33,6 @@ PowerUp * PowerUp::create(cocos2d::Vector<Boxx*> *boxess)
 	me->autorelease();
 	return me;
 }
-
 bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 {
 	active = false;
@@ -45,7 +42,7 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 	{
 		return false;
 	}
-    switch (losuj)
+	switch (losuj)
 	{
 	case 0:
 		pwrupType = PowerUpType::SPEED;

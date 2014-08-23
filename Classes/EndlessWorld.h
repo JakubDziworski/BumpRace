@@ -13,9 +13,9 @@ private:
 public:
 	int getScore() { return score; }
 	void setMinGates(int number){ minliczbabramek = number; }
-	static cocos2d::Scene *createScene();
-	virtual bool init();
-	CREATE_FUNC(EndlessWorld);
+	static cocos2d::Scene *createScene(int oppNum,int aiLevel);
+	virtual bool init(int oppNum, int aiLevel);
+	static EndlessWorld *create(int oppNum, int aiLevel);
 	virtual void restartLevel();
 	virtual void checkpointReachedExtended(Boxx *box, int pos);
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first);

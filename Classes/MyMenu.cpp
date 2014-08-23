@@ -16,6 +16,7 @@
 #include "DbReader.h"
 #include "VisibleRect.h"
 #include "soundManager.h"
+#include "dialogReader.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -35,17 +36,17 @@ bool MyMenu::init()
 	btnn->setPositionY(2 * G_srodek.y);
 	btnn->runAction(EaseBackOut::create(MoveTo::create(0.5f, G_srodek)));
 	});*/
-	currOpponentsNumber=3;
-	currDiffValue=1;
-	currModeSelected=0;
-	currGatesNumb=7;
-	currPlayersNumber = 2;
-	m_currOpponentsNumber=1;
-	m_currPlayersNumber=2;
-	m_currDiffValue=1;
-    m_currModeSelected=0;
-	m_currGatesNumb=7;
-	playerName = G_str("Player");
+	currOpponentsNumber   = 3;
+	currDiffValue         = 1;
+	currModeSelected      = 0;
+	currGatesNumb         = 7;
+	currPlayersNumber     = 2;
+	m_currOpponentsNumber = 1;
+	m_currPlayersNumber   = 2;
+	m_currDiffValue       = 1;
+	m_currModeSelected    = 0;
+	m_currGatesNumb       = 7;
+	playerName        = G_str("Player");
 	m_playersNames[0] = G_str("Player") + std::to_string(1);
 	m_playersNames[1] = G_str("Player") + std::to_string(2);
 	m_playersNames[2] = G_str("Player") + std::to_string(3);
@@ -129,7 +130,7 @@ bool MyMenu::init()
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
-	//if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
+	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -257,15 +258,15 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 	PageViewController *controller = PageViewController::create();
 	this->getChildByTag(parent)->addChild(pageView, 1, tag);
 	controller->setControlledpageView(pageView);
-    pageView->addEventListener([this,&defaultState, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
-    {
+	pageView->addEventListener([this,&defaultState, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
+	{
 		if (type != PageView::EventType::TURNING) return;
-        layouts.at(defaultState)->runAction(ScaleTo::create(scaleTime, 1));
-        defaultState = pageView->getCurPageIndex();
-        layouts.at(defaultState)->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
+		layouts.at(defaultState)->runAction(ScaleTo::create(scaleTime, 1));
+		defaultState = pageView->getCurPageIndex();
+		layouts.at(defaultState)->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
 		if(callback != nullptr)callback(pageView);
 	});
-   	pageView->scrollToPage(defaultState);
+	pageView->scrollToPage(defaultState);
 	return pageView;
 }
 void MyMenu::createLayout(int layoutTag)
@@ -441,10 +442,11 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	}
 	else if (currModeSelected == 2)
 	{
-		scene = EndlessWorld::createScene();
+		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue);
 	}
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(),G_colors[playerboxFileNameIndex]));
+	DialogReader::getInstance()->flush();
 	G_dir()->replaceScene(scene);
 }
 void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
@@ -493,7 +495,7 @@ void MyMenu::m_ModeChooserPageChanged(cocos2d::ui::PageView *pages)
 }
 void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if(type != Widget::TouchEventType::ENDED) return;
+	if(type != Widget::TouchEventType::ENDED) return;
 	auto choosemenu = this->getChildByTag(L_M_CHOOSENAMES);
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 1; k <= 4; k++, i++, j++)
 	{
@@ -512,17 +514,17 @@ void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
 		//	child2->removeFromParent();
 		//	choosemenu->addChild(child2, 0, j);
 		//	child2->release();
-        }
+		}
 		else
 		{
 			choosemenu->getChildByTag(i)->setVisible(true);
 			choosemenu->getChildByTag(j)->setVisible(true);
 		}
-        
+		
 	}
-    show(L_M_CHOOSENAMES);
-    hide(L_MULTIFREELOCALRUN);
-    
+	show(L_M_CHOOSENAMES);
+	hide(L_MULTIFREELOCALRUN);
+	
 }
 void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
@@ -554,6 +556,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		players.pushBack(Player::create(R_Box[m_playersBoxesFileNamesIndexes[i]], m_playersNames[i], world->getGravitySpace(), G_colors[m_playersBoxesFileNamesIndexes[i]]));
 	}
 	world->setMultiplayer(players);
+	DialogReader::getInstance()->flush();
 	G_dir()->replaceScene(scene);
 }
 void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
@@ -720,76 +723,138 @@ void MyMenu::createSinglePlayerTutorialDialog()
 }
 void MyMenu::createLevelMapUI()
 {
-	Layout *dialogRoot = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile(R_LevelMapUI.c_str()));
-	//cocostudio::ActionManagerEx::getInstance()->playActionByName(R_LevelMapUI.c_str(), "Animation0");
-	dialogRoot->setVisible(false);
-	dialogRoot->setOpacity(0);
-	auto scroll = (ScrollView*)utils::findChildren(*dialogRoot, "//mainscroll").at(0);
-	scroll->setInnerContainerSize(Size(6 * G_srodek.x, 2 * G_srodek.y));
-	this->addChild(dialogRoot,2,L_CARRER);
-	int i = 0;
-	for (auto childdd : dialogRoot->getChildren())
+	auto parent = Layout::create();
+	this->addChild(parent,0, L_CARRER);
+	auto mainwidget = DialogReader::getInstance()->getMainWidgetFromJson(R_LevelMapUI, parent);
+	parent->setOpacity(0);
+	parent->setVisible(false);
+	for (int i = 1; i <= 10; i++)
 	{
-		for (auto childd : childdd->getChildren())
+		const std::string name = "Level" + std::to_string(i) + "Btn";
+		auto btn = (Button*)DialogReader::getInstance()->getWidget(R_LevelMapUI, name);
+		if (!DbReader::getInstance()->isLevelUnlocked(i))
 		{
-			for (auto chi : childd->getChildren())
+			btn->setColor(Color3B::GRAY);
+			btn->addTouchEventListener([this, parent](Ref* reff, Widget::TouchEventType type)
 			{
-				Button *btn = dynamic_cast<Button*>(chi);
-				if (!btn) continue;
-				int levelNumber = std::stoi(btn->getTitleText());
-				//ZABLOKOWANE
-				if (!DbReader::getInstance()->isLevelUnlocked(levelNumber))
+				if (type != Widget::TouchEventType::ENDED) return;
+				DialogReader::getInstance()->getMainWidgetFromJson("levelLockedDialog.json", parent);
+			});
+		}
+		else
+		{
+			btn->addTouchEventListener([this, i](Ref *reff, Widget::TouchEventType type)
+			{
+				auto setUpDialog = [this](int levelnum, int levelType, int opponentsnumber, int diffLevel, int gatesNumb)
 				{
-					btn->setColor(Color3B::GRAY);
-					btn->addTouchEventListener([this](Ref *reff, Widget::TouchEventType type)
-					{
-						if (type != Widget::TouchEventType::ENDED) return;
-						if (levelLockedDialog == NULL)
-						{
-							levelLockedDialog = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("levelLockedDialog.json");
-							((Text*)utils::findChildren(*levelLockedDialog, "//DialogText").at(0))->setText(G_str("completePrev"));
-							this->addChild(levelLockedDialog);
-						}
-						cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimIn");
-						levelLockedDialog->enumerateChildren("//DialogButton", [](Node *buttn)
-						{
-							((Button*)buttn)->addTouchEventListener([](Ref *refff, Widget::TouchEventType typee)
-							{
-								if (typee != Widget::TouchEventType::ENDED) return;
-								cocostudio::ActionManagerEx::getInstance()->playActionByName("levelLockedDialog.json", "AnimOut");
-							});
-							return false;
-						});
-					});
-					continue;
-				}
-				btn->addTouchEventListener([levelNumber](Ref *reff, Widget::TouchEventType type)
-				{
-					if (type != Widget::TouchEventType::ENDED) return;
-					Scene *scene = NULL;
-					switch (levelNumber)
+					//LEVEL LABEL
+					std::string cocosfile = "";
+					std::string levelStr = G_str("Level") + " " + std::to_string(levelnum) + " - ";
+					std::string objStr = "";
+					switch (levelType)
 					{
 					case 1:
-						scene = SingleGateWorld::createScene(4, 5, 1);
+						levelStr += G_str("Gate_Collector");
+						cocosfile = "gateWorldLevelIntro.json";
+						objStr = G_str("ObjGate");
 						break;
 					case 2:
-						scene = SingleEliminationWorld::createScene(4, 1);
+						levelStr += G_str("Elimination");
+						cocosfile = "endlessWorldLevelIntro.json";
+						objStr = G_str("ObjElim");
 						break;
 					case 3:
-						break;
-					default:
+						levelStr += G_str("Endless");
+						cocosfile = "gateWorldLevelIntro.json";
+						objStr = G_str("ObjEndless");	
 						break;
 					}
-					if (scene == NULL) return;
-					World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-					world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
-					world->setCarrierLevel(levelNumber);
-					G_dir()->replaceScene(scene);
-				});
-			}
+					//DIFF LEVEL
+					std::string diffStr = G_str("Opponents");
+					switch (diffLevel)
+					{
+					case 0:
+						diffStr = G_str("stupid") + diffStr;
+						break;
+					case 1:
+						diffStr = G_str("medium") + diffStr;
+						break;
+					case 2:
+						diffStr = G_str("smart") + diffStr;
+						break;
+					}
+					//OPPONENTS
+					std::string oppStr = std::to_string(opponentsnumber) +" "+ G_str("Opponents");
+					//GATES
+					std::string gatesStr = std::to_string(gatesNumb) + " " + G_str("Gates");
+					//assign texts
+					DialogReader::getInstance()->getMainWidgetFromJson(cocosfile, this->getChildByTag(L_CARRER));
+					((Text*)DialogReader::getInstance()->getWidget(cocosfile, "levelTitleText"))->setString(levelStr);
+					((Text*)DialogReader::getInstance()->getWidget(cocosfile, "numberOfOpponentsText"))->setString(oppStr);
+					((Text*)DialogReader::getInstance()->getWidget(cocosfile, "aiSmartnessText"))->setString(diffStr);
+					((Text*)DialogReader::getInstance()->getWidget(cocosfile, "goalText"))->setString(objStr);
+					if (levelType != 2) ((Text*)DialogReader::getInstance()->getWidget(cocosfile, "gatesNumberText"))->setString(gatesStr);
+					//listener
+					DialogReader::getInstance()->addActionHideAndSomething(cocosfile, "okBtn", [levelnum, levelType, opponentsnumber, diffLevel, gatesNumb]()
+					{
+						Scene *scena = NULL;
+						if (levelType == 1) scena = SingleGateWorld::createScene(opponentsnumber, gatesNumb, diffLevel);
+						else if (levelType == 2) scena = SingleEliminationWorld::createScene(opponentsnumber, diffLevel);
+						else
+						{
+							scena = EndlessWorld::createScene(opponentsnumber,diffLevel);
+							EndlessWorld *world = (EndlessWorld*)scena->getChildByTag(LAYER_GAMEPLAY);
+							world->setMinGates(gatesNumb);
+						}
+						World *world = (World*)scena->getChildByTag(LAYER_GAMEPLAY);
+						world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+						world->setCarrierLevel(levelnum);
+						DialogReader::getInstance()->flush();
+						G_dir()->replaceScene(scena);
+					});
+				};
+				if (type != Widget::TouchEventType::ENDED) return;
+				switch (i)
+				{
+				case 1://level,typ,przeciwnicy,trudnosc,bramki
+					setUpDialog(1,1,4,0, 7);
+					break;
+				case 2:
+					setUpDialog(2,2, 5, 0, 7);
+					break;
+				case 3:
+					setUpDialog(3, 3, 4, 0, 7);
+					break;
+				case 4:
+					setUpDialog(4,1, 5, 1, 12);
+					break;
+				case 5:
+					setUpDialog(5, 2, 5, 1, 12);
+					break;
+				case 6:
+					setUpDialog(6, 3,5, 1, 12);
+					break;
+				case 7:
+					setUpDialog(7, 1, 6, 2, 20);
+					break;
+				case 8:
+					setUpDialog(8, 2, 8, 2, 12);
+					break;
+				case 9:
+					setUpDialog(9, 3, 8, 2, 20);
+					break;
+				default:
+					break;
+				}
+			});
 		}
 	}
 }
 void MyMenu::resizeLayouts()
 {
+}
+void MyMenu::retain()
+{
+	int x = 5;
+	Ref::retain();
 }

@@ -64,6 +64,19 @@
 	<string>ZOSTAŁEŚ WYELIMINOWANY!</string>
 	<key>YOUWON</key>
 	<string>WYGRAŁEŚ!</string>
+	<key>ObjElim</key>
+	<string>Cel: Nie daj się wyeeliminować</string>
+	<key>ObjGate</key>
+	<string>Cel: Zdobądź największą ilość bramek</string>
+	<key>ObjEndless</key>
+	<string>Nie bądź ostani na bramce</string>
+	<key>smart</key>
+	<string>mądrzy</string>
+	<key>stupid</key>
+	<string>głupi</string>
+	<key>medium</key>
+	<string>zwykli</string>
+	
 	
 </dict>
 </plist>

@@ -111,7 +111,7 @@ void World::rozmiescCheckpointy()
 	int i = 0;
 	do
 	{
-		int wysokosc = 0.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
+		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_wF(G_powerUpOdlegloscVar));
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));
@@ -128,7 +128,8 @@ void World::createBackground()
 	bgImg->setPosition(G_srodek.x, G_srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));
 	this->addChild(bgImg, -1);
-	scaleeLayer->setScale((512.0f / 200.0f)/(VR::right().x / (float)Device::getDPI()));
+	DPIscaleFactor = (512.0f / 200.0f) / (VR::right().x / (float)Device::getDPI());
+	scaleeLayer->setScale(DPIscaleFactor);
 }
 //----****UPDATE****----///
 void World::tick(float delta)
@@ -228,8 +229,15 @@ void World::pauseGame()
 }
 bool World::nodeOutOfWindow(Node *node)
 {
-	if (node->getPositionX() + 2 * G_srodek.x/scaleeLayer->getScale() < getOstaniActive()->getPositionX()) return true;
+	auto parent = node->getParent();
+	const Point pointUpperRight = parent->convertToWorldSpace(Point(node->getBoundingBox().getMaxX(), node->getBoundingBox().getMaxY()));
+	const Point pointLowerLeft = parent->convertToWorldSpace(Point(node->getBoundingBox().getMinX(), node->getBoundingBox().getMinY()));
+	const Point pointLowerRight = parent->convertToWorldSpace(Point(node->getBoundingBox().getMaxX(), node->getBoundingBox().getMinY()));
+	const Point pointUpperLeft = parent->convertToWorldSpace(Point(node->getBoundingBox().getMinX(), node->getBoundingBox().getMaxY()));
+	const Rect screenRect = VR::getVisibleRect();
+	if (screenRect.containsPoint(pointUpperRight) || screenRect.containsPoint(pointLowerLeft) || screenRect.containsPoint(pointLowerRight) || screenRect.containsPoint(pointUpperLeft))
 	return false;
+	return true;
 }
 void World::resumeGame()
 {
@@ -521,6 +529,17 @@ void World::m_cameraFollow()
 	const float maxpierwszyOffset = 0.8f*G_srodek.y / scaleeLayer->getScale();
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
+	//skalowanie//
+	float scale = 0;
+	const float odlegloscZaEkranem = rotationLayer->convertToWorldSpace(Point(ostatni->getPosition().x-2*ostatni->getContentSize().width,ostatni->getPositionY())).x;
+	if (odlegloscZaEkranem < 0)
+	{
+		scaleeLayer->setScale(scaleeLayer->getScale()-0.001f);
+	}
+	else if (scaleeLayer->getScale() < DPIscaleFactor)
+	{
+		scaleeLayer->setScale(scaleeLayer->getScale() + 0.001f);
+	}
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
 	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }

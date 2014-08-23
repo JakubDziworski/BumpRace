@@ -7,7 +7,7 @@
             <key>BOX.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{843,314},{32,32}}</string>
+                <string>{{328,810},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>Box_blue.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{908,47},{51,43}}</string>
+                <string>{{908,35},{51,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>chboxInactive.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{328,776},{29,28}}</string>
+                <string>{{396,785},{29,28}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>dialogBg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{961,47},{4,4}}</string>
+                <string>{{906,29},{4,4}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -332,15 +332,15 @@
             <key>ghostPowerUp.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{944,29},{17,16}}</string>
+                <string>{{362,785},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{17,16}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{17,16}</string>
+                <string>{32,32}</string>
             </dict>
             <key>gotoMenuBtnOf.png</key>
             <dict>
@@ -514,28 +514,28 @@
             <key>slowDownPowerUp.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{925,29},{17,16}}</string>
+                <string>{{328,776},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{17,16}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{17,16}</string>
+                <string>{32,32}</string>
             </dict>
             <key>speedPowerUp.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{906,29},{17,16}}</string>
+                <string>{{843,314},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{17,16}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{17,16}</string>
+                <string>{32,32}</string>
             </dict>
             <key>tlo.png</key>
             <dict>
@@ -560,7 +560,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8b73bed737bd12a65a6cef15fec1b4de$</string>
+            <string>$TexturePacker:SmartUpdate:c19ebd4ee3a832ae84c2dac6c1ce49aa$</string>
             <key>textureFileName</key>
             <string>Res1.png</string>
         </dict>

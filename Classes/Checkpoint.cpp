@@ -5,7 +5,7 @@
 //  Created by kuba on 11.07.2014.
 //
 //
-
+#define COCOS2D_DEBUG 2
 #include "Checkpoint.h"
 #include "Player.h"
 #include "Paths.h"
@@ -91,8 +91,8 @@ void Chcekpoint::tick(float dt)
 void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
-	if (ostatni->getPositionX() + 5 * ostatni->getContentSize().width < this->getPositionX()) return;
-
+	if ((this->getPositionX() - ostatni->getPositionX()) / ostatni->getVelocityX()>3) return;
+	CCLOG("%f", ostatni->getVelocityX() / (this->getPositionX() - ostatni->getPositionX()));
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (ostatni)) != NULL)	//ostatni to player
 	{
@@ -128,7 +128,8 @@ void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 void Chcekpoint::checkIfCloseToFirst(Boxx* pierwszy)
 {
 	if (slowmoTriggered) return;
-	if (pierwszy->getPositionX() < this->getPositionX() - 2.5f * pierwszy->getContentSize().width) return;
+	if ((this->getPositionX() - pierwszy->getPositionX()) / pierwszy->getVelocityX() > 3) return;
+	CCLOG("%f", pierwszy->getVelocityX() / (this->getPositionX() - pierwszy->getPositionX()));
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
 	{

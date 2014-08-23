@@ -4,4 +4,20 @@
     <Project>tutorialintro_1</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>gateWorldLevelIntro</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>tutorialintro_3</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>elimWorldLevelIntro</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>endlessWorldLevelIntro</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

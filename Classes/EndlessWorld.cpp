@@ -8,9 +8,9 @@
 #include "external/chipmunk/include/chipmunk/chipmunk_unsafe.h"
 USING_NS_CC_EXT;
 USING_NS_CC;
-bool EndlessWorld::init()
+bool EndlessWorld::init(int oppNum,int aiLevel)
 {
-	if (!World::myInitWithAI(4, G_endlessGateNumber, 2))
+	if (!World::myInitWithAI(oppNum, G_endlessGateNumber, aiLevel))
 	{
 		return false;
 	}
@@ -21,10 +21,10 @@ bool EndlessWorld::init()
 	score = 0;
 	return true;
 }
-cocos2d::Scene * EndlessWorld::createScene()
+cocos2d::Scene * EndlessWorld::createScene(int oppNum,int aiLevel)
 {
 	auto scene = Scene::create();
-	auto gameLayer = EndlessWorld::create();
+	auto gameLayer = EndlessWorld::create(oppNum, aiLevel);
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
 	auto hudLayer = EndlessHud::create();
 	scene->addChild(hudLayer, 2, LAYER_HUD);
@@ -34,7 +34,7 @@ cocos2d::Scene * EndlessWorld::createScene()
 void EndlessWorld::restartLevel()
 {
 	G_dir()->getScheduler()->setTimeScale(1);
-	auto scene = EndlessWorld::createScene();
+	auto scene = EndlessWorld::createScene(boxesNumber,aiSmart);
 	EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
 	this->replaceSceneGenereal(scene, world);
 	world->setMinGates(minliczbabramek);
@@ -44,7 +44,7 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (box == player && pos == boxesNumber)
 	{
-		getHud()->displayGameOver(false);
+		G_getWorld()->gameIsOver(false);
 		return;
 	}
 	if (box == player)
@@ -54,7 +54,7 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 	}
 	if (score == minliczbabramek && minliczbabramek != 0)
 	{
-		getHud()->displayGameOver(true);
+		G_getWorld()->gameIsOver(true);
 		return;
 	}
 	remainingGates++;
@@ -89,7 +89,8 @@ void EndlessWorld::extendFlat()
 	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
 	//bg
 	Sprite *bgNext = Sprite::createWithSpriteFrameName(R_tlo);
-	bgNext->setAnchorPoint(Vec2(-1 * iterations, 0));
+	bgNext->setAnchorPoint(Vec2(-1.0f * iterations, 0));
+	bgNext->setPositionX(bgNext->getPositionX() - 2*iterations);
 	if(iterations%2 == 1)bgNext->setFlippedX(true);
 	bgImg->addChild(bgNext, 0, iterations);
 	for (int i = koniec - dodatek; i <= koniec; i += G_odlegloscmiedzyBramkami)
@@ -103,5 +104,22 @@ void EndlessWorld::extendFlat()
 void EndlessWorld::modifyGate(Chcekpoint *chkpt)
 {
 	chkpt->setSprawdzajPierwszych(false);
+}
+EndlessWorld * EndlessWorld::create(int oppNum, int aiLevel)
+{
+	{
+		EndlessWorld *pRet = new EndlessWorld();
+		if (pRet && pRet->init(oppNum, aiLevel))
+		{
+			pRet->autorelease();
+			return pRet;
+		}
+		else
+		{
+			delete pRet;
+			pRet = NULL;
+			return NULL;
+		}
+	}
 }
 

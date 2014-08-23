@@ -79,6 +79,7 @@ void G_initLanguage()
 std::string G_str(const std::string& input)
 {
 	std::string str = G_strings->valueForKey(input)->getCString();
+	if (str == "") return input;
 	return str;
 }
 cocos2d::Color3B G_getRandomColor()

@@ -7,15 +7,15 @@
   <JsonFileName>CarrerLevelChooser.json</JsonFileName>
   <JsonFolder>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\Json</JsonFolder>
   <JsonList>
-    <string>CarrerLevelChooser_1_512.json</string>
     <string>levelLockedDialog.json</string>
     <string>CarrerLevelChooser_1_1024.json</string>
     <string>CarrerLevelChooser_1_2048.json</string>
     <string>MainMenuChoose.json</string>
+    <string>CarrerLevelChooser_1.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>960</Width>
-    <Height>640</Height>
+    <Width>1024</Width>
+    <Height>684</Height>
   </CanvasSize>
   <filePath>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\CarrerLevelChooser.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
@@ -23,7 +23,9 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>Res1.plist</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>MainMenuChoose.json</CurrentUIJson>
+  <CurrentUIJson>CarrerLevelChooser_1.json</CurrentUIJson>
 </UIProject>

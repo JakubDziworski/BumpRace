@@ -10,29 +10,29 @@ private:
 	//UI DIALOGS
 	cocos2d::ui::Widget *levelLockedDialog = NULL;
 	//single
-	const float maxOpponentsNumber = 10;
+	const float maxOpponentsNumber   = 10;
+	const float scaleFactor          = 1.3f;
+	const float scaleTime            = 0.2f;
+	const float m_maxOpponentsNumber = 2;
+	const float m_maxPlayersNumber   = 4;
+	int currChangingPlayer           = 0;
 	int currOpponentsNumber;
 	int currDiffValue;
 	int currModeSelected;
 	int currMenu;
 	int currGatesNumb;
-	const float scaleFactor = 1.3f;
-	const float scaleTime = 0.2f;
-    int currPlayersNumber;
+	int currPlayersNumber;
 	std::string playerName;
 	int playerboxFileNameIndex;
-	std::string m_playersNames[4];
 	int m_playersBoxesFileNamesIndexes[4];
+	std::string m_playersNames[4];
 	//multi
-	const float m_maxOpponentsNumber = 2;
-	const float m_maxPlayersNumber = 4;
 	int m_currOpponentsNumber;
 	int m_currDiffValue;
 	int m_currModeSelected;
 	int m_currGatesNumb;
 	int m_currPlayersNumber;
 	//dla zmieniania wartosc playerow;
-	int currChangingPlayer = 0;
 	cocos2d::ui::Layout* layout;
 	void preload();
 	void hide(int menutypedef);
@@ -48,6 +48,7 @@ private:
 	void createLevelMapUI();
 	void resizeLayouts();
 public:
+	virtual void retain();
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MyMenu);
@@ -80,6 +81,5 @@ public:
 	void m_autocorrectWrongPlayerChoose();
 	//SETUPO
 	void m_setupAutoCorrectDialog(cocos2d::ui::Layout *root);
-	
 };
 #endif // !__MENU_H__

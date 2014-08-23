@@ -56,6 +56,7 @@ protected:
 	float paralexFactor;
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
+	float DPIscaleFactor;
 	void floorspritefollow(){}
 	virtual void s_cameraFollow();
 	void s_putOnPlayers(Player* playerr);

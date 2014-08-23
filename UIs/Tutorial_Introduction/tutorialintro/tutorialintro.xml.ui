@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectDir>D:\BumpRace\BumpRace\UIs\Tutorial_Introduction\tutorialintro</ProjectDir>
-  <Version>1.5.0.1</Version>
+  <Version>1.6.0.0</Version>
   <Resources>D:\BumpRace\BumpRace\UIs\Tutorial_Introduction\tutorialintro\Resources</Resources>
   <Name>tutorialintro</Name>
   <JsonFileName>tutorialintro.json</JsonFileName>
   <JsonFolder>D:\BumpRace\BumpRace\UIs\Tutorial_Introduction\tutorialintro\Json</JsonFolder>
   <JsonList>
     <string>tutorialintro_1.json</string>
+    <string>gateWorldLevelIntro.json</string>
+    <string>elimWorldLevelIntro.json</string>
+    <string>endlessWorldLevelIntro.json</string>
   </JsonList>
   <CanvasSize>
     <Width>960</Width>
@@ -19,7 +22,9 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>Res1.plist</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>elimWorldLevelIntro.json</CurrentUIJson>
 </UIProject>
