@@ -52,9 +52,10 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	cpSpaceAddShape(space, topShape);
 	cpSpaceAddShape(space, shape);
 	//tweaks and adchild//
-	debugL->setPosition(bounding.width / 2.0f, bounding.height*1.5f);
+	debugL->setNormalizedPosition(Vec2(0.5f,2));
 	debugL->enableShadow();
 	debugL->setHorizontalAlignment(TextHAlignment::CENTER);
+	//debugL->setVisible(false);
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
@@ -88,7 +89,7 @@ void Boxx::updateBox()
 	updatePhysPos();
 	updateTransform();
 	updatePowerUp();
-	//displayDebugInfo();
+	displayDebugInfo();
 }
 void Boxx::jump()
 {
@@ -208,12 +209,12 @@ void Boxx::displayDebugInfo()
 {
 	additionalDebugInfo();
 	//if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
-	/*debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
 	debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());*/
+	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
+	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
+	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
 }
 void Boxx::additionalDebugInfo()
 {

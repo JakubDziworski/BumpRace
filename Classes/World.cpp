@@ -15,6 +15,7 @@
 #include "DbReader.h"
 #include "PowerUp.h"
 #include "soundManager.h"
+#include "ui/CocosGUI.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
@@ -23,6 +24,11 @@ void World::lateInit()
 	hud->lateinit(this);
 	SoundManager::getInstance()->playBgMusicGameplay();
 	schedule(schedule_selector(World::tick));
+	this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.2f), CallFunc::create([this](){startBoxPointer(); })));
+	//keyBack listener
+	auto keylistener = EventListenerKeyboard::create();
+	keylistener->onKeyReleased = CC_CALLBACK_2(World::onKeyReleased, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keylistener, this);
 }
 bool World::myInit(int numberOfPlayers,int gates)
 {
@@ -128,7 +134,7 @@ void World::createBackground()
 	bgImg->setPosition(G_srodek.x, G_srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));
 	this->addChild(bgImg, -1);
-	DPIscaleFactor = (512.0f / 200.0f) / (VR::right().x / (float)Device::getDPI());
+	DPIscaleFactor = clampf((512.0f / VR::right().x) / (100.0f/ (float)Device::getDPI()),0.4f,0.9f);
 	scaleeLayer->setScale(DPIscaleFactor);
 }
 //----****UPDATE****----///
@@ -225,6 +231,7 @@ void World::pauseGame()
 	paused = true;
 	CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
 	rotationLayer->pause();
+	this->setKeyboardEnabled(false);
 	this->pause();
 }
 bool World::nodeOutOfWindow(Node *node)
@@ -241,6 +248,12 @@ bool World::nodeOutOfWindow(Node *node)
 }
 void World::resumeGame()
 {
+	if (!started)
+	{
+		this->setKeyboardEnabled(true);
+		getEventDispatcher()->resumeEventListenersForTarget(this);
+		return;
+	}
 	CocosDenshion::SimpleAudioEngine::getInstance()->resumeAllEffects();
 	rotationLayer->resume();
 	this->resume();
@@ -291,16 +304,12 @@ Boxx* World::getPrzedOstaniActive()
 	}
 	return orderedOpponents.at(przedostatni);
 }
-
 //_________SINGLE PLAYER_________//f
 void World::setSinglePlayer(Player* player)
 {
 	//DOTYK
 	auto touchlistener = EventListenerTouchOneByOne::create();
 	touchlistener->onTouchBegan = CC_CALLBACK_2(World::s_onTouched, this);
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(World::s_onKeyPressed, this);
-	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
 	//PLAYERZ
 	s_putOnPlayers(player);
@@ -309,7 +318,8 @@ void World::setSinglePlayer(Player* player)
 }
 bool World::s_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-	player->jump();
+	if (!started){ if(tapToContinueTapped != nullptr) tapToContinueTapped(); return true; }
+	if(player) player->jump();
 	return true;
 }
 void World::s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -354,7 +364,7 @@ void World::s_putOnPlayers(Player* playerr)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -392,9 +402,6 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	playersNumber = players.size();
 	auto touchlistener = EventListenerTouchAllAtOnce::create();
 	touchlistener->onTouchesBegan = CC_CALLBACK_2(World::m_onTouched, this);
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(World::m_onKeyPressed, this);
-	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
 	//PLAYERZ
 	m_putOnPlayers(players);
@@ -405,6 +412,7 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 }
 void World::m_onTouched(const std::vector<Touch*>& touches, cocos2d::Event  *event)
 {
+	if (!started){ tapToContinueTapped(); }
 	for (auto touch : touches)
 	{
 		auto location = touch->getLocation();
@@ -483,6 +491,7 @@ void World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 {
 	bool used[6] = { false, false, false, false, false, false };
+	player = NULL;
 	for (auto player : players)
 	{
 		for (int i = 0; i < 6; i++)
@@ -521,7 +530,7 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*1.5f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -596,4 +605,56 @@ void World::onExit()
 	Director::getInstance()->getScheduler()->setTimeScale(1); 
 	SoundManager::getInstance()->disableSlowMo(); 
 	SoundManager::getInstance()->stopSlideEffect();
+}
+void World::startBoxPointer()
+{
+	auto startBtn = Label::create(G_str("tapToStart"), R_defaultFont, G_wF(25));
+	startBtn->enableShadow();
+	hud->addChild(startBtn);
+	startBtn->setPosition(VR::center());
+	startBtn->setScale(0);
+	auto show = ScaleTo::create(0.2f, 1.1f);
+	auto lateSequence = CallFunc::create([startBtn](){startBtn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 1), ScaleBy::create(0.3f, 1.1f, 0.9f)))); });
+	startBtn->runAction(Sequence::createWithTwoActions(show, lateSequence));
+	auto labels = cocos2d::Vector<Label*>(boxesNumber);
+	float i = 0;
+	for (auto box : opponentz)
+	{
+		auto label = Label::create(box->getID(), R_defaultFont, G_wF(55));
+		box->addChild(label);
+		label->setAnchorPoint(Vec2(0.5f, 0));
+		label->setNormalizedPosition(Vec2(0.5f, 1.3f));
+		label->setScale(0);
+		label->setColor(box->getBoxColor());
+		label->enableShadow();
+		auto show = ScaleTo::create(0.4f, 1);
+		auto wait = DelayTime::create(i);
+		auto blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, G_wF(50))), MoveBy::create(0.3f, Vec2(0, G_wF(-50)))))); });
+		label->runAction(Sequence::create(wait,show,blink,NULL));
+		labels.pushBack(label);
+		i+=0.2f;
+	}
+	tapToContinueTapped = [startBtn, labels,this]()
+	{
+		started = true;
+		G_getWorld()->resumeGame();
+		for (auto label : labels)
+		{
+			startBtn->stopAllActions();
+			auto remv = CallFunc::create([startBtn, labels]{for (auto lab : labels) lab->removeFromParent(); startBtn->removeFromParent(); });
+			startBtn->runAction(EaseBackIn::create(ScaleTo::create(0.2f, 0)));
+			label->runAction(Sequence::createWithTwoActions(FadeOut::create(1), remv));
+		}
+	};
+	rotationLayer->pause();
+	this->pause();
+	getEventDispatcher()->resumeEventListenersForTarget(this);
+}
+void World::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	// Back button pressed
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		G_getHud()->keyBackClickedHUD();
+	}
 }

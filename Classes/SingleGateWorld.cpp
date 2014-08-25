@@ -56,12 +56,14 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 		box->addPoint();
 		box->positiveGateAction();
 		if (remainingGates != 0)
-		SoundManager::getInstance()->playEffect(R_MP3_punch);
-		G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
+		{
+			SoundManager::getInstance()->playEffect(R_MP3_punch);
+			G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
+		}
 	}
 	if (remainingGates == 0)
 	{
-		if (player && carrerLevel != 0)
+		if (player) //czy to jest single player
 		{
 			if (orderedOppByScore.at(0)->getScore() == player->getScore())
 			{
@@ -71,7 +73,7 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 		}
 		else
 		{
-			this->gameIsOver(false);
+			this->gameIsOver(true);
 		}
 	}
 	if(dynamic_cast<Player*>(box))

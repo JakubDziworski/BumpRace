@@ -28,6 +28,8 @@ private:
 	static bool physPosSortingFun(Boxx *a, Boxx *b);
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
 	std::function<void()> cameraFollowFunction;
+	std::function<void()> tapToContinueTapped;
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 protected:
 	int carrerLevel = 0;
 	cocos2d::extension::PhysicsSprite *flatsprite;
@@ -57,7 +59,8 @@ protected:
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
 	float DPIscaleFactor;
-	bool paused;
+	bool paused=false;
+	bool started = false;
 	void floorspritefollow(){}
 	virtual void s_cameraFollow();
 	void s_putOnPlayers(Player* playerr);
@@ -107,6 +110,7 @@ public:
 	void setHud(Hud *hudd){ hud = hudd; }
 	virtual void gameIsOver(bool win);
 	void calculateSredniaPredkoscDoDzwieku();
+	void startBoxPointer();
 	//onExit
 	void onExit();
 };

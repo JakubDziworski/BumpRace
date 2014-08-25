@@ -40,7 +40,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
 	gameoverparam->setMargin(Margin(0, 0, 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
-	gmOverText->setFontSize(40);
+	gmOverText->setFontSize(G_wF(35));
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	myLayout *btnlayout = myLayout::create();
 	btnlayout->setType(1);
@@ -83,7 +83,7 @@ void SingleElimHud::lateinit(World *worldd)
 		Text* text = Text::create("", R_defaultFont, G_wF(25));
 		text->enableShadow();
 		text->setAnchorPoint(Vec2(0, 0));
-		if (dynamic_cast<Player*>(box)) text->setColor(Color3B(225, 50, 50));
+		text->setColor(box->getBoxColor());
 		text->setString(box->getID());
 		text->setPositionY(1.1f*i + G_srodek.x / 15);
 		scoreNode->addChild(text);
@@ -97,7 +97,6 @@ void SingleElimHud::lateinit(World *worldd)
 }
 void SingleElimHud::boxEliminated(Boxx* ostatni)
 {
-
 	this->displayInfo("ELIMINATED!",ostatni);
 	Text *wyeliminowany = scoreTable.at(ostatni);
 	const float zwolnienie = G_dir()->getScheduler()->getTimeScale();
@@ -106,6 +105,20 @@ void SingleElimHud::boxEliminated(Boxx* ostatni)
 	wyeliminowany->runAction(Sequence::createWithTwoActions(powieksz, pomniejsz));
 	wyeliminowany->setColor(Color3B(100, 100, 100));
 	eliminated++;
+	//multi elim
+	int i = 0;
+	if (world->isMultiplayer() && dynamic_cast<Player*>(ostatni))
+	{
+		for (auto plyr : *world->getPlayers())
+		{
+			if (plyr == ostatni)
+			{
+				multiBtns[i]->setTouchEnabled(false);
+				multiBtns[i]->runAction(TintTo::create(0.5f, 139 ,131, 120));
+			}
+			else i++;
+		}
+	}
 }
 void SingleElimHud::additionalMulti(int heightY)
 {

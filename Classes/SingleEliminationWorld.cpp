@@ -56,13 +56,17 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		orderedOpponents.at(remainingGates+1)->deactivate();
 		hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 		//game over
-		if (remainingGates == 0 && orderedOpponents.at(remainingGates) == player)
+		if (player && remainingGates == 0 && orderedOpponents.at(remainingGates) == player)
 		{
 			this->gameIsOver(true);
 		}
-		else if (orderedOpponents.at(remainingGates + 1) == player)
+		else if (player && orderedOpponents.at(remainingGates + 1) == player)
 		{
 			this->gameIsOver(false);
+		}
+		else if (remainingGates == 0)
+		{
+			this->gameIsOver(true);
 		}
 		SoundManager::getInstance()->playEffect(R_MP3_punch);
 	}

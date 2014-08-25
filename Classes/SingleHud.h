@@ -10,6 +10,7 @@ private:
 	World* world;
 	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
+	Boxx *prevBest;
 	myLayout *scoreNode;
 	myLayout *gmOverNode;
 public:
@@ -18,5 +19,7 @@ public:
 	virtual void pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes);
 	virtual void displayGameIsOverAdditional(bool win);
 	virtual void lateinit(World *world);
+	virtual void additionalMulti(int heightY);
+
 };
 #endif

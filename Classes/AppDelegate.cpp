@@ -23,6 +23,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     // turn on display FPS
     director->setDisplayStats(true);
+	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) glview->setFrameSize(1280, 720);
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object

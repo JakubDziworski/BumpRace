@@ -14,18 +14,28 @@ bool SingleGateHud::init()
 		return false;
 	}
 	//GAME OVER VIEW//
+	prevBest = NULL;
 	return true;
 }
 void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 {
 	orderedBoxes = orderedByPointsBoxes;
-	scoreNode->removeAllWidgets();
 	int i = 0;
 	for (Boxx *box : *orderedByPointsBoxes)
 	{
 		Text* text = ((Text*)scoreTable.at(box));
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
+		if (i == 0) scoreNode->removeAllWidgets();
 		scoreNode->addWidget(text);
+		if (i == 0)
+		{
+			if (prevBest == NULL || (prevBest != box && prevBest->getScore() != box->getScore()))
+			{
+				text->runAction(Repeat::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f, 1.1f), ScaleTo::create(0.2f, 1.0f)), 5));
+				prevBest = box;
+			}
+		}
+		i++;
 	}
 }
 void SingleGateHud::displayGameIsOverAdditional(bool win)
@@ -47,8 +57,24 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	//consts
 	const float additionalOffset = gmOverText->getContentSize().height + margin;
 	int i = 1;
+	Boxx* player=NULL;
+	bool ommitPlayer = false;
+	if (player = G_getWorld()->getPlayer())
+	{
+		if (player->getScore() >= orderedBoxes->front()->getScore())
+		{
+			ommitPlayer = true;
+			Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
+			text->enableShadow();
+			text->setAnchorPoint(Vec2(0.5f, 0));
+			text->setColor(player->getBoxColor());
+			text->setString(String::createWithFormat("%d.%s (%d %s)", i, player->getID().c_str(), player->getScore(), G_str("GatesCollected").c_str())->getCString());
+			gmOverNode->addWidget(text);
+		}
+	}
 	for (Boxx *box : *orderedBoxes)
 	{
+		if (box == player && ommitPlayer) continue;
 		Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
 		text->enableShadow();
 		text->setAnchorPoint(Vec2(0.5f, 0));
@@ -106,6 +132,6 @@ void SingleGateHud::lateinit(World *world)
 	scoreNode->setPosition(Vec2(VR::leftBottom().x+G_srodek.x / 15,VR::leftBottom().y+ G_srodek.x / 15));
 	this->addChild(scoreNode);
 }
-
-
-
+void SingleGateHud::additionalMulti(int heightY)
+{
+}

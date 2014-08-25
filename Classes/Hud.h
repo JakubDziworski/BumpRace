@@ -28,6 +28,7 @@ protected:
 	virtual void displayGameIsOverAdditional(bool win){}
 	virtual void additionalMulti(int heightY){}
 public:
+	void keyBackClickedHUD();
 	virtual void powerUpCollected(PowerUp::PowerUpType type, Boxx* box);
 	void setMultiplayer(World *world);
 	virtual void lateinit(World *world){}

@@ -23,7 +23,7 @@
 	<key>Opponents</key>
 	<string>Przeciwnicy</string>
 	<key>Opponent</key>
-	<string>Komputer</string>
+	<string>KOM</string>
 	<key>Gates</key>
 	<string>Punkty Kontrolne</string>
 	<key>Difficulty</key>
@@ -73,11 +73,11 @@
 	<key>ObjEndless</key>
 	<string>Nie bądź ostani na bramce</string>
 	<key>smart</key>
-	<string>mądrzy</string>
+	<string>Mądrzy</string>
 	<key>stupid</key>
-	<string>głupi</string>
+	<string>Głupi</string>
 	<key>medium</key>
-	<string>zwykli</string>
+	<string>Zwykli</string>
 	<key>gatesLeft</key>
 	<string>Pozostało %d Punktów Kontrolnych</string>
 	<key>score</key>
@@ -86,5 +86,7 @@
 	<string>Nowy Rekord!</string>
 	<key>bestScore</key>
 	<string>Najlepszy Wynik</string>
+	<key>tapToStart</key>
+	<string>Dotknij gdziekolwiek aby rozpocząć</string>
 </dict>
 </plist>

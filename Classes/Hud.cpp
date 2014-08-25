@@ -21,7 +21,7 @@ bool Hud::init()
 	isGameOver = false;
 	//PAUSE//
 	pauseNode = Node::create();
-	Button* pauseBtn = Button::create(R_pauseBtn, R_pauseBtn, "", TextureResType::PLIST);
+	Button* pauseBtn = Button::create(R_pauseBtn, "", "", TextureResType::PLIST);
 	pauseBtn->setTitleFontName(R_defaultFont);
 	pauseBtn->setPosition(Vec2(VR::rightTop().x - pauseBtn->getContentSize().width*0.75f, VR::rightTop().y - pauseBtn->getContentSize().width*0.75f));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_2(Hud::pauseTouchCallback,this));
@@ -55,12 +55,32 @@ bool Hud::init()
 }
 void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
+	if (G_getWorld()->isPaused()) return;
 	pauseNode->setVisible(true);
+	float i = 0;
+	for (auto node : pauseNode->getChildren())
+	{
+		node->setScale(0);
+		auto wait = DelayTime::create(G_getFTimeScale(i));
+		auto anim = EaseBackOut::create(ScaleTo::create(G_getFTimeScale(0.2f), 1));
+		node->runAction(Sequence::createWithTwoActions(wait, anim));
+		i += 0.1f;
+	}
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->pauseGame();
 }
 void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
-	pauseNode->setVisible(false);
+	float i = 0;
+	for (auto node : pauseNode->getChildren())
+	{
+		auto wait = DelayTime::create(G_getFTimeScale(i));
+		auto anim = EaseBackIn::create(ScaleTo::create(G_getFTimeScale(0.2f),0));
+		node->runAction(Sequence::createWithTwoActions(wait, anim));
+		i += 0.1f;
+	}
+	auto wait = DelayTime::create(G_getFTimeScale(0.5f));
+	auto doo = CallFunc::create([this](){pauseNode->setVisible(false); });
+	pauseNode->runAction(Sequence::createWithTwoActions(wait, doo));
 	resumeBtnListenerExtended();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->resumeGame();
 }
@@ -172,16 +192,16 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 	}
 	else
 	{
-		position = Vec2(VR::rightBottom().x - powerUpBtnHeight,VR::bottom().y + powerUpBtnHeight);
+		position = Vec2(VR::rightBottom().x - powerUpBtnHeight,VR::bottom().y + powerUpBtnHeight/2.0f);
 	}
 	if (activatorBtns[i] != NULL) activatorBtns[i]->removeFromParent();
 	activatorBtns[i] = Button::create(R_powerUps[int(type)], "", "", TextureResType::PLIST);
 	activatorBtns[i]->setScale(0);
-	auto scaleUp = EaseBackOut::create(ScaleTo::create(0.3f, 1.2f));
-	auto scaleDown = EaseBackOut::create(ScaleTo::create(0.3f, 1));
+	auto scaleUp = EaseBackOut::create(ScaleTo::create(0.3f, 1.2f*scaleFactor));
+	auto scaleDown = EaseBackOut::create(ScaleTo::create(0.3f, scaleFactor));
 	auto idle = DelayTime::create(Director::getInstance()->getScheduler()->getTimeScale() * 2);
 	activatorBtns[i]->runAction(RepeatForever::create(Sequence::create(scaleUp, scaleDown, idle, NULL)));
-	this->addChild(activatorBtns[i]);
+	this->addChild(activatorBtns[i],-1);
 	activatorBtns[i]->addTouchEventListener([box,i, this](Ref *reff, Widget::TouchEventType type)
 	{
 		if (type != Widget::TouchEventType::ENDED) return;
@@ -198,4 +218,15 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 void Hud::displayNextLevel(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
     G_displayCorrectLevelStarter(G_getWorld()->getCarrerLevel() +1,this);
+}
+void Hud::keyBackClickedHUD()
+{
+	if (G_getWorld()->isPaused())
+	{
+		this->resumeBtnListenerBase(this, cocos2d::ui::Button::TouchEventType::ENDED);
+	}
+	else
+	{
+		this->pauseTouchCallback(this, cocos2d::ui::Button::TouchEventType::ENDED);
+	}
 }

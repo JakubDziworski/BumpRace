@@ -83,6 +83,7 @@ public:
 	void goToLevelChooserMenu();
 	//SETUPO
 	void m_setupAutoCorrectDialog(cocos2d::ui::Layout *root);
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	
 };
 #endif // !__MENU_H__

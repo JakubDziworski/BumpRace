@@ -107,7 +107,7 @@ void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
 	if ((this->getPositionX() - ostatni->getPositionX()) / ostatni->getVelocityX()>3) return;
-	if (isLast) enableSlowmo(); return;
+	if (isLast){ enableSlowmo(); return; }
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (ostatni)) != NULL)	//ostatni to player
 	{
@@ -144,7 +144,7 @@ void Chcekpoint::checkIfCloseToFirst(Boxx* pierwszy)
 {
 	if (slowmoTriggered) return;
 	if ((this->getPositionX() - pierwszy->getPositionX()) / pierwszy->getVelocityX() > 3) return;
-	if (isLast) enableSlowmo(); return;
+	if (isLast){ enableSlowmo(); return; }
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
 	{

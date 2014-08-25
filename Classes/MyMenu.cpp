@@ -132,6 +132,10 @@ bool MyMenu::init()
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
 	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
+	//keyBack listener
+	auto keylistener = EventListenerKeyboard::create();
+	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keylistener, this);
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -432,6 +436,7 @@ void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 //**CUSTOM SINGLE PLAYER EVENTS**//
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
 	Scene *scene;
 	if (currModeSelected == 0)
 	{
@@ -545,11 +550,11 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	Vector<Player*> players;
 	Vector<AIOpponent*> opponentz;
 	Scene *scene;
-	if (currModeSelected == 0)
+	if (m_currModeSelected == 0)
 	{
 		scene = SingleGateWorld::createScene(m_currOpponentsNumber +m_currPlayersNumber, currGatesNumb, currDiffValue);
 	}
-	else if (currModeSelected == 1)
+	else if (m_currModeSelected == 1)
 	{
 		scene = SingleEliminationWorld::createScene(m_currOpponentsNumber + m_currPlayersNumber, currDiffValue);
 	}
@@ -874,4 +879,12 @@ void MyMenu::goToLevelChooserMenu()
 	show(B_BACK);
 	hide(L_MAINMENU);
 	show(L_CARRER);
+}
+void MyMenu::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	// Back button pressed
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		goBack(this, Widget::TouchEventType::ENDED);
+	}
 }

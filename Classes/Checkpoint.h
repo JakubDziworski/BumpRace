@@ -14,7 +14,7 @@ private:
 	cocos2d::Director *director;
     cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;
-	bool isLast;
+	bool isLast=false;
 	void checkIfCloseToFirst(Boxx* box);
 	void checkIfCloseToLast(Boxx *box);
 public:
