@@ -12,7 +12,7 @@ private:
 	bool sprawdzajPierwszych;
 	bool slowmoTriggered;
 	cocos2d::Director *director;
-	cocos2d::Vector<Boxx*> *orderedBoxes;
+    cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;
 	bool isLast;
 	void checkIfCloseToFirst(Boxx* box);
@@ -20,7 +20,7 @@ private:
 public:
 	void setSprawdzajPierwszych(bool inp);
 	void enableSlowmo();
-	void setIsLast(bool val) { isLast = val; }
+	void setIsLast(bool val) { this->setColor(cocos2d::Color3B(237, 28, 36)); isLast = val; }
 	void zwolnij(float dt);
 	void tick(float dt);
 	static Chcekpoint *create(World *worldd, cocos2d::Vector<Boxx*> *boxess,std::string imagefileName);

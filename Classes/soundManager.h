@@ -37,9 +37,12 @@ public:
 	void fadeInMusic();
 	void playBgmusic(const std::string &inp);
 	void playSlideEffect(float speedVal);
+	void stopSlideEffect();
 	void gameIsOver(bool win);
 	void fadeOutEffect(int effect);
 	void pauseEffects();
+	void playEffect(const std::string &fileName);
+	void stopEffect(const int);
 	virtual void updateTweenAction(float value, const std::string& key);
 
 };

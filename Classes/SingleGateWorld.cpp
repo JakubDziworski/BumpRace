@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "SingleHud.h"
 #include "Checkpoint.h"
+#include "soundManager.h"
 USING_NS_CC;
 
 
@@ -54,6 +55,8 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 	{
 		box->addPoint();
 		box->positiveGateAction();
+		if (remainingGates != 0)
+		SoundManager::getInstance()->playEffect(R_MP3_punch);
 		G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
 	}
 	if (remainingGates == 0)

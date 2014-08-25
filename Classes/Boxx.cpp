@@ -2,6 +2,8 @@
 #include "Globals.h"
 #include "Paths.h"
 #include "Macros.h"
+#include "SimpleAudioEngine.h"
+#include "soundManager.h"
 using namespace cocos2d;
 bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr)
 {
@@ -91,7 +93,9 @@ void Boxx::updateBox()
 void Boxx::jump()
 {
 	if (isJumping()) return;
+	this->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.2f,0.9f, 1.1f), ScaleTo::create(0.2f, 1, 1.0f)));
 	cpBodyApplyImpulse(myBody, cpv(0, G_wF(500)), cpv(0, 0));
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_jump.c_str());
 }
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
@@ -135,7 +139,6 @@ void Boxx::setBodyPosition(const cocos2d::Vec2 pos)
 	updateTransform();
 }
 bool Boxx::isOnFlat()
-
 {
 	if (this->getBoundingBox().getMinY() <  G_hF(5)) return true;
 	return false;
@@ -172,19 +175,19 @@ void Boxx::updatePhysPos()
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 5:
-		wind = 1.4f;
+		wind = 1.8f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 6:
-		wind = 1.5f;
+		wind = 2.0f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 7:
-		wind = 2.7f;
+		wind = 2.45f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 8:
-		wind = 2.9f;
+		wind = 2.55f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 9:
@@ -224,7 +227,7 @@ void Boxx::addPoint()
 	if (deactivated) return;
 	points++;
 	const float offset = this->getContentSize().height;
-    Label *plus1 = Label::create("+1",R_defaultFont,G_wF(100));
+	Label *plus1 = Label::create("+1",R_defaultFont,G_wF(100));
 	this->addChild(plus1,25);
 	plus1->setAnchorPoint(Vec2(0.5f,0.0f));
 	plus1->setNormalizedPosition(Vec2(0.5f,1.0f));
@@ -243,12 +246,12 @@ void Boxx::addPoint()
 void Boxx::deactivate()
 {
 	displayDebugInfo();
-	auto fire = G_getParticleFromFile(R_boxDeactivatedFire);
-	auto smoke = G_getParticleFromFile(R_boxDeactivatedSmoke);
-	smoke->setNormalizedPosition(Vec2(0.5f, 1.4));
-	fire->setNormalizedPosition(Vec2(0.5f, 0.7f));
-	this->addChild(fire,1);
-	this->addChild(smoke,0);
+	auto fireRED = G_getParticleFromFile(R_boxDeactivatedRED);
+	auto smokeYELLOW = G_getParticleFromFile(R_boxDeactivatedYELLOW);
+	smokeYELLOW->setNormalizedPosition(Vec2(0.5f, 0.7f));
+	fireRED->setNormalizedPosition(Vec2(0.5f, 0.7f));
+	this->addChild(fireRED,1);
+	this->addChild(smokeYELLOW,0);
 	deactivated = true;
 }
 bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
@@ -284,8 +287,8 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 		break;
 	case PowerUp::PowerUpType::GHOST:
 		ghost = Sprite::createWithSpriteFrameName(String::createWithFormat("%s1.png",R_ghostPrefix.c_str())->getCString());
-		ghost->setNormalizedPosition(Vec2(0.5f, 0.5f));
-		ghost->setOpacity(100);
+		ghost->setNormalizedPosition(Vec2(0.25f, 1.05f));
+		ghost->setOpacity(255);
 		this->addChild(ghost);
 		break;
 	case PowerUp::PowerUpType::THUNDER:
@@ -308,39 +311,42 @@ bool Boxx::activatePowerUp()
 	case PowerUp::PowerUpType::SPEED:
 	{
 										cpBodyApplyImpulse(myBody, cpv(G_wF(800), 0), cpv(0, 0));
-										auto jetpackFire = G_getParticleFromFile(R_jetpackFire);
-										jetpackFire->setNormalizedPosition(Vec2(0, 0.5f));
-										auto jetpackSmoke = G_getParticleFromFile(R_jetpackSmoke);
-										jetpackSmoke->setNormalizedPosition(Vec2(0, 0.5f));
-										jetpack->addChild(jetpackFire,2);
-										jetpack->addChild(jetpackSmoke,1);
+										auto jetpackFireRED = G_getParticleFromFile(R_jetpackFireRED);
+										jetpackFireRED->setNormalizedPosition(Vec2(0, 0.5f));
+										auto jetpackSmokeRED = G_getParticleFromFile(R_jetpackFireYELLOW);
+										jetpackSmokeRED->setNormalizedPosition(Vec2(0, 0.5f));
+										jetpack->addChild(jetpackFireRED,1);
+										jetpack->addChild(jetpackSmokeRED,2);
 										auto rmvjetpack = CallFunc::create([this](){jetpack->removeFromParent(); jetpack = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
-										auto wait = DelayTime::create(jetpackFire->getDuration() + jetpackFire->getLife());
-										this->runAction(Sequence::createWithTwoActions(wait, rmvjetpack));
+										auto wait = DelayTime::create(jetpackFireRED->getDuration() + jetpackFireRED->getLife());
+										auto fadeOut = FadeOut::create(0.2f);
+										jetpack->runAction(Sequence::create(wait, fadeOut, rmvjetpack, NULL));
 										break;
 	}
 	case PowerUp::PowerUpType::GHOST:
 	{
-										cocos2d::Vector<SpriteFrame*> animFrames(7);
-										for (int i = 1; i < 8; i++)
+										cocos2d::Vector<SpriteFrame*> animFrames(9);
+										for (int i = 1; i <= 9; i++)
 										{
 											animFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(String::createWithFormat("%s%d.png", R_ghostPrefix.c_str(), i)->getCString()));
 										}
-										auto animate = Animate::create(Animation::createWithSpriteFrames(animFrames, 0.07f));
-										auto fadeout = FadeTo::create(0.3f, 100);
+										auto animate = Animate::create(Animation::createWithSpriteFrames(animFrames, 0.04f));
+										auto fadeout = FadeTo::create(0.3f, 200);
+										auto fadeout2 = FadeTo::create(0.3f, 100);
 										auto fadein = FadeTo::create(0.3f, 255);
 										auto recolide = CallFunc::create([this](){for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES); ghost->removeFromParent(); ghost = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; updatePhysPos(); });
-										auto idle = DelayTime::create(2);
+										auto idle = DelayTime::create(3);
 										auto totallyFade = FadeTo::create(0.3f, 0);
-										ghost->runAction(animate);
-										ghost->runAction(Sequence::create(fadeout, idle, totallyFade,NULL));
-										this->runAction(Sequence::create(fadeout, idle, fadein, recolide, NULL));
+										//ghost->runAction(animate);
+										auto idle2 = DelayTime::create(animate->getDuration());
+										ghost->runAction(Sequence::create(animate,fadeout, idle, totallyFade, NULL));
+										this->runAction(Sequence::create(idle2,fadeout2, idle, fadein, recolide, NULL));
 										for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPUNCOLIDEWITHBOXES);
 										break;
 	}
 	case PowerUp::PowerUpType::THUNDER:
 	{
-										  if (G_getWorld()->getOstaniActive() == this || this == G_getWorld()->getOrderedBoxes()->back())
+										  if (G_getWorld()->getOstaniActive() == this)
 										  {
 											  powerUpExecuted = false;
 											  return false;
@@ -353,30 +359,35 @@ bool Boxx::activatePowerUp()
 										  if (p1.x > p2.x) angle = G_radToAngle*atan2(target->getBoundingBox().getMaxX()-p2.x, p1.y - p2.y);
 										  //rocket
 										  auto rocketNew = Sprite::createWithSpriteFrameName(R_rocket);
-										  auto particleFire = G_getParticleFromFile(R_rocketFire);
-										  auto particleSmoke = G_getParticleFromFile(R_rocketSmoke);
-										  particleFire->setDuration(timeToFly);
-									      particleSmoke->setDuration(timeToFly);
-										  rocketNew->addChild(particleFire,2);
-										  rocketNew->addChild(particleSmoke,1);
-										  particleFire->setNormalizedPosition(Vec2(0.8f, -0.3f));
-										  particleSmoke->setNormalizedPosition(Vec2(0.5f, 0));
-										  auto explosion = G_getParticleFromFile(R_explosParticle,ParticleSystemQuad::PositionType::FREE);
+										  auto particleFireRED = G_getParticleFromFile(R_rocketFireRED);
+										  auto particleFireYELLOW = G_getParticleFromFile(R_rocketFireYELLOW);
+										  particleFireRED->setDuration(timeToFly);
+										  particleFireYELLOW->setDuration(timeToFly);
+										  rocketNew->addChild(particleFireRED,2);
+										  rocketNew->addChild(particleFireYELLOW,1);
+										  particleFireRED->setNormalizedPosition(Vec2(0.5f, -0.3f));
+										  particleFireYELLOW->setNormalizedPosition(Vec2(0.5f, -0.3f));
+										  auto explosion1 = G_getParticleFromFile(R_explosParticleRED,ParticleSystemQuad::PositionType::FREE);
 										  rocketNew->setPosition(this->getPositionX()-this->getContentSize().width/2,this->getPositionY());
 										  rocketNew->setRotation(angle);
 										  //actions
 										  auto fadeOutRocket = FadeOut::create(0.1f);
 										  auto fly = MoveTo::create(timeToFly, p1);
-										  DelayTime *wait = DelayTime::create(explosion->getDuration() + explosion->getLife());
-										  auto explode = CallFunc::create([rocketNew, target, particleFire,particleSmoke]() mutable
+										  DelayTime *wait = DelayTime::create(explosion1->getDuration() + explosion1->getLife());
+										  auto explode = CallFunc::create([rocketNew, target, particleFireRED,particleFireYELLOW]() mutable
 										  {
-											  auto explosion = G_getParticleFromFile(R_explosParticle);
+											  auto explosion1 = G_getParticleFromFile(R_explosParticleRED, ParticleSystemQuad::PositionType::FREE);
+											  auto explosion2 = G_getParticleFromFile(R_explosParticleYELLOW, ParticleSystemQuad::PositionType::FREE);
+											  SoundManager::getInstance()->playEffect(R_explosion);
 											  cpBodyApplyImpulse(target->getBody(), cpv(G_wF(-500), G_wF(700)), cpv(0, 0));
-											  rocketNew->addChild(explosion);
-											  particleFire->stopSystem();
-											  particleSmoke->stopSystem();
+											  rocketNew->addChild(explosion1);
+											  rocketNew->addChild(explosion2);
+											  particleFireRED->stopSystem();
+											  particleFireYELLOW->stopSystem();
 										  });
 										  auto remove = CallFunc::create([rocketNew, this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
+										  SoundManager::getInstance()->playEffect(R_rocketLaunch);
+										  CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_rocketLaunch.c_str());
 										  rocketNew->runAction(Sequence::create(fly, explode, fadeOutRocket, wait, remove, NULL));
 										  rocket->removeFromParent();
 										  rocket = NULL;
@@ -391,7 +402,7 @@ void Boxx::updatePowerUp()
 	if (deactivated) return;
 	if (pwrupType == PowerUp::PowerUpType::THUNDER && rocket != NULL)
 	{
-		if (G_getWorld()->getOstaniActive() == this || G_getWorld()->getOrderedBoxes()->back() == this) return;
+		if (G_getWorld()->getOstaniActive() == this) return;
 		Boxx *target = G_getWorld()->getOrderedBoxes()->at(G_getWorld()->getOrderedBoxes()->getIndex(this) + 1);
 		auto timeToFly = 0.3f;
 		auto p1 = target->getPosition(); (target->getBoundingBox().getMaxX() + target->getVelocityX()*timeToFly, target->getPositionY() + target->getVelocityY()*timeToFly);

@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "SingleElimHUD.h"
 #include "Checkpoint.h"
+#include "soundManager.h"
 USING_NS_CC;
 cocos2d::Scene* SingleEliminationWorld::createScene(int numberOfPlayers, int aiLevel)
 {
@@ -63,8 +64,8 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		{
 			this->gameIsOver(false);
 		}
+		SoundManager::getInstance()->playEffect(R_MP3_punch);
 	}
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 }
 void SingleEliminationWorld::restartLevel()
 {

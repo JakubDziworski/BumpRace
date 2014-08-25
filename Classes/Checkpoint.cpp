@@ -33,6 +33,10 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	{
 		return false;
 	}
+	this->setScaleX(G_wF(100)/this->getContentSize().width);
+	this->setScaleY(G_wF(1300) / this->getContentSize().height);
+	this->setColor(Color3B(0,174, 239));
+	this->setOpacity(153);
 	this->setAnchorPoint(Vec2(0, 0));
 	orderedBoxes = boxess;
 	world = worldd;
@@ -44,10 +48,17 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	slowmoTriggered = false;
 	sprawdzajPierwszych = true;
 	schedule(schedule_selector(Chcekpoint::tick));
+	//ACTIONS
 	return true;
 }
 void Chcekpoint::tick(float dt)
 {
+	if (G_getWorld()->isGameOver())
+	{
+		auto fadeout = FadeOut::create(0.5f);
+		auto wait = DelayTime::create(G_getFTimeScale(3));
+		this->runAction(Sequence::createWithTwoActions(wait, fadeout));
+	}
 	if (actualpos == world->getBoxesNumber() || (actualpos == world->getRemainingGates()+1 && !sprawdzajPierwszych))	//WSZYSTKIE PRZESZLY
 	{
 		if (world->nodeOutOfWindow(this) && director->getScheduler()->getTimeScale() == 1)
@@ -61,7 +72,7 @@ void Chcekpoint::tick(float dt)
 	Boxx *sprawdzany = NULL;
 	Boxx *pierwszy = orderedBoxes->at(0); //pierwszy
 	if (sprawdzajPierwszych) sprawdzany = pierwszy; //pierwszy
-	else sprawdzany = world->getOstaniActive(); //ostatni aktywny
+	else sprawdzany = world->getPrzedOstaniActive(); //ostatni aktywny
 	if (sprawdzany->getPositionX() < this->getPositionX() - 2.5f * sprawdzany->getContentSize().width) return;
 	Boxx *aktualny = orderedBoxes->at(actualpos); //aktualny
 	//sprawdzenie czy ktos przekroczyl
@@ -69,12 +80,17 @@ void Chcekpoint::tick(float dt)
 	{
 		if (aktualny == sprawdzany && sprawdzajPierwszych)
 		{
+			if (!pierwszyZlapal)
+			{
+				this->runAction(TintTo::create(0.15f, 25, 230, 20));
+			}
 			if (!isLast)
 			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
 		}
 		else if (actualpos == sprawdzany->getRacePos()-2) 
 		{
+			this->runAction(TintTo::create(0.15f, 25, 230, 20));
 			if (!isLast)
 			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
@@ -91,6 +107,7 @@ void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
 	if ((this->getPositionX() - ostatni->getPositionX()) / ostatni->getVelocityX()>3) return;
+	if (isLast) enableSlowmo(); return;
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (ostatni)) != NULL)	//ostatni to player
 	{
@@ -127,6 +144,7 @@ void Chcekpoint::checkIfCloseToFirst(Boxx* pierwszy)
 {
 	if (slowmoTriggered) return;
 	if ((this->getPositionX() - pierwszy->getPositionX()) / pierwszy->getVelocityX() > 3) return;
+	if (isLast) enableSlowmo(); return;
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (pierwszy)) != NULL)	//pierwszy to player
 	{

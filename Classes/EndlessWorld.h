@@ -22,6 +22,7 @@ public:
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first);
 	virtual void customWorldUpdate();
 	virtual void modifyGate(Chcekpoint *chkpt);
+    virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world);
 
 };
 #endif

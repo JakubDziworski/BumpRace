@@ -49,6 +49,7 @@ bool Hud::init()
 	infoNode->setPosition(G_srodek);
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);
+	infoNode->enableShadow();
 	this->addChild(infoNode);
 	return true;
 }
@@ -117,7 +118,7 @@ void Hud::displayInfo(const std::string &stringToDisplay, Boxx* boxabout)
 	{
 		str = boxabout->getID();
 	}
-	str += stringToDisplay;
+	str += " " + stringToDisplay;
 	infoNode->setString(str);
 	FiniteTimeAction *fadein = FadeIn::create(0.2f);
 	FiniteTimeAction *disable = CallFunc::create([&](){infoNode->setVisible(false); });
@@ -154,10 +155,11 @@ void Hud::setMultiplayer(World *world)
 void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 {
 	if (!dynamic_cast<Player*> (box)) return;
+	const float scaleFactor = 0.7f;
 	int i = 0;
 	Point position;
 	const float multibtnHeight = Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height;
-	const float powerUpBtnHeight = Sprite::createWithSpriteFrameName(R_powerUps[(int)type])->getContentSize().height;
+	const float powerUpBtnHeight = Sprite::createWithSpriteFrameName(R_powerUps[(int)type])->getContentSize().height*scaleFactor;
 	if (G_getWorld()->isMultiplayer())
 	{
 		for (Player *player : *G_getWorld()->getPlayers())
@@ -170,13 +172,13 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 	}
 	else
 	{
-		position = Vec2(G_srodek.x, VR::bottom().y + powerUpBtnHeight);
+		position = Vec2(VR::rightBottom().x - powerUpBtnHeight,VR::bottom().y + powerUpBtnHeight);
 	}
 	if (activatorBtns[i] != NULL) activatorBtns[i]->removeFromParent();
 	activatorBtns[i] = Button::create(R_powerUps[int(type)], "", "", TextureResType::PLIST);
 	activatorBtns[i]->setScale(0);
-	auto scaleUp = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1.2f));
-	auto scaleDown = EaseBackOut::create(ScaleTo::create(Director::getInstance()->getScheduler()->getTimeScale()*0.3f, 1));
+	auto scaleUp = EaseBackOut::create(ScaleTo::create(0.3f, 1.2f));
+	auto scaleDown = EaseBackOut::create(ScaleTo::create(0.3f, 1));
 	auto idle = DelayTime::create(Director::getInstance()->getScheduler()->getTimeScale() * 2);
 	activatorBtns[i]->runAction(RepeatForever::create(Sequence::create(scaleUp, scaleDown, idle, NULL)));
 	this->addChild(activatorBtns[i]);
@@ -186,18 +188,14 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 		if (!box->activatePowerUp()) return;
 		activatorBtns[i]->setTouchEnabled(false);
 		activatorBtns[i]->stopAllActions();
-		auto scaleDown = EaseBackIn::create(ScaleTo::create(G_getFTimeScale(0.3f), 0));
+		auto scaleDown = EaseBackIn::create(ScaleTo::create(0.3f, 0));
 		auto destroy = CallFunc::create([this,i](){activatorBtns[i]->removeFromParentAndCleanup(true); activatorBtns[i] = NULL; });
 		activatorBtns[i]->runAction(Sequence::createWithTwoActions(scaleDown, destroy));
 	});
 	activatorBtns[i]->setPosition(position);
+	activatorBtns[i]->setScale(scaleFactor);
 }
-void Hud::gotoLevelSelector(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
+void Hud::displayNextLevel(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
-	if (touchType != Button::TouchEventType::ENDED) return;
-	Director::getInstance()->getScheduler()->setTimeScale(1);
-	Scene *scena = MyMenu::createScene();
-	MyMenu *menu = (MyMenu*)scena->getChildByTag(1);
-	menu->goToLevelChooserMenu();
-	Director::getInstance()->replaceScene(scena);
+    G_displayCorrectLevelStarter(G_getWorld()->getCarrerLevel() +1,this);
 }

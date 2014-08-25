@@ -36,5 +36,6 @@ extern World* G_getWorld();
 extern Hud* G_getHud();
 extern float G_getFTimeScale(float val);
 extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type= cocos2d::ParticleSystemQuad::PositionType::RELATIVE);
+extern void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent);
 #endif
 

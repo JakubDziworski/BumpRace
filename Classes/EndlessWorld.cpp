@@ -50,6 +50,7 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 	}
 	if (box == player)
 	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 		score++;
 		box->positiveGateAction();
 		getHud()->pointsChanged(&orderedOppByScore);
@@ -124,4 +125,7 @@ EndlessWorld * EndlessWorld::create(int oppNum, int aiLevel)
 		}
 	}
 }
-
+void EndlessWorld::replaceSceneAdditional(cocos2d::Scene *scene,World *world)
+{
+	((EndlessWorld*)world)->setMinGates(((EndlessWorld*)world)->getMinliczbabramek());
+}

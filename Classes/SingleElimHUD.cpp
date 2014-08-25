@@ -54,7 +54,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	if (world->getCarrerLevel() != 0 && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
-		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::gotoLevelSelector, this));
+		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::displayNextLevel, this));
 		btnlayout->addWidget(nextLevelBtn);
 	}
 	gmOverNode->setMargin(25, 25);

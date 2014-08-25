@@ -64,11 +64,12 @@ protected:
 	virtual void s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void m_cameraFollow();
 	void m_putOnPlayers(cocos2d::Vector<Player*> players);
-	virtual bool m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event);
+	virtual void m_onTouched(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event  *event);
 	virtual void m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	virtual void customWorldUpdate(){}
 	void lateInit();
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
+    virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world){};
 public:
 	bool isGameOver() const { return gameOver; }
 	cpShape *getFloor() { return floor; }
@@ -98,6 +99,7 @@ public:
 	virtual void resumeGame();
 	virtual void modifyGate(Chcekpoint *chkpt){}
 	Boxx* getOstaniActive();
+	Boxx* getPrzedOstaniActive();
 	virtual void shouldEnableSlowmo(Chcekpoint *chkpt, bool first){}
 	Hud* getHud();
 	void setHud(Hud *hudd){ hud = hudd; }

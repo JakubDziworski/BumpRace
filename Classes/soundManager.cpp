@@ -162,3 +162,19 @@ void SoundManager::updateTweenAction(float value, const std::string& key)
 {
 
 }
+
+void SoundManager::playEffect(const std::string &fileName)
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fileName.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
+}
+
+void SoundManager::stopEffect(const int effectNum)
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(effectNum);
+}
+
+
+void SoundManager::stopSlideEffect()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(normalSlideEffect);
+}

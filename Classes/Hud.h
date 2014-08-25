@@ -20,7 +20,7 @@ protected:
 	void resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	void gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
-	void gotoLevelSelector(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
+	void displayNextLevel(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);
 	//TYLKO DZIEDZICZENIE//
 	virtual void resumeBtnListenerExtended(){}
 	virtual void gotoMenuBtnListenerExtended(){}

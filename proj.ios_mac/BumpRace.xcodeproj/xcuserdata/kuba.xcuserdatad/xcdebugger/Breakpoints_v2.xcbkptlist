@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "423"
             endingLineNumber = "423"
-            landmarkName = "World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)"
+            landmarkName = "World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -382,11 +382,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Boxx.cpp"
-            timestampString = "430518220.799517"
+            timestampString = "430587955.520094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
             landmarkName = "Boxx::addPoint()"
             landmarkType = "5">
          </BreakpointContent>

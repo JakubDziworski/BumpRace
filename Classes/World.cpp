@@ -158,7 +158,7 @@ void World::tick(float delta)
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(G_wF(800) * G_mySin, G_wF(-1000) * G_myCos);
+	gravitySpace->gravity = cpv(G_wF(1300) * G_mySin, G_wF(-1000) * G_myCos);
 }
 void World::checkPosition(float dt)
 {
@@ -199,14 +199,13 @@ bool World::scoreSortingFun(Boxx *a, Boxx *b)	//MALEJACAO
 Boxx* World::getOstaniActive()
 {
 	int i = 0;
+	int lowest=0;
 	for (Boxx *box : orderedOpponents)
 	{
-		if (box->isDeactivated()) break;
-		if (box == orderedOpponents.back()){ i++; break; }
+		if (!box->isDeactivated()) { lowest = i; }
 		i++;
 	}
-	if (i>0)
-	return orderedOpponents.at(i-1);
+	return orderedOpponents.at(lowest);
 }
 bool World::posSortingFun(Boxx* a, Boxx* b)
 {
@@ -266,19 +265,31 @@ void World::gameIsOver(bool win)
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
 	}
 	rotationLayer->stopAllActions();
-
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
 	const float offset1 = 2*G_srodek.y / scaleeLayer->getScale();
 	const float guUp = offset1 * G_myCos;
 	const float goRight = offset1*G_mySin;
 	const float velocitty = G_wF(4500);
 	auto delay = DelayTime::create(0.3f);
-	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; });
-	auto moveToEnd = MoveTo::create(offset1 / velocitty*0.1f, Vec2(moveLayer->getPositionX() - goRight, moveLayer->getPositionY() - guUp));
+	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; SoundManager::getInstance()->disableSlowMo(); Director::getInstance()->getScheduler()->setTimeScale(1); SoundManager::getInstance()->stopSlideEffect(); });
+	auto moveToEnd = MoveTo::create(offset1 / velocitty, Vec2(moveLayer->getPositionX() - goRight, moveLayer->getPositionY() - guUp));
 	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, NULL));
 	//sound
 	SoundManager::getInstance()->gameIsOver(win);
 }
+Boxx* World::getPrzedOstaniActive()
+{
+	int i = 0;
+	int ostatni = 0;
+	int przedostatni = 0;
+	for (Boxx *box : orderedOpponents)
+	{
+		if (!box->isDeactivated()) { przedostatni = ostatni; ostatni = i; }
+		i++;
+	}
+	return orderedOpponents.at(przedostatni);
+}
+
 //_________SINGLE PLAYER_________//f
 void World::setSinglePlayer(Player* player)
 {
@@ -377,8 +388,8 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	//DOTYK
 	multiplayerEnabled = true;
 	playersNumber = players.size();
-	auto touchlistener = EventListenerTouchOneByOne::create();
-	touchlistener->onTouchBegan = CC_CALLBACK_2(World::m_onTouched, this);
+	auto touchlistener = EventListenerTouchAllAtOnce::create();
+	touchlistener->onTouchesBegan = CC_CALLBACK_2(World::m_onTouched, this);
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(World::m_onKeyPressed, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
@@ -390,55 +401,57 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	getHud()->setMultiplayer(this);
 	scaleeLayer->setPositionY(scaleeLayer->getPositionY()+Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height);	//podwyzszamy troche zeby przyciski nie zaslanialy nic
 }
-bool World::m_onTouched(cocos2d::Touch* touch, cocos2d::Event* event)
+void World::m_onTouched(const std::vector<Touch*>& touches, cocos2d::Event  *event)
 {
-	auto location = touch->getLocation();
-	if (playersNumber == 2)
+	for (auto touch : touches)
 	{
-		if (location.x > G_srodek.x)
+		auto location = touch->getLocation();
+		if (playersNumber == 2)
 		{
-			players.at(1)->jump();
+			if (location.x > G_srodek.x)
+			{
+				players.at(1)->jump();
+			}
+			else
+			{
+				players.at(0)->jump();
+			}
 		}
-		else
+		else if (playersNumber == 3)
 		{
-			players.at(0)->jump();
+			if (location.x < 0.66f*G_srodek.x)
+			{
+				players.at(0)->jump();
+			}
+			else if (location.x < 1.32f*G_srodek.x)
+			{
+				players.at(1)->jump();
+			}
+			else
+			{
+				players.at(2)->jump();
+			}
+		}
+		else if (playersNumber == 4)
+		{
+			if (location.x < 0.5f*G_srodek.x)
+			{
+				players.at(0)->jump();
+			}
+			else if (location.x < G_srodek.x)
+			{
+				players.at(1)->jump();
+			}
+			else if (location.x < 1.5f*G_srodek.x)
+			{
+				players.at(2)->jump();
+			}
+			else
+			{
+				players.at(3)->jump();
+			}
 		}
 	}
-	else if (playersNumber == 3)
-	{
-		if (location.x < 0.66f*G_srodek.x)
-		{
-			players.at(0)->jump();
-		}
-		else if (location.x < 1.32f*G_srodek.x)
-		{
-			players.at(1)->jump();
-		}
-		else 
-		{
-			players.at(2)->jump();
-		}
-	}
-	else if (playersNumber == 4)
-	{
-		if (location.x < 0.5f*G_srodek.x)
-		{
-			players.at(0)->jump();
-		}
-		else if (location.x < G_srodek.x)
-		{
-			players.at(1)->jump();
-		}
-		else if (location.x < 1.5f*G_srodek.x)
-		{
-			players.at(2)->jump();
-		}
-		else
-		{
-			players.at(3)->jump();
-		}
-	}
-	return true;
 }
 void World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
@@ -561,6 +574,7 @@ void World::replaceSceneGenereal(Scene *scene,World *world)
 	{
 		world->setSinglePlayer(Player::create(player->getFileName(), player->getID(), world->getGravitySpace(),player->getBoxColor()));
 	}
+	replaceSceneAdditional(scene,world);
 	G_dir()->replaceScene(scene);
 }
 void World::calculateSredniaPredkoscDoDzwieku()

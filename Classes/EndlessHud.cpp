@@ -71,7 +71,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	if (carrer && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
-		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::gotoLevelSelector, this));
+		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::displayNextLevel, this));
 		btnlayout->addWidget(nextLevelBtn);
 	}
 	gmOverNode->setMargin(25, 25);
