@@ -42,6 +42,8 @@ const std::string R_popUp = "sounds/popUp.wav";
 const std::string R_rocketLaunch = "sounds/rocket_shot.mp3";
 const std::string R_explosion = "sounds/rocket_explosion.mp3";
 const std::string R_jump = "sounds/jump.mp3";
+const std::string R_boxFelt = "sounds/fekltwav.wav";
+const std::string R_boxColided = "sounds/crash4.wav";
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";

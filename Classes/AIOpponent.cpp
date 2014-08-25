@@ -3,6 +3,7 @@
 USING_NS_CC;
 void AIOpponent::simulate(float dt)
 {
+	if (!G_getWorld()->hasStarted()) return;
 	if (G_getWorld()->isPaused()) return;
 	if (orderedOpponents == NULL) return;
 	if (powerUpExecuted && pwrupType == PowerUp::PowerUpType::GHOST) return;

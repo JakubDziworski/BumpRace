@@ -31,6 +31,8 @@ private:
 	std::function<void()> tapToContinueTapped;
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 protected:
+	float odstep = 0.0f; //odstep miedzy dzwiekami zdrzenia;
+	const float minOdstep = 0.1f;
 	int carrerLevel = 0;
 	cocos2d::extension::PhysicsSprite *flatsprite;
 	cocos2d::Sprite *bgImg;
@@ -75,6 +77,7 @@ protected:
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
     virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world){};
 public:
+	bool hasStarted() const { return started; }
 	bool isPaused() const { return paused; }
 	bool isGameOver() const { return gameOver; }
 	cpShape *getFloor() { return floor; }
@@ -113,5 +116,8 @@ public:
 	void startBoxPointer();
 	//onExit
 	void onExit();
+	//PHYSICS ACTIONS
+	static void boxesCollided(cpArbiter *arb, cpSpace *space, void *unused);
+	static void boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused);
 };
 #endif // __GAMETEST_SCENE_H__

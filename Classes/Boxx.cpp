@@ -55,12 +55,16 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	debugL->setNormalizedPosition(Vec2(0.5f,2));
 	debugL->enableShadow();
 	debugL->setHorizontalAlignment(TextHAlignment::CENTER);
-	//debugL->setVisible(false);
+	debugL->setVisible(false);
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
 	this->ID = ID;
-	for (int i = 0; i < 3; i++) cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES);
+	for (int i = 0; i < 3; i++)
+	{
+		shapes[i]->collision_type = COLLISONTYPEBOX; 
+		cpShapeSetLayers(shapes[i], CPCOLIDEWITHBOXES);
+	}
 	rocket = NULL;
 	jetpack = NULL;
 	ghost = NULL;
@@ -89,7 +93,7 @@ void Boxx::updateBox()
 	updatePhysPos();
 	updateTransform();
 	updatePowerUp();
-	displayDebugInfo();
+	//displayDebugInfo();
 }
 void Boxx::jump()
 {

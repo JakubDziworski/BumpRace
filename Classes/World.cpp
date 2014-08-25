@@ -29,6 +29,9 @@ void World::lateInit()
 	auto keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(World::onKeyReleased, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keylistener, this);
+	//collison handling
+	cpSpaceAddCollisionHandler(gravitySpace, COLLISONTYPEBOX, COLLISONTYPEBOX, NULL, NULL, World::boxesCollided, NULL, NULL);
+	cpSpaceAddCollisionHandler(gravitySpace, COLLISONTYPEBOX, COLLISIONTYPEFLOOR, NULL, NULL, World::boxFeltDown, NULL, NULL);
 }
 bool World::myInit(int numberOfPlayers,int gates)
 {
@@ -100,6 +103,7 @@ void World::createFloor()
 	rotationLayer->addChild(node);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
+	floor->collision_type = COLLISIONTYPEFLOOR;
 	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 	cpSpaceAddStaticShape(gravitySpace, floor);
 }
@@ -134,7 +138,7 @@ void World::createBackground()
 	bgImg->setPosition(G_srodek.x, G_srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));
 	this->addChild(bgImg, -1);
-	DPIscaleFactor = clampf((512.0f / VR::right().x) / (100.0f/ (float)Device::getDPI()),0.4f,0.9f);
+	DPIscaleFactor = clampf((512.0f /156.f) /(G_srodek.x*2.0f / (float)Device::getDPI()),0.4f,0.9f);
 	scaleeLayer->setScale(DPIscaleFactor);
 }
 //----****UPDATE****----///
@@ -364,7 +368,7 @@ void World::s_putOnPlayers(Player* playerr)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2.0f* G_srodek.x /scaleeLayer->getScale() + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height*0.5f));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -530,7 +534,7 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2 * G_srodek.x + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height));
+		opponent->setBodyPosition(Vec2(2.0f* G_srodek.x / scaleeLayer->getScale() + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height*0.5f));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -608,13 +612,13 @@ void World::onExit()
 }
 void World::startBoxPointer()
 {
-	auto startBtn = Label::create(G_str("tapToStart"), R_defaultFont, G_wF(25));
+	auto startBtn = Label::create(G_str("tapToStart"), R_defaultFont, G_wF(35));
 	startBtn->enableShadow();
-	hud->addChild(startBtn);
+	hud->addChild(startBtn, -1);
 	startBtn->setPosition(VR::center());
 	startBtn->setScale(0);
-	auto show = ScaleTo::create(0.2f, 1.1f);
-	auto lateSequence = CallFunc::create([startBtn](){startBtn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 1), ScaleBy::create(0.3f, 1.1f, 0.9f)))); });
+	auto show = ScaleTo::create(0.2f,0.9f, 1.2f);
+	auto lateSequence = CallFunc::create([startBtn](){startBtn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 1), ScaleBy::create(0.3f, 0.9f, 1.2f)))); });
 	startBtn->runAction(Sequence::createWithTwoActions(show, lateSequence));
 	auto labels = cocos2d::Vector<Label*>(boxesNumber);
 	float i = 0;
@@ -627,9 +631,17 @@ void World::startBoxPointer()
 		label->setScale(0);
 		label->setColor(box->getBoxColor());
 		label->enableShadow();
+		CallFunc *blink = NULL;
+		if (dynamic_cast<Player*>(box))
+		{
+			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, G_wF(50))), MoveBy::create(0.3f, Vec2(0, G_wF(-50)))))); });
+		}
+		else
+		{
+			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, G_wF(5))), MoveBy::create(0.3f, Vec2(0, G_wF(-5)))))); });
+		}
 		auto show = ScaleTo::create(0.4f, 1);
 		auto wait = DelayTime::create(i);
-		auto blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, G_wF(50))), MoveBy::create(0.3f, Vec2(0, G_wF(-50)))))); });
 		label->runAction(Sequence::create(wait,show,blink,NULL));
 		labels.pushBack(label);
 		i+=0.2f;
@@ -657,4 +669,18 @@ void World::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 		G_getHud()->keyBackClickedHUD();
 	}
+}
+void World::boxesCollided(cpArbiter *arb, cpSpace *space, void *unused)
+{
+	if (!cpArbiterIsFirstContact(arb)) return;
+	const cpVect impulse = cpArbiterTotalImpulse(arb);
+	if (abs(impulse.x) + abs(impulse.y) > G_wF(110))
+	SoundManager::getInstance()->playEffect(R_boxColided);
+}
+void World::boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused)
+{
+	if (!cpArbiterIsFirstContact(arb)) return;
+	const cpVect impulse = cpArbiterTotalImpulse(arb);
+	if (abs(impulse.x) + abs(impulse.y) > G_wF(200))
+		SoundManager::getInstance()->playEffect(R_boxFelt);
 }

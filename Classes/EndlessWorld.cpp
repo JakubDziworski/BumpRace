@@ -88,6 +88,7 @@ void EndlessWorld::extendFlat()
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
+	floor->collision_type = COLLISIONTYPEFLOOR;
 	cpSpaceAddStaticShape(gravitySpace, floor);
 	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
 	//bg
