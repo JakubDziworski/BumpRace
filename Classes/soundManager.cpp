@@ -16,6 +16,7 @@ SoundManager::SoundManager()
 	fadeInTime = 0.0f;
 	fadeOutTime = 0.0f;
 	slowMoEnabled = false;
+	normalSlideEffect = 0;
 }
 SoundManager * SoundManager::getInstance()
 {
@@ -142,7 +143,7 @@ void SoundManager::playBgmusic(const std::string &inp)
 void SoundManager::playSlideEffect(float speedVal)
 {
 	if (slowMoEnabled) return;
-	if (normalSlideEffect != NULL)
+	if (normalSlideEffect != 0)
 	{
 		audioEngine->stopEffect(normalSlideEffect);
 	}
@@ -176,5 +177,6 @@ void SoundManager::stopEffect(const int effectNum)
 
 void SoundManager::stopSlideEffect()
 {
+	if (normalSlideEffect !=0)
 	CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(normalSlideEffect);
 }

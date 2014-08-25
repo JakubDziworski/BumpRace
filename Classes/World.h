@@ -57,6 +57,7 @@ protected:
 	float posX;	//pozycja x layera patrzacego na player
 	float posY; //pozycja y layera patrzacego na playera
 	float DPIscaleFactor;
+	bool paused;
 	void floorspritefollow(){}
 	virtual void s_cameraFollow();
 	void s_putOnPlayers(Player* playerr);
@@ -71,6 +72,7 @@ protected:
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
     virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world){};
 public:
+	bool isPaused() const { return paused; }
 	bool isGameOver() const { return gameOver; }
 	cpShape *getFloor() { return floor; }
 	bool isMultiplayer(){ return multiplayerEnabled; }
@@ -105,5 +107,7 @@ public:
 	void setHud(Hud *hudd){ hud = hudd; }
 	virtual void gameIsOver(bool win);
 	void calculateSredniaPredkoscDoDzwieku();
+	//onExit
+	void onExit();
 };
 #endif // __GAMETEST_SCENE_H__

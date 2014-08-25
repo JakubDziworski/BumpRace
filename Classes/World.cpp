@@ -222,6 +222,7 @@ bool World::physPosSortingFun(Boxx *a, Boxx *b)
 //----****MISC***-----//
 void World::pauseGame()
 {
+	paused = true;
 	CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
 	rotationLayer->pause();
 	this->pause();
@@ -243,6 +244,7 @@ void World::resumeGame()
 	CocosDenshion::SimpleAudioEngine::getInstance()->resumeAllEffects();
 	rotationLayer->resume();
 	this->resume();
+	paused = false;
 }
 Hud* World::getHud()
 {
@@ -587,4 +589,11 @@ void World::calculateSredniaPredkoscDoDzwieku()
 	}
 	const float srednia = suma / boxesNumber;
 	SoundManager::getInstance()->playSlideEffect(clampf(srednia / defaultSpeed, 0.5f, 1.6f));
+}
+void World::onExit()
+{
+	Node::onExit();
+	Director::getInstance()->getScheduler()->setTimeScale(1); 
+	SoundManager::getInstance()->disableSlowMo(); 
+	SoundManager::getInstance()->stopSlideEffect();
 }
