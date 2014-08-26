@@ -163,7 +163,7 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 				break;
 		}
 		//DIFF LEVEL
-		std::string diffStr = G_str("Opponents");
+		std::string diffStr = " " + G_str("Opponents");
 		switch (diffLevel)
 		{
 			case 0:
@@ -179,7 +179,9 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 		//OPPONENTS
 		std::string oppStr = std::to_string(opponentsnumber) +" "+ G_str("Opponents");
 		//GATES
-		std::string gatesStr = std::to_string(gatesNumb) + " " + G_str("Gates");
+        std::string gatesStr = std::to_string(gatesNumb) + " ";
+        if(gatesNumb%10>4)  gatesStr+= G_str("Gatesow");
+        else gatesStr+= G_str("Gates");
 		//assign texts
 		DialogReader::getInstance()->getMainWidgetFromJson(cocosfile, parent);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "levelTitleText"))->setString(levelStr);

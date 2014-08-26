@@ -93,7 +93,13 @@ void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 	const int x = world->getScore();
 	if (world->getMinliczbabramek() != 0 && world->getMinliczbabramek() - x !=0)
 	{
-		displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), world->getMinliczbabramek() - x)->getCString());
+        const int remainingGates = world->getMinliczbabramek() - x;
+        if(remainingGates%10 > 4)
+            G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
+        else if(remainingGates%10 > 1)
+            G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft2").c_str(), remainingGates)->getCString());
+        else if(remainingGates == 1)
+            G_getHud()->displayInfo(G_str("lastGate"));;
 	}
 	else
 	{

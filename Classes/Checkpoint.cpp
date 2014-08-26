@@ -34,7 +34,7 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 		return false;
 	}
 	this->setScaleX(G_wF(100)/this->getContentSize().width);
-	this->setScaleY(G_wF(1300) / this->getContentSize().height);
+	this->setScaleY(G_wF(2000) / this->getContentSize().height);
 	this->setColor(Color3B(0,174, 239));
 	this->setOpacity(153);
 	this->setAnchorPoint(Vec2(0, 0));

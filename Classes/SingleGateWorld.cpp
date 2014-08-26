@@ -58,8 +58,13 @@ void SingleGateWorld::checkpointReachedExtended(Boxx *box, int pos)
 		if (remainingGates != 0)
 		{
 			SoundManager::getInstance()->playEffect(R_MP3_punch);
-			G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
-		}
+            if(remainingGates%10 > 4)
+                G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft").c_str(), remainingGates)->getCString());
+            else if(remainingGates%10 > 1)
+                G_getHud()->displayInfo(String::createWithFormat(G_str("gatesLeft2").c_str(), remainingGates)->getCString());
+            else if(remainingGates == 1)
+                G_getHud()->displayInfo(G_str("lastGate"));
+        }
 	}
 	if (remainingGates == 0)
 	{
