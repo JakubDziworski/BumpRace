@@ -1,3 +1,4 @@
+
 #include "Hud.h"
 #include "Macros.h"
 #include "SingleGateWorld.h"
@@ -46,11 +47,11 @@ bool Hud::init()
 	this->addChild(pauseNode);
 	this->addChild(pauseBtn, 1, B_PAUSE);
 	//INFO
-	infoNode = Label::create("",R_defaultFont,G_wF(35));
+    
+	infoNode = Label::createWithBMFont(R_bmfont,"",17);
 	infoNode->setPosition(G_srodek);
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);
-	infoNode->enableShadow();
 	this->addChild(infoNode);
 	return true;
 }

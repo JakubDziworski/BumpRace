@@ -238,7 +238,7 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 		Layout *layout = Layout::create();
 		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
 		ImageView *imageView = ImageView::create(filepaths.at(i), TextureResType::PLIST);
-		Text *text = Text::create(names.at(i), R_defaultFont, G_wF(25));
+		Text *text = Text::createWithBMF(names.at(i), R_bmfont, 12);
 		text->setLayoutParameter(par);
 		imageView->setLayoutParameter(par);
 		layout->addChild(text,1);
@@ -288,7 +288,7 @@ void MyMenu::createLayout(int layoutTag)
 }
 void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 {
-	auto label = Text::create(text, R_defaultFont,G_hF(25));
+	auto label = Text::createWithBMF(text, R_bmfont, 12);
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	label->setLayoutParameter(par);
@@ -297,12 +297,10 @@ void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
 {
 	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
-	btn->setTitleFontName(R_defaultFont);
-	btn->setTitleFontSize(G_hF(25));
 	btn->setTouchEnabled(true);
 	if (btnText != "")
 	{
-		btn->setTitleText(G_str(btnText));
+		btn->setTitleTextBMF(G_str(btnText),R_bmfont);
 	}
 	btn->addTouchEventListener(callback);
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
@@ -696,7 +694,6 @@ void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
 		auto labell = ((Text*)node);
 		labell->setString(G_str("AutoCorrectDialogText"));
 		labell->setTextAreaSize(border);
-		labell->enableShadow();
 		labell->setFontSize(G_wF(20));
 		return false;
 	});

@@ -23,7 +23,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	points = 0;
 	deactivated = false;
 	//create cocos stuff//
-	debugL = Label::create("",R_defaultFont,G_wF(45));
+	debugL = Label::createWithBMFont(R_bmfont, "");
 	debugL->setColor(this->boxColor);
 	//physics//
 	auto bounding = this->getContentSize();
@@ -53,7 +53,6 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	cpSpaceAddShape(space, shape);
 	//tweaks and adchild//
 	debugL->setNormalizedPosition(Vec2(0.5f,2));
-	debugL->enableShadow();
 	debugL->setHorizontalAlignment(TextHAlignment::CENTER);
 	//debugL->setVisible(false);
 	myBody->data = this;
@@ -232,12 +231,11 @@ void Boxx::addPoint()
 	if (deactivated) return;
 	points++;
 	const float offset = this->getContentSize().height;
-	Label *plus1 = Label::create("+1",R_defaultFont,G_wF(100));
+	Label *plus1 = Label::createWithBMFont(R_bmfont,"+1",50);
 	this->addChild(plus1,25);
 	plus1->setAnchorPoint(Vec2(0.5f,0.0f));
 	plus1->setNormalizedPosition(Vec2(0.5f,1.0f));
 	plus1->setOpacity(0);
-	plus1->enableShadow();
 	plus1->setColor(boxColor);
 	auto goUp = MoveBy::create(2,Vec2(0,offset));
 	auto fadeOut = FadeOut::create(0.4f);

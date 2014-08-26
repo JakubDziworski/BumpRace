@@ -62,4 +62,6 @@ const std::string R_levelCompleted = "lvlCmplt";
 const std::string R_boxUnlocked = "boxUnlck";
 const std::string R_tutorialEnabled = "tutEnabl";
 const std::string R_endlessHighScore = "endlScore";
+//misc
+const std::string R_bmfont = "aleoBoldItalic.fnt";
 #endif // __PATHS__H__

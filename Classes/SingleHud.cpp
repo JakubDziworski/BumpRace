@@ -66,7 +66,6 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 		{
 			ommitPlayer = true;
 			Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
-			text->enableShadow();
 			text->setAnchorPoint(Vec2(0.5f, 0));
 			text->setColor(player->getBoxColor());
 			text->setString(String::createWithFormat("%d.%s (%d %s)", i, player->getID().c_str(), player->getScore(), G_str("GatesCollected").c_str())->getCString());
@@ -77,7 +76,6 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	{
 		if (box == player && ommitPlayer) continue;
 		Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
-		text->enableShadow();
 		text->setAnchorPoint(Vec2(0.5f, 0));
 		text->setColor(box->getBoxColor());
 		text->setString(String::createWithFormat("%d.%s (%d %s)", i, box->getID().c_str(), box->getScore(),G_str("GatesCollected").c_str())->getCString());
@@ -98,7 +96,6 @@ void SingleGateHud::lateinit(World *world)
 	for (Boxx *box : *world->getBoxes())
 	{
 		Text* text = Text::create("", R_defaultFont, G_wF(25));
-		text->enableShadow();
 		text->setAnchorPoint(Vec2(0, 0));
 		text->setColor(box->getBoxColor());
 		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());

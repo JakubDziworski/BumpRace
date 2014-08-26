@@ -56,24 +56,20 @@ void AppDelegate::prepareImageRes(cocos2d::Size scrSize)
 {
 	std::vector<std::string> resPaths;
 	GLView *glView = Director::getInstance()->getOpenGLView();
-	//IPHONE SECTION
-	if (scrSize.width >= 2048) 
+	if (scrSize.width <= 512) 
 	{
-		resPaths.push_back("HDR");
-		resPaths.push_back("HD");
 		resPaths.push_back("SD");
-		glView->setDesignResolutionSize(2048, 1366, ResolutionPolicy::NO_BORDER); //IPAD RETINA RES
 	}
-	else if (scrSize.width >= 1024) //IPAD RES
+	else if (scrSize.width <= 1024) //IPAD RES
 	{
 		resPaths.push_back("HD");
-		resPaths.push_back("SD");
-		glView->setDesignResolutionSize(1024, 684, ResolutionPolicy::NO_BORDER);
+		Director::getInstance()->setContentScaleFactor(2);
 	}
 	else 
 	{
-		resPaths.push_back("SD");
-		glView->setDesignResolutionSize(512,342, ResolutionPolicy::NO_BORDER);
+		resPaths.push_back("HDR");
+		Director::getInstance()->setContentScaleFactor(4);
 	}
+	glView->setDesignResolutionSize(512,342, ResolutionPolicy::NO_BORDER);
 	FileUtils::getInstance()->setSearchPaths(resPaths);
 }

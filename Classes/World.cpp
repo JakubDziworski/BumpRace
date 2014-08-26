@@ -613,8 +613,7 @@ void World::onExit()
 }
 void World::startBoxPointer()
 {
-	auto startBtn = Label::create(G_str("tapToStart"), R_defaultFont, G_wF(35));
-	startBtn->enableShadow();
+	auto startBtn = Label::createWithBMFont(R_bmfont,G_str("tapToStart"),17);
 	hud->addChild(startBtn, -1);
 	startBtn->setPosition(VR::center());
 	startBtn->setScale(0);
@@ -625,13 +624,12 @@ void World::startBoxPointer()
 	float i = 0;
 	for (auto box : opponentz)
 	{
-		auto label = Label::create(box->getID(), R_defaultFont, G_wF(55));
+		auto label = Label::createWithBMFont(R_bmfont,box->getID(), 17);
 		box->addChild(label);
 		label->setAnchorPoint(Vec2(0.5f, 0));
 		label->setNormalizedPosition(Vec2(0.5f, 1.3f));
 		label->setScale(0);
 		label->setColor(box->getBoxColor());
-		label->enableShadow();
 		CallFunc *blink = NULL;
 		if (dynamic_cast<Player*>(box))
 		{

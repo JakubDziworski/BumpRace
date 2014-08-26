@@ -9,7 +9,7 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 int G_endlessGateNumber = 5;
-int G_odlegloscmiedzyBramkami = 7000;
+int G_odlegloscmiedzyBramkami = 3500;
 cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;
@@ -18,11 +18,11 @@ float G_myCos = 0;
 float G_mySin = 0;
 const float G_radToAngle = 180.0f / M_PI;
 const float Globals_radWsp = M_PI / 180.0f;
-int G_maxVelocity = 1000;
-int G_maxVelConstant = 500;
-int G_maxVelAddition = 2000;
-int G_powerUpOdleglos = 5000;
-int G_powerUpOdlegloscVar = 50;
+int G_maxVelocity = 150;
+int G_maxVelConstant = 125;
+int G_maxVelAddition = 300;
+int G_powerUpOdleglos = 2500;
+int G_powerUpOdlegloscVar = 250;
 int G_powerUpsNumbers = 2;
 extern cocos2d::ActionManager *slowActionManager;
 extern cocos2d::ActionManager *normalActionManager;
@@ -64,17 +64,7 @@ const char* G_form_str(const char *format, ...)
 }
 void G_initLanguage()
 {
-	//values
 	G_srodek = VR::center();
-	G_odlegloscmiedzyBramkami = G_wF(7000);
-	G_maxVelocity = G_wF(300);
-	G_maxVelConstant = G_wF(250);
-	G_maxVelAddition = G_wF(600);
-	G_powerUpOdleglos = G_wF(5000);
-	G_powerUpOdlegloscVar = G_wF(500);
-	G_powerUpsNumbers = 2;
-	//
-
 	cocos2d::LanguageType currentLanguageType = cocos2d::Application::getInstance()->getCurrentLanguage();
 	if (currentLanguageType == cocos2d::LanguageType::POLISH)
 	{

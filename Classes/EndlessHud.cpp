@@ -12,11 +12,11 @@ bool EndlessHud::init()
 	{
 		return false;
 	}
-	scoreText = Label::create(String::createWithFormat(G_str("score").c_str(), 0)->getCString(), R_defaultFont, G_wF(35));
+    
+	scoreText = Label::createWithBMFont(R_bmfont,String::createWithFormat(G_str("score").c_str(), 0)->getCString(),17);
 	scoreText->setAnchorPoint(Vec2(0, 1));
 	const float margin = 0.05*G_srodek.x;
 	scoreText->setPosition(Vec2(VR::leftTop().x+margin,VR::leftTop().y- margin));
-	scoreText->enableShadow();
 	this->addChild(scoreText);
 	return true;
 }
