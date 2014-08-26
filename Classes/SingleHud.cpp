@@ -46,12 +46,13 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	gmOverNode->setType(0);
 	//gmover text
 	auto gmOverText = Text::create("Game Over!", R_defaultFont, G_wF(40));
+    gmOverText->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	if (world->getCarrerLevel() != 0 && win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (world->getCarrerLevel() != 0 && !win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
-	gameoverparam->setMargin(Margin(0, 0, 0, margin));
+     gameoverparam->setMargin(cocos2d::ui::Margin(0,G_wF(25),0,0));
 	gmOverText->setLayoutParameter(gameoverparam);
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	//consts
@@ -83,31 +84,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 		gmOverNode->addWidget(text);
 		i++;
 	}
-	//**HORIZONTAL BUTTONS**//
-	myLayout *btnlayout = myLayout::create();
-	btnlayout->setType(1);
-	btnlayout->setMargin(0, G_hF(25), 0, 0);
-	Button *menuBtn = Button::create(R_gotoMenuBtn, "", "", TextureResType::PLIST);
-	Button *retryBtn = Button::create(R_reapeatBtn, "", "", TextureResType::PLIST);
-	menuBtn->setTitleFontName(R_defaultFont);
-	retryBtn->setTitleFontName(R_defaultFont);
-	btnlayout->addWidget(menuBtn);
-	btnlayout->addWidget(retryBtn);
-	if (world->getCarrerLevel() != 0 && win)
-	{
-		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
-		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::displayNextLevel, this));
-		btnlayout->addWidget(nextLevelBtn);
-	}
-	gmOverNode->setMargin(25, 25);
-	gmOverNode->addWidget(btnlayout);
-	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
-	gmOverNode->setPosition(Vec2(G_srodek.x,2*G_srodek.y+gmOverNode->getContentSize().height));
-	gmOverNode->runAction(EaseBackOut::create(MoveTo::create(0.3f*Director::getInstance()->getScheduler()->getTimeScale(), G_srodek)));
-	//listeners
-	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::gotoMenuBtnListenerBase, this));
-	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleGateHud::repeatBtnListenerBase, this));
+	this->addGameOverButtons(win,gmOverNode);
 	//oapcity
 	scoreNode->runAction(FadeOut::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
@@ -134,4 +111,5 @@ void SingleGateHud::lateinit(World *world)
 }
 void SingleGateHud::additionalMulti(int heightY)
 {
+    scoreNode->setPositionY(scoreNode->getPositionY()+heightY);
 }

@@ -50,6 +50,8 @@ SingleEliminationWorld* SingleEliminationWorld::create(int numberOfPlayers, int 
 void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (hud == NULL) hud = ((SingleElimHud*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
+	bool shouldplaySound = false;
+	if (player && box == player) shouldplaySound = true;
 	if (box == orderedOpponents.at(remainingGates))
 	{
 		//deactivate
@@ -59,17 +61,21 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		if (player && remainingGates == 0 && orderedOpponents.at(remainingGates) == player)
 		{
 			this->gameIsOver(true);
+			return;
 		}
 		else if (player && orderedOpponents.at(remainingGates + 1) == player)
 		{
 			this->gameIsOver(false);
+			return;
 		}
 		else if (remainingGates == 0)
 		{
+			shouldplaySound = true;
 			this->gameIsOver(true);
 		}
-		SoundManager::getInstance()->playEffect(R_MP3_punch);
+		if (!player) shouldplaySound = true;
 	}
+	if (shouldplaySound) SoundManager::getInstance()->playEffect(R_MP3_punch);
 }
 void SingleEliminationWorld::restartLevel()
 {
@@ -89,5 +95,5 @@ void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 void SingleEliminationWorld::modifyGate(Chcekpoint *inp)
 {
 	inp->setSprawdzajPierwszych(false);
+	if (player) inp->setSprawdzajPlayera(player);
 }
-

@@ -71,7 +71,7 @@ void G_initLanguage()
 	G_maxVelConstant = G_wF(250);
 	G_maxVelAddition = G_wF(600);
 	G_powerUpOdleglos = G_wF(5000);
-	G_powerUpOdlegloscVar = G_wF(50);
+	G_powerUpOdlegloscVar = G_wF(500);
 	G_powerUpsNumbers = 2;
 	//
 
@@ -180,7 +180,7 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 		std::string oppStr = std::to_string(opponentsnumber) +" "+ G_str("Opponents");
 		//GATES
         std::string gatesStr = std::to_string(gatesNumb) + " ";
-        if(gatesNumb%10>4)  gatesStr+= G_str("Gatesow");
+        if(gatesNumb >4)  gatesStr+= G_str("Gatesow");
         else gatesStr+= G_str("Gates");
 		//assign texts
 		DialogReader::getInstance()->getMainWidgetFromJson(cocosfile, parent);

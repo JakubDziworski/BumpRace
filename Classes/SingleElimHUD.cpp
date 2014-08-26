@@ -31,44 +31,20 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	{
 		gmOverText->setString(G_str("YOUWON").c_str());
 	}
-	else
+    else
 	{
 		gmOverText->setString(G_str("Eliminated").c_str());
 	}
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
-	gameoverparam->setMargin(Margin(0, 0, 0, margin));
+	gameoverparam->setMargin(cocos2d::ui::Margin(0,G_wF(25),0,margin));
 	gmOverText->setLayoutParameter(gameoverparam);
 	gmOverText->setFontSize(G_wF(35));
 	gmOverNode->addWidgetCustomParam(gmOverText);
-	myLayout *btnlayout = myLayout::create();
-	btnlayout->setType(1);
-	btnlayout->setMargin(0, G_hF(25), 0, 0);
-	Button *menuBtn = Button::create(R_gotoMenuBtn, "", "", TextureResType::PLIST);
-	Button *retryBtn = Button::create(R_reapeatBtn, "", "", TextureResType::PLIST);
-	menuBtn->setTitleFontName(R_defaultFont);
-	retryBtn->setTitleFontName(R_defaultFont);
-	btnlayout->addWidget(menuBtn);
-	btnlayout->addWidget(retryBtn);
-	if (world->getCarrerLevel() != 0 && win)
-	{
-		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
-		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::displayNextLevel, this));
-		btnlayout->addWidget(nextLevelBtn);
-	}
-	gmOverNode->setMargin(25, 25);
-	gmOverNode->addWidget(btnlayout);
-	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
-	gmOverNode->setPosition(G_srodek);
-	//listeners
-	menuBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::gotoMenuBtnListenerBase, this));
-	retryBtn->addTouchEventListener(CC_CALLBACK_2(SingleElimHud::repeatBtnListenerBase, this));
+    this->addGameOverButtons(win,gmOverNode);
 	//oapcity
 	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
-	gmOverNode->setOpacity(0);
-	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 	this->addChild(gmOverNode);
 	//obsluga zdarzenia
 }

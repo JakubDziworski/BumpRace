@@ -13,7 +13,7 @@ private:
 public:
 	int getMinliczbabramek() const { return minliczbabramek; }
 	int getScore() { return score; }
-	void setMinGates(int number){ minliczbabramek = number; }
+	void setMinGates(int number);
 	static cocos2d::Scene *createScene(int oppNum,int aiLevel);
 	virtual bool init(int oppNum, int aiLevel);
 	static EndlessWorld *create(int oppNum, int aiLevel);
@@ -23,7 +23,7 @@ public:
 	virtual void customWorldUpdate();
 	virtual void modifyGate(Chcekpoint *chkpt);
     virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world);
-
+	virtual void rozmiescCheckpointy();
 };
 #endif
 

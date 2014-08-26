@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "MyMenu.h"
 #include "Paths.h"
+#include "myLayout.h"
 #include "VisibleRect.h"
 USING_NS_CC;
 using namespace ui;
@@ -229,4 +230,38 @@ void Hud::keyBackClickedHUD()
 	{
 		this->pauseTouchCallback(this, cocos2d::ui::Button::TouchEventType::ENDED);
 	}
+}
+void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
+{
+    LinearLayoutParameter *param = LinearLayoutParameter::create();
+    param->setGravity(LinearGravity::CENTER_VERTICAL);
+    param->setMargin(cocos2d::ui::Margin(G_wF(10),0,G_wF(10),0));
+    myLayout *btnlayout = myLayout::create();
+	btnlayout->setType(1);
+	btnlayout->setMargin(G_wF(50), G_hF(25), G_wF(50), G_wF(25));
+	Button *menuBtn = Button::create(R_gotoMenuBtn, "", "", TextureResType::PLIST);
+	Button *retryBtn = Button::create(R_reapeatBtn, "", "", TextureResType::PLIST);
+	menuBtn->setTitleFontName(R_defaultFont);
+    menuBtn->setLayoutParameter(param);
+	retryBtn->setTitleFontName(R_defaultFont);
+    retryBtn->setLayoutParameter(param);
+	btnlayout->addWidgetCustomParam(menuBtn);
+	btnlayout->addWidgetCustomParam(retryBtn);
+	if (G_getWorld()->getCarrerLevel() != 0 && win)
+	{
+		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
+		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(Hud::displayNextLevel, this));
+        nextLevelBtn->setLayoutParameter(param);
+		btnlayout->addWidgetCustomParam(nextLevelBtn);
+	}
+	menuBtn->addTouchEventListener(CC_CALLBACK_2(Hud::gotoMenuBtnListenerBase, this));
+	retryBtn->addTouchEventListener(CC_CALLBACK_2(Hud::repeatBtnListenerBase, this));
+    //additional
+    gmOverNode->addWidget(btnlayout);
+    gmOverNode->setMargin(25, 25);
+	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
+	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
+	gmOverNode->setPosition(G_srodek);
+	gmOverNode->setOpacity(0);
+	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 }

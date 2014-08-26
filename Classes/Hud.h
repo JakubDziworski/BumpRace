@@ -6,6 +6,7 @@
 #include "Boxx.h"
 #include "World.h"
 #include "PowerUp.h"
+class myLayout;
 class Hud : public cocos2d::Layer
 {
 protected:
@@ -27,6 +28,7 @@ protected:
 	virtual void repeatBtnListenerExtended(){}
 	virtual void displayGameIsOverAdditional(bool win){}
 	virtual void additionalMulti(int heightY){}
+    void addGameOverButtons(bool win,myLayout *parent);
 public:
 	void keyBackClickedHUD();
 	virtual void powerUpCollected(PowerUp::PowerUpType type, Boxx* box);

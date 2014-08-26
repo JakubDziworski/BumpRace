@@ -46,7 +46,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
-	gameoverparam->setMargin(Margin(0, 0, 0, margin));
+	gameoverparam->setMargin(Margin(0, G_wF(25), 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	//SCORE INFO
@@ -58,33 +58,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, G_wF(25));
 		gmOverNode->addWidget(bestScore);
 	}
-	//BUTTONS
-	myLayout *btnlayout = myLayout::create();
-	btnlayout->setType(1);
-	btnlayout->setMargin(0, G_hF(25), 0, 0);
-	Button *menuBtn = Button::create(R_gotoMenuBtn, "", "", TextureResType::PLIST);
-	Button *retryBtn = Button::create(R_reapeatBtn, "", "", TextureResType::PLIST);
-	menuBtn->setTitleFontName(R_defaultFont);
-	retryBtn->setTitleFontName(R_defaultFont);
-	btnlayout->addWidget(menuBtn);
-	btnlayout->addWidget(retryBtn);
-	if (carrer && win)
-	{
-		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
-		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::displayNextLevel, this));
-		btnlayout->addWidget(nextLevelBtn);
-	}
-	gmOverNode->setMargin(25, 25);
-	gmOverNode->addWidget(btnlayout);
-	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
-	gmOverNode->setPosition(G_srodek);
-	//listeners
-	menuBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::gotoMenuBtnListenerBase, this));
-	retryBtn->addTouchEventListener(CC_CALLBACK_2(EndlessHud::repeatBtnListenerBase, this));
-	//oapcity
-	gmOverNode->setOpacity(0);
-	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
+    this->addGameOverButtons(win,gmOverNode);
 	this->addChild(gmOverNode);
 	//obsluga zdarzenia
 }

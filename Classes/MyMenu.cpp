@@ -770,8 +770,10 @@ void MyMenu::retain()
 }
 void MyMenu::playtBestScoreNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
 	auto scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue);
-	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
+	EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
+	world->setMinGates(0);
 	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
 	G_dir()->replaceScene(scene);
 }

@@ -14,10 +14,12 @@ private:
 	cocos2d::Director *director;
     cocos2d::Vector<Boxx*> *orderedBoxes;
 	World *world;
+	Boxx* plyr;
 	bool isLast=false;
 	void checkIfCloseToFirst(Boxx* box);
 	void checkIfCloseToLast(Boxx *box);
 public:
+	void setSprawdzajPlayera(Boxx* plyater){ plyr = plyater; }
 	void setSprawdzajPierwszych(bool inp);
 	void enableSlowmo();
 	void setIsLast(bool val) { this->setColor(cocos2d::Color3B(237, 28, 36)); isLast = val; }

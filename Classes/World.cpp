@@ -22,7 +22,7 @@ USING_NS_CC_EXT;
 void World::lateInit()
 {
 	hud->lateinit(this);
-	SoundManager::getInstance()->playBgMusicGameplay();
+	rozmiescCheckpointy();
 	schedule(schedule_selector(World::tick));
 	this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.2f), CallFunc::create([this](){startBoxPointer(); })));
 	//keyBack listener
@@ -32,6 +32,7 @@ void World::lateInit()
 	//collison handling
 	cpSpaceAddCollisionHandler(gravitySpace, COLLISONTYPEBOX, COLLISONTYPEBOX, NULL, NULL, World::boxesCollided, NULL, NULL);
 	cpSpaceAddCollisionHandler(gravitySpace, COLLISONTYPEBOX, COLLISIONTYPEFLOOR, NULL, NULL, World::boxFeltDown, NULL, NULL);
+	SoundManager::getInstance()->playBgMusicGameplay();
 }
 bool World::myInit(int numberOfPlayers,int gates)
 {
@@ -70,7 +71,6 @@ bool World::myInit(int numberOfPlayers,int gates)
 	//****************//
 	createBackground();
 	createFloor();
-	rozmiescCheckpointy();
 	return true;
 }
 bool World::myInitWithAI(int numberOfPlayers, int gates, int aiSmartness)
@@ -292,7 +292,8 @@ void World::gameIsOver(bool win)
 	auto delay = DelayTime::create(0.3f);
 	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; SoundManager::getInstance()->disableSlowMo(); Director::getInstance()->getScheduler()->setTimeScale(1); SoundManager::getInstance()->stopSlideEffect(); });
 	auto moveToEnd = MoveTo::create(offset1 / velocitty, Vec2(moveLayer->getPositionX() - goRight, moveLayer->getPositionY() - guUp));
-	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, NULL));
+	auto stopSimulation = CallFunc::create([this]{this->unscheduleAllSelectors(); });
+	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, stopSimulation, NULL));
 	//sound
 	SoundManager::getInstance()->gameIsOver(win);
 }
