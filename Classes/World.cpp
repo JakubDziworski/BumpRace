@@ -95,14 +95,21 @@ void World::createFloor()
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - VR::right().x) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
-	SpriteBatchNode *node = SpriteBatchNode::create(R_flat.c_str());
-	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
+	SpriteBatchNode *node = SpriteBatchNode::create(R_flatTop.c_str());
+	Texture2D::TexParams tp = { GL_REPEAT, GL_REPEAT, GL_REPEAT, GL_REPEAT };
 	node->getTexture()->setTexParameters(tp);
-	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
+	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), node->getTexture()->getContentSize().height));
 	flatsprite->setCPBody(floorBody);
 	node->addChild(flatsprite);
 	flatsprite->setAnchorPoint(Vec2(0, 1));
+	//FLATSPRITE BOTTOM
+	auto flatSPriteBottom = SpriteBatchNode::create(R_flatBottom.c_str());
+	flatSPriteBottom->getTexture()->setTexParameters(tp);
+	auto bottomSpr = Sprite::createWithTexture(flatSPriteBottom->getTexture(), Rect(0, 0, abs(verts[3].x), 2500));
+	bottomSpr->setAnchorPoint(Vec2(0, 1));
+	bottomSpr->setPosition(flatsprite->getBoundingBox().getMinX(), flatsprite->getBoundingBox().getMinY());
 	rotationLayer->addChild(node);
+	rotationLayer->addChild(bottomSpr);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
 	floor->collision_type = COLLISIONTYPEFLOOR;
@@ -721,35 +728,22 @@ void World::generateClouds()
 			break;
 		}
 	}
-	if (cloudsNode->getChildren().size() > 0 && cloudsNode->convertToWorldSpace(cloudsNode->getChildren().back()->getPosition()).x > VR::right().x - wylosowane) return;
+	if (lastChmurka && cloudsNode->convertToWorldSpace(lastChmurka->getPosition()).x > VR::right().x + wylosowane) return;
 	const int wielkosc = rand() % 5 + 1;
-	bool intersect = false;
 	auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
-	float randPosX = bgOffset;
 	float randPosY = VR::top().y*(float(rand() % 50 + 30) / 100.0f);
-	do
+	cloudsNode->addChild(chmurka, wielkosc, Vec2(1 + wielkosc*0.25f, 1), Vec2(bgOffset+chmurka->getContentSize().width/2.0f, randPosY));
+	//chmurka modifaction
+	auto delay = DelayTime::create((float(rand()%100))/150.0f);
+	chmurka->setScale(0.01f);
+	chmurka->runAction(Sequence::createWithTwoActions(delay, CallFunc::create([chmurka]()
 	{
-		for (auto child : cloudsNode->getChildren())
-		{
-			intersect = false;
-			randPosY = VR::top().y*(float(rand() % 50 + 30) / 100.0f);
-			if (Rect(randPosX, randPosY, chmurka->getContentSize().width, chmurka->getContentSize().height).intersectsRect(
-				Rect(child->getPositionX(), child->getPositionY(), child->getContentSize().width, child->getContentSize().height)))
-			{
-				intersect = true;
-			}
-		}
-	} while (intersect == true);
-	cloudsNode->addChild(chmurka, wielkosc, Vec2(1 + wielkosc*0.25f, 1), Vec2(randPosX, randPosY));
+		chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));
+	})));
+	if (rand() % 2) chmurka->setFlippedX(true);
 	wylosowane = 45 + rand() % 80;
 	bgOffset += wylosowane;
-	//chmurka modifaction
-	auto delay = DelayTime::create(0.1f);
-	auto scaleup = ScaleTo::create(0.3f, 0.9f, 1.1f);
-	auto scaleDown = ScaleTo::create(1.1f,1);
-	chmurka->setScale(0.01f);
-	chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(scaleup, scaleDown)));
-	if (rand() % 2) chmurka->setFlippedX(true);
+	lastChmurka = chmurka;
 }
 void World::generateDrzewka()
 {
@@ -765,8 +759,9 @@ void World::generateDrzewka()
 		else
 		{
 			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15,-spr->getBoundingBox().getMaxY());//no animation
-			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.3f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
+			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.8f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
 		}
+		if (rand() % 2) spr->setFlippedX(true);
 		dlugoscDrzewekDuzych = spr->getBoundingBox().getMaxX();
 	}
 	if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x < VR::right().x + 25)
@@ -781,8 +776,9 @@ void World::generateDrzewka()
 		else
 		{
 			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, -spr->getBoundingBox().getMaxY());//no animation
-			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.3f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
+			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f +0.8f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
 		}
+		if (rand() % 2) spr->setFlippedX(true);
 		dlugoscDrzewekMalych = spr->getBoundingBox().getMaxX();
 
 	}

@@ -29,6 +29,8 @@ const std::string R_mainMenuBg = "menu_bg.png";
 const std::string R_positiveActionFormat = "positiveAction_%.5d.png";
 const std::string R_cloudsFormat = "cloud%d.png";
 const std::string R_drzewka = "drzewka.png";
+const std::string R_flatTop = "flatTtop.png";
+const std::string R_flatBottom = "flatBottom.png";
 //MUSIC 
 const std::string R_bgmusicMenu = "music/main.mp3";
 const std::string R_bgmusicGameplay = "music/gameplayMusic.mp3";
