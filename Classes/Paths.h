@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 //IMAGES
 const std::string R_SPRITE_checkpoint = "checkpoint.png";
-const std::string R_defaultFont = "fonts/Aleo-Regular.otf";
+const std::string R_defaultFont = "fonts/Aleo-BoldItalic.ttf";
 const std::string R_Box[6] = { "Box_blue.png", "Box_green.png", "Box_purple.png", "Box_yellow.png", "Box_red.png", "BOX.png" };
 const std::string R_tlo = "tlo.png";
 const std::string R_btnBack ="btnBackOf.png";
@@ -27,6 +27,8 @@ const std::string R_jetpack = "jetpack2.png";
 const std::string R_ghostPrefix = "ghostAnim";
 const std::string R_mainMenuBg = "menu_bg.png";
 const std::string R_positiveActionFormat = "positiveAction_%.5d.png";
+const std::string R_cloudsFormat = "cloud%d.png";
+const std::string R_drzewka = "drzewka.png";
 //MUSIC 
 const std::string R_bgmusicMenu = "music/main.mp3";
 const std::string R_bgmusicGameplay = "music/gameplayMusic.mp3";

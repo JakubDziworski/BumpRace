@@ -52,6 +52,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	this->addChild(scaleeLayer,1);
 	//****************//
 	hud = NULL;
+	lastChmurka = NULL;
 	gameOver = false;
 	multiplayerEnabled = false;
 	boxesNumber = numberOfPlayers;
@@ -71,6 +72,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	//****************//
 	createBackground();
 	createFloor();
+//	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) this->setScale(0.5f);
 	return true;
 }
 bool World::myInitWithAI(int numberOfPlayers, int gates, int aiSmartness)
@@ -93,7 +95,7 @@ void World::createFloor()
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - VR::right().x) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
-	SpriteBatchNode *node = SpriteBatchNode::createWithTexture(SpriteFrameCache::getInstance()->getSpriteFrameByName(R_flat)->getTexture());
+	SpriteBatchNode *node = SpriteBatchNode::create(R_flat.c_str());
 	Texture2D::TexParams tp = { GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_LINEAR };
 	node->getTexture()->setTexParameters(tp);
 	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
@@ -106,6 +108,7 @@ void World::createFloor()
 	floor->collision_type = COLLISIONTYPEFLOOR;
 	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 	cpSpaceAddStaticShape(gravitySpace, floor);
+	//drzewko
 }
 void World::rozmiescCheckpointy()
 {
@@ -134,10 +137,10 @@ void World::createBackground()
 {
 
 	bgImg = Sprite::createWithSpriteFrameName(R_tlo);
-	bgImg->setScale(G_srodek.x * 4 / bgImg->getContentSize().width, G_srodek.y * 2 / bgImg->getContentSize().height);
-	bgImg->setPosition(G_srodek.x, G_srodek.y);
-	bgImg->setAnchorPoint(Vec2(0, .5f));
-	this->addChild(bgImg, -1);
+	bgImg->setScale(VR::right().x * 2.0f / bgImg->getContentSize().width, VR::top().y / bgImg->getContentSize().height);
+	bgImg->setPosition(VR::leftBottom());
+	bgImg->setAnchorPoint(Vec2(0, 0));
+	this->addChild(bgImg, -2);
 	//DPIscaleFactor = clampf((512.0f /156.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width/ (float)Device::getDPI()),0.5f,0.9f);
 	DPIscaleFactor = (512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI());
 	scaleeLayer->setScale(DPIscaleFactor);
@@ -163,7 +166,17 @@ void World::tick(float delta)
 	changeGravity();
 	checkPosition(delta);
 	if(cameraFollowFunction != nullptr) cameraFollowFunction();
-	if(cameraFollowFunction != nullptr) bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
+	if (cameraFollowFunction != nullptr)
+	{
+		bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
+		if(cloudsNode) cloudsNode->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
+	}
+	if (started)
+	{
+			generateClouds();
+			generateDrzewka();
+			timee = 0;
+	}
 	customWorldUpdate();
 }
 void World::changeGravity()
@@ -247,7 +260,8 @@ bool World::nodeOutOfWindow(Node *node)
 	const Point pointLowerRight = parent->convertToWorldSpace(Point(node->getBoundingBox().getMaxX(), node->getBoundingBox().getMinY()));
 	const Point pointUpperLeft = parent->convertToWorldSpace(Point(node->getBoundingBox().getMinX(), node->getBoundingBox().getMaxY()));
 	const Rect screenRect = VR::getVisibleRect();
-	if (screenRect.containsPoint(pointUpperRight) || screenRect.containsPoint(pointLowerLeft) || screenRect.containsPoint(pointLowerRight) || screenRect.containsPoint(pointUpperLeft))
+
+	if (pointUpperRight.x > screenRect.getMinX() || pointLowerRight.x > screenRect.getMinX())
 	return false;
 	return true;
 }
@@ -640,7 +654,7 @@ void World::startBoxPointer()
 		}
 		else
 		{
-			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0,2.5f)), MoveBy::create(0.3f, Vec2(0, 2.5f))))); });
+			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0,2.5f)), MoveBy::create(0.3f, Vec2(0, -2.5f))))); });
 		}
 		auto show = ScaleTo::create(0.4f, 1);
 		auto wait = DelayTime::create(i);
@@ -659,6 +673,8 @@ void World::startBoxPointer()
 			startBtn->runAction(EaseBackIn::create(ScaleTo::create(0.2f, 0)));
 			label->runAction(Sequence::createWithTwoActions(FadeOut::create(1), remv));
 		}
+		generateDrzewka();
+		generateClouds();
 	};
 	rotationLayer->pause();
 	this->pause();
@@ -685,4 +701,89 @@ void World::boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused)
 	const cpVect impulse = cpArbiterTotalImpulse(arb);
 	if (abs(impulse.x) + abs(impulse.y) > 100.0f)
 		SoundManager::getInstance()->playEffect(R_boxFelt);
+}
+void World::generateClouds()
+{
+	if (cloudsNode == nullptr)
+	{
+		cloudsNode = ParallaxNode::create();
+		cloudsNode->setContentSize(Size(VR::right().x, VR::top().y));
+		cloudsNode->setPosition(Vec2(0, 0));
+		cloudsNode->setAnchorPoint(Vec2(0, 0));
+		this->addChild(cloudsNode);
+	}
+	for (auto chmrToRemove : cloudsNode->getChildren())
+	{
+		if (this->nodeOutOfWindow(chmrToRemove))
+		{
+			chmrToRemove->stopAllActions();
+			chmrToRemove->removeFromParent();
+			break;
+		}
+	}
+	if (cloudsNode->getChildren().size() > 0 && cloudsNode->convertToWorldSpace(cloudsNode->getChildren().back()->getPosition()).x > VR::right().x - wylosowane) return;
+	const int wielkosc = rand() % 5 + 1;
+	bool intersect = false;
+	auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
+	float randPosX = bgOffset;
+	float randPosY = VR::top().y*(float(rand() % 50 + 30) / 100.0f);
+	do
+	{
+		for (auto child : cloudsNode->getChildren())
+		{
+			intersect = false;
+			randPosY = VR::top().y*(float(rand() % 50 + 30) / 100.0f);
+			if (Rect(randPosX, randPosY, chmurka->getContentSize().width, chmurka->getContentSize().height).intersectsRect(
+				Rect(child->getPositionX(), child->getPositionY(), child->getContentSize().width, child->getContentSize().height)))
+			{
+				intersect = true;
+			}
+		}
+	} while (intersect == true);
+	cloudsNode->addChild(chmurka, wielkosc, Vec2(1 + wielkosc*0.25f, 1), Vec2(randPosX, randPosY));
+	wylosowane = 45 + rand() % 80;
+	bgOffset += wylosowane;
+	//chmurka modifaction
+	auto delay = DelayTime::create(0.1f);
+	auto scaleup = ScaleTo::create(0.3f, 0.9f, 1.1f);
+	auto scaleDown = ScaleTo::create(1.1f,1);
+	chmurka->setScale(0.01f);
+	chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(scaleup, scaleDown)));
+	if (rand() % 2) chmurka->setFlippedX(true);
+}
+void World::generateDrzewka()
+{
+	if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekDuzych, 0)).x < VR::right().x + 25)
+	{
+		const int j = -2;
+		auto spr = Sprite::createWithSpriteFrameName(R_drzewka.c_str());
+		rotationLayer->addChild(spr, j);
+		spr->setAnchorPoint(Vec2(0, 0));
+		spr->setScale((float(rand() % 550 + 80)) / 100.0f);
+		if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekDuzych, 0)).x > VR::right().x+15)
+			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15, 0);//no animation
+		else
+		{
+			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15,-spr->getBoundingBox().getMaxY());//no animation
+			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.3f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
+		}
+		dlugoscDrzewekDuzych = spr->getBoundingBox().getMaxX();
+	}
+	if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x < VR::right().x + 25)
+	{
+		const int j = -1;
+		auto spr = Sprite::createWithSpriteFrameName(R_drzewka.c_str());
+		rotationLayer->addChild(spr, j);
+		spr->setAnchorPoint(Vec2(0, 0));
+		spr->setScale((float(rand() % 120 + 80)) / 100.0f);
+		if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x > VR::right().x + 15)
+			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, 0);//no animation
+		else
+		{
+			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, -spr->getBoundingBox().getMaxY());//no animation
+			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.3f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
+		}
+		dlugoscDrzewekMalych = spr->getBoundingBox().getMaxX();
+
+	}
 }

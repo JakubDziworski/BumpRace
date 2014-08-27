@@ -30,6 +30,12 @@ private:
 	std::function<void()> tapToContinueTapped;
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 protected:
+	float dlugoscDrzewekMalych=0;
+	float dlugoscDrzewekDuzych=0;
+	float bgOffset = 0;
+	float wylosowane = 0;
+	cocos2d::Sprite *lastChmurka;
+	cocos2d::ParallaxNode *cloudsNode = nullptr;
 	Hud *hud;
 	float odstep = 0.0f; //odstep miedzy dzwiekami zdrzenia;
 	const float minOdstep = 0.1f;
@@ -119,5 +125,8 @@ public:
 	//PHYSICS ACTIONS
 	static void boxesCollided(cpArbiter *arb, cpSpace *space, void *unused);
 	static void boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused);
+	//generation;
+	void generateClouds();
+	void generateDrzewka();
 };
 #endif // __GAMETEST_SCENE_H__

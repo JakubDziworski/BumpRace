@@ -21,6 +21,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLView::create("My Game");
 		director->setOpenGLView(glview);
     }
+	srand(time(NULL));
     // turn on display FPS
     director->setDisplayStats(true);
 	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) glview->setFrameSize(1280, 720);
