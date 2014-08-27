@@ -47,13 +47,11 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
 		{
 			Text *nod = (Text*)node;
 			nod->setString(G_str(nod->getString()));
-			nod->setFontSize(G_wF(nod->getFontSize()));
 		}
 		//IF IS A BUTTON
 		if (dynamic_cast<Button*>(node))
 		{
 			Button *nod = (Button*)node;
-			nod->setTitleFontSize(G_wF(nod->getTitleFontSize()));
 			nod->setTitleText(G_str(nod->getTitleText()));
 			const int size = nod->getName().length();
 			//IF IS A CLOSE BUTTON

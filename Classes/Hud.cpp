@@ -1,4 +1,3 @@
-
 #include "Hud.h"
 #include "Macros.h"
 #include "SingleGateWorld.h"
@@ -47,16 +46,17 @@ bool Hud::init()
 	this->addChild(pauseNode);
 	this->addChild(pauseBtn, 1, B_PAUSE);
 	//INFO
-    
-	infoNode = Label::createWithBMFont(R_bmfont,"",17);
+	infoNode = Label::create("",R_defaultFont,17);
 	infoNode->setPosition(G_srodek);
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);
+	G_enableShadow(infoNode);
 	this->addChild(infoNode);
 	return true;
 }
 void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
+	if (touchType != Button::TouchEventType::ENDED) return;
 	if (G_getWorld()->isPaused()) return;
 	pauseNode->setVisible(true);
 	float i = 0;
@@ -72,6 +72,7 @@ void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEv
 }
 void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
+	if (touchType != Button::TouchEventType::ENDED) return;
 	float i = 0;
 	for (auto node : pauseNode->getChildren())
 	{
@@ -88,6 +89,7 @@ void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 }
 void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
+	if (touchType != Button::TouchEventType::ENDED) return;
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	repeatBtnListenerExtended();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->restartLevel();
@@ -236,10 +238,10 @@ void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
 {
     LinearLayoutParameter *param = LinearLayoutParameter::create();
     param->setGravity(LinearGravity::CENTER_VERTICAL);
-    param->setMargin(cocos2d::ui::Margin(G_wF(10),0,G_wF(10),0));
+    param->setMargin(cocos2d::ui::Margin(5,0,5,0));
     myLayout *btnlayout = myLayout::create();
 	btnlayout->setType(1);
-	btnlayout->setMargin(G_wF(50), G_hF(25), G_wF(50), G_wF(25));
+	btnlayout->setMargin(25, 12, 25,12);
 	Button *menuBtn = Button::create(R_gotoMenuBtn, "", "", TextureResType::PLIST);
 	Button *retryBtn = Button::create(R_reapeatBtn, "", "", TextureResType::PLIST);
 	menuBtn->setTitleFontName(R_defaultFont);

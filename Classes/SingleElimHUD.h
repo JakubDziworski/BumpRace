@@ -8,7 +8,7 @@ class SingleElimHud : public Hud
 {
 private:
 	World* world;
-	cocos2d::Map<Boxx*,cocos2d::ui::TextBMFont*> scoreTable;
+	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::ui::Layout *scoreNode;
 	int eliminated;
 	myLayout *gmOverNode;

@@ -126,12 +126,12 @@ bool MyMenu::init()
 	//*MODIFICATION*//
 	auto backbtn = this->getChildByTag(B_BACK);
 	backbtn->setAnchorPoint(Vec2(0, 1));
-	backbtn->setPosition(VR::leftTop().x + G_wF(25),VR::leftTop().y - G_wF(25));
+	backbtn->setPosition(VR::leftTop().x + 12,VR::leftTop().y - 12);
 	backbtn->setOpacity(0);
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
-	//if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
+	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
 	//keyBack listener
 	auto keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
@@ -146,17 +146,18 @@ cocos2d::Scene* MyMenu::createScene()
 	return scena;
 }
 //**CREATING**//
-void MyMenu::createSpinner(const std::string &defaultText, const std::string &labelText,int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::TextBMFont*)> additionalFunction)
+void MyMenu::createSpinner(const std::string &defaultText, const std::string &labelText,int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction)
 {
 	myLayout *verLayout = myLayout::create();
 	verLayout->setType(0);
 	myLayout *horLayout = myLayout::create();
 	horLayout->setType(1);
-	auto txt = TextBMFont::create(labelText, R_bmfont, 10);
-	auto titleText = TextBMFont::create(labelText, R_bmfont,10);
-	auto valueText = TextBMFont::create(defaultText, R_bmfont, 10);
+	Text *titleText = Text::create(labelText, R_defaultFont, 12);
+	Text *valueText = Text::create(defaultText, R_defaultFont, 12);
 	Button *minusBtn = Button::create(R_minusBtn,"","",TextureResType::PLIST);
 	Button *plusbtn = Button::create(R_plusBtn, "", "", TextureResType::PLIST);
+	minusBtn->setTitleFontName(R_defaultFont);
+	plusbtn->setTitleFontName(R_defaultFont);
 	minusBtn->addTouchEventListener([&changinVal, minVal, valueText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
 		if (changinVal-1 >= minVal)
@@ -178,7 +179,7 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 		}
 	});
 	LinearLayoutParameter *magrinparam = LinearLayoutParameter::create();
-	magrinparam->setMargin(Margin(G_wF(15), 0, G_wF(15), 0));
+	magrinparam->setMargin(Margin(7, 0, 7, 0));
 	magrinparam->setGravity(LinearGravity::CENTER_VERTICAL);
 	LinearLayoutParameter *param = LinearLayoutParameter::create();
 	param->setGravity(LinearGravity::CENTER_HORIZONTAL);
@@ -199,7 +200,7 @@ cocos2d::ui::TextField* MyMenu::createTextEdit(std::string &text, cocos2d::Color
 	bgLayout->setClippingType(Layout::ClippingType::SCISSOR);
 	bgLayout->setClippingEnabled(true);
 	bgLayout->setBackGroundImage(R_multiBtn[0],TextureResType::PLIST);
-	auto textField = TextField::create("",R_bmfont,G_wF(35));
+	auto textField = TextField::create("",R_defaultFont,17);
 	textField->setColor(textColor);
 	textField->setPlaceHolder(text);
 	textField->setMaxLengthEnabled(true);
@@ -237,7 +238,7 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 		Layout *layout = Layout::create();
 		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
 		ImageView *imageView = ImageView::create(filepaths.at(i), TextureResType::PLIST);
-		auto text = TextBMFont::create(names.at(i), R_bmfont, 12);
+		Text *text = Text::create(names.at(i), R_defaultFont, 12);
 		text->setLayoutParameter(par);
 		imageView->setLayoutParameter(par);
 		layout->addChild(text,1);
@@ -287,7 +288,7 @@ void MyMenu::createLayout(int layoutTag)
 }
 void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 {
-	auto label = TextBMFont::create(text, R_bmfont, 12);
+	auto label = Text::create(text, R_defaultFont,12);
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	label->setLayoutParameter(par);
@@ -296,12 +297,12 @@ void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
 {
 	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
+	btn->setTitleFontName(R_defaultFont);
+	btn->setTitleFontSize(12);
 	btn->setTouchEnabled(true);
 	if (btnText != "")
 	{
 		btn->setTitleText(G_str(btnText));
-		btn->setTitleFontName(R_defaultFont);
-		//btn->setTitleTextBMF(G_str(btnText),R_bmfont);
 	}
 	btn->addTouchEventListener(callback);
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
@@ -319,7 +320,7 @@ void MyMenu::createSlider(const char *defaultText, const float defaultval, const
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	slider->setLayoutParameter(par);
-	auto txt = Text::create(defaultText, R_defaultFont, G_wF(25));
+	auto txt = Text::create(defaultText, R_defaultFont, 12);
 	txt->setLayoutParameter(par);
 	slider->setPercent(defaultval/maxVal * 100);
 	slider->addEventListener(callback);
@@ -393,7 +394,8 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 		hide(B_BACK);
 		break;
 	case L_CHOOSENAMES:
-		show(L_FREERUN);
+		if (tryBestScore) show(L_PLAYSINGLE);
+		else show(L_FREERUN);
 		hide(L_CHOOSENAMES);
 		break;
 	default:
@@ -410,12 +412,14 @@ void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEv
 }
 void MyMenu::playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
 	show(B_BACK);
 	show(L_MULTIFREELOCALRUN);
 	hide(L_MAINMENU);
 }
 void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
 	show(L_OPTIONS);
 	show(B_BACK);
 	hide(L_MAINMENU);
@@ -424,11 +428,14 @@ void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	tryBestScore = false;
 	hide(L_PLAYSINGLE);
 	show(L_CARRER);
 }
 void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+	if (type != Widget::TouchEventType::ENDED) return;
+	tryBestScore = false;
 	show(L_FREERUN);
 	hide(L_PLAYSINGLE);
 }
@@ -437,6 +444,15 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	Scene *scene;
+	if (tryBestScore)
+	{
+		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, true);
+		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
+		world->setMinGates(currGatesNumb);
+		G_dir()->replaceScene(scene);
+		return;
+	}
 	if (currModeSelected == 0)
 	{
 		scene = SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue);
@@ -447,9 +463,12 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	}
 	else if (currModeSelected == 2)
 	{
-		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue);
+		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, false);
 		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
+		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
 		world->setMinGates(currGatesNumb);
+		G_dir()->replaceScene(scene);
+		return;
 	}
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(),G_colors[playerboxFileNameIndex]));
@@ -479,7 +498,7 @@ void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
 		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
 	}
 }
-void MyMenu::difficultySpinnerChanged(cocos2d::ui::TextBMFont* textTochange)
+void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
 	std::string str = "";
 	if (currDiffValue == 0) str = "Easy";
@@ -533,7 +552,7 @@ void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
 	hide(L_MULTIFREELOCALRUN);
 	
 }
-void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::TextBMFont* textTochange)
+void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
 	std::string str = "";
 	if (m_currDiffValue == 0) str = "Easy";
@@ -566,7 +585,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	DialogReader::getInstance()->flush();
 	G_dir()->replaceScene(scene);
 }
-void MyMenu::m_OpponentsChanged(cocos2d::ui::TextBMFont *textToChange)
+void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
 {
 	if (m_currOpponentsNumber == 0)
 	{ 
@@ -586,7 +605,8 @@ void MyMenu::continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::Tou
 	}
 	else
 	{
-		hide(L_CARRER);
+		if (tryBestScore) hide(L_PLAYSINGLE);
+		else hide(L_CARRER);
 	}
 	show(L_CHOOSENAMES);
 }
@@ -677,7 +697,7 @@ void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
 	layout->enumerateChildren("//autocorrectBtn", [this, layout](Node *node)
 	{
 		auto btn = (Button*)node;
-		btn->setTitleFontSize(G_wF(20));
+		btn->setTitleFontSize(10);
 		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
@@ -695,7 +715,8 @@ void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
 		auto labell = ((Text*)node);
 		labell->setString(G_str("AutoCorrectDialogText"));
 		labell->setTextAreaSize(border);
-		labell->setFontSize(G_wF(20));
+		G_enableShadow(labell);
+		labell->setFontSize(10);
 		return false;
 	});
 }
@@ -768,12 +789,8 @@ void MyMenu::retain()
 }
 void MyMenu::playtBestScoreNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	if (type != Widget::TouchEventType::ENDED) return;
-	auto scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue);
-	EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setMinGates(0);
-	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
-	G_dir()->replaceScene(scene);
+	tryBestScore = true;
+	continueToBoxChoose(pSender, type);
 }
 void MyMenu::goToLevelChooserMenu()
 {

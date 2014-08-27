@@ -16,7 +16,6 @@ private:
 	float timee;
 	float angle;
 	//**chipmunk stuff**//
-	Hud *hud;
 	//**myStuff**//
 	//**functions**//
 	void checkPosition(float dt);
@@ -31,6 +30,7 @@ private:
 	std::function<void()> tapToContinueTapped;
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 protected:
+	Hud *hud;
 	float odstep = 0.0f; //odstep miedzy dzwiekami zdrzenia;
 	const float minOdstep = 0.1f;
 	int carrerLevel = 0;

@@ -33,8 +33,8 @@ bool Chcekpoint::init(World *worldd, cocos2d::Vector<Boxx*> *boxess, std::string
 	{
 		return false;
 	}
-	this->setScaleX(G_wF(100)/this->getContentSize().width);
-	this->setScaleY(G_wF(2000) / this->getContentSize().height);
+	this->setScaleX(50.0f/this->getContentSize().width);
+	this->setScaleY(1000.0f / this->getContentSize().height);
 	this->setColor(Color3B(0,174, 239));
 	this->setOpacity(153);
 	this->setAnchorPoint(Vec2(0, 0));
@@ -216,8 +216,8 @@ void Chcekpoint::triggerFirstVisualEffects(Boxx *box)
 	//particleSystem->setEndSize(G_wF(15));
 	//particleSystem->setSpeed(G_wF(500));
 	//particleSystem->setSpeedVar(G_wF(500));
-	//particleSystem->setPosVar(Vec2(G_wF(35), G_hF(35)));
+	//particleSystem->setPosVar(Vec2(17, G_hF(35)));
 	//particleSystem->setPosition(Vec2(box->getBoundingBox().getMaxX(),box->getPositionY()));
-	////particleSystem->setPosVar(Vec2(G_wF(25), box->getContentSize().height));
+	////particleSystem->setPosVar(Vec2(12, box->getContentSize().height));
 	//this->getParent()->addChild(particleSystem);
 }

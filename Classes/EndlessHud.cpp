@@ -12,12 +12,6 @@ bool EndlessHud::init()
 	{
 		return false;
 	}
-    
-	scoreText = Label::createWithBMFont(R_bmfont,String::createWithFormat(G_str("score").c_str(), 0)->getCString(),17);
-	scoreText->setAnchorPoint(Vec2(0, 1));
-	const float margin = 0.05*G_srodek.x;
-	scoreText->setPosition(Vec2(VR::leftTop().x+margin,VR::leftTop().y- margin));
-	this->addChild(scoreText);
 	return true;
 }
 void EndlessHud::displayGameIsOverAdditional(bool win)
@@ -39,23 +33,23 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = TextBMFont::create("Game Over", R_bmfont, 20);
+	auto gmOverText = Text::create("Game Over", R_defaultFont, 20);
 	if (newRecord) gmOverText->setString(G_str("newRecord").c_str());
 	if (win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (!win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
-	gameoverparam->setMargin(Margin(0, G_wF(25), 0, margin));
+	gameoverparam->setMargin(Margin(0, 12, 0, margin));
 	gmOverText->setLayoutParameter(gameoverparam);
 	gmOverNode->addWidgetCustomParam(gmOverText);
 	//SCORE INFO
-	if(beating)
+	if(world->isEndless())
 	{
-		auto score = TextBMFont::create("SCORE:", R_bmfont,12);
+		Text *score = Text::create("SCORE:", R_defaultFont, 12);
 		score->setString(String::createWithFormat(G_str("score").c_str(), world->getScore())->getCString());
 		gmOverNode->addWidget(score);
-		auto bestScore = TextBMFont::create(String::createWithFormat("%s%s%d", G_str("bestScore").c_str(), " : ", bestSCore)->getCString(), R_bmfont,12);
+		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, 12);
 		gmOverNode->addWidget(bestScore);
 	}
     this->addGameOverButtons(win,gmOverNode);
@@ -65,7 +59,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 {
 	const int x = world->getScore();
-	if (world->getMinliczbabramek() != 0 && world->getMinliczbabramek() - x !=0)
+	if (!world->isEndless() && world->getMinliczbabramek() - x !=0)
 	{
         const int remainingGates = world->getMinliczbabramek() - x;
         if(remainingGates%10 > 4)
@@ -75,7 +69,7 @@ void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
         else if(remainingGates == 1)
             G_getHud()->displayInfo(G_str("lastGate"));;
 	}
-	else
+	else if (world->isEndless())
 	{
 		scoreText->setString(String::createWithFormat(G_str("score").c_str(), x)->getCString());
 	}
@@ -83,8 +77,13 @@ void EndlessHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 void EndlessHud::lateinit(World *world)
 {
 	this->world = (EndlessWorld*)world;
-	if (this->world->getMinliczbabramek() != 0)
+	if (this->world->isEndless())
 	{
-		scoreText->setString("");
+		scoreText = Label::create(String::createWithFormat(G_str("score").c_str(), 0)->getCString(), R_defaultFont, 17);
+		scoreText->setAnchorPoint(Vec2(0, 1));
+		const float margin = 0.05*G_srodek.x;
+		scoreText->setPosition(Vec2(VR::leftTop().x + margin, VR::leftTop().y - margin));
+		G_enableShadow(scoreText);
+		this->addChild(scoreText);
 	}
 }

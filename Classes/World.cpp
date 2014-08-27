@@ -85,10 +85,10 @@ void World::createFloor()
 	floorBody = cpBodyNew(INFINITY,INFINITY);
 	float lengtht = (gatesNumber + 1)*G_odlegloscmiedzyBramkami;
 	cpVect verts[] = {
-		cpv(0,-G_hF(1300)),
+		cpv(0,-650),
 		cpv(0, 0),
 		cpv(lengtht, 0),
-		cpv(lengtht, -G_hF(1300)),
+		cpv(lengtht, -650),
 	};
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - VR::right().x) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
@@ -122,7 +122,7 @@ void World::rozmiescCheckpointy()
 	do
 	{
 		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
-		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_wF(G_powerUpOdlegloscVar));
+		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_powerUpOdlegloscVar);
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));
 		i = odleglosc;
@@ -138,7 +138,8 @@ void World::createBackground()
 	bgImg->setPosition(G_srodek.x, G_srodek.y);
 	bgImg->setAnchorPoint(Vec2(0, .5f));
 	this->addChild(bgImg, -1);
-	DPIscaleFactor = clampf((512.0f /156.f) /(G_srodek.x*2.0f / (float)Device::getDPI()),0.4f,0.9f);
+	//DPIscaleFactor = clampf((512.0f /156.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width/ (float)Device::getDPI()),0.5f,0.9f);
+	DPIscaleFactor = (512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI());
 	scaleeLayer->setScale(DPIscaleFactor);
 }
 //----****UPDATE****----///
@@ -168,7 +169,7 @@ void World::tick(float delta)
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(G_wF(1300) * G_mySin, G_wF(-1000) * G_myCos);
+	gravitySpace->gravity = cpv(650.0f * G_mySin,-500.0f * G_myCos);
 }
 void World::checkPosition(float dt)
 {
@@ -288,7 +289,7 @@ void World::gameIsOver(bool win)
 	const float offset1 = 2*G_srodek.y / scaleeLayer->getScale();
 	const float guUp = offset1 * G_myCos;
 	const float goRight = offset1*G_mySin;
-	const float velocitty = G_wF(4500);
+	const float velocitty = 2250.0f;
 	auto delay = DelayTime::create(0.3f);
 	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; SoundManager::getInstance()->disableSlowMo(); Director::getInstance()->getScheduler()->setTimeScale(1); SoundManager::getInstance()->stopSlideEffect(); });
 	auto moveToEnd = MoveTo::create(offset1 / velocitty, Vec2(moveLayer->getPositionX() - goRight, moveLayer->getPositionY() - guUp));
@@ -596,7 +597,7 @@ void World::replaceSceneGenereal(Scene *scene,World *world)
 void World::calculateSredniaPredkoscDoDzwieku()
 {
 	float suma = 0;
-	const float defaultSpeed = G_wF(800);
+	const float defaultSpeed = 400.0f;
 	for (auto child : orderedOpponents)
 	{
 		suma+=child->getVelocityX();
@@ -613,7 +614,8 @@ void World::onExit()
 }
 void World::startBoxPointer()
 {
-	auto startBtn = Label::createWithBMFont(R_bmfont,G_str("tapToStart"),17);
+	auto startBtn = Label::create(G_str("tapToStart"), R_defaultFont, 17);
+	G_enableShadow(startBtn);
 	hud->addChild(startBtn, -1);
 	startBtn->setPosition(VR::center());
 	startBtn->setScale(0);
@@ -624,20 +626,21 @@ void World::startBoxPointer()
 	float i = 0;
 	for (auto box : opponentz)
 	{
-		auto label = Label::createWithBMFont(R_bmfont,box->getID(), 17);
+		auto label = Label::create(box->getID(), R_defaultFont, 27);
 		box->addChild(label);
 		label->setAnchorPoint(Vec2(0.5f, 0));
 		label->setNormalizedPosition(Vec2(0.5f, 1.3f));
 		label->setScale(0);
 		label->setColor(box->getBoxColor());
+		G_enableShadow(label);
 		CallFunc *blink = NULL;
 		if (dynamic_cast<Player*>(box))
 		{
-			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, G_wF(50))), MoveBy::create(0.3f, Vec2(0, G_wF(-50)))))); });
+			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, 25.0f)), MoveBy::create(0.3f, Vec2(0, -25.0f))))); });
 		}
 		else
 		{
-			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0, G_wF(5))), MoveBy::create(0.3f, Vec2(0, G_wF(-5)))))); });
+			blink = CallFunc::create([label](){label->runAction(RepeatForever::create(Sequence::createWithTwoActions(MoveBy::create(0.3f, Vec2(0,2.5f)), MoveBy::create(0.3f, Vec2(0, 2.5f))))); });
 		}
 		auto show = ScaleTo::create(0.4f, 1);
 		auto wait = DelayTime::create(i);
@@ -673,13 +676,13 @@ void World::boxesCollided(cpArbiter *arb, cpSpace *space, void *unused)
 {
 	if (!cpArbiterIsFirstContact(arb)) return;
 	const cpVect impulse = cpArbiterTotalImpulse(arb);
-	if (abs(impulse.x) + abs(impulse.y) > G_wF(110))
+	if (abs(impulse.x) + abs(impulse.y) > 55.0f)
 	SoundManager::getInstance()->playEffect(R_boxColided);
 }
 void World::boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused)
 {
 	if (!cpArbiterIsFirstContact(arb)) return;
 	const cpVect impulse = cpArbiterTotalImpulse(arb);
-	if (abs(impulse.x) + abs(impulse.y) > G_wF(200))
+	if (abs(impulse.x) + abs(impulse.y) > 100.0f)
 		SoundManager::getInstance()->playEffect(R_boxFelt);
 }

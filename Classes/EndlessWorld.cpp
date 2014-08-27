@@ -9,7 +9,7 @@
 #include "external/chipmunk/include/chipmunk/chipmunk_unsafe.h"
 USING_NS_CC_EXT;
 USING_NS_CC;
-bool EndlessWorld::init(int oppNum,int aiLevel)
+bool EndlessWorld::init(int oppNum, int aiLevel, bool bestScore)
 {
 	if (!World::myInitWithAI(oppNum, G_endlessGateNumber, aiLevel))
 	{
@@ -20,12 +20,13 @@ bool EndlessWorld::init(int oppNum,int aiLevel)
 	dodatek = koniec;
 	minliczbabramek = 0;
 	score = 0;
+	endless = bestScore;
 	return true;
 }
-cocos2d::Scene * EndlessWorld::createScene(int oppNum,int aiLevel)
+cocos2d::Scene * EndlessWorld::createScene(int oppNum, int aiLevel, bool bestScore)
 {
 	auto scene = Scene::create();
-	auto gameLayer = EndlessWorld::create(oppNum, aiLevel);
+	auto gameLayer = EndlessWorld::create(oppNum, aiLevel,bestScore);
 	scene->addChild(gameLayer, 1, LAYER_GAMEPLAY);
 	auto hudLayer = EndlessHud::create();
 	scene->addChild(hudLayer, 2, LAYER_HUD);
@@ -35,17 +36,17 @@ cocos2d::Scene * EndlessWorld::createScene(int oppNum,int aiLevel)
 void EndlessWorld::restartLevel()
 {
 	G_dir()->getScheduler()->setTimeScale(1);
-	auto scene = EndlessWorld::createScene(boxesNumber, aiSmart);
+	auto scene = EndlessWorld::createScene(boxesNumber, aiSmart,endless);
 	EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setMinGates(minliczbabramek);
 	if (carrerLevel != 0) world->setCarrierLevel(carrerLevel);
 	this->replaceSceneGenereal(scene, world);
+	world->setMinGates(minliczbabramek);
 }
 void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
-	if (box == player && pos == boxesNumber)
+	if (box == orderedOpponents.at(boxesNumber - 2) && player == orderedOpponents.back())
 	{
-		box->deactivate();
+		player->deactivate();
 		G_getWorld()->gameIsOver(false);
 		return;
 	}
@@ -70,7 +71,7 @@ void EndlessWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 }
 void EndlessWorld::customWorldUpdate()
 {
-	if (minliczbabramek == 0)
+	if (isEndless())
 	if (orderedOpponents.at(0)->getPositionX() + 2 * G_srodek.x > koniec)	//zblizamy sie do konca drogi trzeba dodac nowe rzeczy
 	{
 		koniec += dodatek;
@@ -97,7 +98,7 @@ void EndlessWorld::extendFlat()
 	//bg
 	Sprite *bgNext = Sprite::createWithSpriteFrameName(R_tlo);
 	bgNext->setAnchorPoint(Vec2(-1.0f * iterations, 0));
-	bgNext->setPositionX(bgNext->getPositionX() - 2*iterations);
+	bgNext->setPositionX(bgNext->getPositionX() - iterations*0.5f);
 	if(iterations%2 == 1)bgNext->setFlippedX(true);
 	bgImg->addChild(bgNext, 0, iterations);
 	for (int i = koniec - dodatek; i <= koniec; i += G_odlegloscmiedzyBramkami)
@@ -109,7 +110,7 @@ void EndlessWorld::extendFlat()
 	}
 	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 	//POWERUPS
-	for (int j = koniec - dodatek + G_powerUpOdleglos + rand() % int(G_wF(G_powerUpOdlegloscVar)); j <= koniec; j += G_powerUpOdleglos + rand() % int(G_wF(G_powerUpOdlegloscVar)))
+	for (int j = koniec - dodatek + G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar); j <= koniec; j += G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar))
 	{
 		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
@@ -122,11 +123,11 @@ void EndlessWorld::modifyGate(Chcekpoint *chkpt)
 	chkpt->setSprawdzajPierwszych(false);
 	if (player) chkpt->setSprawdzajPlayera(player);
 }
-EndlessWorld * EndlessWorld::create(int oppNum, int aiLevel)
+EndlessWorld * EndlessWorld::create(int oppNum, int aiLevel, bool bestScore)
 {
 	{
 		EndlessWorld *pRet = new EndlessWorld();
-		if (pRet && pRet->init(oppNum, aiLevel))
+		if (pRet && pRet->init(oppNum, aiLevel,bestScore))
 		{
 			pRet->autorelease();
 			return pRet;
@@ -141,7 +142,6 @@ EndlessWorld * EndlessWorld::create(int oppNum, int aiLevel)
 }
 void EndlessWorld::replaceSceneAdditional(cocos2d::Scene *scene,World *world)
 {
-	((EndlessWorld*)world)->setMinGates(((EndlessWorld*)world)->getMinliczbabramek());
 }
 void EndlessWorld::rozmiescCheckpointy()
 {
@@ -151,7 +151,7 @@ void EndlessWorld::setMinGates(int number)
 {
 	minliczbabramek = number;
 	int bramki = minliczbabramek;
-	if (bramki == 0) bramki = G_endlessGateNumber;
+	if (isEndless()) bramki = G_endlessGateNumber;
 	for (int i = 1; i <= bramki; i++)
 	{
 		auto chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
@@ -162,7 +162,7 @@ void EndlessWorld::setMinGates(int number)
 	}
 	//POWER UPY
 	
-	for (int odl = G_powerUpOdleglos + rand() % int(G_wF(G_powerUpOdlegloscVar)); odl <= koniec; odl += G_powerUpOdleglos + rand() % int(G_wF(G_powerUpOdlegloscVar)))
+	for (int odl = G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar); odl <= koniec; odl += G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar))
 	{
 		int wysokosc = 4.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);

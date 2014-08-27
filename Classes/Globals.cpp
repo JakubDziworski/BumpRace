@@ -187,12 +187,13 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 																   else if (levelType == 2) scena = SingleEliminationWorld::createScene(opponentsnumber, diffLevel);
 																   else
 																   {
-																	   scena = EndlessWorld::createScene(opponentsnumber,diffLevel);
+																	   scena = EndlessWorld::createScene(opponentsnumber,diffLevel,false);
 																	   EndlessWorld *world = (EndlessWorld*)scena->getChildByTag(LAYER_GAMEPLAY);
+																	   world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
 																	   world->setMinGates(gatesNumb);
 																   }
 																   World *world = (World*)scena->getChildByTag(LAYER_GAMEPLAY);
-																   world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+																   if(levelType != 3) world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
 																   world->setCarrierLevel(levelnum);
 																   DialogReader::getInstance()->flush();
 																   G_dir()->replaceScene(scena);
@@ -230,6 +231,17 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 		default:
 			break;
 	}
+}
+void G_enableShadow(cocos2d::Label *lbl)
+{
+	const float offset = lbl->getSystemFontSize();
+	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
+}
+
+extern void G_enableShadow(cocos2d::ui::Text *lbl)
+{
+	const float offset = lbl->getFontSize();
+	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
 }
 
 

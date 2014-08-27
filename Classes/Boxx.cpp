@@ -18,12 +18,12 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	this->boxColor = boxColorr;
 	//init variables//
 	this->fileName = filename;
-	maxVel = G_wF(1000);
+	maxVel = 500;
 	wind = 0;
 	points = 0;
 	deactivated = false;
 	//create cocos stuff//
-	debugL = Label::createWithBMFont(R_bmfont, "");
+	debugL = Label::create("",R_defaultFont,22);
 	debugL->setColor(this->boxColor);
 	//physics//
 	auto bounding = this->getContentSize();
@@ -53,8 +53,9 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	cpSpaceAddShape(space, shape);
 	//tweaks and adchild//
 	debugL->setNormalizedPosition(Vec2(0.5f,2));
+	G_enableShadow(debugL);
 	debugL->setHorizontalAlignment(TextHAlignment::CENTER);
-	//debugL->setVisible(false);
+	debugL->setVisible(false);
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
 	this->addChild(debugL);
@@ -92,13 +93,13 @@ void Boxx::updateBox()
 	updatePhysPos();
 	updateTransform();
 	updatePowerUp();
-	displayDebugInfo();
+	//displayDebugInfo();
 }
 void Boxx::jump()
 {
 	if (isJumping()) return;
 	this->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.2f,0.9f, 1.1f), ScaleTo::create(0.2f, 1, 1.0f)));
-	cpBodyApplyImpulse(myBody, cpv(0, G_wF(500)), cpv(0, 0));
+	cpBodyApplyImpulse(myBody, cpv(0, 250), cpv(0, 0));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_jump.c_str());
 }
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
@@ -144,7 +145,7 @@ void Boxx::setBodyPosition(const cocos2d::Vec2 pos)
 }
 bool Boxx::isOnFlat()
 {
-	if (this->getBoundingBox().getMinY() <  G_hF(5)) return true;
+	if (this->getBoundingBox().getMinY() <  2) return true;
 	return false;
 }
 void Boxx::updatePhysPos()
@@ -231,11 +232,12 @@ void Boxx::addPoint()
 	if (deactivated) return;
 	points++;
 	const float offset = this->getContentSize().height;
-	Label *plus1 = Label::createWithBMFont(R_bmfont,"+1",50);
+	Label *plus1 = Label::create("+1",R_defaultFont,50);
 	this->addChild(plus1,25);
 	plus1->setAnchorPoint(Vec2(0.5f,0.0f));
 	plus1->setNormalizedPosition(Vec2(0.5f,1.0f));
 	plus1->setOpacity(0);
+	G_enableShadow(plus1);
 	plus1->setColor(boxColor);
 	auto goUp = MoveBy::create(2,Vec2(0,offset));
 	auto fadeOut = FadeOut::create(0.4f);
@@ -313,7 +315,7 @@ bool Boxx::activatePowerUp()
 	{
 	case PowerUp::PowerUpType::SPEED:
 	{
-										cpBodyApplyImpulse(myBody, cpv(G_wF(650), 0), cpv(0, 0));
+										cpBodyApplyImpulse(myBody, cpv(325, 0), cpv(0, 0));
 										auto jetpackFireRED = G_getParticleFromFile(R_jetpackFireRED);
 										jetpackFireRED->setNormalizedPosition(Vec2(0, 0.5f));
 										auto jetpackSmokeRED = G_getParticleFromFile(R_jetpackFireYELLOW);
@@ -382,7 +384,7 @@ bool Boxx::activatePowerUp()
 											  auto explosion1 = G_getParticleFromFile(R_explosParticleRED, ParticleSystemQuad::PositionType::FREE);
 											  auto explosion2 = G_getParticleFromFile(R_explosParticleYELLOW, ParticleSystemQuad::PositionType::FREE);
 											  SoundManager::getInstance()->playEffect(R_explosion);
-											  cpBodyApplyImpulse(target->getBody(), cpv(G_wF(-700), G_wF(700)), cpv(0, 0));
+											  cpBodyApplyImpulse(target->getBody(), cpv(-350,350), cpv(0, 0));
 											  rocketNew->addChild(explosion1);
 											  rocketNew->addChild(explosion2);
 											  particleFireRED->stopSystem();

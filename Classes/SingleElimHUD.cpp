@@ -22,7 +22,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = TextBMFont::create("GAME OVER!", R_bmfont, 20);
+	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, 20);
 	if (world->getCarrerLevel() != 0 && win)
 	{
 		gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
@@ -38,9 +38,9 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
 	LinearLayoutParameter *gameoverparam = LinearLayoutParameter::create();
 	gameoverparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
-	gameoverparam->setMargin(cocos2d::ui::Margin(0,G_wF(25),0,margin));
+	gameoverparam->setMargin(cocos2d::ui::Margin(0,12,0,margin));
 	gmOverText->setLayoutParameter(gameoverparam);
-	gmOverText->setFontSize(G_wF(35));
+	gmOverText->setFontSize(17);
 	gmOverNode->addWidgetCustomParam(gmOverText);
     this->addGameOverButtons(win,gmOverNode);
 	//oapcity
@@ -56,7 +56,8 @@ void SingleElimHud::lateinit(World *worldd)
 	int i = 0;
 	for (Boxx *box : *world->getBoxes())
 	{
-		auto text = TextBMFont::create("h", R_bmfont, G_wF(25));
+		Text* text = Text::create("", R_defaultFont, 12);
+		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0, 0));
 		text->setColor(box->getBoxColor());
 		text->setString(box->getID());
@@ -73,7 +74,7 @@ void SingleElimHud::lateinit(World *worldd)
 void SingleElimHud::boxEliminated(Boxx* ostatni)
 {
 	this->displayInfo("ELIMINATED!",ostatni);
-	TextBMFont* wyeliminowany = scoreTable.at(ostatni);
+	Text *wyeliminowany = scoreTable.at(ostatni);
 	const float zwolnienie = G_dir()->getScheduler()->getTimeScale();
 	auto powieksz = ScaleTo::create(0.35f*zwolnienie, 1.4f);
 	auto pomniejsz = ScaleTo::create(0.35f*zwolnienie, 1);

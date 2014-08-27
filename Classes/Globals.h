@@ -37,5 +37,7 @@ extern Hud* G_getHud();
 extern float G_getFTimeScale(float val);
 extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type= cocos2d::ParticleSystemQuad::PositionType::RELATIVE);
 extern void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent);
+extern void G_enableShadow(cocos2d::Label *lbl);
+extern void G_enableShadow(cocos2d::ui::Text *lbl);
 #endif
 

@@ -82,8 +82,8 @@ void SingleEliminationWorld::restartLevel()
 	G_dir()->getScheduler()->setTimeScale(1);
 	auto scene = SingleEliminationWorld::createScene(boxesNumber, aiSmart);
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	this->replaceSceneGenereal(scene, world);
 	if (carrerLevel != 0) world->setCarrierLevel(carrerLevel);
+	this->replaceSceneGenereal(scene, world);
 }
 void SingleEliminationWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 {
