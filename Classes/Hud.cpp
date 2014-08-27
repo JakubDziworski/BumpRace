@@ -51,7 +51,7 @@ bool Hud::init()
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);
 	G_enableShadow(infoNode);
-	this->addChild(infoNode);
+	this->addChild(infoNode,-1);
 	return true;
 }
 void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
@@ -167,7 +167,12 @@ void Hud::setMultiplayer(World *world)
 		multiBtns[i]->addTouchEventListener([player](Ref* pSender, Widget::TouchEventType type) {
 			if (type == Widget::TouchEventType::ENDED)
 			{
-				player->jump();
+				if (!G_getWorld()->hasStarted())
+				{
+					if (G_getWorld()->tapToContinueTapped != nullptr) G_getWorld()->tapToContinueTapped();
+					return;
+				}
+				else player->jump();
 			}
 		});
 		this->addChild(multiBtns[i]);
@@ -238,7 +243,7 @@ void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
 {
     LinearLayoutParameter *param = LinearLayoutParameter::create();
     param->setGravity(LinearGravity::CENTER_VERTICAL);
-    param->setMargin(cocos2d::ui::Margin(5,0,5,0));
+    param->setMargin(cocos2d::ui::Margin(15,0,15,0));
     myLayout *btnlayout = myLayout::create();
 	btnlayout->setType(1);
 	btnlayout->setMargin(25, 12, 25,12);

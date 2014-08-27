@@ -27,7 +27,6 @@ private:
 	static bool physPosSortingFun(Boxx *a, Boxx *b);
 	static bool scoreSortingFun(Boxx *a, Boxx *b);
 	std::function<void()> cameraFollowFunction;
-	std::function<void()> tapToContinueTapped;
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 protected:
 	float dlugoscDrzewekMalych=0;
@@ -83,6 +82,7 @@ protected:
 	void replaceSceneGenereal(cocos2d::Scene *scene,World *world);
     virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world){};
 public:
+	std::function<void()> tapToContinueTapped;
 	bool hasStarted() const { return started; }
 	bool isPaused() const { return paused; }
 	bool isGameOver() const { return gameOver; }

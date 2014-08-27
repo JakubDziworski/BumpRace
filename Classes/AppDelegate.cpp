@@ -68,8 +68,8 @@ void AppDelegate::prepareImageRes(cocos2d::Size scrSize)
 	}
 	else 
 	{
-		resPaths.push_back("HDR");
-		Director::getInstance()->setContentScaleFactor(4);
+		resPaths.push_back("HD");
+		Director::getInstance()->setContentScaleFactor(2);
 	}
 	glView->setDesignResolutionSize(512,342, ResolutionPolicy::NO_BORDER);
 	FileUtils::getInstance()->setSearchPaths(resPaths);

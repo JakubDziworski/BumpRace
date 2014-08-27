@@ -148,8 +148,8 @@ void World::createBackground()
 	bgImg->setPosition(VR::leftBottom());
 	bgImg->setAnchorPoint(Vec2(0, 0));
 	this->addChild(bgImg, -2);
-	//DPIscaleFactor = clampf((512.0f /156.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width/ (float)Device::getDPI()),0.5f,0.9f);
-	DPIscaleFactor = (512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI());
+	//DPIscaleFactor = (512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI());
+	DPIscaleFactor = clampf((512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI()),0.45,0.9f);
 	scaleeLayer->setScale(DPIscaleFactor);
 }
 //----****UPDATE****----///
@@ -582,17 +582,6 @@ void World::m_cameraFollow()
 	const float maxpierwszyOffset = 0.8f*G_srodek.y / scaleeLayer->getScale();
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
-	//skalowanie//
-	float scale = 0;
-	const float odlegloscZaEkranem = rotationLayer->convertToWorldSpace(Point(ostatni->getPosition().x-2*ostatni->getContentSize().width,ostatni->getPositionY())).x;
-	if (odlegloscZaEkranem < 0)
-	{
-		scaleeLayer->setScale(scaleeLayer->getScale()-0.001f);
-	}
-	else if (scaleeLayer->getScale() < DPIscaleFactor)
-	{
-		scaleeLayer->setScale(scaleeLayer->getScale() + 0.001f);
-	}
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));
 	moveLayer->setPositionY(clampf(pierwszyposY - maxpierwszyOffset, posY - maxpierwszyOffset, posY));	//TO DO CHANGE 0.8 JAKO FLAT COSTAM
 }
