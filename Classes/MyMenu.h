@@ -37,7 +37,7 @@ private:
 	void preload();
 	void hide(int menutypedef);
 	void show(int menutypedef);
-	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
+	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::TextBMFont*)> additionalFunction=nullptr);
 	cocos2d::ui::TextField* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(cocos2d::ui::TextField*)> callback=nullptr);
 	cocos2d::ui::PageView* createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback = nullptr);
 	void createLabel(const std::string &text, int parenttag, int tag);
@@ -76,9 +76,9 @@ public:
 	bool m_checkPlayersOverlap();
 	void playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//additional callbacks
-	void m_OpponentsChanged(cocos2d::ui::Text *textToChange);
-	void difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
-	void m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange);
+	void m_OpponentsChanged(cocos2d::ui::TextBMFont *textToChange);
+	void difficultySpinnerChanged(cocos2d::ui::TextBMFont* textTochange);
+	void m_difficultySpinnerChanged(cocos2d::ui::TextBMFont* textTochange);
 	void m_autocorrectWrongPlayerChoose();
 	void goToLevelChooserMenu();
 	//SETUPO

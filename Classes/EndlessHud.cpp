@@ -39,7 +39,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create("Game Over", R_defaultFont, G_wF(40));
+	auto gmOverText = TextBMFont::create("Game Over", R_bmfont, 20);
 	if (newRecord) gmOverText->setString(G_str("newRecord").c_str());
 	if (win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (!win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
@@ -52,10 +52,10 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	//SCORE INFO
 	if(beating)
 	{
-		Text *score = Text::create("SCORE:", R_defaultFont, G_wF(25));
+		auto score = TextBMFont::create("SCORE:", R_bmfont,12);
 		score->setString(String::createWithFormat(G_str("score").c_str(), world->getScore())->getCString());
 		gmOverNode->addWidget(score);
-		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, G_wF(25));
+		auto bestScore = TextBMFont::create(String::createWithFormat("%s%s%d", G_str("bestScore").c_str(), " : ", bestSCore)->getCString(), R_bmfont,12);
 		gmOverNode->addWidget(bestScore);
 	}
     this->addGameOverButtons(win,gmOverNode);

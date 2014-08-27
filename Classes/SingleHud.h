@@ -8,7 +8,7 @@ class SingleGateHud : public Hud
 {
 private:
 	World* world;
-	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
+	cocos2d::Map<Boxx*, cocos2d::ui::TextBMFont*> scoreTable;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
 	Boxx *prevBest;
 	myLayout *scoreNode;

@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 //IMAGES
 const std::string R_SPRITE_checkpoint = "checkpoint.png";
-const std::string R_defaultFont = "fonts/Aleo-Regular.otf";
+const std::string R_defaultFont = "fonts/Aleo-BoldItalic.ttf";
 const std::string R_Box[6] = { "Box_blue.png", "Box_green.png", "Box_purple.png", "Box_yellow.png", "Box_red.png", "BOX.png" };
 const std::string R_tlo = "tlo.png";
 const std::string R_btnBack ="btnBackOf.png";

@@ -102,6 +102,9 @@
     <ClCompile Include="..\Classes\dialogReader.cpp">
       <Filter>Classes\globals and singletons</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\sometest.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\dialogReader.h">
       <Filter>Classes\globals and singletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\sometest.h">
+      <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

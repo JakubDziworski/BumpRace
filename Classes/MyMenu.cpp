@@ -131,7 +131,7 @@ bool MyMenu::init()
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
-	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
+	//if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
 	//keyBack listener
 	auto keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
@@ -146,18 +146,17 @@ cocos2d::Scene* MyMenu::createScene()
 	return scena;
 }
 //**CREATING**//
-void MyMenu::createSpinner(const std::string &defaultText, const std::string &labelText,int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction)
+void MyMenu::createSpinner(const std::string &defaultText, const std::string &labelText,int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::TextBMFont*)> additionalFunction)
 {
 	myLayout *verLayout = myLayout::create();
 	verLayout->setType(0);
 	myLayout *horLayout = myLayout::create();
 	horLayout->setType(1);
-	Text *titleText = Text::create(labelText, R_defaultFont, G_hF(25));
-	Text *valueText = Text::create(defaultText, R_defaultFont, G_hF(25));
+	auto txt = TextBMFont::create(labelText, R_bmfont, 10);
+	auto titleText = TextBMFont::create(labelText, R_bmfont,10);
+	auto valueText = TextBMFont::create(defaultText, R_bmfont, 10);
 	Button *minusBtn = Button::create(R_minusBtn,"","",TextureResType::PLIST);
 	Button *plusbtn = Button::create(R_plusBtn, "", "", TextureResType::PLIST);
-	minusBtn->setTitleFontName(R_defaultFont);
-	plusbtn->setTitleFontName(R_defaultFont);
 	minusBtn->addTouchEventListener([&changinVal, minVal, valueText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
 		if (changinVal-1 >= minVal)
@@ -200,7 +199,7 @@ cocos2d::ui::TextField* MyMenu::createTextEdit(std::string &text, cocos2d::Color
 	bgLayout->setClippingType(Layout::ClippingType::SCISSOR);
 	bgLayout->setClippingEnabled(true);
 	bgLayout->setBackGroundImage(R_multiBtn[0],TextureResType::PLIST);
-	auto textField = TextField::create("",R_defaultFont,G_wF(35));
+	auto textField = TextField::create("",R_bmfont,G_wF(35));
 	textField->setColor(textColor);
 	textField->setPlaceHolder(text);
 	textField->setMaxLengthEnabled(true);
@@ -238,7 +237,7 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 		Layout *layout = Layout::create();
 		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
 		ImageView *imageView = ImageView::create(filepaths.at(i), TextureResType::PLIST);
-		Text *text = Text::createWithBMF(names.at(i), R_bmfont, 12);
+		auto text = TextBMFont::create(names.at(i), R_bmfont, 12);
 		text->setLayoutParameter(par);
 		imageView->setLayoutParameter(par);
 		layout->addChild(text,1);
@@ -288,7 +287,7 @@ void MyMenu::createLayout(int layoutTag)
 }
 void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
 {
-	auto label = Text::createWithBMF(text, R_bmfont, 12);
+	auto label = TextBMFont::create(text, R_bmfont, 12);
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
 	label->setLayoutParameter(par);
@@ -300,7 +299,9 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 	btn->setTouchEnabled(true);
 	if (btnText != "")
 	{
-		btn->setTitleTextBMF(G_str(btnText),R_bmfont);
+		btn->setTitleText(G_str(btnText));
+		btn->setTitleFontName(R_defaultFont);
+		//btn->setTitleTextBMF(G_str(btnText),R_bmfont);
 	}
 	btn->addTouchEventListener(callback);
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
@@ -478,7 +479,7 @@ void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
 		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
 	}
 }
-void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
+void MyMenu::difficultySpinnerChanged(cocos2d::ui::TextBMFont* textTochange)
 {
 	std::string str = "";
 	if (currDiffValue == 0) str = "Easy";
@@ -532,7 +533,7 @@ void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
 	hide(L_MULTIFREELOCALRUN);
 	
 }
-void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
+void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::TextBMFont* textTochange)
 {
 	std::string str = "";
 	if (m_currDiffValue == 0) str = "Easy";
@@ -565,7 +566,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	DialogReader::getInstance()->flush();
 	G_dir()->replaceScene(scene);
 }
-void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
+void MyMenu::m_OpponentsChanged(cocos2d::ui::TextBMFont *textToChange)
 {
 	if (m_currOpponentsNumber == 0)
 	{ 

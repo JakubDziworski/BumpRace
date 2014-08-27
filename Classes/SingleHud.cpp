@@ -23,7 +23,7 @@ void SingleGateHud::pointsChanged(cocos2d::Vector<Boxx*> *orderedByPointsBoxes)
 	int i = 0;
 	for (Boxx *box : *orderedByPointsBoxes)
 	{
-		Text* text = ((Text*)scoreTable.at(box));
+		TextBMFont* text = ((TextBMFont*)scoreTable.at(box));
 		text->setString(String::createWithFormat("%s : %d", box->getID().c_str(), box->getScore())->getCString());
 		if (i == 0) scoreNode->removeAllWidgets();
 		scoreNode->addWidget(text);
@@ -45,8 +45,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create("Game Over!", R_defaultFont, G_wF(40));
-    gmOverText->setTextHorizontalAlignment(TextHAlignment::CENTER);
+	auto gmOverText = TextBMFont::create("Game Over!", R_bmfont, 20);
 	if (world->getCarrerLevel() != 0 && win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (world->getCarrerLevel() != 0 && !win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
 	gmOverText->setAnchorPoint(Vec2(0.5f, 0));
@@ -65,7 +64,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 		if (player->getScore() >= orderedBoxes->front()->getScore())
 		{
 			ommitPlayer = true;
-			Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
+			auto text = TextBMFont::create("GATES COLLECTED", R_bmfont, 12);
 			text->setAnchorPoint(Vec2(0.5f, 0));
 			text->setColor(player->getBoxColor());
 			text->setString(String::createWithFormat("%d.%s (%d %s)", i, player->getID().c_str(), player->getScore(), G_str("GatesCollected").c_str())->getCString());
@@ -75,7 +74,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	for (Boxx *box : *orderedBoxes)
 	{
 		if (box == player && ommitPlayer) continue;
-		Text* text = Text::create("GATES COLLECTED", R_defaultFont, G_wF(25));
+		auto text = TextBMFont::create("GATES COLLECTED", R_bmfont,12);
 		text->setAnchorPoint(Vec2(0.5f, 0));
 		text->setColor(box->getBoxColor());
 		text->setString(String::createWithFormat("%d.%s (%d %s)", i, box->getID().c_str(), box->getScore(),G_str("GatesCollected").c_str())->getCString());
@@ -95,7 +94,7 @@ void SingleGateHud::lateinit(World *world)
 	//TOP LEFT SCORE VIEW///
 	for (Boxx *box : *world->getBoxes())
 	{
-		Text* text = Text::create("", R_defaultFont, G_wF(25));
+		auto text = TextBMFont::create("h", R_bmfont,12);
 		text->setAnchorPoint(Vec2(0, 0));
 		text->setColor(box->getBoxColor());
 		text->setString(String::createWithFormat("%s : 0", box->getID().c_str())->getCString());

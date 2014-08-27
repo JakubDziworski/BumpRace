@@ -22,7 +22,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, G_wF(40));
+	auto gmOverText = TextBMFont::create("GAME OVER!", R_bmfont, 20);
 	if (world->getCarrerLevel() != 0 && win)
 	{
 		gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
@@ -56,7 +56,7 @@ void SingleElimHud::lateinit(World *worldd)
 	int i = 0;
 	for (Boxx *box : *world->getBoxes())
 	{
-		Text* text = Text::create("", R_defaultFont, G_wF(25));
+		auto text = TextBMFont::create("h", R_bmfont, G_wF(25));
 		text->setAnchorPoint(Vec2(0, 0));
 		text->setColor(box->getBoxColor());
 		text->setString(box->getID());
@@ -73,7 +73,7 @@ void SingleElimHud::lateinit(World *worldd)
 void SingleElimHud::boxEliminated(Boxx* ostatni)
 {
 	this->displayInfo("ELIMINATED!",ostatni);
-	Text *wyeliminowany = scoreTable.at(ostatni);
+	TextBMFont* wyeliminowany = scoreTable.at(ostatni);
 	const float zwolnienie = G_dir()->getScheduler()->getTimeScale();
 	auto powieksz = ScaleTo::create(0.35f*zwolnienie, 1.4f);
 	auto pomniejsz = ScaleTo::create(0.35f*zwolnienie, 1);
