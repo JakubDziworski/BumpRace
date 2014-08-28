@@ -55,6 +55,7 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 	if (box == orderedOpponents.at(remainingGates))
 	{
 		//deactivate
+		pozycje.pushBack(orderedOpponents.at(remainingGates + 1));
 		orderedOpponents.at(remainingGates+1)->deactivate();
 		hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 		//game over
@@ -65,6 +66,10 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		}
 		else if (player && orderedOpponents.at(remainingGates + 1) == player)
 		{
+			for (auto bx : orderedOpponents)
+			{
+				if (!bx->isDeactivated()) pozycje.pushBack(bx);
+			}
 			this->gameIsOver(false);
 			return;
 		}

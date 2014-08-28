@@ -42,6 +42,23 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverText->setLayoutParameter(gameoverparam);
 	gmOverText->setFontSize(17);
 	gmOverNode->addWidgetCustomParam(gmOverText);
+	//SCORETABLE
+	bool ommitPlayer = false;
+	if (G_getWorld()->isMultiplayer()) ommitPlayer = true;
+	int i=1;
+	world->getPozycje().reverse();
+	for (auto box : world->getPozycje())
+	{
+		if (box == G_getWorld()->getPlayer() && ommitPlayer) continue;
+		Text* text = Text::create("", R_defaultFont, 12);
+		G_enableShadow(text);
+		text->setAnchorPoint(Vec2(0.5f, 0));
+		text->setColor(box->getBoxColor());
+		text->setString(String::createWithFormat("%d.%s", i, box->getID().c_str())->getCString());
+		gmOverNode->addWidget(text);
+		i++;
+	}
+	//ENDSCORETABLE
     this->addGameOverButtons(win,gmOverNode);
 	//oapcity
 	scoreNode->runAction(FadeOut::create(0.5f* Director::getInstance()->getScheduler()->getTimeScale()));
@@ -50,7 +67,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 }
 void SingleElimHud::lateinit(World *worldd)
 {
-	world = worldd;
+	world = (SingleEliminationWorld*)worldd;
 	scoreNode = Layout::create();
 	//TOP LEFT SCORE VIEW///
 	int i = 0;

@@ -7,7 +7,7 @@
 class SingleElimHud : public Hud
 {
 private:
-	World* world;
+	SingleEliminationWorld* world;
 	cocos2d::Map<Boxx*,cocos2d::ui::Text*> scoreTable;
 	cocos2d::ui::Layout *scoreNode;
 	int eliminated;

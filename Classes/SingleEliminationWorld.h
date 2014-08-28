@@ -7,7 +7,9 @@ class SingleEliminationWorld : public World
 {
 private:
 	SingleElimHud *hud;
+	cocos2d::Vector<Boxx*> pozycje;
 public:
+	cocos2d::Vector<Boxx*> getPozycje() const { return pozycje; }
 	static cocos2d::Scene* createScene(int numberOfPlayers, int AILevel);
 	static SingleEliminationWorld* create(int numberOfPlayers,  int AILevel);
 	virtual void customWorldUpdate();
