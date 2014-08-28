@@ -4,6 +4,7 @@
 #include "editor-support/cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "Globals.h"
+#include "soundManager.h"
 USING_NS_CC;
 using namespace ui;
 DialogReader::DialogReader()
@@ -60,6 +61,7 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
 				nod->addTouchEventListener([this, fileName](Ref* reff, Widget::TouchEventType type)
 				{
 					if (type != Widget::TouchEventType::ENDED) return;
+					SoundManager::getInstance()->playBtnEffect();
 					auto prevAction = cocostudio::ActionManagerEx::getInstance()->getActionByName(fileName.c_str(), "animIn");
 					if (prevAction && prevAction->isPlaying())
 						prevAction->stop();
@@ -81,6 +83,7 @@ void DialogReader::addActionHideAndSomething(const std::string& cocosFileName, c
 		nod->addTouchEventListener([cocosFileName, additionalFeature](Ref* reff, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
 			auto prevAction = cocostudio::ActionManagerEx::getInstance()->getActionByName(cocosFileName.c_str(), "animIn");
 			if (prevAction && prevAction->isPlaying()) prevAction->stop();
 			auto action = cocostudio::ActionManagerEx::getInstance()->getActionByName(cocosFileName.c_str(), "animOut");

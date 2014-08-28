@@ -43,6 +43,7 @@ public:
 	void pauseEffects();
 	void playEffect(const std::string &fileName);
 	void stopEffect(const int);
+	void playBtnEffect();
 	virtual void updateTweenAction(float value, const std::string& key);
 
 };

@@ -17,6 +17,8 @@
 #include "VisibleRect.h"
 #include "soundManager.h"
 #include "dialogReader.h"
+#include "extensions/GUI/CCEditBox/CCEditBox.h"
+#include "extensions/GUI/CCControlExtension/CCScale9Sprite.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -96,7 +98,7 @@ bool MyMenu::init()
 	createPages("", { "BLUE", "GREEN", "PURPLE", "RON", "RED", "BLUE" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], R_Box[5] }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES,
 		[singletextField](PageView *pgview)
 	{
-		singletextField->setColor(G_colors[pgview->getCurPageIndex()]);
+		singletextField->setFontColor(G_colors[pgview->getCurPageIndex()]);
 	});
 	createBtn(R_btnOn,"", "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
 	//**LOCAL MULTIPLAYER**//
@@ -116,7 +118,7 @@ bool MyMenu::init()
 		auto page = createPages("", { "BLUE", "GREEN", "PURPLE","RON","RED","BLUE" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3] , R_Box[4] , R_Box[5] }, m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES,
 			[textfield](PageView *pgview)
 		{
-			textfield->setColor(G_colors[pgview->getCurPageIndex()]);
+			textfield->setFontColor(G_colors[pgview->getCurPageIndex()]);
 		});
 	}
 	//*GENERAL BUTTONS*//
@@ -131,7 +133,7 @@ bool MyMenu::init()
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
 	this->getChildByTag(L_MAINMENU)->setVisible(true);
-	if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
+	//if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)this->setScale(0.3f);
 	//keyBack listener
 	auto keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
@@ -160,6 +162,7 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	plusbtn->setTitleFontName(R_defaultFont);
 	minusBtn->addTouchEventListener([&changinVal, minVal, valueText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
+		SoundManager::getInstance()->playBtnEffect();
 		if (changinVal-1 >= minVal)
 		{
 			changinVal = changinVal - 1;
@@ -170,6 +173,7 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	});
 	plusbtn->addTouchEventListener([&changinVal, maxVal, valueText ,additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
+		SoundManager::getInstance()->playBtnEffect();
 		if (changinVal + 1 <= maxVal)
 		{
 			changinVal = changinVal + 1;
@@ -193,32 +197,27 @@ void MyMenu::createSpinner(const std::string &defaultText, const std::string &la
 	verLayout->addWidget(horLayout);
 	this->getChildByTag(parenttag)->addChild(verLayout,0,tag);
 }
-cocos2d::ui::TextField* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(TextField*)> callback)
+cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(cocos2d::ui::TextField*)> callback/*=nullptr*/)
 {
 	Layout *bgLayout = Layout::create();
-	bgLayout->setSize(Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize());
-	bgLayout->setClippingType(Layout::ClippingType::SCISSOR);
-	bgLayout->setClippingEnabled(true);
-	bgLayout->setBackGroundImage(R_multiBtn[0],TextureResType::PLIST);
-	auto textField = TextField::create("",R_defaultFont,17);
-	textField->setColor(textColor);
-	textField->setPlaceHolder(text);
-	textField->setMaxLengthEnabled(true);
-	textField->setMaxLength(8);
-	textField->setTextHorizontalAlignment(TextHAlignment::CENTER);
-	textField->setTextVerticalAlignment(TextVAlignment::CENTER);
-	textField->setNormalizedPosition(Vec2(0.5, 0.5));
-	textField->addEventListener([&text, textField,callback](Ref*, TextField::EventType type)
-	{
-		text = textField->getStringValue();
-		if (callback != nullptr) callback(textField);
-	});
+	bgLayout->setSize(Sprite::createWithSpriteFrameName(R_editBtn[0].c_str())->getContentSize());
+	//editbox
+	auto editbox = extension::EditBox::create(bgLayout->getContentSize(), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[0].c_str()), extension::Scale9Sprite::createWithSpriteFrameName(R_multiBtn[1].c_str()));
+	editbox->setText(text.c_str());
+	editbox->setFontColor(textColor);
+	editbox->setPlaceHolder(text.c_str());
+	editbox->setMaxLength(8);
+	editbox->setReturnType(extension::EditBox::KeyboardReturnType::DONE);
+	editbox->setDelegate(new TextHandler(text));
+	editbox->setNormalizedPosition(Vec2(0.5, 0.5));
+	editbox->setFont(R_defaultFont.c_str(),12);
+	bgLayout->addChild(editbox);
+	//
 	LinearLayoutParameter* par = LinearLayoutParameter::create();
 	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	bgLayout->addChild(textField);
 	bgLayout->setLayoutParameter(par);
 	this->getChildByTag(parenttag)->addChild(bgLayout, 1, tag);
-	return textField;
+	return editbox;
 }
 cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
 {
@@ -359,6 +358,7 @@ void MyMenu::show(int menutypedef)
 void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	switch (currMenu)
 	{
 	case L_PLAYSINGLE:
@@ -406,6 +406,7 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	show(B_BACK);
 	show(L_PLAYSINGLE);
 	hide(L_MAINMENU);
@@ -413,6 +414,7 @@ void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEv
 void MyMenu::playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	show(B_BACK);
 	show(L_MULTIFREELOCALRUN);
 	hide(L_MAINMENU);
@@ -420,14 +422,16 @@ void MyMenu::playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEve
 void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
-	show(L_OPTIONS);
+	SoundManager::getInstance()->playBtnEffect();
 	show(B_BACK);
+	show(L_OPTIONS);
 	hide(L_MAINMENU);
 }
 //**SINGLE PLAYER EVENTS**//
 void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	tryBestScore = false;
 	hide(L_PLAYSINGLE);
 	show(L_CARRER);
@@ -435,6 +439,7 @@ void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	tryBestScore = false;
 	show(L_FREERUN);
 	hide(L_PLAYSINGLE);
@@ -443,6 +448,7 @@ void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	Scene *scene;
 	if (tryBestScore)
 	{
@@ -522,6 +528,7 @@ void MyMenu::m_ModeChooserPageChanged(cocos2d::ui::PageView *pages)
 void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if(type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	auto choosemenu = this->getChildByTag(L_M_CHOOSENAMES);
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 1; k <= 4; k++, i++, j++)
 	{
@@ -564,6 +571,7 @@ void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	if (!m_checkPlayersOverlap()) return;
 	Vector<Player*> players;
 	Vector<AIOpponent*> opponentz;
@@ -599,6 +607,7 @@ void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
 void MyMenu::continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	if (currMenu == L_FREERUN)
 	{
 		hide(L_FREERUN);
@@ -687,6 +696,7 @@ void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
 		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
 			auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
 			auto czekaj = DelayTime::create(1);
 			cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
@@ -701,6 +711,7 @@ void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
 		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
 			auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
 			auto czekaj = DelayTime::create(1);
 			cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
@@ -732,6 +743,7 @@ void MyMenu::createSinglePlayerTutorialDialog()
 		button->addTouchEventListener([text, taps](Ref*, Widget::TouchEventType type) mutable
 		{
 			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
 			switch (taps)
 			{
 			case 0:
@@ -766,6 +778,7 @@ void MyMenu::createLevelMapUI()
 			btn->addTouchEventListener([this, parent](Ref* reff, Widget::TouchEventType type)
 			{
 				if (type != Widget::TouchEventType::ENDED) return;
+				SoundManager::getInstance()->playBtnEffect();
 				DialogReader::getInstance()->getMainWidgetFromJson("levelLockedDialog.json", parent);
 			});
 		}
@@ -774,6 +787,7 @@ void MyMenu::createLevelMapUI()
 			btn->addTouchEventListener([parent, i](Ref *reff, Widget::TouchEventType type)
 			{
 				if (type != Widget::TouchEventType::ENDED) return;
+				SoundManager::getInstance()->playBtnEffect();
                 G_displayCorrectLevelStarter(i, parent);
 			});
 		}

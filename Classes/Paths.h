@@ -11,6 +11,7 @@ const std::string R_btnOn = "btnOf.png";
 const std::string R_flat = "Flat.png";
 const std::string R_gotoMenuBtn = "gotoMenuBtnOf.png";
 const std::string R_multiBtn[2] = {"multiBtnOn.png","multiBtnOff.png"};
+const std::string R_editBtn[2] = { "editboxOn.png", "editboxOf.png" };
 const std::string R_pageElimination = "PageElimination.png";
 const std::string R_pageEndless = "pageEndlessRun.png";
 const std::string R_pageGate = "pageGate.png";
@@ -48,6 +49,7 @@ const std::string R_explosion = "sounds/rocket_explosion.mp3";
 const std::string R_jump = "sounds/jump.mp3";
 const std::string R_boxFelt = "sounds/fekltwav.wav";
 const std::string R_boxColided = "sounds/crash4.wav";
+const std::string R_buttonClick = "sounds/jump.mp3";
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";

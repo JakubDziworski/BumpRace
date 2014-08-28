@@ -6,6 +6,7 @@
 #include "Paths.h"
 #include "myLayout.h"
 #include "VisibleRect.h"
+#include "soundManager.h"
 USING_NS_CC;
 using namespace ui;
 bool Hud::init()
@@ -57,6 +58,7 @@ bool Hud::init()
 void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	if (G_getWorld()->isPaused()) return;
 	pauseNode->setVisible(true);
 	float i = 0;
@@ -73,6 +75,7 @@ void Hud::pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEv
 void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	float i = 0;
 	for (auto node : pauseNode->getChildren())
 	{
@@ -90,6 +93,7 @@ void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	repeatBtnListenerExtended();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->restartLevel();
@@ -97,6 +101,7 @@ void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	gotoMenuBtnListenerExtended();
 	Director::getInstance()->replaceScene(MyMenu::createScene());
@@ -214,6 +219,7 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 	activatorBtns[i]->addTouchEventListener([box,i, this](Ref *reff, Widget::TouchEventType type)
 	{
 		if (type != Widget::TouchEventType::ENDED) return;
+		SoundManager::getInstance()->playBtnEffect();
 		if (!box->activatePowerUp()) return;
 		activatorBtns[i]->setTouchEnabled(false);
 		activatorBtns[i]->stopAllActions();
@@ -230,6 +236,7 @@ void Hud::displayNextLevel(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEven
 }
 void Hud::keyBackClickedHUD()
 {
+	SoundManager::getInstance()->playBtnEffect();
 	if (G_getWorld()->isPaused())
 	{
 		this->resumeBtnListenerBase(this, cocos2d::ui::Button::TouchEventType::ENDED);

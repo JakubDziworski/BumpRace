@@ -3,10 +3,25 @@
 
 #include "cocos2d.h"
 #include "UI/CocosGUI.h"
+#include "extensions/GUI/CCEditBox/CCEditBox.h"
 
+class TextHandler : public cocos2d::extension::EditBoxDelegate
+{
+	std::string *txt;
+public:
+	TextHandler(std::string &textToEdit)
+	{
+		txt = &textToEdit;
+	}
+	virtual void editBoxReturn(cocos2d::extension::EditBox* editBox)
+	{
+		*txt = editBox->getText();
+	}
+};
 class MyMenu : public cocos2d::Layer
 {
 private:
+	
 	//UI DIALOGS
 	cocos2d::ui::Widget *levelLockedDialog = NULL;
 	//single
@@ -24,6 +39,7 @@ private:
 	int currGatesNumb;
 	int currPlayersNumber;
 	std::string playerName;
+	std::string *currChangingValue;
 	int playerboxFileNameIndex;
 	int m_playersBoxesFileNamesIndexes[4];
 	std::string m_playersNames[4];
@@ -39,7 +55,7 @@ private:
 	void hide(int menutypedef);
 	void show(int menutypedef);
 	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
-	cocos2d::ui::TextField* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(cocos2d::ui::TextField*)> callback=nullptr);
+	cocos2d::extension::EditBox* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(cocos2d::ui::TextField*)> callback=nullptr);
 	cocos2d::ui::PageView* createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback = nullptr);
 	void createLabel(const std::string &text, int parenttag, int tag);
 	void createLayout(int layoutTag);
@@ -85,6 +101,5 @@ public:
 	//SETUPO
 	void m_setupAutoCorrectDialog(cocos2d::ui::Layout *root);
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-	
 };
 #endif // !__MENU_H__

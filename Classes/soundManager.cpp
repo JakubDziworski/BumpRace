@@ -166,17 +166,22 @@ void SoundManager::updateTweenAction(float value, const std::string& key)
 
 void SoundManager::playEffect(const std::string &fileName)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fileName.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
+	audioEngine->playEffect(fileName.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 }
 
 void SoundManager::stopEffect(const int effectNum)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(effectNum);
+	audioEngine->stopEffect(effectNum);
 }
 
 
 void SoundManager::stopSlideEffect()
 {
 	if (normalSlideEffect !=0)
-	CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(normalSlideEffect);
+		audioEngine->stopEffect(normalSlideEffect);
+}
+
+void SoundManager::playBtnEffect()
+{
+	audioEngine->playEffect(R_buttonClick.c_str());
 }
