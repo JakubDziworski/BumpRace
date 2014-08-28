@@ -52,16 +52,11 @@ bool World::myInit(int numberOfPlayers,int gates)
 	this->addChild(scaleeLayer,1);
 	//****************//
 	hud = NULL;
-	lastChmurka = NULL;
 	//CLOUDSNODES
-	cloudsNodeSlow = Node::create();
-	cloudsNodeSlow->setPosition(Vec2(0, 0));
-	cloudsNodeSlow->setAnchorPoint(Vec2(0, 0));
-	this->addChild(cloudsNodeSlow);
-	cloudsNodeFast = Node::create();
-	cloudsNodeFast->setPosition(Vec2(0, 0));
-	cloudsNodeFast->setAnchorPoint(Vec2(0, 0));
-	this->addChild(cloudsNodeFast);
+	cloudsNode = Node::create();
+	cloudsNode->setPosition(Vec2(0, 0));
+	cloudsNode->setAnchorPoint(Vec2(0, 0));
+	this->addChild(cloudsNode);
 	//
 	gameOver = false;
 	multiplayerEnabled = false;
@@ -105,20 +100,20 @@ void World::createFloor()
 	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - VR::right().x) / verts[3].x;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
-	SpriteBatchNode *node = SpriteBatchNode::create(R_flatTop.c_str());
+	floorBatchNode = SpriteBatchNode::create(R_flatTop.c_str());
 	Texture2D::TexParams tp = { GL_REPEAT, GL_REPEAT, GL_REPEAT, GL_REPEAT };
-	node->getTexture()->setTexParameters(tp);
-	flatsprite = PhysicsSprite::createWithTexture(node->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), node->getTexture()->getContentSize().height));
+	floorBatchNode->getTexture()->setTexParameters(tp);
+	flatsprite = PhysicsSprite::createWithTexture(floorBatchNode->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), floorBatchNode->getTexture()->getContentSize().height));
 	flatsprite->setCPBody(floorBody);
-	node->addChild(flatsprite);
+	floorBatchNode->addChild(flatsprite);
 	flatsprite->setAnchorPoint(Vec2(0, 1));
 	//FLATSPRITE BOTTOM
 	auto flatSPriteBottom = SpriteBatchNode::create(R_flatBottom.c_str());
 	flatSPriteBottom->getTexture()->setTexParameters(tp);
-	auto bottomSpr = Sprite::createWithTexture(flatSPriteBottom->getTexture(), Rect(0, 0, abs(verts[3].x), 2500));
+	bottomSpr = Sprite::createWithTexture(flatSPriteBottom->getTexture(), Rect(0, 0, abs(verts[3].x), 2500));
 	bottomSpr->setAnchorPoint(Vec2(0, 1));
 	bottomSpr->setPosition(flatsprite->getBoundingBox().getMinX(), flatsprite->getBoundingBox().getMinY());
-	rotationLayer->addChild(node);
+	rotationLayer->addChild(floorBatchNode);
 	rotationLayer->addChild(bottomSpr);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
@@ -186,13 +181,11 @@ void World::tick(float delta)
 	if (cameraFollowFunction != nullptr)
 	{
 		bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
-		cloudsNodeSlow->setPositionX(-orderedOpponents.at(0)->getPositionX()*(2.0f*paralexFactor));
-		cloudsNodeFast->setPositionX(-orderedOpponents.at(0)->getPositionX()*(3.5f*paralexFactor));
 	}
 	if (started)
 	{
-			generateClouds(cloudsNodeFast,2);
-			generateClouds(cloudsNodeSlow,1);
+			generateClouds();
+			generateClouds();
 			generateDrzewka();
 			timee = 0;
 	}
@@ -201,7 +194,7 @@ void World::tick(float delta)
 void World::changeGravity()
 {
 	G_maxVelocity = G_maxVelConstant + G_maxVelAddition*G_mySin;
-	gravitySpace->gravity = cpv(650.0f * G_mySin,-500.0f * G_myCos);
+	gravitySpace->gravity = cpv(800.0f * G_mySin,-500.0f * G_myCos);
 }
 void World::checkPosition(float dt)
 {
@@ -270,6 +263,10 @@ void World::pauseGame()
 	rotationLayer->pause();
 	this->setKeyboardEnabled(false);
 	this->pause();
+	for (auto cloud : cloudsNode->getChildren())
+	{
+		cloud->pause();
+	}
 }
 bool World::nodeOutOfWindow(Node *node)
 {
@@ -295,6 +292,10 @@ void World::resumeGame()
 	CocosDenshion::SimpleAudioEngine::getInstance()->resumeAllEffects();
 	rotationLayer->resume();
 	this->resume();
+	for (auto cloud : cloudsNode->getChildren())
+	{
+		cloud->resume();
+	}
 	paused = false;
 }
 Hud* World::getHud()
@@ -682,8 +683,7 @@ void World::startBoxPointer()
 			label->runAction(Sequence::createWithTwoActions(FadeOut::create(1), remv));
 		}
 		generateDrzewka();
-		generateClouds(cloudsNodeFast,2);
-		generateClouds(cloudsNodeSlow, 1);
+		generateClouds();
 	};
 	rotationLayer->pause();
 	this->pause();
@@ -711,36 +711,47 @@ void World::boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused)
 	if (abs(impulse.x) + abs(impulse.y) > 100.0f)
 		SoundManager::getInstance()->playEffect(R_boxFelt);
 }
-void World::generateClouds(cocos2d::Node *cloudsNodee, int howFast)
+void World::generateClouds()
 {
-	for (auto chmrToRemove : cloudsNodee->getChildren())
+	if (!pierwszeChmurki)
 	{
-		if (this->nodeOutOfWindow(chmrToRemove))
+		for (int i = 0; i<7; i++)
 		{
-			chmrToRemove->stopAllActions();
-			chmrToRemove->removeFromParent();
-			break;
+			const int wielkosc = rand() % (5) + 1;
+			auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
+			const float randPosY = VR::top().y*(float(rand() % 70 + 20) / 100.0f);
+			const float randPosX = VR::right().x*(float(rand() % 100) / 100.0f);
+			const float szybkosc = (15 + float(rand() % 100) / 5.0f)*(randPosX / VR::right().x);
+			//chmurka modifaction
+			auto delay = DelayTime::create((float(rand() % 100)) / 150.0f);
+			chmurka->setPosition(randPosX, randPosY);
+			chmurka->setScale(0.01f);
+			chmurka->runAction(Sequence::createWithTwoActions(MoveTo::create(szybkosc, Vec2(VR::left().x - chmurka->getContentSize().width, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); })));
+			chmurka->runAction(Sequence::createWithTwoActions(delay, CallFunc::create([chmurka]()
+			{
+				chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));
+			})));
+			if (rand() % 2) chmurka->setFlippedX(true);
+			cloudsNode->addChild(chmurka, wielkosc);
 		}
+		pierwszeChmurki = true;
 	}
-	if (cloudsNodee && -cloudsNodee->getPositionX() + VR::right().x < bgOffset) return;
-	int wielkosc;
-	if (howFast == 1) wielkosc = rand() % (3) + 1;
-	else wielkosc = rand() % 2 + 4;
+	if (cloudsNode->getChildren().size() > 5) return;
+	const int wielkosc = rand() % (5) + 1;
+	const float szybkosc = 9 + float(rand() % 100) / 20.0f;
 	auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
 	float randPosY = VR::top().y*(float(rand() % 70 + 20) / 100.0f);
-	cloudsNodee->addChild(chmurka, wielkosc);
 	//chmurka modifaction
 	auto delay = DelayTime::create((float(rand()%100))/150.0f);
-	chmurka->setPosition(bgOffset + chmurka->getContentSize().width, randPosY);
+	chmurka->setPosition(VR::right().x + chmurka->getContentSize().width, randPosY);
 	chmurka->setScale(0.01f);
+	chmurka->runAction(Sequence::create(delay, MoveTo::create(szybkosc, Vec2(VR::left().x - chmurka->getContentSize().width, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); }), NULL));
 	chmurka->runAction(Sequence::createWithTwoActions(delay, CallFunc::create([chmurka]()
 	{
 		chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));
 	})));
 	if (rand() % 2) chmurka->setFlippedX(true);
-	wylosowane = 45 + rand() % 80;
-	bgOffset += wylosowane;
-	lastChmurka = chmurka;
+	cloudsNode->addChild(chmurka, wielkosc);
 }
 void World::generateDrzewka()
 {

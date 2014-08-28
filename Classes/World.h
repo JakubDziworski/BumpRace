@@ -31,16 +31,12 @@ private:
 protected:
 	float dlugoscDrzewekMalych=0;
 	float dlugoscDrzewekDuzych=0;
-	float bgOffset = 0;
-	float wylosowane = 0;
-	cocos2d::Sprite *lastChmurka;
-	cocos2d::Node *cloudsNodeFast = nullptr;
-	cocos2d::Node *cloudsNodeSlow = nullptr;
+	cocos2d::Node *cloudsNode;
+	bool pierwszeChmurki = false;
 	Hud *hud;
 	float odstep = 0.0f; //odstep miedzy dzwiekami zdrzenia;
 	const float minOdstep = 0.1f;
 	int carrerLevel = 0;
-	cocos2d::extension::PhysicsSprite *flatsprite;
 	cocos2d::Sprite *bgImg;
 	cpBody *floorBody;
 	int aiSmart;
@@ -84,6 +80,9 @@ protected:
     virtual void replaceSceneAdditional(cocos2d::Scene *scene,World *world){};
 public:
 	std::function<void()> tapToContinueTapped;
+	cocos2d::SpriteBatchNode* floorBatchNode;
+	cocos2d::Sprite* bottomSpr;
+	cocos2d::extension::PhysicsSprite* flatsprite;
 	bool hasStarted() const { return started; }
 	bool isPaused() const { return paused; }
 	bool isGameOver() const { return gameOver; }
@@ -127,7 +126,7 @@ public:
 	static void boxesCollided(cpArbiter *arb, cpSpace *space, void *unused);
 	static void boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused);
 	//generation;
-	void generateClouds(cocos2d::Node *cloudsNode, int howFast);
+	void generateClouds();
 	void generateDrzewka();
 };
 #endif // __GAMETEST_SCENE_H__

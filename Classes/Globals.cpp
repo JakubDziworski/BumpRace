@@ -9,7 +9,7 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 int G_endlessGateNumber = 5;
-int G_odlegloscmiedzyBramkami = 3500;
+int G_odlegloscmiedzyBramkami = 6000;
 cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;

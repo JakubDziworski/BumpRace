@@ -88,19 +88,21 @@ void EndlessWorld::extendFlat()
 		cpv(koniec, 0),
 		cpv(koniec, -2000),
 	};
-	cpSpaceRemoveStaticShape(gravitySpace,floor);
+	cpSpaceRemoveStaticShape(gravitySpace, floor);
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
 	floor->collision_type = COLLISIONTYPEFLOOR;
 	cpSpaceAddStaticShape(gravitySpace, floor);
-	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), abs(verts[3].y)));
+	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), flatsprite->getTexture()->getContentSize().height));
+	bottomSpr->setPositionX(koniec - dodatek - G_odlegloscmiedzyBramkami);
 	//bg
 	Sprite *bgNext = Sprite::createWithSpriteFrameName(R_tlo);
 	bgNext->setAnchorPoint(Vec2(-1.0f * iterations, 0));
-	bgNext->setPositionX(bgNext->getPositionX() - iterations*0.5f);
+	bgNext->setPositionX(bgNext->getPositionX() - iterations*1.0f);
 	if(iterations%2 == 1)bgNext->setFlippedX(true);
 	bgImg->addChild(bgNext, 0, iterations);
+	//chkpts
 	for (int i = koniec - dodatek; i <= koniec; i += G_odlegloscmiedzyBramkami)
 	{
 		auto chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
