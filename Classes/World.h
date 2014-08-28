@@ -34,7 +34,8 @@ protected:
 	float bgOffset = 0;
 	float wylosowane = 0;
 	cocos2d::Sprite *lastChmurka;
-	cocos2d::ParallaxNode *cloudsNode = nullptr;
+	cocos2d::Node *cloudsNodeFast = nullptr;
+	cocos2d::Node *cloudsNodeSlow = nullptr;
 	Hud *hud;
 	float odstep = 0.0f; //odstep miedzy dzwiekami zdrzenia;
 	const float minOdstep = 0.1f;
@@ -126,7 +127,7 @@ public:
 	static void boxesCollided(cpArbiter *arb, cpSpace *space, void *unused);
 	static void boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused);
 	//generation;
-	void generateClouds();
+	void generateClouds(cocos2d::Node *cloudsNode, int howFast);
 	void generateDrzewka();
 };
 #endif // __GAMETEST_SCENE_H__

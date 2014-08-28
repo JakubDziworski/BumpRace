@@ -450,7 +450,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "235"
-            endingLineNumber = "235">
+            endingLineNumber = "235"
+            landmarkName = "Hud::keyBackClickedHUD()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -467,6 +469,36 @@
             endingLineNumber = "111"
             landmarkName = "SingleGateHud::additionalMulti(int heightY)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SingleGateHud::lateinit(World*)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/SingleHud.cpp"
+                  timestampString = "430896180.75702"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "764">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SingleGateHud::lateinit(World*)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/SingleHud.cpp"
+                  timestampString = "430896180.757484"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "1126">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

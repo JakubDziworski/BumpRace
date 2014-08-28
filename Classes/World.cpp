@@ -53,6 +53,16 @@ bool World::myInit(int numberOfPlayers,int gates)
 	//****************//
 	hud = NULL;
 	lastChmurka = NULL;
+	//CLOUDSNODES
+	cloudsNodeSlow = Node::create();
+	cloudsNodeSlow->setPosition(Vec2(0, 0));
+	cloudsNodeSlow->setAnchorPoint(Vec2(0, 0));
+	this->addChild(cloudsNodeSlow);
+	cloudsNodeFast = Node::create();
+	cloudsNodeFast->setPosition(Vec2(0, 0));
+	cloudsNodeFast->setAnchorPoint(Vec2(0, 0));
+	this->addChild(cloudsNodeFast);
+	//
 	gameOver = false;
 	multiplayerEnabled = false;
 	boxesNumber = numberOfPlayers;
@@ -176,11 +186,13 @@ void World::tick(float delta)
 	if (cameraFollowFunction != nullptr)
 	{
 		bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
-		if(cloudsNode) cloudsNode->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
+		cloudsNodeSlow->setPositionX(-orderedOpponents.at(0)->getPositionX()*(2.0f*paralexFactor));
+		cloudsNodeFast->setPositionX(-orderedOpponents.at(0)->getPositionX()*(3.5f*paralexFactor));
 	}
 	if (started)
 	{
-			generateClouds();
+			generateClouds(cloudsNodeFast,2);
+			generateClouds(cloudsNodeSlow,1);
 			generateDrzewka();
 			timee = 0;
 	}
@@ -312,9 +324,9 @@ void World::gameIsOver(bool win)
 	const float goRight = offset1*G_mySin;
 	const float velocitty = 2250.0f;
 	auto delay = DelayTime::create(0.3f);
-	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; SoundManager::getInstance()->disableSlowMo(); Director::getInstance()->getScheduler()->setTimeScale(1); SoundManager::getInstance()->stopSlideEffect(); });
+	auto stopCamera = CallFunc::create([this](){cameraFollowFunction = nullptr; SoundManager::getInstance()->disableSlowMo(); Director::getInstance()->getScheduler()->setTimeScale(1);});
 	auto moveToEnd = MoveTo::create(offset1 / velocitty, Vec2(moveLayer->getPositionX() - goRight, moveLayer->getPositionY() - guUp));
-	auto stopSimulation = CallFunc::create([this]{this->unscheduleAllSelectors(); });
+	auto stopSimulation = CallFunc::create([this]{this->unscheduleAllSelectors();  SoundManager::getInstance()->stopSlideEffect(); });
 	moveLayer->runAction(Sequence::create(delay, stopCamera, moveToEnd, stopSimulation, NULL));
 	//sound
 	SoundManager::getInstance()->gameIsOver(win);
@@ -670,7 +682,8 @@ void World::startBoxPointer()
 			label->runAction(Sequence::createWithTwoActions(FadeOut::create(1), remv));
 		}
 		generateDrzewka();
-		generateClouds();
+		generateClouds(cloudsNodeFast,2);
+		generateClouds(cloudsNodeSlow, 1);
 	};
 	rotationLayer->pause();
 	this->pause();
@@ -698,17 +711,9 @@ void World::boxFeltDown(cpArbiter *arb, cpSpace *space, void *unused)
 	if (abs(impulse.x) + abs(impulse.y) > 100.0f)
 		SoundManager::getInstance()->playEffect(R_boxFelt);
 }
-void World::generateClouds()
+void World::generateClouds(cocos2d::Node *cloudsNodee, int howFast)
 {
-	if (cloudsNode == nullptr)
-	{
-		cloudsNode = ParallaxNode::create();
-		cloudsNode->setContentSize(Size(VR::right().x, VR::top().y));
-		cloudsNode->setPosition(Vec2(0, 0));
-		cloudsNode->setAnchorPoint(Vec2(0, 0));
-		this->addChild(cloudsNode);
-	}
-	for (auto chmrToRemove : cloudsNode->getChildren())
+	for (auto chmrToRemove : cloudsNodee->getChildren())
 	{
 		if (this->nodeOutOfWindow(chmrToRemove))
 		{
@@ -717,13 +722,16 @@ void World::generateClouds()
 			break;
 		}
 	}
-	if (lastChmurka && cloudsNode->convertToWorldSpace(lastChmurka->getPosition()).x > VR::right().x + wylosowane) return;
-	const int wielkosc = rand() % 5 + 1;
+	if (cloudsNodee && -cloudsNodee->getPositionX() + VR::right().x < bgOffset) return;
+	int wielkosc;
+	if (howFast == 1) wielkosc = rand() % (3) + 1;
+	else wielkosc = rand() % 2 + 4;
 	auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
-	float randPosY = VR::top().y*(float(rand() % 50 + 30) / 100.0f);
-	cloudsNode->addChild(chmurka, wielkosc, Vec2(1 + wielkosc*0.25f, 1), Vec2(bgOffset+chmurka->getContentSize().width/2.0f, randPosY));
+	float randPosY = VR::top().y*(float(rand() % 70 + 20) / 100.0f);
+	cloudsNodee->addChild(chmurka, wielkosc);
 	//chmurka modifaction
 	auto delay = DelayTime::create((float(rand()%100))/150.0f);
+	chmurka->setPosition(bgOffset + chmurka->getContentSize().width, randPosY);
 	chmurka->setScale(0.01f);
 	chmurka->runAction(Sequence::createWithTwoActions(delay, CallFunc::create([chmurka]()
 	{

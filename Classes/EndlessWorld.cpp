@@ -46,8 +46,8 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (box == orderedOpponents.at(boxesNumber - 2) && player == orderedOpponents.back())
 	{
-		player->deactivate();
-		G_getWorld()->gameIsOver(false);
+		//player->deactivate();
+		//G_getWorld()->gameIsOver(false);
 		return;
 	}
 	if (box == player)
@@ -164,7 +164,7 @@ void EndlessWorld::setMinGates(int number)
 	
 	for (int odl = G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar); odl <= koniec; odl += G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar))
 	{
-		int wysokosc = 4.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
+		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odl, floor->bb.t + wysokosc));
 		rotationLayer->addChild(pwrup);

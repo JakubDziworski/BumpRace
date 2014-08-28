@@ -449,11 +449,11 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, true);
 		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
 		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
-		world->setMinGates(currGatesNumb);
+		world->setMinGates(0);
 		G_dir()->replaceScene(scene);
 		return;
 	}
-	if (currModeSelected == 0)
+	else if (currModeSelected == 0)
 	{
 		scene = SingleGateWorld::createScene(currOpponentsNumber + 1, currGatesNumb, currDiffValue);
 	}
