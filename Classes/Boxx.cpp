@@ -253,8 +253,8 @@ void Boxx::deactivate()
 	displayDebugInfo();
 	auto fireRED = G_getParticleFromFile(R_boxDeactivatedRED);
 	auto smokeYELLOW = G_getParticleFromFile(R_boxDeactivatedYELLOW);
-	smokeYELLOW->setNormalizedPosition(Vec2(0.5f, 0.7f));
-	fireRED->setNormalizedPosition(Vec2(0.5f, 0.7f));
+	smokeYELLOW->setPosition(Vec2(this->getContentSize().width*0.5f, this->getContentSize().height*0.7f));
+	fireRED->setPosition(Vec2(this->getContentSize().width*0.5f, this->getContentSize().height*0.7f));
 	this->addChild(fireRED,1);
 	this->addChild(smokeYELLOW,0);
 	deactivated = true;
@@ -317,11 +317,11 @@ bool Boxx::activatePowerUp()
 	{
 										cpBodyApplyImpulse(myBody, cpv(325, 0), cpv(0, 0));
 										auto jetpackFireRED = G_getParticleFromFile(R_jetpackFireRED);
-										jetpackFireRED->setNormalizedPosition(Vec2(0, 0.5f));
-										auto jetpackSmokeRED = G_getParticleFromFile(R_jetpackFireYELLOW);
-										jetpackSmokeRED->setNormalizedPosition(Vec2(0, 0.5f));
+										jetpackFireRED->setPosition(0,this->getContentSize().height/2.0f);
+										auto jetpackSmokeYELLOW = G_getParticleFromFile(R_jetpackFireYELLOW);
+										jetpackSmokeYELLOW->setPosition(0, this->getContentSize().height / 2.0f);
 										jetpack->addChild(jetpackFireRED,1);
-										jetpack->addChild(jetpackSmokeRED,2);
+										jetpack->addChild(jetpackSmokeYELLOW, 2);
 										auto rmvjetpack = CallFunc::create([this](){jetpack->removeFromParent(); jetpack = NULL; pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
 										auto wait = DelayTime::create(jetpackFireRED->getDuration() + jetpackFireRED->getLife());
 										auto fadeOut = FadeOut::create(0.2f);
@@ -370,8 +370,8 @@ bool Boxx::activatePowerUp()
 										  particleFireYELLOW->setDuration(timeToFly);
 										  rocketNew->addChild(particleFireRED,2);
 										  rocketNew->addChild(particleFireYELLOW,1);
-										  particleFireRED->setNormalizedPosition(Vec2(0.5f, -0.3f));
-										  particleFireYELLOW->setNormalizedPosition(Vec2(0.5f, -0.3f));
+										  particleFireRED->setPosition(Vec2(this->getContentSize().width*0.5f, this->getContentSize().height* -0.3f));
+										  particleFireYELLOW->setPosition(Vec2(this->getContentSize().width*0.5f, this->getContentSize().height* -0.3f));
 										  auto explosion1 = G_getParticleFromFile(R_explosParticleRED,ParticleSystemQuad::PositionType::FREE);
 										  rocketNew->setPosition(this->getPositionX()-this->getContentSize().width/2,this->getPositionY());
 										  rocketNew->setRotation(angle);
@@ -385,6 +385,8 @@ bool Boxx::activatePowerUp()
 											  auto explosion2 = G_getParticleFromFile(R_explosParticleYELLOW, ParticleSystemQuad::PositionType::FREE);
 											  SoundManager::getInstance()->playEffect(R_explosion);
 											  cpBodyApplyImpulse(target->getBody(), cpv(-350,350), cpv(0, 0));
+											  explosion1->setPosition(rocketNew->getContentSize().width / 2.0f, rocketNew->getContentSize().height / 2.0f);
+											  explosion2->setPosition(rocketNew->getContentSize().width / 2.0f, rocketNew->getContentSize().height / 2.0f);
 											  rocketNew->addChild(explosion1);
 											  rocketNew->addChild(explosion2);
 											  particleFireRED->stopSystem();

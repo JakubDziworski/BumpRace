@@ -21,7 +21,7 @@ const float Globals_radWsp = M_PI / 180.0f;
 int G_maxVelocity = 150;
 int G_maxVelConstant = 125;
 int G_maxVelAddition = 300;
-int G_powerUpOdleglos = 2500;
+int G_powerUpOdleglos = 250;
 int G_powerUpOdlegloscVar = 250;
 int G_powerUpsNumbers = 2;
 extern cocos2d::ActionManager *slowActionManager;
@@ -107,7 +107,6 @@ float G_getFTimeScale(float val)
 {
 	return G_director->getScheduler()->getTimeScale()*val;
 }
-
 extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type/*= cocos2d::ParticleSystemQuad::PositionType::RELATIVE*/)
 {
 	auto particle = cocos2d::ParticleSystemQuad::create(filename.c_str());
@@ -124,6 +123,7 @@ extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &fil
 		particle->setSpeedVar(val*particle->getSpeedVar());
 	}
 	particle->setPositionType(type);
+	particle->setAutoRemoveOnFinish(true);
 	return particle;
 }
 void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
@@ -237,7 +237,6 @@ void G_enableShadow(cocos2d::Label *lbl)
 	const float offset = lbl->getSystemFontSize();
 	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
 }
-
 extern void G_enableShadow(cocos2d::ui::Text *lbl)
 {
 	const float offset = lbl->getFontSize();
