@@ -94,5 +94,17 @@
 	<string>Najlepszy Wynik</string>
 	<key>tapToStart</key>
 	<string>Dotknij gdziekolwiek aby rozpocząć</string>
+	<key>Tutorials</key>
+	<string>Samouczki</string>
+	<key>On</key>
+	<string>Wł</string>
+	<key>Off</key>
+	<string>Wył</string>
+	<key>Credits</key>
+	<string>Autorzy</string>
+	<key>gandA</key>
+	<string>Grafika i Audio</string>
+	<key>everything</key>
+	<string>Wszystko pozostałe</string>
 </dict>
 </plist>

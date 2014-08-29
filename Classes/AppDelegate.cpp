@@ -2,6 +2,7 @@
 #include "HelloWorldScene.h"
 #include "MyMenu.h"
 #include "Globals.h"
+#include "screw/screw.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() 
@@ -14,6 +15,7 @@ AppDelegate::~AppDelegate()
 	G_strings->release();
 }
 bool AppDelegate::applicationDidFinishLaunching() {
+	screw::facebook::Session::start();
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
@@ -72,5 +74,5 @@ void AppDelegate::prepareImageRes(cocos2d::Size scrSize)
 		Director::getInstance()->setContentScaleFactor(2);
 	}
 	glView->setDesignResolutionSize(512,342, ResolutionPolicy::NO_BORDER);
-	FileUtils::getInstance()->setSearchPaths(resPaths);
+	cocos2d::FileUtils::getInstance()->setSearchPaths(resPaths);
 }

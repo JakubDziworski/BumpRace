@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "World.h"
 #include "Hud.h"
+#include "screw/screw.h"
 extern int G_endlessGateNumber;
 extern cocos2d::Director *G_director;
 extern int G_odlegloscmiedzyBramkami;
@@ -20,6 +21,8 @@ extern int G_maxVelAddition;
 extern int G_powerUpOdleglos;
 extern int G_powerUpOdlegloscVar;
 extern int G_powerUpsNumbers;
+extern bool FB_connected;
+extern bool FB_loginListenerExist;
 extern void G_scaleToFitScreen(cocos2d::Node *spr);
 cocos2d::Director *G_dir();
 extern void G_setCurrAngle(float angle);
@@ -39,5 +42,11 @@ extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &fil
 extern void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent);
 extern void G_enableShadow(cocos2d::Label *lbl);
 extern void G_enableShadow(cocos2d::ui::Text *lbl);
+extern void FB_login();
+extern void FB_logOut();
+extern void FB_setLoginCallBack(std::function <void(Session *session, SessionError *errorr)> fun);
+extern void FB_autLogin();
+extern void FB_loadPhoto(const std::string& uid,const int size);
+extern void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Sprite *sprite)> fun);
 #endif
 

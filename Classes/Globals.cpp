@@ -24,6 +24,8 @@ int G_maxVelAddition = 300;
 int G_powerUpOdleglos = 500;
 int G_powerUpOdlegloscVar = 3000;
 int G_powerUpsNumbers = 2;
+bool FB_connected = false;
+bool FB_loginListenerExist = false;
 extern cocos2d::ActionManager *slowActionManager;
 extern cocos2d::ActionManager *normalActionManager;
 cocos2d::Dictionary *G_strings;
@@ -241,6 +243,44 @@ extern void G_enableShadow(cocos2d::ui::Text *lbl)
 {
 	const float offset = lbl->getFontSize();
 	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
+}
+void FB_setLoginCallBack(std::function <void(Session *session, SessionError *errorr)> fun)
+{
+	if (FB_loginListenerExist) return;
+	Session::getActiveSession()->setStatusCallback(fun);
+	FB_loginListenerExist = true;
+}
+
+void FB_login()
+{
+	Session::getActiveSession()->open(true, { "user_friends" },
+		DefaultAudience::PUBLIC,
+		LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);
+}
+void FB_autLogin()
+{
+	if (Session::getActiveSession()->getState() == Session::State::CREATED_TOKEN_LOADED) {
+		Session::getActiveSession()->open(false);
+	}
+}
+extern void FB_logOut()
+{
+	Session::getActiveSession()->close();
+}
+
+extern void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Sprite *sprite)> fun)
+{
+	EventListenerCustom *listener = EventListenerCustom::create(PhotoLoaderLoadedNotification, [=](EventCustom *event){
+		PhotoLoaderEvent *ev = (PhotoLoaderEvent *)event;
+		cocos2d::Texture2D *texture = PhotoLoader::getInstance()->loadTexture(ev->getUid());
+		fun(Sprite::createWithTexture(texture));
+	});
+	G_dir()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, eventDispatcherNode);
+}
+
+extern void FB_loadPhoto(const std::string& uid,const int size)
+{
+	PhotoLoader::getInstance()->download(uid, size);
 }
 
 

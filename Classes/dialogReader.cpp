@@ -109,3 +109,12 @@ void DialogReader::flush()
 	loadedWidgets.clear();
 	cocostudio::ActionManagerEx::getInstance()->releaseActions();
 }
+void DialogReader::addButtonAction(const std::string& cocosFileName, const std::string &name, std::function<void()> additionalFeature)
+{
+	((Button*)getWidget(cocosFileName, name))->addTouchEventListener([additionalFeature](Ref* reff, Button::TouchEventType type)
+	{
+		if (type != Button::TouchEventType::ENDED) return;
+		SoundManager::getInstance()->playBtnEffect();
+		additionalFeature();
+	});
+}

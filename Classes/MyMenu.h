@@ -101,5 +101,7 @@ public:
 	//SETUPO
 	void m_setupAutoCorrectDialog(cocos2d::ui::Layout *root);
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	//options
+	void createOptionsMenu();
 };
 #endif // !__MENU_H__

@@ -27,6 +27,36 @@ THE SOFTWARE.
 package org.cocos2dx.cpp;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.Cocos2dxHandler;
+import org.cocos2dx.lib.Cocos2dxHelper;
+import org.cocos2dx.lib.Cocos2dxVideoHelper;
+import com.screw.facebook.*;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.preference.PreferenceManager.OnActivityResultListener;
 
 public class AppActivity extends Cocos2dxActivity {
+	@Override
+	protected void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Facebook.onActivityCreate(this, savedInstanceState);
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Facebook.onActivityResume();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Facebook.onActivityPause();
+	}
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        Facebook.onActivityResult(requestCode, resultCode, data);
+    }
 }

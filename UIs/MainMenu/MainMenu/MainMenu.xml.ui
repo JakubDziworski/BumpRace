@@ -8,6 +8,8 @@
   <JsonFolder>D:\BumpRace\BumpRace\UIs\MainMenu\MainMenu\Json</JsonFolder>
   <JsonList>
     <string>MainMenu_1.json</string>
+    <string>Options.json</string>
+    <string>creditsDialog.json</string>
   </JsonList>
   <CanvasSize>
     <Width>512</Width>
@@ -16,8 +18,15 @@
   <filePath>D:\BumpRace\BumpRace\UIs\MainMenu\MainMenu\MainMenu.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath />
-  <imageFileList />
-  <imagePngList />
+  <imageFileList>
+    <string>Res1.plist</string>
+  </imageFileList>
+  <imagePngList>
+    <string>Res1.plist</string>
+    <string>GUI/button.png</string>
+    <string>Res1.plist</string>
+    <string>Res1.plist</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>creditsDialog.json</CurrentUIJson>
 </UIProject>

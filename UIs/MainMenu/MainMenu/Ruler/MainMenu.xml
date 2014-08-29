@@ -5,7 +5,11 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>MainMenu_2</Project>
+    <Project>Options</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>creditsDialog</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

@@ -19,6 +19,7 @@
 #include "dialogReader.h"
 #include "extensions/GUI/CCEditBox/CCEditBox.h"
 #include "extensions/GUI/CCControlExtension/CCScale9Sprite.h"
+#include "screw/screw.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -73,11 +74,11 @@ bool MyMenu::init()
 		createLayout(L_PLAYMULTI);
 			createLayout(L_MULTIFREELOCALRUN);
 				createLayout(L_M_CHOOSENAMES);
-		createLayout(L_OPTIONS);
 	//*MAIN MENU BUTTNS*//
 	createBtn(R_btnOn, "", "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
 	createBtn(R_btnOn,"", "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
 	createBtn(R_btnOn, "", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
+	createOptionsMenu();
 	//*SINGLE PLAYER BUTTONS*//
 	createLabel(G_str("Single_Player"), L_PLAYSINGLE, LAB_SINGLEPLAYER);
 	createBtn(R_btnOn,"", "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
@@ -108,7 +109,6 @@ bool MyMenu::init()
 	createSpinner(std::to_string(m_currPlayersNumber), G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
 	createSpinner(std::to_string(m_currOpponentsNumber), G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
 	createSpinner("Medium", G_str("Difficulty"), m_currDiffValue, 2, 0,B_M_DIFFICULTYSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
-	createBtn(R_btnOn, "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
 	createBtn(R_btnOn, "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
@@ -144,7 +144,7 @@ cocos2d::Scene* MyMenu::createScene()
 {
 	Scene *scena = Scene::create();
 	MyMenu *menu = MyMenu::create();
-	scena->addChild(menu,1,1);
+	scena->addChild(menu, 1, LAYER_HUD);
 	return scena;
 }
 //**CREATING**//
@@ -335,6 +335,7 @@ void MyMenu::preload()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
 	SoundManager::getInstance()->preloadSounds();
 	SoundManager::getInstance()->playBgMusicMenu();
+	FB_autLogin();
 }
 void MyMenu::hide(int menutypedef)
 {
@@ -406,6 +407,9 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	Session::getActiveSession()->open(true, {"user_friends"},
+	                                          DefaultAudience::PUBLIC,
+	                                          LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);
 	SoundManager::getInstance()->playBtnEffect();
 	show(B_BACK);
 	show(L_PLAYSINGLE);
@@ -819,4 +823,52 @@ void MyMenu::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 		goBack(this, Widget::TouchEventType::ENDED);
 	}
+}
+void MyMenu::createOptionsMenu()
+{
+	auto parent = Layout::create();
+	this->addChild(parent,0, L_OPTIONS);
+	parent->setVisible(false);
+	auto options = DialogReader::getInstance()->getMainWidgetFromJson("Options.json", parent);
+	//set visible or insible facebook login logout
+	auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
+	connbtn->setVisible(!FB_connected);
+	connbtn->setTouchEnabled(!FB_connected);
+	auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
+	discoBtn->setVisible(FB_connected);
+	discoBtn->setTouchEnabled(FB_connected);
+	FB_setLoginCallBack([](screw::facebook::Session *sesion, screw::facebook::SessionError *err)
+	{
+		if (sesion->OPENED || sesion->OPENED_TOKEN_UPDATED)
+		{
+			FB_connected == true;
+		}
+		else if (sesion->CLOSED || sesion->CLOSED_LOGIN_FAILED || sesion->CLOSED_LOGIN_FAILED || sesion->INVALID)
+		{
+			FB_connected = false;
+
+		}
+		if (dynamic_cast<MyMenu*>(G_dir()->getRunningScene()->getChildByTag(LAYER_HUD))) //menu
+		{
+			auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
+			connbtn->setVisible(!FB_connected);
+			connbtn->setTouchEnabled(!FB_connected);
+			auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
+			discoBtn->setVisible(FB_connected);
+			discoBtn->setTouchEnabled(FB_connected);
+
+		}
+	});
+	DialogReader::getInstance()->addButtonAction("Options.json", "fbConnectBtn", []()//login
+	{
+		FB_login();
+	});
+	DialogReader::getInstance()->addButtonAction("Options.json", "fbDisconnectBtn", []()//logout
+	{
+		FB_logOut();
+	});
+	DialogReader::getInstance()->addButtonAction("Options.json", "CreditsBtn", [options]()
+	{
+		DialogReader::getInstance()->getMainWidgetFromJson("creditsDialog.json", options);
+	});
 }

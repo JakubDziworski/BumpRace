@@ -52,6 +52,7 @@
 									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/extensions"/>
 									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/external"/>
 									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/external/chipmunk/include/chipmunk"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1728671637" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="CC_TARGET_PLATFORM=CC_PLATFORM_ANDROID"/>
