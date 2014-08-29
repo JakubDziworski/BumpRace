@@ -38,14 +38,14 @@ PowerUp * PowerUp::create(cocos2d::Vector<Boxx*> *boxess)
 }
 bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 {
-	active = false;
-	int losuj = 1;
-	this->setScale(0.2f);
+    int losuj = 1;
 	losuj = rand() % 3;
 	if (!Sprite::initWithSpriteFrameName(R_powerUps[losuj]))
 	{
 		return false;
 	}
+    this->setScale(0.7f);
+    active = false;
 	switch (losuj)
 	{
 	case 0:
@@ -61,8 +61,8 @@ bool PowerUp::InitPowerUp(cocos2d::Vector<Boxx*> *boxess)
 	boxez = boxess;
 	//auto goUp = EaseBackOut::create(MoveBy::create(0.7f, Vec2(0, G_hF(100))));
 	//auto goDown = EaseBackOut::create(MoveBy::create(0.7f, Vec2(0, G_hF(-100))));
-	auto goUp = EaseBackOut::create(ScaleTo::create(0.3f,1.2f));
-	auto goDown = EaseBackOut::create(ScaleTo::create(0.3f, 0.9f));
+	auto goUp = EaseBackOut::create(ScaleTo::create(0.3f,0.7f));
+	auto goDown = EaseBackOut::create(ScaleTo::create(0.3f, 0.8f,0.65f));
 	this->runAction(RepeatForever::create(Sequence::createWithTwoActions(goUp, goDown)));
 	this->schedule(schedule_selector(PowerUp::tick));
 	return true;

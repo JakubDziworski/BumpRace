@@ -93,6 +93,7 @@ void Hud::resumeBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+    SoundManager::getInstance()->stopAllEffects();
 	SoundManager::getInstance()->playBtnEffect();
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	repeatBtnListenerExtended();
@@ -101,6 +102,7 @@ void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+     SoundManager::getInstance()->stopAllEffects();
 	SoundManager::getInstance()->playBtnEffect();
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	gotoMenuBtnListenerExtended();

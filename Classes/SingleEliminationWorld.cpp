@@ -59,7 +59,29 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		orderedOpponents.at(remainingGates+1)->deactivate();
 		hud->boxEliminated(orderedOpponents.at(remainingGates + 1));
 		//game over
-		if (player && remainingGates == 0 && orderedOpponents.at(remainingGates) == player)
+        if(remainingGates == 0) pozycje.pushBack(box);
+        if(multiplayerEnabled)
+        {
+            bool koniecplayerow = true;
+            for(auto pl : *getPlayers())
+            {
+                if(!pl->isDeactivated())
+                {
+                    koniecplayerow=false;
+                    break;
+                }
+            }
+            if(koniecplayerow)
+            {
+                for (auto bx : orderedOpponents)
+                {
+                    if (!bx->isDeactivated() && !pozycje.contains(bx)) pozycje.pushBack(bx);
+                }
+                this->gameIsOver(false);
+                return;
+            }
+        }
+		else if (player && remainingGates == 0 && box == player)
 		{
 			this->gameIsOver(true);
 			return;
@@ -68,7 +90,7 @@ void SingleEliminationWorld::checkpointReachedExtended(Boxx *box, int pos)
 		{
 			for (auto bx : orderedOpponents)
 			{
-				if (!bx->isDeactivated()) pozycje.pushBack(bx);
+				if (!bx->isDeactivated() && !pozycje.contains(bx)) pozycje.pushBack(bx);
 			}
 			this->gameIsOver(false);
 			return;

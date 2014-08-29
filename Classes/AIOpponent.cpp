@@ -34,17 +34,17 @@ bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *sp
 	this->smartness = smartnez;
 	orderedOpponents = NULL;
 	//**trudnosc**//
-	int randomNumber = rand() % 11 - 1;
+	const float randomPercent = (float)(rand() % 11 - 1)/10.0f;
 	switch (smartness)
 	{
 	case 0:
-		schedule(schedule_selector(AIOpponent::simulate),2);
+		schedule(schedule_selector(AIOpponent::simulate),1.5f+2*randomPercent);
 		break;
 	case 1:
-		schedule(schedule_selector(AIOpponent::simulate), 1.5f);
+		schedule(schedule_selector(AIOpponent::simulate), 1.3f+randomPercent);
 		break;
 	case 2:
-		schedule(schedule_selector(AIOpponent::simulate), 0.2f);
+		schedule(schedule_selector(AIOpponent::simulate),0.1f+randomPercent*0.2f);
 		break;
 	default:
 		break;
@@ -106,7 +106,7 @@ void AIOpponent::maintainPowerUp()
 		if (racePos == G_getWorld()->getBoxesNumber()
 			&& przedni->getPositionX() - this->getPositionX() < 2*this->getContentSize().width)
 		{
-			target = przedni;
+			activatePowerUp();return;
 		}
 		break;
 	case PowerUp::PowerUpType::THUNDER:
@@ -123,22 +123,37 @@ void AIOpponent::maintainPowerUp()
 	}
 	if (target)
 	{
-		if (target == G_getWorld()->getPlayer())
+        const int randVal = rand() % 11+1;
+		if (dynamic_cast<Player*>(target))
 		{
-			const int randVal = rand() % 10;
 			switch (smartness)
 			{
 				case 0:
-					if (randVal > 5) activatePowerUp();
 					break;
 				case 1:
-					if (randVal > 3) activatePowerUp();
+					if (randVal >= 5) activatePowerUp();
 					break;
 				case 2:
 					activatePowerUp();
 					break;
 			}
 		}
-		activatePowerUp();
+        else
+        {
+            switch(smartness)
+            {
+                    
+				case 0:
+                    if (randVal >= 5) activatePowerUp();
+                    activatePowerUp();
+					break;
+				case 1:
+					if (randVal >= 7) activatePowerUp();
+					break;
+				case 2:
+					activatePowerUp();
+					break;
+            }
+        }
 	}
 }

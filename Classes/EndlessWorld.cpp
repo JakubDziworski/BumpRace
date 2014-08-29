@@ -46,8 +46,8 @@ void EndlessWorld::checkpointReachedExtended(Boxx *box, int pos)
 {
 	if (box == orderedOpponents.at(boxesNumber - 2) && player == orderedOpponents.back())
 	{
-		//player->deactivate();
-		//G_getWorld()->gameIsOver(false);
+		player->deactivate();
+		G_getWorld()->gameIsOver(false);
 		return;
 	}
 	if (box == player)

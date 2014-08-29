@@ -9,7 +9,7 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 int G_endlessGateNumber = 5;
-int G_odlegloscmiedzyBramkami = 6000;
+int G_odlegloscmiedzyBramkami = 7000;
 cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;
@@ -21,8 +21,8 @@ const float Globals_radWsp = M_PI / 180.0f;
 int G_maxVelocity = 150;
 int G_maxVelConstant = 125;
 int G_maxVelAddition = 300;
-int G_powerUpOdleglos = 250;
-int G_powerUpOdlegloscVar = 250;
+int G_powerUpOdleglos = 500;
+int G_powerUpOdlegloscVar = 3000;
 int G_powerUpsNumbers = 2;
 extern cocos2d::ActionManager *slowActionManager;
 extern cocos2d::ActionManager *normalActionManager;

@@ -95,27 +95,48 @@
 		8C2BC5EB199D322F001E6BB3 /* SpeedPowerUp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BC5E7199D322F001E6BB3 /* SpeedPowerUp.cpp */; };
 		8C37BC1519A90ACB00954A3F /* dialogReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C37BC1119A90ACB00954A3F /* dialogReader.cpp */; };
 		8C37BC1619A90ACB00954A3F /* soundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C37BC1319A90ACB00954A3F /* soundManager.cpp */; };
-		8C3ADDFF19AEF308004BAD8C /* Aleo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDEA19AEF308004BAD8C /* Aleo-BoldItalic.ttf */; };
-		8C3ADE0019AEF308004BAD8C /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDEB19AEF308004BAD8C /* CarrerLevelChooser_1.json */; };
-		8C3ADE0119AEF308004BAD8C /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDEC19AEF308004BAD8C /* Dialog_1.json */; };
-		8C3ADE0219AEF308004BAD8C /* elimWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDED19AEF308004BAD8C /* elimWorldLevelIntro.json */; };
-		8C3ADE0319AEF308004BAD8C /* endlessWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDEE19AEF308004BAD8C /* endlessWorldLevelIntro.json */; };
-		8C3ADE0419AEF308004BAD8C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDEF19AEF308004BAD8C /* fonts */; };
-		8C3ADE0519AEF308004BAD8C /* gateWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF019AEF308004BAD8C /* gateWorldLevelIntro.json */; };
-		8C3ADE0619AEF308004BAD8C /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF119AEF308004BAD8C /* HD */; };
-		8C3ADE0719AEF308004BAD8C /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF219AEF308004BAD8C /* HDR */; };
-		8C3ADE0819AEF308004BAD8C /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF319AEF308004BAD8C /* levelLockedDialog.json */; };
-		8C3ADE0919AEF308004BAD8C /* MainMenuChoose.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF419AEF308004BAD8C /* MainMenuChoose.json */; };
-		8C3ADE0A19AEF308004BAD8C /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF519AEF308004BAD8C /* multilanguage */; };
-		8C3ADE0B19AEF308004BAD8C /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF619AEF308004BAD8C /* music */; };
-		8C3ADE0C19AEF308004BAD8C /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF719AEF308004BAD8C /* PackerResource */; };
-		8C3ADE0D19AEF308004BAD8C /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF819AEF308004BAD8C /* particles */; };
-		8C3ADE0E19AEF308004BAD8C /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDF919AEF308004BAD8C /* Res1.tps */; };
-		8C3ADE0F19AEF308004BAD8C /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDFA19AEF308004BAD8C /* scripts */; };
-		8C3ADE1019AEF308004BAD8C /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDFB19AEF308004BAD8C /* SD */; };
-		8C3ADE1119AEF308004BAD8C /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDFC19AEF308004BAD8C /* Shaders */; };
-		8C3ADE1219AEF308004BAD8C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDFD19AEF308004BAD8C /* sounds */; };
-		8C3ADE1319AEF308004BAD8C /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3ADDFE19AEF308004BAD8C /* tutorialintro_1.json */; };
+		8C3B03E419AF85C700415A8C /* Aleo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03CF19AF85C700415A8C /* Aleo-BoldItalic.ttf */; };
+		8C3B03E519AF85C700415A8C /* Aleo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03CF19AF85C700415A8C /* Aleo-BoldItalic.ttf */; };
+		8C3B03E619AF85C700415A8C /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D019AF85C700415A8C /* CarrerLevelChooser_1.json */; };
+		8C3B03E719AF85C700415A8C /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D019AF85C700415A8C /* CarrerLevelChooser_1.json */; };
+		8C3B03E819AF85C700415A8C /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D119AF85C700415A8C /* Dialog_1.json */; };
+		8C3B03E919AF85C700415A8C /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D119AF85C700415A8C /* Dialog_1.json */; };
+		8C3B03EA19AF85C700415A8C /* elimWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D219AF85C700415A8C /* elimWorldLevelIntro.json */; };
+		8C3B03EB19AF85C700415A8C /* elimWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D219AF85C700415A8C /* elimWorldLevelIntro.json */; };
+		8C3B03EC19AF85C700415A8C /* endlessWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D319AF85C700415A8C /* endlessWorldLevelIntro.json */; };
+		8C3B03ED19AF85C700415A8C /* endlessWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D319AF85C700415A8C /* endlessWorldLevelIntro.json */; };
+		8C3B03EE19AF85C700415A8C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D419AF85C700415A8C /* fonts */; };
+		8C3B03EF19AF85C700415A8C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D419AF85C700415A8C /* fonts */; };
+		8C3B03F019AF85C700415A8C /* gateWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D519AF85C700415A8C /* gateWorldLevelIntro.json */; };
+		8C3B03F119AF85C700415A8C /* gateWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D519AF85C700415A8C /* gateWorldLevelIntro.json */; };
+		8C3B03F219AF85C700415A8C /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D619AF85C700415A8C /* HD */; };
+		8C3B03F319AF85C700415A8C /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D619AF85C700415A8C /* HD */; };
+		8C3B03F419AF85C700415A8C /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D719AF85C700415A8C /* HDR */; };
+		8C3B03F519AF85C700415A8C /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D719AF85C700415A8C /* HDR */; };
+		8C3B03F619AF85C700415A8C /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D819AF85C700415A8C /* levelLockedDialog.json */; };
+		8C3B03F719AF85C700415A8C /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D819AF85C700415A8C /* levelLockedDialog.json */; };
+		8C3B03F819AF85C700415A8C /* MainMenuChoose.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D919AF85C700415A8C /* MainMenuChoose.json */; };
+		8C3B03F919AF85C700415A8C /* MainMenuChoose.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03D919AF85C700415A8C /* MainMenuChoose.json */; };
+		8C3B03FA19AF85C700415A8C /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DA19AF85C700415A8C /* multilanguage */; };
+		8C3B03FB19AF85C700415A8C /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DA19AF85C700415A8C /* multilanguage */; };
+		8C3B03FC19AF85C700415A8C /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DB19AF85C700415A8C /* music */; };
+		8C3B03FD19AF85C700415A8C /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DB19AF85C700415A8C /* music */; };
+		8C3B03FE19AF85C700415A8C /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DC19AF85C700415A8C /* PackerResource */; };
+		8C3B03FF19AF85C700415A8C /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DC19AF85C700415A8C /* PackerResource */; };
+		8C3B040019AF85C700415A8C /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DD19AF85C700415A8C /* particles */; };
+		8C3B040119AF85C700415A8C /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DD19AF85C700415A8C /* particles */; };
+		8C3B040219AF85C700415A8C /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DE19AF85C700415A8C /* Res1.tps */; };
+		8C3B040319AF85C700415A8C /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DE19AF85C700415A8C /* Res1.tps */; };
+		8C3B040419AF85C700415A8C /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DF19AF85C700415A8C /* scripts */; };
+		8C3B040519AF85C700415A8C /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03DF19AF85C700415A8C /* scripts */; };
+		8C3B040619AF85C700415A8C /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E019AF85C700415A8C /* SD */; };
+		8C3B040719AF85C700415A8C /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E019AF85C700415A8C /* SD */; };
+		8C3B040819AF85C700415A8C /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E119AF85C700415A8C /* Shaders */; };
+		8C3B040919AF85C700415A8C /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E119AF85C700415A8C /* Shaders */; };
+		8C3B040A19AF85C700415A8C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E219AF85C700415A8C /* sounds */; };
+		8C3B040B19AF85C700415A8C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E219AF85C700415A8C /* sounds */; };
+		8C3B040C19AF85C700415A8C /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E319AF85C700415A8C /* tutorialintro_1.json */; };
+		8C3B040D19AF85C700415A8C /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C3B03E319AF85C700415A8C /* tutorialintro_1.json */; };
 		8C6DFAB519850BB600055AF5 /* myListView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DFAB319850BB600055AF5 /* myListView.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -358,27 +379,27 @@
 		8C37BC1219A90ACB00954A3F /* dialogReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dialogReader.h; sourceTree = "<group>"; };
 		8C37BC1319A90ACB00954A3F /* soundManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soundManager.cpp; sourceTree = "<group>"; };
 		8C37BC1419A90ACB00954A3F /* soundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundManager.h; sourceTree = "<group>"; };
-		8C3ADDEA19AEF308004BAD8C /* Aleo-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-BoldItalic.ttf"; sourceTree = "<group>"; };
-		8C3ADDEB19AEF308004BAD8C /* CarrerLevelChooser_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CarrerLevelChooser_1.json; sourceTree = "<group>"; };
-		8C3ADDEC19AEF308004BAD8C /* Dialog_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dialog_1.json; sourceTree = "<group>"; };
-		8C3ADDED19AEF308004BAD8C /* elimWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = elimWorldLevelIntro.json; sourceTree = "<group>"; };
-		8C3ADDEE19AEF308004BAD8C /* endlessWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = endlessWorldLevelIntro.json; sourceTree = "<group>"; };
-		8C3ADDEF19AEF308004BAD8C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		8C3ADDF019AEF308004BAD8C /* gateWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gateWorldLevelIntro.json; sourceTree = "<group>"; };
-		8C3ADDF119AEF308004BAD8C /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HD; sourceTree = "<group>"; };
-		8C3ADDF219AEF308004BAD8C /* HDR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HDR; sourceTree = "<group>"; };
-		8C3ADDF319AEF308004BAD8C /* levelLockedDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = levelLockedDialog.json; sourceTree = "<group>"; };
-		8C3ADDF419AEF308004BAD8C /* MainMenuChoose.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenuChoose.json; sourceTree = "<group>"; };
-		8C3ADDF519AEF308004BAD8C /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
-		8C3ADDF619AEF308004BAD8C /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
-		8C3ADDF719AEF308004BAD8C /* PackerResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PackerResource; sourceTree = "<group>"; };
-		8C3ADDF819AEF308004BAD8C /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
-		8C3ADDF919AEF308004BAD8C /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
-		8C3ADDFA19AEF308004BAD8C /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
-		8C3ADDFB19AEF308004BAD8C /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SD; sourceTree = "<group>"; };
-		8C3ADDFC19AEF308004BAD8C /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
-		8C3ADDFD19AEF308004BAD8C /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
-		8C3ADDFE19AEF308004BAD8C /* tutorialintro_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialintro_1.json; sourceTree = "<group>"; };
+		8C3B03CF19AF85C700415A8C /* Aleo-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-BoldItalic.ttf"; sourceTree = "<group>"; };
+		8C3B03D019AF85C700415A8C /* CarrerLevelChooser_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CarrerLevelChooser_1.json; sourceTree = "<group>"; };
+		8C3B03D119AF85C700415A8C /* Dialog_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dialog_1.json; sourceTree = "<group>"; };
+		8C3B03D219AF85C700415A8C /* elimWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = elimWorldLevelIntro.json; sourceTree = "<group>"; };
+		8C3B03D319AF85C700415A8C /* endlessWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = endlessWorldLevelIntro.json; sourceTree = "<group>"; };
+		8C3B03D419AF85C700415A8C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		8C3B03D519AF85C700415A8C /* gateWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gateWorldLevelIntro.json; sourceTree = "<group>"; };
+		8C3B03D619AF85C700415A8C /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HD; sourceTree = "<group>"; };
+		8C3B03D719AF85C700415A8C /* HDR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HDR; sourceTree = "<group>"; };
+		8C3B03D819AF85C700415A8C /* levelLockedDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = levelLockedDialog.json; sourceTree = "<group>"; };
+		8C3B03D919AF85C700415A8C /* MainMenuChoose.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenuChoose.json; sourceTree = "<group>"; };
+		8C3B03DA19AF85C700415A8C /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
+		8C3B03DB19AF85C700415A8C /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
+		8C3B03DC19AF85C700415A8C /* PackerResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PackerResource; sourceTree = "<group>"; };
+		8C3B03DD19AF85C700415A8C /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
+		8C3B03DE19AF85C700415A8C /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
+		8C3B03DF19AF85C700415A8C /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
+		8C3B03E019AF85C700415A8C /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SD; sourceTree = "<group>"; };
+		8C3B03E119AF85C700415A8C /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		8C3B03E219AF85C700415A8C /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		8C3B03E319AF85C700415A8C /* tutorialintro_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialintro_1.json; sourceTree = "<group>"; };
 		8C6DFAB319850BB600055AF5 /* myListView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = myListView.cpp; path = ../Classes/myListView.cpp; sourceTree = "<group>"; };
 		8C6DFAB419850BB600055AF5 /* myListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myListView.h; path = ../Classes/myListView.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -624,27 +645,27 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8C3ADDEA19AEF308004BAD8C /* Aleo-BoldItalic.ttf */,
-				8C3ADDEB19AEF308004BAD8C /* CarrerLevelChooser_1.json */,
-				8C3ADDEC19AEF308004BAD8C /* Dialog_1.json */,
-				8C3ADDED19AEF308004BAD8C /* elimWorldLevelIntro.json */,
-				8C3ADDEE19AEF308004BAD8C /* endlessWorldLevelIntro.json */,
-				8C3ADDEF19AEF308004BAD8C /* fonts */,
-				8C3ADDF019AEF308004BAD8C /* gateWorldLevelIntro.json */,
-				8C3ADDF119AEF308004BAD8C /* HD */,
-				8C3ADDF219AEF308004BAD8C /* HDR */,
-				8C3ADDF319AEF308004BAD8C /* levelLockedDialog.json */,
-				8C3ADDF419AEF308004BAD8C /* MainMenuChoose.json */,
-				8C3ADDF519AEF308004BAD8C /* multilanguage */,
-				8C3ADDF619AEF308004BAD8C /* music */,
-				8C3ADDF719AEF308004BAD8C /* PackerResource */,
-				8C3ADDF819AEF308004BAD8C /* particles */,
-				8C3ADDF919AEF308004BAD8C /* Res1.tps */,
-				8C3ADDFA19AEF308004BAD8C /* scripts */,
-				8C3ADDFB19AEF308004BAD8C /* SD */,
-				8C3ADDFC19AEF308004BAD8C /* Shaders */,
-				8C3ADDFD19AEF308004BAD8C /* sounds */,
-				8C3ADDFE19AEF308004BAD8C /* tutorialintro_1.json */,
+				8C3B03CF19AF85C700415A8C /* Aleo-BoldItalic.ttf */,
+				8C3B03D019AF85C700415A8C /* CarrerLevelChooser_1.json */,
+				8C3B03D119AF85C700415A8C /* Dialog_1.json */,
+				8C3B03D219AF85C700415A8C /* elimWorldLevelIntro.json */,
+				8C3B03D319AF85C700415A8C /* endlessWorldLevelIntro.json */,
+				8C3B03D419AF85C700415A8C /* fonts */,
+				8C3B03D519AF85C700415A8C /* gateWorldLevelIntro.json */,
+				8C3B03D619AF85C700415A8C /* HD */,
+				8C3B03D719AF85C700415A8C /* HDR */,
+				8C3B03D819AF85C700415A8C /* levelLockedDialog.json */,
+				8C3B03D919AF85C700415A8C /* MainMenuChoose.json */,
+				8C3B03DA19AF85C700415A8C /* multilanguage */,
+				8C3B03DB19AF85C700415A8C /* music */,
+				8C3B03DC19AF85C700415A8C /* PackerResource */,
+				8C3B03DD19AF85C700415A8C /* particles */,
+				8C3B03DE19AF85C700415A8C /* Res1.tps */,
+				8C3B03DF19AF85C700415A8C /* scripts */,
+				8C3B03E019AF85C700415A8C /* SD */,
+				8C3B03E119AF85C700415A8C /* Shaders */,
+				8C3B03E219AF85C700415A8C /* sounds */,
+				8C3B03E319AF85C700415A8C /* tutorialintro_1.json */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -817,37 +838,37 @@
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
-				8C3ADE1019AEF308004BAD8C /* SD in Resources */,
-				8C3ADDFF19AEF308004BAD8C /* Aleo-BoldItalic.ttf in Resources */,
+				8C3B040619AF85C700415A8C /* SD in Resources */,
+				8C3B03E419AF85C700415A8C /* Aleo-BoldItalic.ttf in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
-				8C3ADE1319AEF308004BAD8C /* tutorialintro_1.json in Resources */,
-				8C3ADE0019AEF308004BAD8C /* CarrerLevelChooser_1.json in Resources */,
-				8C3ADE0319AEF308004BAD8C /* endlessWorldLevelIntro.json in Resources */,
+				8C3B040C19AF85C700415A8C /* tutorialintro_1.json in Resources */,
+				8C3B03E619AF85C700415A8C /* CarrerLevelChooser_1.json in Resources */,
+				8C3B03EC19AF85C700415A8C /* endlessWorldLevelIntro.json in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
-				8C3ADE0E19AEF308004BAD8C /* Res1.tps in Resources */,
-				8C3ADE0119AEF308004BAD8C /* Dialog_1.json in Resources */,
-				8C3ADE0D19AEF308004BAD8C /* particles in Resources */,
+				8C3B040219AF85C700415A8C /* Res1.tps in Resources */,
+				8C3B03E819AF85C700415A8C /* Dialog_1.json in Resources */,
+				8C3B040019AF85C700415A8C /* particles in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
-				8C3ADE0F19AEF308004BAD8C /* scripts in Resources */,
-				8C3ADE1219AEF308004BAD8C /* sounds in Resources */,
-				8C3ADE0719AEF308004BAD8C /* HDR in Resources */,
+				8C3B040419AF85C700415A8C /* scripts in Resources */,
+				8C3B040A19AF85C700415A8C /* sounds in Resources */,
+				8C3B03F419AF85C700415A8C /* HDR in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
-				8C3ADE1119AEF308004BAD8C /* Shaders in Resources */,
-				8C3ADE0519AEF308004BAD8C /* gateWorldLevelIntro.json in Resources */,
-				8C3ADE0B19AEF308004BAD8C /* music in Resources */,
-				8C3ADE0419AEF308004BAD8C /* fonts in Resources */,
+				8C3B040819AF85C700415A8C /* Shaders in Resources */,
+				8C3B03F019AF85C700415A8C /* gateWorldLevelIntro.json in Resources */,
+				8C3B03FC19AF85C700415A8C /* music in Resources */,
+				8C3B03EE19AF85C700415A8C /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				8C3ADE0619AEF308004BAD8C /* HD in Resources */,
+				8C3B03F219AF85C700415A8C /* HD in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
-				8C3ADE0A19AEF308004BAD8C /* multilanguage in Resources */,
-				8C3ADE0C19AEF308004BAD8C /* PackerResource in Resources */,
-				8C3ADE0819AEF308004BAD8C /* levelLockedDialog.json in Resources */,
-				8C3ADE0219AEF308004BAD8C /* elimWorldLevelIntro.json in Resources */,
+				8C3B03FA19AF85C700415A8C /* multilanguage in Resources */,
+				8C3B03FE19AF85C700415A8C /* PackerResource in Resources */,
+				8C3B03F619AF85C700415A8C /* levelLockedDialog.json in Resources */,
+				8C3B03EA19AF85C700415A8C /* elimWorldLevelIntro.json in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
-				8C3ADE0919AEF308004BAD8C /* MainMenuChoose.json in Resources */,
+				8C3B03F819AF85C700415A8C /* MainMenuChoose.json in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
@@ -858,7 +879,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C3B040119AF85C700415A8C /* particles in Resources */,
+				8C3B040919AF85C700415A8C /* Shaders in Resources */,
+				8C3B040B19AF85C700415A8C /* sounds in Resources */,
+				8C3B03EB19AF85C700415A8C /* elimWorldLevelIntro.json in Resources */,
+				8C3B03E519AF85C700415A8C /* Aleo-BoldItalic.ttf in Resources */,
+				8C3B040519AF85C700415A8C /* scripts in Resources */,
+				8C3B03F919AF85C700415A8C /* MainMenuChoose.json in Resources */,
+				8C3B03E919AF85C700415A8C /* Dialog_1.json in Resources */,
+				8C3B03F719AF85C700415A8C /* levelLockedDialog.json in Resources */,
+				8C3B03EF19AF85C700415A8C /* fonts in Resources */,
+				8C3B040319AF85C700415A8C /* Res1.tps in Resources */,
+				8C3B03ED19AF85C700415A8C /* endlessWorldLevelIntro.json in Resources */,
+				8C3B03FF19AF85C700415A8C /* PackerResource in Resources */,
+				8C3B03FB19AF85C700415A8C /* multilanguage in Resources */,
+				8C3B040D19AF85C700415A8C /* tutorialintro_1.json in Resources */,
+				8C3B03F519AF85C700415A8C /* HDR in Resources */,
+				8C3B03F319AF85C700415A8C /* HD in Resources */,
+				8C3B03F119AF85C700415A8C /* gateWorldLevelIntro.json in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
+				8C3B03FD19AF85C700415A8C /* music in Resources */,
+				8C3B03E719AF85C700415A8C /* CarrerLevelChooser_1.json in Resources */,
+				8C3B040719AF85C700415A8C /* SD in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

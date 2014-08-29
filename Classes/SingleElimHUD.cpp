@@ -46,9 +46,9 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	bool ommitPlayer = false;
 	if (G_getWorld()->isMultiplayer()) ommitPlayer = true;
 	int i=1;
-	world->getPozycje().reverse();
-	for (auto box : world->getPozycje())
+	for (unsigned j = world->getPozycje().size();j-- > 0;)
 	{
+        auto box = world->getPozycje().at(j);
 		if (box == G_getWorld()->getPlayer() && ommitPlayer) continue;
 		Text* text = Text::create("", R_defaultFont, 12);
 		G_enableShadow(text);

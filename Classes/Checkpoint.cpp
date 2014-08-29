@@ -89,7 +89,7 @@ void Chcekpoint::tick(float dt)
 			SoundManager::getInstance()->disableSlowMo();
 			pierwszyZlapal = true;
 		}
-		else if (actualpos == sprawdzany->getRacePos()-2) 
+		else if (actualpos == sprawdzany->getRacePos()-1)
 		{
 			if(!plyr)this->runAction(TintTo::create(0.15f, 25, 230, 20));
 			if (!isLast)
@@ -108,8 +108,7 @@ void Chcekpoint::tick(float dt)
 void Chcekpoint::checkIfCloseToLast(Boxx *ostatni)
 {
 	if (slowmoTriggered) return;
-	const float x = ostatni->getVelocityX();
-	if ((this->getPositionX() - ostatni->getPositionX()) / ostatni->getVelocityX()>0.4f) return;
+	if ((this->getPositionX() - ostatni->getPositionX()) / ostatni->getVelocityX()>0.5f) return;
 	if (isLast){ enableSlowmo(); return; }
 	bool playerWzasiegu = false;
 	if ((dynamic_cast<Player*> (ostatni)) != NULL)	//ostatni to player

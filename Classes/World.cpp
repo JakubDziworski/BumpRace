@@ -584,7 +584,7 @@ void World::m_cameraFollow()
 		i++;
 	}
 	while (dynamic_cast<Player*> (pierwszyy) == NULL);
-	Boxx *ostatni = orderedOpponents.at(boxesNumber-1);
+	Boxx *ostatni = this->getOstaniActive();
 	//************//
 	posX = -pierwszyy->getPositionX()*G_myCos;
 	posY = pierwszyy->getPositionX()*G_mySin;
@@ -767,7 +767,7 @@ void World::generateDrzewka()
 		else
 		{
 			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15,-spr->getBoundingBox().getMaxY());//no animation
-			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.8f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
+			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.5f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
 		}
 		if (rand() % 2) spr->setFlippedX(true);
 		dlugoscDrzewekDuzych = spr->getBoundingBox().getMaxX();
@@ -784,7 +784,7 @@ void World::generateDrzewka()
 		else
 		{
 			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, -spr->getBoundingBox().getMaxY());//no animation
-			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f +0.8f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
+			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f +0.5f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
 		}
 		if (rand() % 2) spr->setFlippedX(true);
 		dlugoscDrzewekMalych = spr->getBoundingBox().getMaxX();

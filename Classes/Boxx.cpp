@@ -315,7 +315,7 @@ bool Boxx::activatePowerUp()
 	{
 	case PowerUp::PowerUpType::SPEED:
 	{
-										cpBodyApplyImpulse(myBody, cpv(325, 0), cpv(0, 0));
+										cpBodyApplyImpulse(myBody, cpv(250, 0), cpv(0, 0));
 										auto jetpackFireRED = G_getParticleFromFile(R_jetpackFireRED);
 										jetpackFireRED->setPosition(0,this->getContentSize().height/2.0f);
 										auto jetpackSmokeYELLOW = G_getParticleFromFile(R_jetpackFireYELLOW);
@@ -384,7 +384,7 @@ bool Boxx::activatePowerUp()
 											  auto explosion1 = G_getParticleFromFile(R_explosParticleRED, ParticleSystemQuad::PositionType::FREE);
 											  auto explosion2 = G_getParticleFromFile(R_explosParticleYELLOW, ParticleSystemQuad::PositionType::FREE);
 											  SoundManager::getInstance()->playEffect(R_explosion);
-											  cpBodyApplyImpulse(target->getBody(), cpv(-350,350), cpv(0, 0));
+											  cpBodyApplyImpulse(target->getBody(), cpv(-500,200), cpv(0, 0));
 											  explosion1->setPosition(rocketNew->getContentSize().width / 2.0f, rocketNew->getContentSize().height / 2.0f);
 											  explosion2->setPosition(rocketNew->getContentSize().width / 2.0f, rocketNew->getContentSize().height / 2.0f);
 											  rocketNew->addChild(explosion1);

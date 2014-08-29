@@ -68,6 +68,7 @@ void SoundManager::enableSlowMo()
 	auto delay = DelayTime::create(0.65f*director->getScheduler()->getTimeScale());
 	auto triggerNormal = CallFunc::create([this]()
 	{
+        audioEngine->stopEffect(slowEffect);
 		slowEffect = audioEngine->playEffect(R_slideSlow.c_str(),true);
 	});
 	director->getActionManager()->addAction(Sequence::createWithTwoActions(delay, triggerNormal), me, false);
@@ -179,9 +180,14 @@ void SoundManager::stopSlideEffect()
 {
 	if (normalSlideEffect !=0)
 		audioEngine->stopEffect(normalSlideEffect);
+    audioEngine->stopEffect(slowEffect);
 }
 
 void SoundManager::playBtnEffect()
 {
 	audioEngine->playEffect(R_buttonClick.c_str());
+}
+void SoundManager::stopAllEffects()
+{
+    audioEngine->stopAllEffects();
 }

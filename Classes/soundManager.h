@@ -44,6 +44,7 @@ public:
 	void playEffect(const std::string &fileName);
 	void stopEffect(const int);
 	void playBtnEffect();
+    void stopAllEffects();
 	virtual void updateTweenAction(float value, const std::string& key);
 
 };
