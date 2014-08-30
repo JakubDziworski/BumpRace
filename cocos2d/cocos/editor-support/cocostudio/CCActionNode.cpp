@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include "ui/UIHelper.h"
 #include "cocostudio/CocoLoader.h"
 #include "base/ccUtils.h"
-#include "cocos2d.h"
 
 using namespace cocos2d;
 using namespace ui;
@@ -78,7 +77,6 @@ void ActionNode::initWithDictionary(const rapidjson::Value& dic, Ref* root)
     int actionFrameCount = DICTOOL->getArrayCount_json(dic, "actionframelist");
     for (int i=0; i<actionFrameCount; i++)
     {
-		
         const rapidjson::Value& actionFrameDic = DICTOOL->getDictionaryFromArray_json(dic, "actionframelist", i);
         int frameInex = DICTOOL->getIntValue_json(actionFrameDic,"frameid");
 
@@ -97,10 +95,8 @@ void ActionNode::initWithDictionary(const rapidjson::Value& dic, Ref* root)
         bool existPosition = DICTOOL->checkObjectExist_json(actionFrameDic,"positionx");
         if (existPosition)
         {
-			_stosunekX = Director::getInstance()->getWinSize().width / 960.0f;
-		    _stosunekY = Director::getInstance()->getWinSize().height / 640.0f;
-			float positionX = DICTOOL->getFloatValue_json(actionFrameDic, "positionx") *_stosunekX;
-			float positionY = DICTOOL->getFloatValue_json(actionFrameDic, "positiony") *_stosunekY;
+            float positionX = DICTOOL->getFloatValue_json(actionFrameDic, "positionx");
+            float positionY = DICTOOL->getFloatValue_json(actionFrameDic, "positiony");
             ActionMoveFrame* actionFrame = new ActionMoveFrame();
             actionFrame->setFrameIndex(frameInex);
             actionFrame->setEasingType(frameTweenType);
@@ -249,9 +245,9 @@ void ActionNode::initWithDictionary(const rapidjson::Value& dic, Ref* root)
                         frameTweenParameter.push_back(valueToFloat(t_value));
                     }
                 }else if (key == "positionx"){
-					positionX = valueToFloat(value) *_stosunekX;
+                    positionX = valueToFloat(value);
                 }else if (key == "positiony"){
-					positionY = valueToFloat(value) *_stosunekY;
+                    positionY = valueToFloat(value);
                     ActionMoveFrame* actionFrame = new ActionMoveFrame();
                     actionFrame->autorelease();
                     actionFrame->setEasingType(frameTweenType);

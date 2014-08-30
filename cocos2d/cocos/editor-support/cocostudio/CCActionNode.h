@@ -167,8 +167,6 @@ protected:
 	int _currentFrameIndex;
 	int _destFrameIndex;
 
-	float _stosunekX;
-	float _stosunekY;
 	float _fUnitTime;
 
 	int _actionTag;

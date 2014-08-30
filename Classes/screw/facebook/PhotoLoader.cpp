@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "PhotoLoader.h"
-#include "screw/screw.h"
+#include "../screw.h"
 
 using namespace screw;
 

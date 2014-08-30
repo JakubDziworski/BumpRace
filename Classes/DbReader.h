@@ -17,6 +17,8 @@ public:
 	bool isLevelUnlocked(const int val);
 	void unlockBox(const int val);
 	bool isBoxUnlocked(const int val);
+	void setPlayerDefaultName(const int plyr, const std::string &name);
+	void initPlayersDefaultNames();
 	void flush();
 };
 #endif

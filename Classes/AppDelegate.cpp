@@ -35,7 +35,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	prepareImageRes(screenSize);
     auto scene = MyMenu::createScene();
     director->runWithScene(scene);
-
     return true;
 }
 

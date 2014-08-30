@@ -8,6 +8,9 @@
 #include "SingleGateWorld.h"
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
+#include "DbReader.h"
+cocos2d::Texture2D *G_faceBookAvatarTex = NULL;
+cocos2d::Vector<Sprite*> G_spritesUsingFBImage(2);
 int G_endlessGateNumber = 5;
 int G_odlegloscmiedzyBramkami = 7000;
 cocos2d::Director *G_director = NULL;
@@ -24,6 +27,7 @@ int G_maxVelAddition = 300;
 int G_powerUpOdleglos = 500;
 int G_powerUpOdlegloscVar = 3000;
 int G_powerUpsNumbers = 2;
+std::string G_playersDefaultNames[4] = { "", "", "", "" };
 bool FB_connected = false;
 bool FB_loginListenerExist = false;
 extern cocos2d::ActionManager *slowActionManager;
@@ -109,7 +113,7 @@ float G_getFTimeScale(float val)
 {
 	return G_director->getScheduler()->getTimeScale()*val;
 }
-extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type/*= cocos2d::ParticleSystemQuad::PositionType::RELATIVE*/)
+cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type/*= cocos2d::ParticleSystemQuad::PositionType::RELATIVE*/)
 {
 	auto particle = cocos2d::ParticleSystemQuad::create(filename.c_str());
 	auto val = G_srodek.x / 256.0f;
@@ -239,48 +243,115 @@ void G_enableShadow(cocos2d::Label *lbl)
 	const float offset = lbl->getSystemFontSize();
 	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
 }
-extern void G_enableShadow(cocos2d::ui::Text *lbl)
+void G_enableShadow(cocos2d::ui::Text *lbl)
 {
 	const float offset = lbl->getFontSize();
 	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
 }
-void FB_setLoginCallBack(std::function <void(Session *session, SessionError *errorr)> fun)
+//**********************************FB********************************//
+void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node *caller)
 {
-	if (FB_loginListenerExist) return;
-	Session::getActiveSession()->setStatusCallback(fun);
-	FB_loginListenerExist = true;
+    /*Session::getActiveSession()->setStatusCallback([fun](Session *session,SessionError *err)
+    {
+		if (session->getState() == Session::State::OPENED)
+		{
+			Request::requestForMe([](int error, GraphUser *user)
+			{
+                if(!user)
+                {
+                    FB_logOut();
+                    return;
+                }
+				DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
+                FB_loadPhoto(user->getId(),180.0f/G_dir()->getContentScaleFactor());
+			})->execute();
+            if(fun != nullptr) fun(true);
+		}
+        else
+        {
+            if(fun != nullptr) fun(false);
+        }
+	});*/
 }
-
 void FB_login()
 {
-	Session::getActiveSession()->open(true, { "user_friends" },
-		DefaultAudience::PUBLIC,
-		LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);
+	/* if (!Session::getActiveSession()->isOpened())
+	 Session::getActiveSession()->open(true, { "user_friends" },
+	 DefaultAudience::PUBLIC,
+	 LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);*/
 }
 void FB_autLogin()
 {
-	if (Session::getActiveSession()->getState() == Session::State::CREATED_TOKEN_LOADED) {
-		Session::getActiveSession()->open(false);
-	}
+	/*if (Session::getActiveSession()->getState() == Session::State::CREATED_TOKEN_LOADED) {
+	Session::getActiveSession()->open(false);
+	}*/
 }
-extern void FB_logOut()
+void FB_logOut()
 {
-	Session::getActiveSession()->close();
+	/*if (Session::getActiveSession()->getState() != Session::State::CLOSED)
+	Session::getActiveSession()->close();*/
 }
-
-extern void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Sprite *sprite)> fun)
+void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Texture2D* sprite)> fun)
 {
-	EventListenerCustom *listener = EventListenerCustom::create(PhotoLoaderLoadedNotification, [=](EventCustom *event){
-		PhotoLoaderEvent *ev = (PhotoLoaderEvent *)event;
-		cocos2d::Texture2D *texture = PhotoLoader::getInstance()->loadTexture(ev->getUid());
-		fun(Sprite::createWithTexture(texture));
-	});
-	G_dir()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, eventDispatcherNode);
+	//EventListenerCustom *listener = EventListenerCustom::create(PhotoLoaderLoadedNotification, [=](EventCustom *event){
+	//PhotoLoaderEvent *ev = (PhotoLoaderEvent *)event;
+	//G_faceBookAvatarTex = PhotoLoader::getInstance()->loadTexture(ev->getUid());
+	////TO DO delete this
+	//G_faceBookAvatarTex->retain();
+	//for (auto spr : G_spritesUsingFBImage)
+	//{
+ //       spr->setTexture(G_faceBookAvatarTex);
+ //       spr->setTextureRect(Rect(0, 0, 47.0f, 47.0f));
+	//}
+ //   if(fun!=nullptr) fun(G_faceBookAvatarTex);
+	//});
+	//G_dir()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, eventDispatcherNode);
 }
-
-extern void FB_loadPhoto(const std::string& uid,const int size)
+void FB_loadPhoto(const std::string& uid, const int size)
 {
-	PhotoLoader::getInstance()->download(uid, size);
+	PhotoLoader::getInstance()->download(uid,size);
 }
-
-
+void sharePost(const std::string &name,const std::string &caption,const std::string &descr)
+{
+    //ShareDialogParams *params = ShareDialogParams::create();
+    //params->setLink("http://www.cocos2d-x.org/");
+    //params->setName(name);
+    //params->setCaption(caption);
+    //params->setDescription(descr);
+    ////  params->setFriends({"100008289311268"});
+    ////    params->setDataFailuresFatal(false);
+    //if (Dialog::canPresent(params)) {
+    //    Dialog::present(params, [](GraphObject *result, int error){
+    //        CCLOG("Share link dialog callback: result = %s\nerror = %d", result ? result->getValue().getDescription().c_str() : "(null)", error);
+    //    });
+    //} else {
+    //    CCLOG("Cannot show share dialog, fallback to webview");
+    //    FeedDialogBuilder *fbd = new FeedDialogBuilder();
+    //    fbd->setLink(params->getLink())->setDescription(params->getDescription());
+    //    fbd->setTo("100008289311268");
+    //    
+    //    fbd->setCallback([](int error, const string &rid){
+    //        CCLOG("Share link web dialog result: error = %d, rid = %s", error, rid.c_str());
+    //    });
+    //    fbd->build()->show();
+    //    delete fbd;
+    //}
+}
+void FB_shareGame()
+{
+   // sharePost(G_str("ShrGameName"),G_str("ShrGameCaption"),G_str("ShrGameDescr"));
+}
+void FB_shareLevelCompletedPost(const int level)
+{
+   // sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
+}
+void FB_postScore(const int score)
+{
+   // Facebook::getInstance()->postScore(score);
+}
+void FB_showScores(cocos2d::Node *nodeToAttach)
+{
+	auto main = DialogReader::getInstance()->getMainWidgetFromJson("FbBestScores.json", nodeToAttach);
+	auto listView = (cocos2d::ui::ListView*)DialogReader::getInstance()->getWidget("FbBestScores.json", "listView");
+	for (int i = 0; i < 3; i++) listView->pushBackDefaultItem();
+}

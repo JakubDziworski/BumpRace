@@ -23,6 +23,10 @@ extern int G_powerUpOdlegloscVar;
 extern int G_powerUpsNumbers;
 extern bool FB_connected;
 extern bool FB_loginListenerExist;
+extern cocos2d::Texture2D *G_faceBookAvatarTex;
+extern cocos2d::Vector<Sprite*> G_spritesUsingFBImage;
+extern bool gotFaceBookAvatar;
+extern std::string G_playersDefaultNames[4];
 extern void G_scaleToFitScreen(cocos2d::Node *spr);
 cocos2d::Director *G_dir();
 extern void G_setCurrAngle(float angle);
@@ -44,9 +48,14 @@ extern void G_enableShadow(cocos2d::Label *lbl);
 extern void G_enableShadow(cocos2d::ui::Text *lbl);
 extern void FB_login();
 extern void FB_logOut();
-extern void FB_setLoginCallBack(std::function <void(Session *session, SessionError *errorr)> fun);
+extern void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node *caller);
 extern void FB_autLogin();
 extern void FB_loadPhoto(const std::string& uid,const int size);
-extern void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Sprite *sprite)> fun);
+extern void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Texture2D* sprite)> fun);
+extern void FB_shareGame();
+extern void FB_shareLevelCompletedPost(const int level);
+extern void FB_postScore(const int score);
+extern void FB_showScores(cocos2d::Node *nodeToAttach);
+extern void sharePost(const std::string &name,const std::string &caption,const std::string &descr);
 #endif
 

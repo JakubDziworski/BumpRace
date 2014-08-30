@@ -42,7 +42,7 @@
 		<string>Icon-144.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>org.cocos2dx.hellocpp</string>
+	<string>com.frontmob.bumpracetest</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -53,8 +53,21 @@
 	<string></string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb683963631686201</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>FacebookAppID</key>
+	<string>683963631686201</string>
+	<key>FacebookDisplayName</key>
+	<string>FacebookDisplayName</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>

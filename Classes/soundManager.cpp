@@ -43,6 +43,7 @@ void SoundManager::preloadSounds()
 	audioEngine->preloadEffect(R_slideRampUp.c_str());
 	//music
 	audioEngine->preloadBackgroundMusic(R_bgmusicMenu.c_str());
+	audioEngine->preloadBackgroundMusic(R_bgmusicGameplay.c_str());
 }
 void SoundManager::disableSlowMo()
 {

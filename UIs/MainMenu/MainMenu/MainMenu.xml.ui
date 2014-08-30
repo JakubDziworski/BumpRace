@@ -9,7 +9,11 @@
   <JsonList>
     <string>MainMenu_1.json</string>
     <string>Options.json</string>
+    <string>creditsDialog2.json</string>
     <string>creditsDialog.json</string>
+    <string>connectoToFbDialog.json</string>
+    <string>firstTut.json</string>
+    <string>FbBestScores.json</string>
   </JsonList>
   <CanvasSize>
     <Width>512</Width>
@@ -21,12 +25,7 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>Res1.plist</string>
-    <string>GUI/button.png</string>
-    <string>Res1.plist</string>
-    <string>Res1.plist</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>creditsDialog.json</CurrentUIJson>
+  <CurrentUIJson>FbBestScores.json</CurrentUIJson>
 </UIProject>

@@ -1,6 +1,9 @@
 #define COCOS2D_DEBUG 2
 #include "DbReader.h"
 #include "Paths.h"
+#include "MyMenu.h"
+#include "Globals.h"
+#include "Macros.h"
 USING_NS_CC;
 DbReader::DbReader()
 {
@@ -54,6 +57,25 @@ bool DbReader::isBoxUnlocked(const int val)
 void DbReader::flush()
 {
 	db->flush();
+}
+
+void DbReader::initPlayersDefaultNames()
+{
+	G_playersDefaultNames[0] = db->getStringForKey("Player1Name",(G_str("Player")+std::to_string(1)).c_str());
+    G_playersDefaultNames[1] = db->getStringForKey("Player1Name",(G_str("Player")+std::to_string(2)).c_str());
+    G_playersDefaultNames[2] = db->getStringForKey("Player1Name",(G_str("Player")+std::to_string(3)).c_str());
+    G_playersDefaultNames[3] = db->getStringForKey("Player1Name",(G_str("Player")+std::to_string(4)).c_str());
+}
+
+void DbReader::setPlayerDefaultName(const int plyr, const std::string &name)
+{
+	db->setStringForKey((G_str("Player")+std::to_string(plyr)).c_str(),name.c_str());
+	G_playersDefaultNames[plyr - 1] = name;
+    MyMenu *menu;
+    if (G_dir()->getRunningScene() && (menu = dynamic_cast<MyMenu*>(G_dir()->getRunningScene()->getChildByTag(LAYER_HUD)))) //menu
+    {
+        menu->UPDATEPLAYERNAME();
+    }
 }
 
 DbReader * DbReader::me = NULL;

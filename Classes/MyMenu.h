@@ -21,7 +21,6 @@ public:
 class MyMenu : public cocos2d::Layer
 {
 private:
-	
 	//UI DIALOGS
 	cocos2d::ui::Widget *levelLockedDialog = NULL;
 	//single
@@ -38,11 +37,10 @@ private:
 	int currMenu;
 	int currGatesNumb;
 	int currPlayersNumber;
-	std::string playerName;
 	std::string *currChangingValue;
 	int playerboxFileNameIndex;
+    cocos2d::extension::EditBox* playerEditBoxListener = NULL;
 	int m_playersBoxesFileNamesIndexes[4];
-	std::string m_playersNames[4];
 	//multi
 	int m_currOpponentsNumber;
 	int m_currDiffValue;
@@ -65,11 +63,13 @@ private:
 	void createLevelMapUI();
 	void resizeLayouts();
 public:
+    void UPDATEPLAYERNAME();
 	virtual void retain();
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MyMenu);
 	//main menu//
+    void shareGame(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	void playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 		//single menu//
 		void playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
@@ -103,5 +103,6 @@ public:
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	//options
 	void createOptionsMenu();
+    virtual void onEnter();
 };
 #endif // !__MENU_H__

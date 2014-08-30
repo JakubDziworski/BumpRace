@@ -106,5 +106,7 @@
 	<string>Grafika i Audio</string>
 	<key>everything</key>
 	<string>Wszystko pozostałe</string>
+	<key>cnctToPlayer</key>
+	<string>Połącz z facebookiem aby zagrać swoim zdjęciem profilowym!</string>
 </dict>
 </plist>

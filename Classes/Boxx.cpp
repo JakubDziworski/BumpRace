@@ -7,10 +7,21 @@
 using namespace cocos2d;
 bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, cocos2d::Color3B boxColorr)
 {
-	if (!Sprite::initWithSpriteFrameName(filename))
+	if (filename == R_FACEBOOKFACENAME)
 	{
-		return false;
+		if (!Sprite::initWithTexture(G_faceBookAvatarTex))
+		{
+			return false;
+		}
 	}
+	else
+	{
+		if (!Sprite::initWithSpriteFrameName(filename))
+		{
+			return false;
+		}
+	}
+	
 	positiveSprite = Sprite::createWithSpriteFrameName(String::createWithFormat(R_positiveActionFormat.c_str(), 0)->getCString());
 	positiveSprite->setOpacity(0);
 	this->addChild(positiveSprite);

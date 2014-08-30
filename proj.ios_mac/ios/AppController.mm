@@ -26,6 +26,7 @@
 #import "CCEAGLView.h"
 #import "cocos2d.h"
 #import "AppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
 #import "RootViewController.h"
 
 @implementation AppController
@@ -51,7 +52,7 @@ static AppDelegate s_sharedApplication;
                                       sharegroup: nil
                                    multiSampling: NO
                                  numberOfSamples: 0];
-    [eaglView setMultipleTouchEnabled:YES];
+
     // Use RootViewController manage CCEAGLView 
     _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     _viewController.wantsFullScreenLayout = YES;
@@ -121,7 +122,15 @@ static AppDelegate s_sharedApplication;
      See also applicationDidEnterBackground:.
      */
 }
-
+- (BOOL) application:(UIApplication *)application
+             openURL:(NSURL *)url
+   sourceApplication:(NSString *)sourceApplication
+          annotation:(id)annotation {
+    
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    
+    return wasHandled;
+}
 
 #pragma mark -
 #pragma mark Memory management

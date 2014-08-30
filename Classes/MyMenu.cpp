@@ -49,11 +49,6 @@ bool MyMenu::init()
 	m_currDiffValue       = 1;
 	m_currModeSelected    = 0;
 	m_currGatesNumb       = 7;
-	playerName        = G_str("Player");
-	m_playersNames[0] = G_str("Player") + std::to_string(1);
-	m_playersNames[1] = G_str("Player") + std::to_string(2);
-	m_playersNames[2] = G_str("Player") + std::to_string(3);
-	m_playersNames[3] = G_str("Player") + std::to_string(4);
 	playerboxFileNameIndex = 2;
 	m_playersBoxesFileNamesIndexes[0] = 0;
 	m_playersBoxesFileNamesIndexes[1] = 1;
@@ -78,6 +73,7 @@ bool MyMenu::init()
 	createBtn(R_btnOn, "", "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
 	createBtn(R_btnOn,"", "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
 	createBtn(R_btnOn, "", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
+    createBtn(R_btnOn, "", "Share", CC_CALLBACK_2(MyMenu::shareGame,this), 10000, this->getChildByTag(L_MAINMENU));
 	createOptionsMenu();
 	//*SINGLE PLAYER BUTTONS*//
 	createLabel(G_str("Single_Player"), L_PLAYSINGLE, LAB_SINGLEPLAYER);
@@ -95,8 +91,9 @@ bool MyMenu::init()
 	createBtn(R_btnOn,"", "Continue", CC_CALLBACK_2(MyMenu::continueToBoxChoose, this), B_CONTINUETOCHOSEBOX, this->getChildByTag(L_FREERUN));
 	//SINGLE CHOOSE BOX
 	createLabel(G_str("Choose_Name"), L_CHOOSENAMES, LAB_CHOSENAMES);
-	auto singletextField = createTextEdit(playerName, G_colors[playerboxFileNameIndex], L_CHOOSENAMES, -1);
-	createPages("", { "BLUE", "GREEN", "PURPLE", "RON", "RED", "BLUE" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], R_Box[5] }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES,
+	auto singletextField = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex], L_CHOOSENAMES, -1);
+    playerEditBoxListener = singletextField;
+	createPages("", { "", "", "", "", "", ""}, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], "" }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES,
 		[singletextField](PageView *pgview)
 	{
 		singletextField->setFontColor(G_colors[pgview->getCurPageIndex()]);
@@ -109,13 +106,14 @@ bool MyMenu::init()
 	createSpinner(std::to_string(m_currPlayersNumber), G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
 	createSpinner(std::to_string(m_currOpponentsNumber), G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
 	createSpinner("Medium", G_str("Difficulty"), m_currDiffValue, 2, 0,B_M_DIFFICULTYSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
+	createBtn(R_btnOn, "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
 	//MULTIPLAYER CHOOSE NAMES//
 	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
 	createBtn(R_btnOn, "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
 	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
 	{
-		auto textfield = createTextEdit(m_playersNames[k],G_colors[k], L_M_CHOOSENAMES, i);
-		auto page = createPages("", { "BLUE", "GREEN", "PURPLE","RON","RED","BLUE" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3] , R_Box[4] , R_Box[5] }, m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES,
+		auto textfield = createTextEdit(G_playersDefaultNames[k],G_colors[k], L_M_CHOOSENAMES, i);
+		auto page = createPages("", { "", "", "", "", "", "" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], "" }, m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES,
 			[textfield](PageView *pgview)
 		{
 			textfield->setFontColor(G_colors[pgview->getCurPageIndex()]);
@@ -138,6 +136,7 @@ bool MyMenu::init()
 	auto keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keylistener, this);
+	SoundManager::getInstance()->playBgMusicMenu();
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -235,8 +234,22 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 	for (auto name : names)
 	{
 		Layout *layout = Layout::create();
+		Layout *imageView = Layout::create();
 		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
-		ImageView *imageView = ImageView::create(filepaths.at(i), TextureResType::PLIST);
+        Sprite *spr;
+		if (filepaths.at(i) == "")
+		{
+			
+			if (G_faceBookAvatarTex)
+                spr = Sprite::createWithTexture(G_faceBookAvatarTex);
+			else
+                spr = Sprite::createWithSpriteFrameName(R_faceBookFaceLocked);
+			G_spritesUsingFBImage.pushBack(spr);
+		}
+        else spr = Sprite::createWithSpriteFrameName(filepaths.at(i));
+        imageView->setContentSize(spr->getContentSize());
+        imageView->addChild(spr,1);
+        spr->setNormalizedPosition(Vec2(0.5f, 0.5f));
 		Text *text = Text::create(names.at(i), R_defaultFont, 12);
 		text->setLayoutParameter(par);
 		imageView->setLayoutParameter(par);
@@ -265,6 +278,17 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 	pageView->addEventListener([this,&defaultState, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 	{
 		if (type != PageView::EventType::TURNING) return;
+		//facebook avatar
+		if (pageView->getCurPageIndex() == 5 && G_faceBookAvatarTex == NULL)
+		{
+			DialogReader::getInstance()->getMainWidgetFromJson("connectoToFbDialog.json",this);
+			DialogReader::getInstance()->addActionHideAndSomething("connectoToFbDialog.json", "connectBtn", []()
+			{
+				FB_login();
+			});
+			pageView->scrollToPage(4);
+			return;
+		}
 		layouts.at(defaultState)->runAction(ScaleTo::create(scaleTime, 1));
 		defaultState = pageView->getCurPageIndex();
 		layouts.at(defaultState)->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
@@ -334,8 +358,7 @@ void MyMenu::preload()
 	VR::setShouldLazyInit(false);
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
 	SoundManager::getInstance()->preloadSounds();
-	SoundManager::getInstance()->playBgMusicMenu();
-	FB_autLogin();
+	DbReader::getInstance()->initPlayersDefaultNames();
 }
 void MyMenu::hide(int menutypedef)
 {
@@ -407,9 +430,6 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
-	Session::getActiveSession()->open(true, {"user_friends"},
-	                                          DefaultAudience::PUBLIC,
-	                                          LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);
 	SoundManager::getInstance()->playBtnEffect();
 	show(B_BACK);
 	show(L_PLAYSINGLE);
@@ -458,7 +478,7 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	{
 		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, true);
 		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
+		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], G_playersDefaultNames[0], world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
 		world->setMinGates(0);
 		G_dir()->replaceScene(scene);
 		return;
@@ -475,13 +495,13 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	{
 		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, false);
 		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
-		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
+		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], G_playersDefaultNames[0], world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
 		world->setMinGates(currGatesNumb);
 		G_dir()->replaceScene(scene);
 		return;
 	}
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
-	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], playerName, world->getGravitySpace(),G_colors[playerboxFileNameIndex]));
+	world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], G_playersDefaultNames[0], world->getGravitySpace(),G_colors[playerboxFileNameIndex]));
 	DialogReader::getInstance()->flush();
 	G_dir()->replaceScene(scene);
 }
@@ -591,7 +611,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	World *world = (World*)scene->getChildByTag(LAYER_GAMEPLAY);
 	for (int i = 0; i < m_currPlayersNumber; i++)
 	{
-		players.pushBack(Player::create(R_Box[m_playersBoxesFileNamesIndexes[i]], m_playersNames[i], world->getGravitySpace(), G_colors[m_playersBoxesFileNamesIndexes[i]]));
+		players.pushBack(Player::create(R_Box[m_playersBoxesFileNamesIndexes[i]], G_playersDefaultNames[i], world->getGravitySpace(), G_colors[m_playersBoxesFileNamesIndexes[i]]));
 	}
 	world->setMultiplayer(players);
 	DialogReader::getInstance()->flush();
@@ -830,35 +850,7 @@ void MyMenu::createOptionsMenu()
 	this->addChild(parent,0, L_OPTIONS);
 	parent->setVisible(false);
 	auto options = DialogReader::getInstance()->getMainWidgetFromJson("Options.json", parent);
-	//set visible or insible facebook login logout
-	auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
-	connbtn->setVisible(!FB_connected);
-	connbtn->setTouchEnabled(!FB_connected);
-	auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
-	discoBtn->setVisible(FB_connected);
-	discoBtn->setTouchEnabled(FB_connected);
-	FB_setLoginCallBack([](screw::facebook::Session *sesion, screw::facebook::SessionError *err)
-	{
-		if (sesion->OPENED || sesion->OPENED_TOKEN_UPDATED)
-		{
-			FB_connected == true;
-		}
-		else if (sesion->CLOSED || sesion->CLOSED_LOGIN_FAILED || sesion->CLOSED_LOGIN_FAILED || sesion->INVALID)
-		{
-			FB_connected = false;
-
-		}
-		if (dynamic_cast<MyMenu*>(G_dir()->getRunningScene()->getChildByTag(LAYER_HUD))) //menu
-		{
-			auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
-			connbtn->setVisible(!FB_connected);
-			connbtn->setTouchEnabled(!FB_connected);
-			auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
-			discoBtn->setVisible(FB_connected);
-			discoBtn->setTouchEnabled(FB_connected);
-
-		}
-	});
+	//**end fb callback**//
 	DialogReader::getInstance()->addButtonAction("Options.json", "fbConnectBtn", []()//login
 	{
 		FB_login();
@@ -867,8 +859,59 @@ void MyMenu::createOptionsMenu()
 	{
 		FB_logOut();
 	});
-	DialogReader::getInstance()->addButtonAction("Options.json", "CreditsBtn", [options]()
+	DialogReader::getInstance()->addButtonAction("Options.json", "CreditsBtn", [parent]()
 	{
-		DialogReader::getInstance()->getMainWidgetFromJson("creditsDialog.json", options);
+		auto dialgo = DialogReader::getInstance()->getMainWidgetFromJson("creditsDialog.json", parent);
+		dialgo->setNormalizedPosition(Vec2(0, 0));
 	});
+    auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
+    connbtn->setVisible(!FB_connected);
+    connbtn->setTouchEnabled(!FB_connected);
+    auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
+    discoBtn->setVisible(FB_connected);
+    discoBtn->setTouchEnabled(FB_connected);
+}
+void MyMenu::onEnter()
+{
+    Layer::onEnter();
+    //*FB CALLBACKs**//
+	auto kolbak = [](bool isLoggedIn)
+	{
+		CCLOG("login callback");
+		if (isLoggedIn)
+		{
+			FB_connected = true;
+		}
+		else
+		{
+            if(G_faceBookAvatarTex != NULL)
+            {
+                
+            }
+			FB_connected = false;
+		}
+		if (G_dir()->getRunningScene() && dynamic_cast<MyMenu*>(G_dir()->getRunningScene()->getChildByTag(LAYER_HUD))) //menu
+		{
+			CCLOG("boolval = %d", FB_connected);
+			auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
+			connbtn->setVisible(!FB_connected);
+			connbtn->setTouchEnabled(!FB_connected);
+			auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
+			discoBtn->setVisible(FB_connected);
+			discoBtn->setTouchEnabled(FB_connected);
+		}
+	};
+    FB_setLoginCallBack(kolbak,this);
+    FB_addDownloadFinishListener(this,nullptr);
+    FB_autLogin();
+}
+void MyMenu::UPDATEPLAYERNAME()
+{
+    if(playerEditBoxListener) playerEditBoxListener->setText(G_playersDefaultNames[0].c_str());
+}
+ void MyMenu::shareGame(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+    if(type != Widget::TouchEventType::ENDED) return;
+	FB_showScores(this);
+    FB_shareGame();
 }

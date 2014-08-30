@@ -24,7 +24,7 @@
 #include "Twitter.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "TwitterApple.h"
+//#include "TwitterApple.h"
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -35,7 +35,7 @@ NS_SCREW_TWITTER_BEGIN
 
 void Twitter::tweet(const string &message, const TwitterTweetCallback &callback) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    screw::ios::TwitterApple::tweet(message, callback);
+   // screw::ios::TwitterApple::tweet(message, callback);
 #endif
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

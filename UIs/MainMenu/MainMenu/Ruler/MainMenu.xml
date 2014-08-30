@@ -9,7 +9,23 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
+    <Project>creditsDialog2</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
     <Project>creditsDialog</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>connectoToFbDialog</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>firstTut</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>FbBestScores</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>
