@@ -309,7 +309,7 @@ void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::funct
 }
 void FB_loadPhoto(const std::string& uid, const int size)
 {
-	PhotoLoader::getInstance()->download(uid,size);
+	//PhotoLoader::getInstance()->download(uid,size);
 }
 void sharePost(const std::string &name,const std::string &caption,const std::string &descr)
 {
@@ -353,5 +353,11 @@ void FB_showScores(cocos2d::Node *nodeToAttach)
 {
 	auto main = DialogReader::getInstance()->getMainWidgetFromJson("FbBestScores.json", nodeToAttach);
 	auto listView = (cocos2d::ui::ListView*)DialogReader::getInstance()->getWidget("FbBestScores.json", "listView");
-	for (int i = 0; i < 3; i++) listView->pushBackDefaultItem();
+	listView->setItemModel((cocos2d::ui::Layout*)DialogReader::getInstance()->getWidget("FbBestScores.json", "record"));
+	listView->setItemsMargin(25);
+	for (int i = 0; i < 3; i++)
+	{
+		listView->pushBackDefaultItem();
+		((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString(std::to_string(i).c_str());
+	}
 }

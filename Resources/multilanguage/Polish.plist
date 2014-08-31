@@ -108,5 +108,8 @@
 	<string>Wszystko pozostałe</string>
 	<key>cnctToPlayer</key>
 	<string>Połącz z facebookiem aby zagrać swoim zdjęciem profilowym!</string>
+	<key>bstScores</key>
+	<string>Najlepsze wyniki</string>
+	
 </dict>
 </plist>
