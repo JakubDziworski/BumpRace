@@ -74,7 +74,6 @@ void EndlessWorld::shouldEnableSlowmo(Chcekpoint *chkpt, bool first)
 }
 void EndlessWorld::customWorldUpdate()
 {
-	if (isEndless())
 	if (orderedOpponents.at(0)->getPositionX() + 2 * G_srodek.x > koniec)	//zblizamy sie do konca drogi trzeba dodac nowe rzeczy
 	{
 		koniec += dodatek;
@@ -86,8 +85,8 @@ void EndlessWorld::extendFlat()
 {
 	//flat
 	cpVect verts[] = {
-		cpv(0, -2000),
-		cpv(0, 0),
+		cpv(koniec - dodatek - G_odlegloscmiedzyBramkami, -2000),
+		cpv(koniec - dodatek - G_odlegloscmiedzyBramkami, 0),
 		cpv(koniec, 0),
 		cpv(koniec, -2000),
 	};
@@ -96,18 +95,21 @@ void EndlessWorld::extendFlat()
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
 	floor->collision_type = COLLISIONTYPEFLOOR;
+	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 	cpSpaceAddStaticShape(gravitySpace, floor);
 	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), flatsprite->getTexture()->getContentSize().height));
 	bottomSpr->setPositionX(koniec - dodatek - G_odlegloscmiedzyBramkami);
 	//chkpts
-	for (int i = koniec - dodatek; i <= koniec; i += G_odlegloscmiedzyBramkami)
+	if (isEndless())
 	{
-		auto chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
-		chkpt->setPosition(i, floor->bb.t);
-		modifyGate(chkpt);
-		rotationLayer->addChild(chkpt);
+		for (int i = koniec - dodatek; i <= koniec; i += G_odlegloscmiedzyBramkami)
+		{
+			auto chkpt = Chcekpoint::create(this, &orderedOpponents, R_SPRITE_checkpoint);
+			chkpt->setPosition(i, floor->bb.t);
+			modifyGate(chkpt);
+			rotationLayer->addChild(chkpt);
+		}
 	}
-	cpShapeSetLayers(floor, CPFLOORCOLIDER);
 	//POWERUPS
 	for (int j = koniec - dodatek + G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar); j <= koniec; j += G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar))
 	{
