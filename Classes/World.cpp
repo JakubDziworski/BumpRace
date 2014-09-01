@@ -49,6 +49,9 @@ bool World::myInit(int numberOfPlayers,int gates)
 	moveLayer->addChild(rotationLayer);
 	scaleeLayer->addChild(moveLayer);
 	scaleeLayer->setPosition(G_srodek);
+	bgNode = Node::create();
+	bgNode->setPosition(Vec2(0, 0));
+	this->addChild(bgNode, -1);
 	this->addChild(scaleeLayer,1);
 	//****************//
 	hud = NULL;
@@ -97,10 +100,10 @@ void World::createFloor()
 		cpv(lengtht, 0),
 		cpv(lengtht, -650),
 	};
-	paralexFactor = (bgImg->getContentSize().width*bgImg->getScaleX() - VR::right().x) / verts[3].x;
+	paralexFactor = 0.025f;
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
-	floorBatchNode = SpriteBatchNode::create(R_flatTop.c_str());
+	floorBatchNode = SpriteBatchNode::create(G_flatTopFilePath.c_str());
 	Texture2D::TexParams tp = { GL_REPEAT, GL_REPEAT, GL_REPEAT, GL_REPEAT };
 	floorBatchNode->getTexture()->setTexParameters(tp);
 	flatsprite = PhysicsSprite::createWithTexture(floorBatchNode->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), floorBatchNode->getTexture()->getContentSize().height));
@@ -112,7 +115,7 @@ void World::createFloor()
 	flatSPriteBottom->getTexture()->setTexParameters(tp);
 	bottomSpr = Sprite::createWithTexture(flatSPriteBottom->getTexture(), Rect(0, 0, abs(verts[3].x), 2500));
 	bottomSpr->setAnchorPoint(Vec2(0, 1));
-	bottomSpr->setPosition(flatsprite->getBoundingBox().getMinX(), flatsprite->getBoundingBox().getMinY());
+	bottomSpr->setPosition(flatsprite->getBoundingBox().getMinX(), flatsprite->getBoundingBox().getMinY()+1);
 	rotationLayer->addChild(floorBatchNode);
 	rotationLayer->addChild(bottomSpr);
 	floor->e = 0;//elastycznosc;
@@ -147,13 +150,6 @@ void World::rozmiescCheckpointy()
 }
 void World::createBackground()
 {
-
-	bgImg = Sprite::createWithSpriteFrameName(R_tlo);
-	bgImg->setScale(VR::right().x * 2.0f / bgImg->getContentSize().width, VR::top().y / bgImg->getContentSize().height);
-	bgImg->setPosition(VR::leftBottom());
-	bgImg->setAnchorPoint(Vec2(0, 0));
-	this->addChild(bgImg, -2);
-	//DPIscaleFactor = (512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI());
 	DPIscaleFactor = clampf((512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI()),0.45,0.9f);
 	scaleeLayer->setScale(DPIscaleFactor);
 }
@@ -176,11 +172,12 @@ void World::tick(float delta)
 		calculateSredniaPredkoscDoDzwieku();
 	}
 	changeGravity();
+	generateBg();
 	checkPosition(delta);
 	if(cameraFollowFunction != nullptr) cameraFollowFunction();
 	if (cameraFollowFunction != nullptr)
 	{
-		bgImg->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
+		bgNode->setPositionX(-orderedOpponents.at(0)->getPositionX()*paralexFactor);
 	}
 	if (started)
 	{
@@ -754,14 +751,15 @@ void World::generateClouds()
 	cloudsNode->addChild(chmurka, wielkosc);
 }
 void World::generateDrzewka()
+
 {
 	if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekDuzych, 0)).x < VR::right().x + 25)
 	{
 		const int j = -2;
-		auto spr = Sprite::createWithSpriteFrameName(R_drzewka.c_str());
+		auto spr = Sprite::createWithSpriteFrameName(G_drzewkaFilePath.c_str());
 		rotationLayer->addChild(spr, j);
 		spr->setAnchorPoint(Vec2(0, 0));
-		spr->setScale((float(rand() % 550 + 80)) / 100.0f);
+		spr->setScale((float(rand() % 275 + 40)) / 100.0f);
 		if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekDuzych, 0)).x > VR::right().x+15)
 			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15, 0);//no animation
 		else
@@ -775,10 +773,10 @@ void World::generateDrzewka()
 	if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x < VR::right().x + 25)
 	{
 		const int j = -1;
-		auto spr = Sprite::createWithSpriteFrameName(R_drzewka.c_str());
+		auto spr = Sprite::createWithSpriteFrameName(G_drzewkaFilePath.c_str());
 		rotationLayer->addChild(spr, j);
 		spr->setAnchorPoint(Vec2(0, 0));
-		spr->setScale((float(rand() % 120 + 80)) / 100.0f);
+		spr->setScale((float(rand() % 60 + 40)) / 100.0f);
 		if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x > VR::right().x + 15)
 			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, 0);//no animation
 		else
@@ -789,5 +787,20 @@ void World::generateDrzewka()
 		if (rand() % 2) spr->setFlippedX(true);
 		dlugoscDrzewekMalych = spr->getBoundingBox().getMaxX();
 
+	}
+}
+void World::generateBg()
+{
+	if (bgNode->convertToWorldSpace(Point(dlugosBg, 0)).x < VR::right().x + 25)
+	{
+		const int j = -2;
+		auto spr = Sprite::createWithSpriteFrameName(G_bgFilePath);
+		spr->setScale(342.0f / spr->getContentSize().height);
+		bgNode->addChild(spr);
+		spr->setAnchorPoint(Vec2(0, 0));
+		spr->setPosition(dlugosBg-1, 0);
+		dlugosBg = spr->getBoundingBox().getMaxX();
+		if (BgIterations % 2) spr->setFlippedX(true);
+		BgIterations++;
 	}
 }

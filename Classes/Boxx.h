@@ -32,6 +32,9 @@ protected:
 	PowerUp::PowerUpType pwrupType;
 	int racePos;
 	cocos2d::Label *debugL;
+	Sprite* ped;
+	float defaultPedScaleX;
+	float defaultPedScaleY;
 	virtual void additionalDebugInfo();
 public:
 	//COCOS PATTERN//

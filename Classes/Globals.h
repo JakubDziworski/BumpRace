@@ -37,6 +37,9 @@ extern cocos2d::Vec2 G_hV(cocos2d::Vec2 inp);
 extern void G_initLanguage();
 extern cocos2d::Dictionary *G_strings;
 extern std::string G_str(const std::string& input);
+extern std::string G_bgFilePath;
+extern std::string G_flatTopFilePath;
+extern std::string G_drzewkaFilePath;
 extern cocos2d::Color3B G_getRandomColor();
 extern const cocos2d::Color3B G_colors[6];
 extern World* G_getWorld();
@@ -54,7 +57,7 @@ extern void FB_loadPhoto(const std::string& uid,const int size);
 extern void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Texture2D* sprite)> fun);
 extern void FB_shareGame();
 extern void FB_shareLevelCompletedPost(const int level);
-extern void FB_postScore(const int score);
+extern void FB_postBestScore(int score);
 extern void FB_showScores(cocos2d::Node *nodeToAttach);
 extern void sharePost(const std::string &name,const std::string &caption,const std::string &descr);
 #endif

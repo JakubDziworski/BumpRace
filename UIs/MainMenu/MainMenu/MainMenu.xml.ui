@@ -14,6 +14,7 @@
     <string>connectoToFbDialog.json</string>
     <string>firstTut.json</string>
     <string>FbBestScores.json</string>
+    <string>fbShareBtn.json</string>
   </JsonList>
   <CanvasSize>
     <Width>512</Width>
@@ -25,9 +26,7 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>Res1.plist</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>FbBestScores.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

@@ -28,4 +28,8 @@
     <Project>FbBestScores</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>fbShareBtn</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

@@ -357,6 +357,7 @@ void MyMenu::preload()
 	G_srodek = VR::center();
 	VR::setShouldLazyInit(false);
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res1);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(R_res2);
 	SoundManager::getInstance()->preloadSounds();
 	DbReader::getInstance()->initPlayersDefaultNames();
 }
@@ -903,7 +904,7 @@ void MyMenu::onEnter()
 	};
     FB_setLoginCallBack(kolbak,this);
     FB_addDownloadFinishListener(this,nullptr);
-    FB_autLogin();
+    //FB_autLogin();
 }
 void MyMenu::UPDATEPLAYERNAME()
 {

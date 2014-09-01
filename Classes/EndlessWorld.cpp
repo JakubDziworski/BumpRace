@@ -11,6 +11,9 @@ USING_NS_CC_EXT;
 USING_NS_CC;
 bool EndlessWorld::init(int oppNum, int aiLevel, bool bestScore)
 {
+	G_flatTopFilePath = R_flatTopEndless;
+	G_drzewkaFilePath = R_drzewkaEndless;
+	G_bgFilePath = R_tloEndless;
 	if (!World::myInitWithAI(oppNum, G_endlessGateNumber, aiLevel))
 	{
 		return false;
@@ -96,12 +99,6 @@ void EndlessWorld::extendFlat()
 	cpSpaceAddStaticShape(gravitySpace, floor);
 	flatsprite->setTextureRect(Rect(verts[0].x, verts[1].y, abs(verts[3].x), flatsprite->getTexture()->getContentSize().height));
 	bottomSpr->setPositionX(koniec - dodatek - G_odlegloscmiedzyBramkami);
-	//bg
-	Sprite *bgNext = Sprite::createWithSpriteFrameName(R_tlo);
-	bgNext->setAnchorPoint(Vec2(-1.0f * iterations, 0));
-	bgNext->setPositionX(bgNext->getPositionX() - iterations*1.0f);
-	if(iterations%2 == 1)bgNext->setFlippedX(true);
-	bgImg->addChild(bgNext, 0, iterations);
 	//chkpts
 	for (int i = koniec - dodatek; i <= koniec; i += G_odlegloscmiedzyBramkami)
 	{

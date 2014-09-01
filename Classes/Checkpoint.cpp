@@ -74,7 +74,7 @@ void Chcekpoint::tick(float dt)
 	Boxx *pierwszy = orderedBoxes->at(0); //pierwszy
 	if (sprawdzajPierwszych) sprawdzany = pierwszy; //pierwszy
 	else sprawdzany = world->getPrzedOstaniActive(); //ostatni aktywny
-	if ((this->getPositionX() - pierwszy->getPositionX()) / pierwszy->getVelocityX() > 0.5f) return;
+	if ((this->getPositionX() - pierwszy->getPositionX()) / pierwszy->getVelocityX() > 0.5f || (this->getPositionX() - pierwszy->getPositionX() > this->getContentSize().width*10.0f)) return;
 	Boxx *aktualny = orderedBoxes->at(actualpos); //aktualny
 	//sprawdzenie czy ktos przekroczyl
 	if (aktualny->getBoundingBox().getMaxX() > this->getPositionX())

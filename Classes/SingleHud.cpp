@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Paths.h"
 #include "VisibleRect.h"
+#include "soundManager.h"
 USING_NS_CC;
 using namespace ui;
 bool SingleGateHud::init()
@@ -75,7 +76,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	}
 	for (Boxx *box : *orderedBoxes)
 	{
-		if (box == player && ommitPlayer) continue;
+		if (box == player && ommitPlayer){ i++; continue; }
 		Text* text = Text::create("GATES COLLECTED", R_defaultFont, 12);
 		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0.5f, 0));
@@ -83,6 +84,17 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 		text->setString(String::createWithFormat("%d.%s (%d %s)", i, box->getID().c_str(), box->getScore(),G_str("GatesCollected").c_str())->getCString());
 		gmOverNode->addWidget(text);
 		i++;
+	}
+	if (world->getCarrerLevel() != 0)
+	{
+		auto shareScore = Button::create(R_fbshareBtn, "", "", cocos2d::ui::Widget::TextureResType::PLIST);
+		shareScore->addTouchEventListener([this](Ref *reff, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
+			FB_shareLevelCompletedPost(world->getCarrerLevel());
+		});
+		gmOverNode->addWidget(shareScore);
 	}
 	this->addGameOverButtons(win,gmOverNode);
 	//oapcity

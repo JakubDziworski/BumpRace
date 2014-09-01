@@ -31,13 +31,15 @@ private:
 protected:
 	float dlugoscDrzewekMalych=0;
 	float dlugoscDrzewekDuzych=0;
+	float dlugosBg = 0;
+	int BgIterations = 0;
 	cocos2d::Node *cloudsNode;
 	bool pierwszeChmurki = false;
 	Hud *hud;
 	float odstep = 0.0f; //odstep miedzy dzwiekami zdrzenia;
 	const float minOdstep = 0.1f;
 	int carrerLevel = 0;
-	cocos2d::Sprite *bgImg;
+	cocos2d::Node *bgNode;
 	cpBody *floorBody;
 	int aiSmart;
 	bool multiplayerEnabled;
@@ -128,5 +130,6 @@ public:
 	//generation;
 	void generateClouds();
 	void generateDrzewka();
+	void generateBg();
 };
 #endif // __GAMETEST_SCENE_H__

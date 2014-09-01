@@ -24,8 +24,10 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	
 	positiveSprite = Sprite::createWithSpriteFrameName(String::createWithFormat(R_positiveActionFormat.c_str(), 0)->getCString());
 	positiveSprite->setOpacity(0);
-	this->addChild(positiveSprite);
+	this->addChild(positiveSprite,2);
 	positiveSprite->setNormalizedPosition(Vec2(0.5f, 0.5f));
+	positiveSprite->setScaleX(this->getContentSize().width / 45.5f);
+	positiveSprite->setScaleY(this->getContentSize().height / 42.0f);
 	this->boxColor = boxColorr;
 	//init variables//
 	this->fileName = filename;
@@ -81,6 +83,17 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	ghost = NULL;
 	powerUpExecuted = false;
 	pwrupType = PowerUp::PowerUpType::NONE;
+	//wind
+	ped = Sprite::createWithSpriteFrameName("ped.png");
+	this->addChild(ped);
+	ped->setAnchorPoint(Point(0.9, 0.5));
+	defaultPedScaleX = this->getContentSize().width / ped->getContentSize().width*1.25;
+    defaultPedScaleY = this->getContentSize().height / ped->getContentSize().height*1.25;
+	ped->setScaleX(defaultPedScaleX);
+	ped->setScaleY(defaultPedScaleY);
+	ped->setNormalizedPosition(Point(1, 0.52));
+	ped->setOpacity(0);
+	//endWind
 	displayDebugInfo();
 	return true;
 };
@@ -161,6 +174,7 @@ bool Boxx::isOnFlat()
 }
 void Boxx::updatePhysPos()
 {
+	const float prevWind = wind;
 	if (powerUpExecuted == true && pwrupType == PowerUp::PowerUpType::GHOST)
 	{
 		maxVel = G_maxVelocity * wind;
@@ -218,6 +232,25 @@ void Boxx::updatePhysPos()
 		wind = 3.3f;
 		maxVel = G_maxVelocity*wind;
 		break;
+	}
+	if (getVelocityX() < 150)
+	{
+		ped->stopAllActions();
+		ped->runAction(FadeOut::create(0.2f));
+		ped->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.1f, defaultPedScaleX + 0.2f, defaultPedScaleY), ScaleTo::create(0.1f, defaultPedScaleX, defaultPedScaleY))));
+		return;
+	}
+	if (prevWind != wind)
+	{
+		ped->stopAllActions();
+		float fade = 0;;
+		float scale = 0.1f;
+		if (wind == 1.0f){ fade = 150.0f; scale = 0.4f; }
+		else if (wind == 1.2f){ fade = 90.0f; scale = 0.3f; }
+		else if (wind == 1.4f) { fade = 50.0f; scale = 0.2f; }
+
+		ped->runAction(FadeTo::create(0.2f, fade));
+		ped->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.1f, defaultPedScaleX + scale, defaultPedScaleY), ScaleTo::create(0.1f, defaultPedScaleX, defaultPedScaleY))));
 	}
 }
 void Boxx::displayDebugInfo()

@@ -3,6 +3,7 @@
 #include "Paths.h"
 #include "VisibleRect.h"
 #include "DbReader.h"
+#include "soundManager.h"
 USING_NS_CC;
 using namespace ui;
 
@@ -51,6 +52,24 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 		gmOverNode->addWidget(score);
 		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, 12);
 		gmOverNode->addWidget(bestScore);
+	}
+	if (beating || carrer)
+	{
+		auto shareScore = Button::create(R_fbshareBtn, "", "", cocos2d::ui::Widget::TextureResType::PLIST);
+		shareScore->addTouchEventListener([beating,this](Ref *reff, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
+			if (beating)
+			{
+				FB_postBestScore(world->getScore());
+			}
+			else
+			{
+				FB_shareLevelCompletedPost(world->getCarrerLevel());
+			}
+		});
+		gmOverNode->addWidget(shareScore);
 	}
     this->addGameOverButtons(win,gmOverNode);
 	this->addChild(gmOverNode);

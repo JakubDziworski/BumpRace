@@ -4,6 +4,7 @@
 #include "SingleElimHud.h"
 #include "Paths.h"
 #include "VisibleRect.h"
+#include "soundManager.h"
 USING_NS_CC;
 using namespace ui;
 bool SingleElimHud::init()
@@ -49,7 +50,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	for (unsigned j = world->getPozycje().size();j-- > 0;)
 	{
         auto box = world->getPozycje().at(j);
-		if (box == G_getWorld()->getPlayer() && ommitPlayer) continue;
+		if (box == G_getWorld()->getPlayer() && ommitPlayer){ i++; continue; }
 		Text* text = Text::create("", R_defaultFont, 12);
 		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0.5f, 0));
@@ -57,6 +58,17 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 		text->setString(String::createWithFormat("%d.%s", i, box->getID().c_str())->getCString());
 		gmOverNode->addWidget(text);
 		i++;
+	}
+	if (world->getCarrerLevel() != 0)
+	{
+		auto shareScore = Button::create(R_fbshareBtn, "", "", cocos2d::ui::Widget::TextureResType::PLIST);
+		shareScore->addTouchEventListener([this](Ref *reff, Widget::TouchEventType type)
+		{
+			if (type != Widget::TouchEventType::ENDED) return;
+			SoundManager::getInstance()->playBtnEffect();
+			FB_shareLevelCompletedPost(world->getCarrerLevel());
+		});
+		gmOverNode->addWidget(shareScore);
 	}
 	//ENDSCORETABLE
     this->addGameOverButtons(win,gmOverNode);

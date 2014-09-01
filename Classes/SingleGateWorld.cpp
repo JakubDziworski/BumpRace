@@ -22,6 +22,9 @@ cocos2d::Scene* SingleGateWorld::createScene(int numberOfPlayers, int gatess, in
 }
 bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 {
+	G_flatTopFilePath = R_flatTopCollector;
+	G_drzewkaFilePath = R_drzewkaCollector;
+	G_bgFilePath = R_tloCollector;
 	if (!World::myInitWithAI(numberOfPlayers,gates, aiLevel))
 	{
 		return false;
