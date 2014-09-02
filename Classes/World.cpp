@@ -60,6 +60,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	cloudsNode->setPosition(Vec2(0, 0));
 	cloudsNode->setAnchorPoint(Vec2(0, 0));
 	this->addChild(cloudsNode);
+	this->setPosition(VR::leftBottom());
 	//
 	gameOver = false;
 	multiplayerEnabled = false;

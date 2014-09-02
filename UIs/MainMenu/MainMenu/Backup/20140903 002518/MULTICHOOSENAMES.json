@@ -12,9 +12,7 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [
-    "Res1.plist"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -2673,7 +2671,7 @@
           "visible": true,
           "width": 512,
           "x": 0,
-          "y": -108,
+          "y": -107,
           "adaptScreen": false,
           "backGroundImage": null,
           "backGroundImageData": null,

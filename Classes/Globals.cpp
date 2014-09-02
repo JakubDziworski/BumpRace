@@ -9,6 +9,8 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 #include "DbReader.h"
+std::string G_globalPlayerName="plyr1";
+int G_globalBoxFileNameIndex=0;
 std::string G_bgFilePath="";
 std::string G_flatTopFilePath="";
 std::string G_drzewkaFilePath="";
@@ -184,7 +186,6 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
         else gatesStr+= G_str("Gates");
 		//assign texts
 		auto mainWidg = DialogReader::getInstance()->getMainWidgetFromJson(cocosfile, parent);
-		mainWidg->setPosition(VR::leftBottom());
 		G_scaleNodeVerticallyToFit(mainWidg);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "modeText"))->setString(modeStr);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "levelTitleText"))->setString(levelStr);
@@ -202,11 +203,11 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 																   {
 																	   scena = EndlessWorld::createScene(opponentsnumber,diffLevel,false);
 																	   EndlessWorld *world = (EndlessWorld*)scena->getChildByTag(LAYER_GAMEPLAY);
-																	   world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+																	   world->setSinglePlayer(Player::create(R_Box[G_globalBoxFileNameIndex],G_globalPlayerName,world->getGravitySpace(),G_colors[G_globalBoxFileNameIndex]));
 																	   world->setMinGates(gatesNumb);
 																   }
 																   World *world = (World*)scena->getChildByTag(LAYER_GAMEPLAY);
-																   if(levelType != 3) world->setSinglePlayer(Player::create(R_Box[0], "kuba", world->getGravitySpace(), G_colors[0]));
+																   if (levelType != 3) world->setSinglePlayer(Player::create(R_Box[G_globalBoxFileNameIndex], G_globalPlayerName, world->getGravitySpace(), G_colors[G_globalBoxFileNameIndex]));
 																   world->setCarrierLevel(levelnum);
 																   DialogReader::getInstance()->flush();
 																   G_dir()->replaceScene(scena);
@@ -402,12 +403,12 @@ void G_scaleNodeVerticallyToFit(cocos2d::Node* node)
 	const float height = VR::top().y - VR::bottom().y;
 	const float width = VR::right().x - VR::left().x;
 	node->setScale(height/342.0f);
-	node->setPositionX(node->getPositionX() + (1-node->getAnchorPoint().x)*0.5f*width*(1 - node->getScale()));
+	node->setPositionX((1 - node->getAnchorPoint().x)*0.5f*width*(1 - node->getScale()));
 }
 void G_scaleNodeToFitHorizontally(cocos2d::Node* node)
 {
 	const float height = VR::top().y - VR::bottom().y;
 	const float width = VR::right().x - VR::left().x;
 	node->setScale(width/512.0f);
-	node->setPositionY(node->getPositionY() + (1 - node->getAnchorPoint().y)*0.5f*height*(1 - node->getScale()));
+	node->setPositionY((1 - node->getAnchorPoint().y)*0.5f*height*(1 - node->getScale()));
 }

@@ -169,7 +169,7 @@ void Hud::setMultiplayer(World *world)
 		multiBtns[i]->setScale9Enabled(true);
 		multiBtns[i]->setScaleX(2 * G_srodek.x / multiBtns[i]->getContentSize().width / playerznumber);
 		multiBtns[i]->setAnchorPoint(Vec2(0, 0));
-		multiBtns[i]->setPosition(Vec2(i*(2 * G_srodek.x / playerznumber), 0));
+		multiBtns[i]->setPosition(Vec2(VR::left().x+i*(2 * G_srodek.x / playerznumber),VR::bottom().y));
 		multiBtns[i]->setColor(player->getBoxColor());
 		multiBtns[i]->addTouchEventListener([player](Ref* pSender, Widget::TouchEventType type) {
 			if (type == Widget::TouchEventType::ENDED)
@@ -234,7 +234,12 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 }
 void Hud::displayNextLevel(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
-    G_displayCorrectLevelStarter(G_getWorld()->getCarrerLevel() +1,this);
+	if (touchType != Button::TouchEventType::ENDED) return;
+	SoundManager::getInstance()->playBtnEffect();
+	Node *parent = Node::create();
+	this->addChild(parent);
+	parent->setPosition(VR::leftBottom());
+	G_displayCorrectLevelStarter(G_getWorld()->getCarrerLevel() + 1, parent);
 }
 void Hud::keyBackClickedHUD()
 {

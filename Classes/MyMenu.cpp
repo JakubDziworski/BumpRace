@@ -30,15 +30,6 @@ bool MyMenu::init()
 		return false;
 	}
 	preload();
-	/*Button *btnn = Button::create(R_multiBtn,"","",TextureResType::PLIST);
-	btnn->setPosition(G_srodek);
-	this->addChild(btnn,54);
-	btnn->addTouchEventListener([btnn](Ref* reff, Widget::TouchEventType type)
-	{
-	if (type != Widget::TouchEventType::ENDED) return;
-	btnn->setPositionY(2 * G_srodek.y);
-	btnn->runAction(EaseBackOut::create(MoveTo::create(0.5f, G_srodek)));
-	});*/
 	currOpponentsNumber   = 3;
 	currDiffValue         = 1;
 	currModeSelected      = 0;
@@ -55,37 +46,34 @@ bool MyMenu::init()
 	m_playersBoxesFileNamesIndexes[2] = 2;
 	m_playersBoxesFileNamesIndexes[3] = 3;
 	currMenu = L_MAINMENU;
-	cocoStudioNode = Node::create();
-	this->addChild(cocoStudioNode);
-	cocoStudioNode->setPosition(VR::leftBottom());
 	//bg//
 	Sprite *bg = Sprite::createWithSpriteFrameName(R_mainMenuBg);
 	bg->setAnchorPoint(Vec2(0, 0));
 	G_scaleToFitScreen(bg);
 	this->addChild(bg,-3);
+	this->setPosition(VR::leftBottom());
 	dr = DialogReader::getInstance();
-	//*layout init*//
 		//****MAIN MENU******
-		dr->getMainWidgetFromJson("MainMenu.json", this);
+		G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("MainMenu.json", this));
 		((Button*)dr->getWidget("MainMenu.json", "Single_PlayerBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onPlaySinglePlayerBtn, this));
 		((Button*)dr->getWidget("MainMenu.json", "Multi_PlayerBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onPlayMultiBtn, this));
 		((Button*)dr->getWidget("MainMenu.json", "OptionsBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onOptionsBtn, this));
 			//**OPTIONS**//
 			createOptionsMenu();
 			//****SINGLE PLAYER******
-			dr->getHiddenMainWidFromJson("PLAYSINGLE.json", this);
+			G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("PLAYSINGLE.json", this));
 			((Button*)dr->getWidget("PLAYSINGLE.json", "CarrerBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onCarrerBtn, this));
 			((Button*)dr->getWidget("PLAYSINGLE.json", "FreeRunBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onFreeRunBtn, this));
 			((Button*)dr->getWidget("PLAYSINGLE.json", "BestRunBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onBestScoreBtn, this));
 				//****FREE RUN******
-				dr->getHiddenMainWidFromJson("FREERUN.json", this);
+				G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("FREERUN.json", this));
 				((PageView*)dr->getWidget("FREERUN.json", "modeChooser"))->addEventListener(CC_CALLBACK_2(MyMenu::onSPmodeChooserPage, this));
 				((Button*)dr->getWidget("FREERUN.json", "ContinueBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onSPcontinueToBoxChooseBtn, this));
 				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_gates"), (Button*)dr->getWidget("FREERUN.json", "minus_gates"), std::to_string(currGatesNumb), (Text*)dr->getWidget("FREERUN.json", "gatesNumber"), currGatesNumb, 25, 3);
 				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_OpNum"), (Button*)dr->getWidget("FREERUN.json", "minus_OpNum"), std::to_string(currOpponentsNumber), (Text*)dr->getWidget("FREERUN.json", "opponentsNumber"), currOpponentsNumber, 5, 2);
 				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_ai"), (Button*)dr->getWidget("FREERUN.json", "minus_ai"), std::to_string(currDiffValue), (Text*)dr->getWidget("FREERUN.json", "aiSmartness"), currDiffValue, 2, 0,CC_CALLBACK_1(MyMenu::difficultySpinnerChanged,this));
 					//**CHOOSE NAME***//
-					dr->getHiddenMainWidFromJson("CHOOSENAMES.json", this);
+					G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("CHOOSENAMES.json", this));
 					auto textEdit = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex], NULL,-1);
 					dr->getWidget("CHOOSENAMES.json", "editBoxPlaceHolder")->addChild(textEdit);
 					textEdit->setNormalizedPosition(Point(0.5f, 0.5f));
@@ -96,11 +84,12 @@ bool MyMenu::init()
 						playerboxFileNameIndex = ((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->getCurPageIndex();
 						textEdit->setFontColor(G_colors[playerboxFileNameIndex]);
 					});	
+					((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->scrollToPage(0);
 					((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::playCustomNow, this));
 				//**CARRER**//
 				createLevelMapUI();	
 			//**MUTLIFREERUN**//
-			dr->getHiddenMainWidFromJson("MULTIFREERUN.json", this);
+			G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("MULTIFREERUN.json", this));
 			((PageView*)dr->getWidget("MULTIFREERUN.json", "modeChooser"))->addEventListener(CC_CALLBACK_2(MyMenu::onMPModeChooserPage, this));
 			((Button*)dr->getWidget("MULTIFREERUN.json", "ContinueBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onMPcontinueToBoxChoose, this));
 			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_gates"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_gates"), std::to_string(m_currGatesNumb), (Text*)dr->getWidget("MULTIFREERUN.json", "gatesNumber"), m_currGatesNumb, 25, 3);
@@ -108,7 +97,7 @@ bool MyMenu::init()
 			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_ai"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_ai"), std::to_string(m_currDiffValue), (Text*)dr->getWidget("MULTIFREERUN.json", "aiSmartness"), m_currDiffValue, 2, 0, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
 			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_PlNum"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_PlNum"), std::to_string(m_currPlayersNumber), (Text*)dr->getWidget("MULTIFREERUN.json", "playersNumber"), m_currPlayersNumber, 3, 2);
 				//**MULTI CHOOSE NAMES**//
-				dr->getHiddenMainWidFromJson("MULTICHOOSENAMES.json", this);
+				G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("MULTICHOOSENAMES.json", this));
 				for (int i = 0; i < 3; i++)
 				{
 					auto textEdit = createTextEdit(G_playersDefaultNames[i], G_colors[m_playersBoxesFileNamesIndexes[i]], NULL, -1);
@@ -129,7 +118,7 @@ bool MyMenu::init()
 	createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	auto backbtn = this->getChildByTag(B_BACK);
 	backbtn->setAnchorPoint(Vec2(0, 1));
-	backbtn->setPosition(VR::leftTop().x + 12,VR::leftTop().y - 12);
+	backbtn->setPosition(12,VR::leftTop().y-VR::bottom().y - 12);
 	backbtn->setOpacity(0);
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
@@ -140,8 +129,20 @@ bool MyMenu::init()
 	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keylistener, this);
 	SoundManager::getInstance()->playBgMusicMenu();
-	G_scaleNodeVerticallyToFit(cocoStudioNode);
 	return true;
+}
+void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
+{
+	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
+	btn->setTitleFontName(R_defaultFont);
+	btn->setTitleFontSize(12);
+	btn->setTouchEnabled(true);
+	if (btnText != "")
+	{
+		btn->setTitleText(G_str(btnText));
+	}
+	btn->addTouchEventListener(callback);
+	layout->addChild(btn, 15, typed);
 }
 cocos2d::Scene* MyMenu::createScene()
 {
@@ -160,10 +161,10 @@ void MyMenu::createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* bt
 		if (changinVal-1 >= minVal)
 		{
 			changinVal = changinVal - 1;
+			labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 			if (additionalFunction != nullptr)
 				additionalFunction(labelText);
 		}
-		labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 	});
 	btnplus->addTouchEventListener([&changinVal, maxVal, labelText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
@@ -171,10 +172,10 @@ void MyMenu::createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* bt
 		if (changinVal + 1 <= maxVal)
 		{
 			changinVal = changinVal + 1;
+			labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 			if (additionalFunction != nullptr)
 				additionalFunction(labelText);
 		}
-		labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 	});
 	labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 	if (additionalFunction != nullptr) additionalFunction(labelText);
@@ -192,128 +193,6 @@ cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::
 	editbox->setFont(R_defaultFont.c_str(),12);
 	//
 	return editbox;
-}
-cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
-{
-	LinearLayoutParameter* par = LinearLayoutParameter::create();
-	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	createLabel(title, parent, 999);
-	PageView* pageView = PageView::create();
-	pageView->setClippingEnabled(false);
-	pageView->setBackGroundColor(Color3B(100, 100, 100));
-	pageView->removeAllPages();
-	int sizex = 0;
-	int sizey = 0;
-	int i = 0;
-	Vector <Node *> layouts;
-	for (auto name : names)
-	{
-		Layout *layout = Layout::create();
-		Layout *imageView = Layout::create();
-		layout->setLayoutType(LAYOUT_LINEAR_VERTICAL);
-        Sprite *spr;
-		if (filepaths.at(i) == "")
-		{
-			
-			if (G_faceBookAvatarTex)
-                spr = Sprite::createWithTexture(G_faceBookAvatarTex);
-			else
-                spr = Sprite::createWithSpriteFrameName(R_faceBookFaceLocked);
-			G_spritesUsingFBImage.pushBack(spr);
-		}
-        else spr = Sprite::createWithSpriteFrameName(filepaths.at(i));
-        imageView->setContentSize(spr->getContentSize());
-        imageView->addChild(spr,1);
-        spr->setNormalizedPosition(Vec2(0.5f, 0.5f));
-		Text *text = Text::create(names.at(i), R_defaultFont, 12);
-		text->setLayoutParameter(par);
-		imageView->setLayoutParameter(par);
-		layout->addChild(text,1);
-		layout->addChild(imageView,0);
-		pageView->insertPage(layout, i);
-		//resize
-		if (sizey < imageView->getContentSize().height + text->getContentSize().height)
-		{
-			sizey = imageView->getContentSize().height + text->getContentSize().height;
-		}
-		if (sizex < imageView->getContentSize().width)
-		{
-			sizex = imageView->getContentSize().width;
-		}
-		layout->ignoreAnchorPointForPosition(true);
-		layout->setAnchorPoint(Vec2(0, 0.5f));
-		layouts.pushBack(imageView);
-		i++;
-	}
-	pageView->setContentSize(Size(scaleFactor*sizex, scaleFactor*sizey));
-	pageView->setLayoutParameter(par);
-	PageViewController *controller = PageViewController::create();
-	this->getChildByTag(parent)->addChild(pageView, 1, tag);
-	controller->setControlledpageView(pageView);
-	pageView->addEventListener([this,&defaultState, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
-	{
-		if (type != PageView::EventType::TURNING) return;
-		layouts.at(defaultState)->runAction(ScaleTo::create(scaleTime, 1));
-		defaultState = pageView->getCurPageIndex();
-		layouts.at(defaultState)->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
-		if(callback != nullptr)callback(pageView);
-	});
-	pageView->scrollToPage(defaultState);
-	return pageView;
-}
-void MyMenu::createLayout(int layoutTag)
-{
-	Menu *menu = Menu::create();
-	cocos2d::ui::Layout *mylater = cocos2d::ui::Layout::create();
-	mylater->setPosition(VR::top());
-	mylater->setLayoutType(LAYOUT_LINEAR_VERTICAL);
-	mylater->setVisible(false);
-	mylater->setOpacity(0);
-	mylater->setBackGroundColorType(LAYOUT_COLOR_SOLID);
-	mylater->setBackGroundColor(Color3B(128, 200, 200));
-	this->addChild(mylater, 0, layoutTag);
-}
-void MyMenu::createLabel(const std::string &text, int parenttag, int tag)
-{
-	auto label = Text::create(text, R_defaultFont,12);
-	LinearLayoutParameter* par = LinearLayoutParameter::create();
-	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	label->setLayoutParameter(par);
-	this->getChildByTag(parenttag)->addChild(label, 1, tag);
-}
-void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
-{
-	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
-	btn->setTitleFontName(R_defaultFont);
-	btn->setTitleFontSize(12);
-	btn->setTouchEnabled(true);
-	if (btnText != "")
-	{
-		btn->setTitleText(G_str(btnText));
-	}
-	btn->addTouchEventListener(callback);
-	LinearLayoutParameter* par = LinearLayoutParameter::create();
-	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	btn->setLayoutParameter(par);
-	layout->addChild(btn, 15, typed);
-}
-void MyMenu::createSlider(const char *defaultText, const float defaultval, const float maxVal, int &changingValue, Slider::ccSliderCallback callback, int parenttag, int tag, int labelTag)
-{
-	/*Slider* slider = Slider::create();
-	slider->loadBarTexture(R_slider[0], TextureResType::PLIST);
-	slider->loadSlidBallTextures(R_sliderDot, R_sliderDot, "", TextureResType::PLIST);
-	slider->loadProgressBarTexture(R_slider[1], TextureResType::PLIST);
-	slider->setCapInsets(Rect(0, 0, 0, 0));
-	LinearLayoutParameter* par = LinearLayoutParameter::create();
-	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	slider->setLayoutParameter(par);
-	auto txt = Text::create(defaultText, R_defaultFont, 12);
-	txt->setLayoutParameter(par);
-	slider->setPercent(defaultval/maxVal * 100);
-	slider->addEventListener(callback);
-	changingValue = defaultval;
-	this->getChildByTag(parenttag)->addChild(txt, 1, labelTag);
-	this->getChildByTag(parenttag)->addChild(slider, 1, tag);*/
 }
 //**MISC**
 void MyMenu::preload()
@@ -420,16 +299,16 @@ void MyMenu::onOptionsBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 void MyMenu::onCarrerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
-	SoundManager::getInstance()->playBtnEffect();
-	tryBestScore = false;
-	hide(L_PLAYSINGLE);
-	show(L_CARRER);
+	spType = singlePlayerType::carrer;
+	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Continue"));
+	onSPcontinueToBoxChooseBtn(pSender, type);
 }
 void MyMenu::onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
+	spType = singlePlayerType::free;
 	SoundManager::getInstance()->playBtnEffect();
-	tryBestScore = false;
+	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Play"));
 	show(L_FREERUN);
 	hide(L_PLAYSINGLE);
 }
@@ -439,13 +318,21 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
 	Scene *scene;
-	if (tryBestScore)
+	if (spType == singlePlayerType::best)
 	{
 		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, true);
 		EndlessWorld *world = (EndlessWorld*)scene->getChildByTag(LAYER_GAMEPLAY);
 		world->setSinglePlayer(Player::create(R_Box[playerboxFileNameIndex], G_playersDefaultNames[0], world->getGravitySpace(), G_colors[playerboxFileNameIndex]));
 		world->setMinGates(0);
 		G_dir()->replaceScene(scene);
+		return;
+	}
+	else if (spType == singlePlayerType::carrer)
+	{
+		G_globalBoxFileNameIndex = playerboxFileNameIndex;
+		G_globalPlayerName = G_playersDefaultNames[0];
+		hide(L_CHOOSENAMES);
+		show(L_CARRER);
 		return;
 	}
 	else if (currModeSelected == 0)
@@ -618,8 +505,7 @@ void MyMenu::onSPcontinueToBoxChooseBtn(cocos2d::Ref *pSender, cocos2d::ui::Widg
 	}
 	else
 	{
-		if (tryBestScore) hide(L_PLAYSINGLE);
-		else hide(L_CARRER);
+		hide(L_PLAYSINGLE);
 	}
 	show(L_CHOOSENAMES);
 }
@@ -644,7 +530,7 @@ bool MyMenu::m_checkPlayersOverlap()
 	if (!ok)
 	{
 		//GUI HANDLING
-		dr->getMainWidgetFromJson("AutoCorrectDialog.json", this);
+		G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("AutoCorrectDialog.json", this));
 		dr->addActionHideAndSomething("AutoCorrectDialog.json", "autoCorrectBtn", [this]()
 		{
 			this->m_autocorrectWrongPlayerChoose();
@@ -689,49 +575,6 @@ void MyMenu::m_autocorrectWrongPlayerChoose()
 		}
 	}
 }
-void MyMenu::m_setupAutoCorrectDialog(cocos2d::ui::Layout *layout)
-{
-	layout->enumerateChildren("//closeBtn", [this, layout](Node *node) -> bool
-	{
-		Button *btn = (Button*)node;
-		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
-		{
-			if (type != Widget::TouchEventType::ENDED) return;
-			SoundManager::getInstance()->playBtnEffect();
-			auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
-			auto czekaj = DelayTime::create(1);
-			cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
-			this->runAction(Sequence::createWithTwoActions(czekaj, usun));
-		});
-		return false;
-	});
-	layout->enumerateChildren("//autocorrectBtn", [this, layout](Node *node)
-	{
-		auto btn = (Button*)node;
-		btn->setTitleFontSize(10);
-		btn->addTouchEventListener([this, layout](Ref*, Widget::TouchEventType type)
-		{
-			if (type != Widget::TouchEventType::ENDED) return;
-			SoundManager::getInstance()->playBtnEffect();
-			auto usun = CallFunc::create([layout](){cocostudio::ActionManagerEx::getInstance()->releaseActions(); layout->removeFromParent(); });
-			auto czekaj = DelayTime::create(1);
-			cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation1");
-			this->runAction(Sequence::createWithTwoActions(czekaj, usun));
-			this->m_autocorrectWrongPlayerChoose();
-		});
-		return false;
-	});
-	layout->enumerateChildren("//dialogText", [layout](Node *node)
-	{
-		auto border = utils::findChildren(*layout, "//textBorder").at(0)->getContentSize();
-		auto labell = ((Text*)node);
-		labell->setString(G_str("AutoCorrectDialogText"));
-		labell->setTextAreaSize(border);
-		G_enableShadow(labell);
-		labell->setFontSize(10);
-		return false;
-	});
-}
 void MyMenu::createSinglePlayerTutorialDialog()
 {
 		int taps=0;
@@ -765,7 +608,7 @@ void MyMenu::createLevelMapUI()
 {
 	auto parent = Layout::create();
 	this->addChild(parent,0, L_CARRER);
-	auto mainwidget = DialogReader::getInstance()->getMainWidgetFromJson(R_LevelMapUI, parent);
+	G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson(R_LevelMapUI, parent));
 	parent->setOpacity(0);
 	parent->setVisible(false);
 	for (int i = 1; i <= 10; i++)
@@ -780,22 +623,20 @@ void MyMenu::createLevelMapUI()
 			{
 				if (type != Widget::TouchEventType::ENDED) return;
 				SoundManager::getInstance()->playBtnEffect();
-				DialogReader::getInstance()->getMainWidgetFromJson("levelLockedDialog.json", parent);
+				G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("levelLockedDialog.json", this));
 			});
 		}
 		else
 		{
-			btn->addTouchEventListener([parent, i](Ref *reff, Widget::TouchEventType type)
+			btn->addTouchEventListener([parent, i,this](Ref *reff, Widget::TouchEventType type)
 			{
 				if (type != Widget::TouchEventType::ENDED) return;
 				SoundManager::getInstance()->playBtnEffect();
-                G_displayCorrectLevelStarter(i, parent);
+				curCarrerLevelChose = i;
+				G_displayCorrectLevelStarter(i, this);
 			});
 		}
 	}
-}
-void MyMenu::resizeLayouts()
-{
 }
 void MyMenu::retain()
 {
@@ -804,7 +645,8 @@ void MyMenu::retain()
 }
 void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	tryBestScore = true;
+	spType = singlePlayerType::best;
+	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Play"));
 	onSPcontinueToBoxChooseBtn(pSender, type);
 }
 void MyMenu::goToLevelChooserMenu()
@@ -826,25 +668,26 @@ void MyMenu::createOptionsMenu()
 	auto parent = Layout::create();
 	this->addChild(parent,0, L_OPTIONS);
 	parent->setVisible(false);
-	auto options = DialogReader::getInstance()->getMainWidgetFromJson("Options.json", parent);
+	G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("Options.json", parent));
 	//**end fb callback**//
-	DialogReader::getInstance()->addButtonAction("Options.json", "fbConnectBtn", []()//login
+	dr->addButtonAction("Options.json", "fbConnectBtn", []()//login
 	{
 		FB_login();
 	});
-	DialogReader::getInstance()->addButtonAction("Options.json", "fbDisconnectBtn", []()//logout
+	dr->addButtonAction("Options.json", "fbDisconnectBtn", []()//logout
 	{
 		FB_logOut();
 	});
-	DialogReader::getInstance()->addButtonAction("Options.json", "CreditsBtn", [parent]()
+	dr->addButtonAction("Options.json", "CreditsBtn", [parent]()
 	{
 		auto dialgo = DialogReader::getInstance()->getMainWidgetFromJson("creditsDialog.json", parent);
 		dialgo->setNormalizedPosition(Vec2(0, 0));
+		G_scaleNodeVerticallyToFit(dialgo);
 	});
-    auto connbtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbConnectBtn");
+    auto connbtn = (Button*)dr->getWidget("Options.json", "fbConnectBtn");
     connbtn->setVisible(!FB_connected);
     connbtn->setTouchEnabled(!FB_connected);
-    auto discoBtn = (Button*)DialogReader::getInstance()->getWidget("Options.json", "fbDisconnectBtn");
+    auto discoBtn = (Button*)dr->getWidget("Options.json", "fbDisconnectBtn");
     discoBtn->setVisible(FB_connected);
     discoBtn->setTouchEnabled(FB_connected);
 }
@@ -917,8 +760,8 @@ void MyMenu::UPDATEPLAYERNAME()
  {
 	 if (pgview->getCurPageIndex() == 5 && G_faceBookAvatarTex == NULL)
 	 {
-		 DialogReader::getInstance()->getMainWidgetFromJson("connectoToFbDialog.json", this);
-		 DialogReader::getInstance()->addActionHideAndSomething("connectoToFbDialog.json", "connectBtn", []()
+		 G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("connectoToFbDialog.json", this));
+		 dr->addActionHideAndSomething("connectoToFbDialog.json", "connectBtn", []()
 		 {
 			 FB_login();
 		 });

@@ -4,6 +4,9 @@
 #include "World.h"
 #include "Hud.h"
 #include "screw/screw.h"
+#include "Player.h"
+extern std::string G_globalPlayerName;
+extern int G_globalBoxFileNameIndex;
 extern int G_endlessGateNumber;
 extern cocos2d::Director *G_director;
 extern int G_odlegloscmiedzyBramkami;
@@ -46,7 +49,7 @@ extern World* G_getWorld();
 extern Hud* G_getHud();
 extern float G_getFTimeScale(float val);
 extern cocos2d::ParticleSystemQuad* G_getParticleFromFile(const std::string &filename, cocos2d::ParticleSystemQuad::PositionType type= cocos2d::ParticleSystemQuad::PositionType::RELATIVE);
-extern void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent);
+void G_displayCorrectLevelStarter(int level, cocos2d::Node *parent);
 extern void G_enableShadow(cocos2d::Label *lbl);
 extern void G_enableShadow(cocos2d::ui::Text *lbl);
 extern void FB_login();
