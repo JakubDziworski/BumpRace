@@ -55,75 +55,78 @@ bool MyMenu::init()
 	m_playersBoxesFileNamesIndexes[2] = 2;
 	m_playersBoxesFileNamesIndexes[3] = 3;
 	currMenu = L_MAINMENU;
+	cocoStudioNode = Node::create();
+	this->addChild(cocoStudioNode);
+	cocoStudioNode->setPosition(VR::leftBottom());
 	//bg//
 	Sprite *bg = Sprite::createWithSpriteFrameName(R_mainMenuBg);
 	bg->setAnchorPoint(Vec2(0, 0));
 	G_scaleToFitScreen(bg);
 	this->addChild(bg,-3);
+	dr = DialogReader::getInstance();
 	//*layout init*//
-	createLayout(L_MAINMENU);
-		createLayout(L_PLAYSINGLE);
-			createLevelMapUI();
-			createLayout(L_FREERUN);
-			createLayout(L_CHOOSENAMES);
-		createLayout(L_PLAYMULTI);
-			createLayout(L_MULTIFREELOCALRUN);
-				createLayout(L_M_CHOOSENAMES);
-	//*MAIN MENU BUTTNS*//
-	createBtn(R_btnOn, "", "Single_Player", CC_CALLBACK_2(MyMenu::playSingleEvent, this), B_PLAYSINGLE, this->getChildByTag(L_MAINMENU));
-	createBtn(R_btnOn,"", "Multi_Player", CC_CALLBACK_2(MyMenu::playMultiEvent, this), B_PLAYMULTI, this->getChildByTag(L_MAINMENU));
-	createBtn(R_btnOn, "", "Options", CC_CALLBACK_2(MyMenu::optionsEvent, this), B_OPTIONS, this->getChildByTag(L_MAINMENU));
-    createBtn(R_btnOn, "", "Share", CC_CALLBACK_2(MyMenu::shareGame,this), 10000, this->getChildByTag(L_MAINMENU));
-	createOptionsMenu();
-	//*SINGLE PLAYER BUTTONS*//
-	createLabel(G_str("Single_Player"), L_PLAYSINGLE, LAB_SINGLEPLAYER);
-	createBtn(R_btnOn,"", "Carrer", CC_CALLBACK_2(MyMenu::playCarrer, this), B_CARRER, this->getChildByTag(L_PLAYSINGLE));
-	createBtn(R_btnOn, "", "FreeRun", CC_CALLBACK_2(MyMenu::playCustom, this), B_FREERUN, this->getChildByTag(L_PLAYSINGLE));
-	createBtn(R_btnOn,"", "BestRun", CC_CALLBACK_2(MyMenu::playtBestScoreNow, this), B_BESTSCORERUN, this->getChildByTag(L_PLAYSINGLE));
-	//*CARRER BUTTONS*//
-	//TODO
-	//*FRE RUN BUTTONS*//
-	createLabel(G_str("FreeRun"), L_FREERUN, LAB_FREERUN);
-	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination"),G_str("Endless")}, { R_pageGate, R_pageEndless, R_pageElimination }, currModeSelected, PG_CHOOSEMODE, L_FREERUN, CC_CALLBACK_1(MyMenu::modeChooserPageChanged, this));
-	createSpinner(std::to_string(currGatesNumb), G_str("Gates"), currGatesNumb, 24, 3,B_GATESLIDER, L_FREERUN);
-	createSpinner(std::to_string(currOpponentsNumber), G_str("Opponents"), currOpponentsNumber, maxOpponentsNumber, 1, B_OPPONENTSSLIDE, L_FREERUN);
-	createSpinner("Medium", G_str("Difficulty"), currDiffValue, 2, 0, B_DIFFICULTYSLIDER,L_FREERUN, CC_CALLBACK_1(MyMenu::difficultySpinnerChanged, this));
-	createBtn(R_btnOn,"", "Continue", CC_CALLBACK_2(MyMenu::continueToBoxChoose, this), B_CONTINUETOCHOSEBOX, this->getChildByTag(L_FREERUN));
-	//SINGLE CHOOSE BOX
-	createLabel(G_str("Choose_Name"), L_CHOOSENAMES, LAB_CHOSENAMES);
-	auto singletextField = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex], L_CHOOSENAMES, -1);
-    playerEditBoxListener = singletextField;
-	createPages("", { "", "", "", "", "", ""}, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], "" }, playerboxFileNameIndex, PG_PLAYERBOX, L_CHOOSENAMES,
-		[singletextField](PageView *pgview)
-	{
-		singletextField->setFontColor(G_colors[pgview->getCurPageIndex()]);
-	});
-	createBtn(R_btnOn,"", "Play", CC_CALLBACK_2(MyMenu::playCustomNow, this), B_FREERUNACCEPTANDPLAY, this->getChildByTag(L_CHOOSENAMES));
-	//**LOCAL MULTIPLAYER**//
-	createLabel(G_str("Multi_Player"), L_MULTIFREELOCALRUN, LAB_FREERUNMULTI);
-	createPages(G_str("Choose_Mode"), { G_str("Gate_Collector"), G_str("Elimination") }, { R_pageGate, R_pageElimination }, m_currModeSelected, PG_MULTICHOSEMODE, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_ModeChooserPageChanged,this));
-	createSpinner(std::to_string(m_currGatesNumb), G_str("Gates"), m_currGatesNumb, 24, 3, B_M_GATESLIDER, L_MULTIFREELOCALRUN);
-	createSpinner(std::to_string(m_currPlayersNumber), G_str("Players"), m_currPlayersNumber, 4, 2, B_M_PLAYERSLIDER, L_MULTIFREELOCALRUN);
-	createSpinner(std::to_string(m_currOpponentsNumber), G_str("Computers"), m_currOpponentsNumber, 2, 0, B_M_OPPONENTSSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_OpponentsChanged, this));
-	createSpinner("Medium", G_str("Difficulty"), m_currDiffValue, 2, 0,B_M_DIFFICULTYSLIDER, L_MULTIFREELOCALRUN, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
-	createBtn(R_btnOn, "", "Continue", CC_CALLBACK_2(MyMenu::m_continueToBoxChoose, this), B_M_CONTINUETOBOXCHOOSE, this->getChildByTag(L_MULTIFREELOCALRUN));
-	//MULTIPLAYER CHOOSE NAMES//
-	createLabel(G_str("Choose_Name"),L_M_CHOOSENAMES,LAB_M_CHOSENAMES);
-	createBtn(R_btnOn, "", "Play", CC_CALLBACK_2(MyMenu::playMultiNow, this), B_M_PLAYNOW, this->getChildByTag(L_M_CHOOSENAMES));
-	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 0; k < 4; j++, i++, k++)
-	{
-		auto textfield = createTextEdit(G_playersDefaultNames[k],G_colors[k], L_M_CHOOSENAMES, i);
-		auto page = createPages("", { "", "", "", "", "", "" }, { R_Box[0], R_Box[1], R_Box[2], R_Box[3], R_Box[4], "" }, m_playersBoxesFileNamesIndexes[k], j, L_M_CHOOSENAMES,
-			[textfield](PageView *pgview)
-		{
-			textfield->setFontColor(G_colors[pgview->getCurPageIndex()]);
-		});
-	}
-	//*GENERAL BUTTONS*//
+		//****MAIN MENU******
+		dr->getMainWidgetFromJson("MainMenu.json", this);
+		((Button*)dr->getWidget("MainMenu.json", "Single_PlayerBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onPlaySinglePlayerBtn, this));
+		((Button*)dr->getWidget("MainMenu.json", "Multi_PlayerBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onPlayMultiBtn, this));
+		((Button*)dr->getWidget("MainMenu.json", "OptionsBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onOptionsBtn, this));
+			//**OPTIONS**//
+			createOptionsMenu();
+			//****SINGLE PLAYER******
+			dr->getHiddenMainWidFromJson("PLAYSINGLE.json", this);
+			((Button*)dr->getWidget("PLAYSINGLE.json", "CarrerBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onCarrerBtn, this));
+			((Button*)dr->getWidget("PLAYSINGLE.json", "FreeRunBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onFreeRunBtn, this));
+			((Button*)dr->getWidget("PLAYSINGLE.json", "BestRunBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onBestScoreBtn, this));
+				//****FREE RUN******
+				dr->getHiddenMainWidFromJson("FREERUN.json", this);
+				((PageView*)dr->getWidget("FREERUN.json", "modeChooser"))->addEventListener(CC_CALLBACK_2(MyMenu::onSPmodeChooserPage, this));
+				((Button*)dr->getWidget("FREERUN.json", "ContinueBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onSPcontinueToBoxChooseBtn, this));
+				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_gates"), (Button*)dr->getWidget("FREERUN.json", "minus_gates"), std::to_string(currGatesNumb), (Text*)dr->getWidget("FREERUN.json", "gatesNumber"), currGatesNumb, 25, 3);
+				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_OpNum"), (Button*)dr->getWidget("FREERUN.json", "minus_OpNum"), std::to_string(currOpponentsNumber), (Text*)dr->getWidget("FREERUN.json", "opponentsNumber"), currOpponentsNumber, 5, 2);
+				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_ai"), (Button*)dr->getWidget("FREERUN.json", "minus_ai"), std::to_string(currDiffValue), (Text*)dr->getWidget("FREERUN.json", "aiSmartness"), currDiffValue, 2, 0,CC_CALLBACK_1(MyMenu::difficultySpinnerChanged,this));
+					//**CHOOSE NAME***//
+					dr->getHiddenMainWidFromJson("CHOOSENAMES.json", this);
+					auto textEdit = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex], NULL,-1);
+					dr->getWidget("CHOOSENAMES.json", "editBoxPlaceHolder")->addChild(textEdit);
+					textEdit->setNormalizedPosition(Point(0.5f, 0.5f));
+					((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->addEventListener([this, textEdit](Ref *reff, PageView::EventType type)
+					{
+						defaultPageAction((PageView*)reff);
+						onBoxChooseChanged((PageView*)reff);
+						playerboxFileNameIndex = ((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->getCurPageIndex();
+						textEdit->setFontColor(G_colors[playerboxFileNameIndex]);
+					});	
+					((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::playCustomNow, this));
+				//**CARRER**//
+				createLevelMapUI();	
+			//**MUTLIFREERUN**//
+			dr->getHiddenMainWidFromJson("MULTIFREERUN.json", this);
+			((PageView*)dr->getWidget("MULTIFREERUN.json", "modeChooser"))->addEventListener(CC_CALLBACK_2(MyMenu::onMPModeChooserPage, this));
+			((Button*)dr->getWidget("MULTIFREERUN.json", "ContinueBtn"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::onMPcontinueToBoxChoose, this));
+			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_gates"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_gates"), std::to_string(m_currGatesNumb), (Text*)dr->getWidget("MULTIFREERUN.json", "gatesNumber"), m_currGatesNumb, 25, 3);
+			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_OpNum"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_OpNum"), std::to_string(m_currOpponentsNumber), (Text*)dr->getWidget("MULTIFREERUN.json", "opponentsNumber"), m_currOpponentsNumber, 3, 0, CC_CALLBACK_1(MyMenu::checkIfNoOpponents, this));
+			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_ai"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_ai"), std::to_string(m_currDiffValue), (Text*)dr->getWidget("MULTIFREERUN.json", "aiSmartness"), m_currDiffValue, 2, 0, CC_CALLBACK_1(MyMenu::m_difficultySpinnerChanged, this));
+			createSpinner((Button*)dr->getWidget("MULTIFREERUN.json", "plus_PlNum"), (Button*)dr->getWidget("MULTIFREERUN.json", "minus_PlNum"), std::to_string(m_currPlayersNumber), (Text*)dr->getWidget("MULTIFREERUN.json", "playersNumber"), m_currPlayersNumber, 3, 2);
+				//**MULTI CHOOSE NAMES**//
+				dr->getHiddenMainWidFromJson("MULTICHOOSENAMES.json", this);
+				for (int i = 0; i < 3; i++)
+				{
+					auto textEdit = createTextEdit(G_playersDefaultNames[i], G_colors[m_playersBoxesFileNamesIndexes[i]], NULL, -1);
+					dr->getWidget("MULTICHOOSENAMES.json", "editBoxPlaceHolder"+to_string(i))->addChild(textEdit);
+					auto page = ((PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i)));
+					page->addEventListener([this, textEdit,i](Ref *reff, PageView::EventType type)
+					{
+						defaultPageAction((PageView*)reff);
+						onBoxChooseChanged((PageView*)reff);
+						m_playersBoxesFileNamesIndexes[i] = ((PageView*)reff)->getCurPageIndex();
+						textEdit->setFontColor(G_colors[m_playersBoxesFileNamesIndexes[i]]);
+					});
+					page->scrollToPage(i);
+				}
+				((Button*)dr->getWidget("MULTICHOOSENAMES.json", "PlayNow"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::playMultiNow, this));
+	//misc
+	refreshFBAvatar();
 	createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
-	//tutorial
-	//createSinglePlayerTutorialDialog();
-	//*MODIFICATION*//
 	auto backbtn = this->getChildByTag(B_BACK);
 	backbtn->setAnchorPoint(Vec2(0, 1));
 	backbtn->setPosition(VR::leftTop().x + 12,VR::leftTop().y - 12);
@@ -137,6 +140,7 @@ bool MyMenu::init()
 	keylistener->onKeyReleased = CC_CALLBACK_2(MyMenu::onKeyReleased, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keylistener, this);
 	SoundManager::getInstance()->playBgMusicMenu();
+	G_scaleNodeVerticallyToFit(cocoStudioNode);
 	return true;
 }
 cocos2d::Scene* MyMenu::createScene()
@@ -147,61 +151,37 @@ cocos2d::Scene* MyMenu::createScene()
 	return scena;
 }
 //**CREATING**//
-void MyMenu::createSpinner(const std::string &defaultText, const std::string &labelText,int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction)
+void MyMenu::createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* btnMinus, const std::string &defaultText, cocos2d::ui::Text *labelText,int &changinVal, int maxVal, int minVal,std::function<void(cocos2d::ui::Text*)> additionalFunction/*=nullptr*/)
 {
-	myLayout *verLayout = myLayout::create();
-	verLayout->setType(0);
-	myLayout *horLayout = myLayout::create();
-	horLayout->setType(1);
-	Text *titleText = Text::create(labelText, R_defaultFont, 12);
-	Text *valueText = Text::create(defaultText, R_defaultFont, 12);
-	Button *minusBtn = Button::create(R_minusBtn,"","",TextureResType::PLIST);
-	Button *plusbtn = Button::create(R_plusBtn, "", "", TextureResType::PLIST);
-	minusBtn->setTitleFontName(R_defaultFont);
-	plusbtn->setTitleFontName(R_defaultFont);
-	minusBtn->addTouchEventListener([&changinVal, minVal, valueText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
+
+	btnMinus->addTouchEventListener([&changinVal, minVal, labelText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
 		SoundManager::getInstance()->playBtnEffect();
 		if (changinVal-1 >= minVal)
 		{
 			changinVal = changinVal - 1;
-			valueText->setString(String::createWithFormat("%d",changinVal)->getCString());
 			if (additionalFunction != nullptr)
-				additionalFunction(valueText);
+				additionalFunction(labelText);
 		}
+		labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 	});
-	plusbtn->addTouchEventListener([&changinVal, maxVal, valueText ,additionalFunction](Ref* pSender, Widget::TouchEventType type) {
+	btnplus->addTouchEventListener([&changinVal, maxVal, labelText, additionalFunction](Ref* pSender, Widget::TouchEventType type) {
 		if (type != Widget::TouchEventType::ENDED) return;
 		SoundManager::getInstance()->playBtnEffect();
 		if (changinVal + 1 <= maxVal)
 		{
 			changinVal = changinVal + 1;
-			valueText->setString(String::createWithFormat("%d", changinVal)->getCString());
 			if (additionalFunction != nullptr)
-				additionalFunction(valueText);
+				additionalFunction(labelText);
 		}
+		labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 	});
-	LinearLayoutParameter *magrinparam = LinearLayoutParameter::create();
-	magrinparam->setMargin(Margin(7, 0, 7, 0));
-	magrinparam->setGravity(LinearGravity::CENTER_VERTICAL);
-	LinearLayoutParameter *param = LinearLayoutParameter::create();
-	param->setGravity(LinearGravity::CENTER_HORIZONTAL);
-	//param->setMargin(Margin(0, G_hF(20), 0, 0));
-	valueText->setLayoutParameter(magrinparam);
-	verLayout->setLayoutParameter(param);
-	horLayout->addWidget(minusBtn);
-	horLayout->addWidgetCustomParam(valueText);
-	horLayout->addWidget(plusbtn);
-	verLayout->addWidget(titleText);
-	verLayout->addWidget(horLayout);
-	this->getChildByTag(parenttag)->addChild(verLayout,0,tag);
+	labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
+	if (additionalFunction != nullptr) additionalFunction(labelText);
 }
 cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(cocos2d::ui::TextField*)> callback/*=nullptr*/)
 {
-	Layout *bgLayout = Layout::create();
-	bgLayout->setSize(Sprite::createWithSpriteFrameName(R_editBtn[0].c_str())->getContentSize());
-	//editbox
-	auto editbox = extension::EditBox::create(bgLayout->getContentSize(), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[0].c_str()), extension::Scale9Sprite::createWithSpriteFrameName(R_multiBtn[1].c_str()));
+	auto editbox = extension::EditBox::create(Sprite::createWithSpriteFrameName(R_editBtn[0].c_str())->getContentSize(), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[0].c_str()), extension::Scale9Sprite::createWithSpriteFrameName(R_multiBtn[1].c_str()));
 	editbox->setText(text.c_str());
 	editbox->setFontColor(textColor);
 	editbox->setPlaceHolder(text.c_str());
@@ -210,12 +190,7 @@ cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::
 	editbox->setDelegate(new TextHandler(text));
 	editbox->setNormalizedPosition(Vec2(0.5, 0.5));
 	editbox->setFont(R_defaultFont.c_str(),12);
-	bgLayout->addChild(editbox);
 	//
-	LinearLayoutParameter* par = LinearLayoutParameter::create();
-	par->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
-	bgLayout->setLayoutParameter(par);
-	this->getChildByTag(parenttag)->addChild(bgLayout, 1, tag);
 	return editbox;
 }
 cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(PageView *)> callback)
@@ -278,17 +253,6 @@ cocos2d::ui::PageView* MyMenu::createPages(const std::string title, const std::v
 	pageView->addEventListener([this,&defaultState, layouts, pageView,callback](cocos2d::Ref* pSender, cocos2d::ui::PageView::EventType type)
 	{
 		if (type != PageView::EventType::TURNING) return;
-		//facebook avatar
-		if (pageView->getCurPageIndex() == 5 && G_faceBookAvatarTex == NULL)
-		{
-			DialogReader::getInstance()->getMainWidgetFromJson("connectoToFbDialog.json",this);
-			DialogReader::getInstance()->addActionHideAndSomething("connectoToFbDialog.json", "connectBtn", []()
-			{
-				FB_login();
-			});
-			pageView->scrollToPage(4);
-			return;
-		}
 		layouts.at(defaultState)->runAction(ScaleTo::create(scaleTime, 1));
 		defaultState = pageView->getCurPageIndex();
 		layouts.at(defaultState)->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
@@ -428,7 +392,7 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 	}
 }
 //**MAIN MENU EVENTS**//
-void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onPlaySinglePlayerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
@@ -436,7 +400,7 @@ void MyMenu::playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEv
 	show(L_PLAYSINGLE);
 	hide(L_MAINMENU);
 }
-void MyMenu::playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onPlayMultiBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
@@ -444,7 +408,7 @@ void MyMenu::playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEve
 	show(L_MULTIFREELOCALRUN);
 	hide(L_MAINMENU);
 }
-void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onOptionsBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
@@ -453,7 +417,7 @@ void MyMenu::optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	hide(L_MAINMENU);
 }
 //**SINGLE PLAYER EVENTS**//
-void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onCarrerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
@@ -461,7 +425,7 @@ void MyMenu::playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventTy
 	hide(L_PLAYSINGLE);
 	show(L_CARRER);
 }
-void MyMenu::playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
@@ -506,79 +470,91 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	DialogReader::getInstance()->flush();
 	G_dir()->replaceScene(scene);
 }
-void MyMenu::modeChooserPageChanged(cocos2d::ui::PageView *pages)
+void MyMenu::onSPmodeChooserPage(cocos2d::Ref *reff, cocos2d::ui::PageView::EventType type)
 {
-	currModeSelected = pages->getCurPageIndex();
-	
+	defaultPageAction((PageView*)reff);
+	currModeSelected = ((PageView*)dr->getWidget("FREERUN.json", "modeChooser"))->getCurPageIndex();
+	auto enable = [](bool val,Widget *nod)
+	{
+		if (val) nod->setColor(Color3B::WHITE);
+		else nod->setColor(Color3B::GRAY);
+		nod->setEnabled(val);
+	};
 	if (currModeSelected == 0)
 	{
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->enableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->enableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
+		enable(true , (Widget*)dr->getWidget("FREERUN.json", "gatesChooser"));
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "opponentsChooser"));
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "diffChooser"));
 	}
 	else if (currModeSelected == 1)
 	{
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->disableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->enableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
+		enable(false, (Widget*)dr->getWidget("FREERUN.json", "gatesChooser"));
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "opponentsChooser"));
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "diffChooser"));
 	}
 	else
 	{
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_GATESLIDER))->enableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_DIFFICULTYSLIDER))->enableWidgets();
-		((myLayout*)this->getChildByTag(L_FREERUN)->getChildByTag(B_OPPONENTSSLIDE))->enableWidgets();
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "gatesChooser"));
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "opponentsChooser"));
+		enable(true, (Widget*)dr->getWidget("FREERUN.json", "diffChooser"));
 	}
 }
 void MyMenu::difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
 	std::string str = "";
-	if (currDiffValue == 0) str = "Easy";
-	else if (currDiffValue == 1) str = "Medium";
-	else if (currDiffValue == 2) str = "Hard";
+	if (currDiffValue == 0) str = G_str("Easy");
+	else if (currDiffValue == 1) str = G_str("Medium");
+	else if (currDiffValue == 2) str = G_str("Hard");
 	textTochange->setString(str);
 }
 //**CUSTOM MULTI PLAYER EVENTS**//
-void MyMenu::m_ModeChooserPageChanged(cocos2d::ui::PageView *pages)
+void MyMenu::onMPModeChooserPage(cocos2d::Ref* reff, cocos2d::ui::PageView::EventType type)
 {
-	m_currModeSelected = pages->getCurPageIndex();
+	defaultPageAction((PageView*)reff);
+	m_currModeSelected = ((PageView*)dr->getWidget("MULTIFREERUN.json", "modeChooser"))->getCurPageIndex();
+	auto enable = [](bool val, Widget *nod)
+	{
+		if (val) nod->setColor(Color3B::WHITE);
+		else nod->setColor(Color3B::GRAY);
+		nod->setEnabled(val);
+	};
 	if (m_currModeSelected == 0)
 	{
-		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_GATESLIDER))->enableWidgets();
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "gatesChooser"));
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "opponentsChooser"));
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "diffChooser"));
+	}
+	else if (m_currModeSelected == 1)
+	{
+		enable(false, (Widget*)dr->getWidget("MULTIFREERUN.json", "gatesChooser"));
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "opponentsChooser"));
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "diffChooser"));
 	}
 	else
 	{
-		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_GATESLIDER))->disableWidgets();
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "gatesChooser"));
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "opponentsChooser"));
+		enable(true, (Widget*)dr->getWidget("MULTIFREERUN.json", "diffChooser"));
 	}
 }
-void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onMPcontinueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if(type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
-	auto choosemenu = this->getChildByTag(L_M_CHOOSENAMES);
-	for (int i = T_PLAYER1NAME, j = PG_PLAYER1BOX, k = 1; k <= 4; k++, i++, j++)
+	for (int i = 0; i< 3; i++)
 	{
-		if (k > m_currPlayersNumber)
+		auto boxChose = dr->getWidget("MULTICHOOSENAMES.json", "boxChoose" + std::to_string(i));
+		auto textField = dr->getWidget("MULTICHOOSENAMES.json", "editBoxPlaceHolder" + std::to_string(i));
+		if ( i+1 > m_currPlayersNumber)
 		{
-			//wpierdol na koniec kolejki i ukryj
-			Node *child1 = choosemenu->getChildByTag(i);
-			child1->setVisible(false);
-		//	child1->retain();
-		//	child1->removeFromParent();
-		//	choosemenu->addChild(child1, 0, i);
-		//	child1->release();
-			Node *child2 = choosemenu->getChildByTag(j);
-			child2->setVisible(false);
-		//	child2->retain();
-		//	child2->removeFromParent();
-		//	choosemenu->addChild(child2, 0, j);
-		//	child2->release();
+			boxChose->setVisible(false);
+			textField->setVisible(false);
 		}
 		else
 		{
-			choosemenu->getChildByTag(i)->setVisible(true);
-			choosemenu->getChildByTag(j)->setVisible(true);
+			boxChose->setVisible(true);
+			textField->setVisible(true);
 		}
-		
 	}
 	show(L_M_CHOOSENAMES);
 	hide(L_MULTIFREELOCALRUN);
@@ -587,9 +563,9 @@ void MyMenu::m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
 void MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)
 {
 	std::string str = "";
-	if (m_currDiffValue == 0) str = "Easy";
-	else if (m_currDiffValue == 1) str = "Medium";
-	else if (m_currDiffValue == 2) str = "Hard";
+	if (m_currDiffValue == 0) str = G_str("Easy");
+	else if (m_currDiffValue == 1) str = G_str("Medium");
+	else if (m_currDiffValue == 2) str = G_str("Hard");
 	textTochange->setString(str);
 }
 //*MUTLI CHOOSE BOXES *//
@@ -620,16 +596,19 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 }
 void MyMenu::m_OpponentsChanged(cocos2d::ui::Text *textToChange)
 {
+	auto widget = ((Widget*)dr->getWidget("MULTIFREERUN.json", "diffChooser"));
 	if (m_currOpponentsNumber == 0)
 	{ 
-		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER))->disableWidgets();
+		widget->setColor(Color3B::GRAY);
+		widget->setEnabled(false);
 	}
 	else
 	{
-		((myLayout*)this->getChildByTag(L_MULTIFREELOCALRUN)->getChildByTag(B_M_DIFFICULTYSLIDER))->enableWidgets();
+		widget->setColor(Color3B::WHITE);
+		widget->setEnabled(true);
 	}
 }
-void MyMenu::continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onSPcontinueToBoxChooseBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
@@ -648,12 +627,12 @@ void MyMenu::continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::Tou
 bool MyMenu::m_checkPlayersOverlap()
 {
 	bool ok = true;
-	for (int i = PG_PLAYER1BOX; i < PG_PLAYER1BOX+m_currPlayersNumber-1; i++)
+	for (int i = 0; i < m_currPlayersNumber-1; i++)
 	{
-		for (int j = i + 1; j < PG_PLAYER1BOX + m_currPlayersNumber; j++)
+		for (int j = i + 1; j < m_currPlayersNumber; j++)
 		{
-			PageView *pageviewAtI = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(i);
-			PageView *pageviewAtJ = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(j);
+			PageView *pageviewAtI = (PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i));
+			PageView *pageviewAtJ = (PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(j));
 			if (pageviewAtI->getCurPageIndex() == pageviewAtJ->getCurPageIndex())
 			{
 				//REST
@@ -665,28 +644,25 @@ bool MyMenu::m_checkPlayersOverlap()
 	if (!ok)
 	{
 		//GUI HANDLING
-		Layout *layout = dynamic_cast<Layout*>(this->getChildByTag(E_DIALOGREPAIR));
-		if (layout == NULL)
+		dr->getMainWidgetFromJson("AutoCorrectDialog.json", this);
+		dr->addActionHideAndSomething("AutoCorrectDialog.json", "autoCorrectBtn", [this]()
 		{
-			layout = dynamic_cast<Layout*>(cocostudio::GUIReader::shareReader()->widgetFromJsonFile("Dialog_1.json"));
-			m_setupAutoCorrectDialog(layout);
-			this->addChild(layout, 1, E_DIALOGREPAIR);
-		}
-		cocostudio::ActionManagerEx::getInstance()->playActionByName("Dialog_1.json", "Animation0");
+			this->m_autocorrectWrongPlayerChoose();
+		});
 	}
 	return ok;
 }
 void MyMenu::m_autocorrectWrongPlayerChoose()
 {
 	bool zajete[6] = { false, false, false, false, false, false };
-	for (int i = PG_PLAYER1BOX; i < PG_PLAYER1BOX + m_currPlayersNumber; i++)
+	for (int i = 0; i < m_currPlayersNumber; i++)
 	{
-		PageView *pageviewAtI = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(i);
+		PageView *pageviewAtI = (PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i));
 		zajete[pageviewAtI->getCurPageIndex()] = true;
 	}
-	for (int i = PG_PLAYER1BOX; i < PG_PLAYER1BOX + m_currPlayersNumber; i++)
+	for (int i = 0; i <  m_currPlayersNumber; i++)
 	{
-		PageView *pageviewAtI = (PageView*)this->getChildByTag(L_M_CHOOSENAMES)->getChildByTag(i);
+		PageView *pageviewAtI = (PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i));
 		if (pageviewAtI->getColor() == Color3B(255, 255, 254))	//chujowy kolor
 		{
 			bool moved = false;
@@ -826,10 +802,10 @@ void MyMenu::retain()
 	int x = 5;
 	Ref::retain();
 }
-void MyMenu::playtBestScoreNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	tryBestScore = true;
-	continueToBoxChoose(pSender, type);
+	onSPcontinueToBoxChooseBtn(pSender, type);
 }
 void MyMenu::goToLevelChooserMenu()
 {
@@ -916,3 +892,72 @@ void MyMenu::UPDATEPLAYERNAME()
 	FB_showScores(this);
     FB_shareGame();
 }
+ void MyMenu::defaultPageAction(PageView* pgView)
+ {
+	 for (auto page : pgView->getPages())
+	 {
+		 if (page == pgView->getPage(pgView->getCurPageIndex()))
+		 {
+			 for (auto child : page->getChildren())
+			 {
+				child->runAction(Sequence::createWithTwoActions(ScaleTo::create(scaleTime, scaleFactor + 0.2f), ScaleTo::create(scaleTime / 2.0f, scaleFactor)));
+			 }
+		 }
+		 else
+		 {
+			 for (auto child : page->getChildren())
+			 {
+				 if (child->getScale() != 1);
+				 child->runAction(ScaleTo::create(scaleTime, 1));
+			 }
+		 }
+	 }
+ }
+ void MyMenu::onBoxChooseChanged(cocos2d::ui::PageView *pgview)
+ {
+	 if (pgview->getCurPageIndex() == 5 && G_faceBookAvatarTex == NULL)
+	 {
+		 DialogReader::getInstance()->getMainWidgetFromJson("connectoToFbDialog.json", this);
+		 DialogReader::getInstance()->addActionHideAndSomething("connectoToFbDialog.json", "connectBtn", []()
+		 {
+			 FB_login();
+		 });
+		 pgview->scrollToPage(4);
+		 return;
+	 }
+ }
+ void MyMenu::refreshFBAvatar()
+ {
+	 for (int i = 0; i < 4; i++)
+	 {
+		 Sprite* spr;
+		 if (G_faceBookAvatarTex == NULL)
+		 {
+			 spr = Sprite::createWithSpriteFrameName(R_faceBookFaceLocked);
+		 }
+		 else
+		 {
+			spr = Sprite::createWithTexture(G_faceBookAvatarTex);
+		 }
+		 spr->setNormalizedPosition(Vec2(0.5f, 0.5f));
+		 Node *parent;
+		 if (i != 3) parent = dr->getWidget("MULTICHOOSENAMES.json", "fbAvatarEmptyLayout" + std::to_string(i));
+		 else     parent = dr->getWidget("CHOOSENAMES.json", "fbAvatarEmptyLayout");
+		 parent->removeAllChildren();
+		 parent->addChild(spr);
+	 }
+ }
+ void MyMenu::checkIfNoOpponents(cocos2d::ui::Text* txt)
+ {
+	 auto text = (Layout*)dr->getWidget("MULTIFREERUN.json", "diffChooser");
+	 if (m_currOpponentsNumber == 0)
+	 {
+		 text->setColor(Color3B::GRAY);
+		 text->setEnabled(false);
+	 }
+	 else
+	 {
+		 text->setColor(Color3B::WHITE);
+		 text->setEnabled(true);
+	 }
+ }

@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "UI/CocosGUI.h"
 #include "extensions/GUI/CCEditBox/CCEditBox.h"
-
+class DialogReader;
 class TextHandler : public cocos2d::extension::EditBoxDelegate
 {
 	std::string *txt;
@@ -22,6 +22,7 @@ class MyMenu : public cocos2d::Layer
 {
 private:
 	//UI DIALOGS
+	cocos2d::Node *cocoStudioNode;
 	cocos2d::ui::Widget *levelLockedDialog = NULL;
 	//single
 	bool tryBestScore = false;
@@ -49,10 +50,11 @@ private:
 	int m_currPlayersNumber;
 	//dla zmieniania wartosc playerow;
 	cocos2d::ui::Layout* layout;
+	DialogReader* dr;
 	void preload();
 	void hide(int menutypedef);
 	void show(int menutypedef);
-	void createSpinner(const std::string &defaultText,const std::string &labelText, int &changinVal, int maxVal, int minVal,int tag, int parenttag ,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
+	void createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* btnMinus, const std::string &defaultText,cocos2d::ui::Text *labelText, int &changinVal, int maxVal, int minVal,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
 	cocos2d::extension::EditBox* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(cocos2d::ui::TextField*)> callback=nullptr);
 	cocos2d::ui::PageView* createPages(const std::string title, const std::vector<const std::string> names, const std::vector<const std::string> filepaths, int &defaultState, const int tag, int parent, std::function<void(cocos2d::ui::PageView*)> callback = nullptr);
 	void createLabel(const std::string &text, int parenttag, int tag);
@@ -70,24 +72,24 @@ public:
 	CREATE_FUNC(MyMenu);
 	//main menu//
     void shareGame(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-	void playSingleEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+	void onPlaySinglePlayerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 		//single menu//
-		void playCarrer(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-		void playCustom(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+		void onCarrerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+		void onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 			//custom single//
 			void playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-			void playtBestScoreNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-	void playMultiEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-		void m_continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
-	void optionsEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+			void onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+	void onPlayMultiBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+		void onMPcontinueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+	void onOptionsBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//shared//
 	void goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//CALLBACKS
 	//SINGLE PLAYER SLIDER VALUE CHANGED
-	void modeChooserPageChanged(cocos2d::ui::PageView *page);
-	void continueToBoxChoose(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+	void onSPmodeChooserPage(cocos2d::Ref *reff, cocos2d::ui::PageView::EventType type);
+	void onSPcontinueToBoxChooseBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 	//MULTIPLAYER SLIDER VALUE CHANGED
-	void m_ModeChooserPageChanged(cocos2d::ui::PageView *page);
+	void onMPModeChooserPage(cocos2d::Ref* reff, cocos2d::ui::PageView::EventType type);
 	//wybieranie gracza
 	void m_textFieldChanged(cocos2d::Ref *psender, cocos2d::ui::TextField::EventType type);
 	bool m_checkPlayersOverlap();
@@ -104,5 +106,9 @@ public:
 	//options
 	void createOptionsMenu();
     virtual void onEnter();
+	void defaultPageAction(cocos2d::ui::PageView* pgView);
+	void onBoxChooseChanged(cocos2d::ui::PageView *pgview);
+	void refreshFBAvatar();
+	void checkIfNoOpponents(cocos2d::ui::Text* txt);
 };
 #endif // !__MENU_H__

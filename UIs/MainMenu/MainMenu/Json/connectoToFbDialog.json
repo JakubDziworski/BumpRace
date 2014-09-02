@@ -28,7 +28,12 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -84,7 +89,12 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -125,9 +135,7 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [
-    "Res1.plist"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -161,7 +169,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0.474330366,
-              "positionPercentY": 0.448342979,
+              "positionPercentY": 0.444444448,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -234,7 +242,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": 0.0519818,
+              "positionPercentY": 0.0467836261,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -284,7 +292,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": -0.35,
+              "positionPercentY": -0.345029235,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -353,8 +361,8 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.49999997,
-          "positionPercentY": 0.50000006,
+          "positionPercentX": 0.498046875,
+          "positionPercentY": 0.5,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,
@@ -390,7 +398,7 @@
       "classname": "Panel",
       "name": "Panel_13",
       "ZOrder": 0,
-      "actiontag": 26732847,
+      "actiontag": -1,
       "anchorPointX": 0,
       "anchorPointY": 0,
       "classType": "CocoStudio.EngineAdapterWrap.CSPanel",

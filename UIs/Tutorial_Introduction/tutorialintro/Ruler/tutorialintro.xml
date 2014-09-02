@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuidesProject>
-    <Project>tutorialintro_1</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
-    <Project>gateWorldLevelIntro</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>tutorialintro_3</Project>
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>elimWorldLevelIntro</Project>
-    <GuidesList />
+    <Project>endlessWorldLevelIntro</Project>
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>-161.44082980685761</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
   <GuidesProject>
-    <Project>endlessWorldLevelIntro</Project>
+    <Project>gateWorldLevelIntro</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

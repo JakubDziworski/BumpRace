@@ -26,7 +26,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	srand(time(NULL));
     // turn on display FPS
     director->setDisplayStats(true);
-	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) glview->setFrameSize(1280, 720);
+	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) glview->setFrameSize(700,342);
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object
@@ -47,7 +47,8 @@ void AppDelegate::applicationDidEnterBackground() {
 }
 
 // this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground() {
+void AppDelegate::applicationWillEnterForeground() 
+{
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here

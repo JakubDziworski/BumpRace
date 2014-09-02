@@ -15,6 +15,13 @@
     <string>firstTut.json</string>
     <string>FbBestScores.json</string>
     <string>fbShareBtn.json</string>
+    <string>MainMenu.json</string>
+    <string>PLAYSINGLE.json</string>
+    <string>FREERUN.json</string>
+    <string>CHOOSENAMES.json</string>
+    <string>MULTIFREERUN.json</string>
+    <string>MULTICHOOSENAMES.json</string>
+    <string>AutoCorrectDialog.json</string>
   </JsonList>
   <CanvasSize>
     <Width>512</Width>
@@ -26,7 +33,9 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>Res1.plist</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>MULTIFREERUN.json</CurrentUIJson>
 </UIProject>

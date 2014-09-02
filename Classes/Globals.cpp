@@ -141,22 +141,23 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 	{
 		//LEVEL LABEL
 		std::string cocosfile = "";
-		std::string levelStr = G_str("Level") + " " + std::to_string(levelnum) + " - ";
+		std::string levelStr = G_str("Level") + " " + std::to_string(levelnum);
+		std::string modeStr = G_str("Mode") + " : ";
 		std::string objStr = "";
 		switch (levelType)
 		{
 			case 1:
-				levelStr += G_str("Gate_Collector");
+				modeStr += G_str("Gate_Collector");
 				cocosfile = "gateWorldLevelIntro.json";
 				objStr = G_str("ObjGate");
 				break;
 			case 2:
-				levelStr += G_str("Elimination");
+				modeStr += G_str("Elimination");
 				cocosfile = "endlessWorldLevelIntro.json";
 				objStr = G_str("ObjElim");
 				break;
 			case 3:
-				levelStr += G_str("Endless");
+				modeStr += G_str("Endless");
 				cocosfile = "gateWorldLevelIntro.json";
 				objStr = G_str("ObjEndless");
 				break;
@@ -182,12 +183,15 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
         if(gatesNumb >4)  gatesStr+= G_str("Gatesow");
         else gatesStr+= G_str("Gates");
 		//assign texts
-		DialogReader::getInstance()->getMainWidgetFromJson(cocosfile, parent);
+		auto mainWidg = DialogReader::getInstance()->getMainWidgetFromJson(cocosfile, parent);
+		mainWidg->setPosition(VR::leftBottom());
+		G_scaleNodeVerticallyToFit(mainWidg);
+		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "modeText"))->setString(modeStr);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "levelTitleText"))->setString(levelStr);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "numberOfOpponentsText"))->setString(oppStr);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "aiSmartnessText"))->setString(diffStr);
 		((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "goalText"))->setString(objStr);
-		if (levelType != 2) ((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "gatesNumberText"))->setString(gatesStr);
+		if (levelType != 2) ((cocos2d::ui::Text*)DialogReader::getInstance()->getWidget(cocosfile, "gatesText"))->setString(gatesStr);
 		//listener
 		DialogReader::getInstance()->addActionHideAndSomething(cocosfile, "okBtn", [levelnum, levelType, opponentsnumber, diffLevel, gatesNumb]()
 															   {
@@ -385,4 +389,25 @@ void FB_showScores(cocos2d::Node *nodeToAttach)
 	//		i++;
 	//	}
 	//})->execute();
+}
+
+void G_stretcNodeToFit(cocos2d::Node* node)
+{
+	const float height = VR::top().y - VR::bottom().y;
+	const float width = VR::right().x - VR::left().x;
+	node->setScale(width / 512.0f, height / 342.0f );
+}
+void G_scaleNodeVerticallyToFit(cocos2d::Node* node)
+{
+	const float height = VR::top().y - VR::bottom().y;
+	const float width = VR::right().x - VR::left().x;
+	node->setScale(height/342.0f);
+	node->setPositionX(node->getPositionX() + (1-node->getAnchorPoint().x)*0.5f*width*(1 - node->getScale()));
+}
+void G_scaleNodeToFitHorizontally(cocos2d::Node* node)
+{
+	const float height = VR::top().y - VR::bottom().y;
+	const float width = VR::right().x - VR::left().x;
+	node->setScale(width/512.0f);
+	node->setPositionY(node->getPositionY() + (1 - node->getAnchorPoint().y)*0.5f*height*(1 - node->getScale()));
 }

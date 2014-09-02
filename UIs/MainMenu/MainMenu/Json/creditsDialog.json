@@ -28,7 +28,12 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -84,7 +89,12 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -125,9 +135,7 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [
-    "Res1.plist"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -160,8 +168,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.00162760541,
-              "positionPercentY": -0.194736853,
+              "positionPercentX": 0,
+              "positionPercentY": -0.19298245,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -210,8 +218,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.00162758119,
-              "positionPercentY": -0.34961012,
+              "positionPercentX": 0,
+              "positionPercentY": -0.345029235,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -260,8 +268,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -2.47168117E-08,
-              "positionPercentY": 0.199999958,
+              "positionPercentX": 0,
+              "positionPercentY": 0.198830411,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -310,8 +318,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -2.47168117E-08,
-              "positionPercentY": 0.0500000231,
+              "positionPercentX": 0,
+              "positionPercentY": 0.0467836261,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -360,8 +368,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.466202438,
-              "positionPercentY": 0.440935642,
+              "positionPercentX": 0.46484375,
+              "positionPercentY": 0.4385965,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -467,7 +475,7 @@
       "classname": "Panel",
       "name": "Panel_8",
       "ZOrder": 0,
-      "actiontag": 16046317,
+      "actiontag": -1,
       "anchorPointX": 0,
       "anchorPointY": 0,
       "classType": "CocoStudio.EngineAdapterWrap.CSPanel",

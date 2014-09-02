@@ -60,5 +60,8 @@ extern void FB_shareLevelCompletedPost(const int level);
 extern void FB_postBestScore(int score);
 extern void FB_showScores(cocos2d::Node *nodeToAttach);
 extern void sharePost(const std::string &name,const std::string &caption,const std::string &descr);
+extern void G_stretcNodeToFit(cocos2d::Node*);
+extern void G_scaleNodeVerticallyToFit(cocos2d::Node*);
+extern void G_scaleNodeToFitHorizontally(cocos2d::Node*);
 #endif
 

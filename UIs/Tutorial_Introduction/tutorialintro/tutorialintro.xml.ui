@@ -7,14 +7,12 @@
   <JsonFileName>tutorialintro.json</JsonFileName>
   <JsonFolder>D:\BumpRace\BumpRace\UIs\Tutorial_Introduction\tutorialintro\Json</JsonFolder>
   <JsonList>
-    <string>tutorialintro_1.json</string>
-    <string>gateWorldLevelIntro.json</string>
-    <string>elimWorldLevelIntro.json</string>
     <string>endlessWorldLevelIntro.json</string>
+    <string>gateWorldLevelIntro.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>960</Width>
-    <Height>640</Height>
+    <Width>512</Width>
+    <Height>342</Height>
   </CanvasSize>
   <filePath>D:\BumpRace\BumpRace\UIs\Tutorial_Introduction\tutorialintro\tutorialintro.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
@@ -22,9 +20,7 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>Res1.plist</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>elimWorldLevelIntro.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

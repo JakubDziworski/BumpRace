@@ -45,13 +45,17 @@
 	<key>Endless</key>
 	<string>Nieskończony</string>
 	<key>Choose_Name</key>
-	<string>Wybierz Imię</string>
+	<string>Wybierz imię i postać</string>
+	<key>Choose_Names</key>
+	<string>Wybierzcie imiona i postacie</string>
 	<key>Łatwy</key>
 	<string>Easy</string>
 	<key>Średni</key>
 	<string>Medium</string>
 	<key>Hard</key>
 	<string>Trudny</string>
+	<key>autoCorrect</key>
+	<string>Auto-popraw</string>
 	<key>AutoCorrectDialogText</key>
 	<string>Kilku graczy dokonało tego samego wyboru.Popraw ręcznie albo zastosuj autokorektę.</string>
 	<key>Tutorial_Single/Multiplayer</key>
@@ -110,6 +114,9 @@
 	<string>Połącz z facebookiem aby zagrać swoim zdjęciem profilowym!</string>
 	<key>bstScores</key>
 	<string>Najlepsze wyniki</string>
+	<key>Mode</key>
+	<string>Tryb</string>
+	
 	
 </dict>
 </plist>
