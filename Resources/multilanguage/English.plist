@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>wlcmText</key>
+	<string>Welcome to BumpRace</string>
+	<key>generalRulesTut</key>
+	<string>Tap on the screen to jump. First player moves the slowest (wind restriction) while last one the fastest</string>
+	<key>wantToKnowTut</key>
+	<string>Want to know how to play, right?</string>
+	<key>pwrUpCollectedTutIntro</key>
+	<string>You just caught Power Up! There are 3 types of powerups</string>
+	<key>rocketTut</key>
+	<string>Shoot rocket at players behind you to slow them down</string>
+	<key>ghostTut</key>
+	<string>Wear a ghost robe and run through other players</string>
+	<key>thrustTut</key>
+	<string>Trigger thruster to speed up</string>
+	<key>howToActivatePwrupTut</key>
+	<string>To activate press button on the bottom</key>
+	<key>gateCollectorTut</string>
+	<string>You're playing "Gate Collector" mode. Collect most gates to win</string>
+	<key>enlessModeTut</key>
+	<string>You're playing "anything but last" mode. Reach gate last and you loose!</string>
+	<key>elimModeTut</key>
+	<string>You're playing "Elimintion" mode.Each gate last player is eliminated and the game goes on</string>
+	<key>bestScoreModeTut</key>
+	<string>Collect as many gates as possible without reaching any gate last</string>
+	<key>multiTut1</key>
+	<string>Press the button which color is the same as your character</string>
+	<key>multiTut2</key>
+	<string>You can also touch anywhere over the button</string>
+	<key>cmpltTutsFirst</key>
+	<string>Play carrer first on disable tutorials in Options</string>
+</dict>
+</plist>

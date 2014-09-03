@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GuidesProject>
+    <Project>levelLockedDialog</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>CarrerLevelChooser_1_1024</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>CarrerLevelChooser_1_2048</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>CarrerLevelChooser_5</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>MainMenuChoose</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>CarrerLevelChooser_1</Project>
+    <GuidesList />
+  </GuidesProject>
+</ArrayOfGuidesProject>

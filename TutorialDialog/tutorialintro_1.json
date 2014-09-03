@@ -1,0 +1,607 @@
+{
+  "classname": null,
+  "name": null,
+  "animation": {
+    "classname": null,
+    "name": "AnimationManager",
+    "actionlist": [
+      {
+        "classname": null,
+        "name": "WelcomeAnimation",
+        "actionnodelist": [
+          {
+            "classname": null,
+            "name": "Image_2",
+            "ActionTag": 24555510,
+            "actionframelist": [
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 4,
+                "opacity": 255,
+                "positionx": -178.315155,
+                "positiony": 66.80005,
+                "rotation": 0,
+                "scalex": 0.007540755,
+                "scaley": 0.0234322455,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 1,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 6,
+                "opacity": 255,
+                "positionx": -178.515152,
+                "positiony": 69.47824,
+                "rotation": 0,
+                "scalex": 1.06291139,
+                "scaley": 1.057547,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 2,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 7,
+                "opacity": 255,
+                "positionx": -178.515152,
+                "positiony": 69.47824,
+                "rotation": 0,
+                "scalex": 0.943993,
+                "scaley": 0.939228833,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 2,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "classname": null,
+            "name": "Label_4",
+            "ActionTag": 21869221,
+            "actionframelist": []
+          },
+          {
+            "classname": null,
+            "name": "Button_3",
+            "ActionTag": 36565318,
+            "actionframelist": [
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 0,
+                "opacity": 255,
+                "positionx": 480,
+                "positiony": -164,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 1,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 3,
+                "opacity": 255,
+                "positionx": 482,
+                "positiony": 320,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 26,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "loop": false,
+        "unittime": 0.1
+      },
+      {
+        "classname": null,
+        "name": "MoveToTop",
+        "actionnodelist": [
+          {
+            "classname": null,
+            "name": "Button_3",
+            "ActionTag": 36565318,
+            "actionframelist": [
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 0,
+                "opacity": 255,
+                "positionx": 482,
+                "positiony": 320,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 26,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 4,
+                "opacity": 255,
+                "positionx": 478,
+                "positiony": 539.999,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 26,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "loop": false,
+        "unittime": 0.1
+      },
+      {
+        "classname": null,
+        "name": "SwipeToLeft",
+        "actionnodelist": [
+          {
+            "classname": null,
+            "name": "Button_3",
+            "ActionTag": 36565318,
+            "actionframelist": [
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 0,
+                "opacity": 255,
+                "positionx": 480,
+                "positiony": 539.999,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 0,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 6,
+                "opacity": 255,
+                "positionx": -451.995422,
+                "positiony": 539.9989,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 27,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "loop": false,
+        "unittime": 0.1
+      },
+      {
+        "classname": null,
+        "name": "Notify",
+        "actionnodelist": [
+          {
+            "classname": null,
+            "name": "Button_3",
+            "ActionTag": 36565318,
+            "actionframelist": [
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 0,
+                "opacity": 255,
+                "positionx": 478,
+                "positiony": 539.999,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [],
+                "tweenType": 0,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 2,
+                "opacity": 255,
+                "positionx": 478,
+                "positiony": 539.999,
+                "rotation": 0,
+                "scalex": 1.05985117,
+                "scaley": 1.07381022,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 2,
+                "visible": false
+              },
+              {
+                "classname": null,
+                "name": null,
+                "colorb": 255,
+                "colorg": 255,
+                "colorr": 255,
+                "frameid": 4,
+                "opacity": 255,
+                "positionx": 478,
+                "positiony": 539.999,
+                "rotation": 0,
+                "scalex": 1,
+                "scaley": 1,
+                "starttime": 0,
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "tweenType": 2,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "loop": false,
+        "unittime": 0.1
+      }
+    ]
+  },
+  "dataScale": 1,
+  "designHeight": 640,
+  "designWidth": 960,
+  "textures": [
+    "Res1.plist"
+  ],
+  "texturesPng": [
+    "Res1.plist"
+  ],
+  "version": "1.5.0.1",
+  "widgetTree": {
+    "classname": "Panel",
+    "name": null,
+    "children": [
+      {
+        "classname": "Button",
+        "name": null,
+        "children": [
+          {
+            "classname": "ImageView",
+            "name": null,
+            "children": [],
+            "options": {
+              "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
+              "classname": "ImageView",
+              "name": "Image_2",
+              "ZOrder": 1,
+              "actiontag": 24555510,
+              "anchorPointX": 1,
+              "anchorPointY": 1,
+              "classType": "CocoStudio.EngineAdapterWrap.CSImageView",
+              "colorB": 255,
+              "colorG": 255,
+              "colorR": 255,
+              "customProperty": "",
+              "flipX": false,
+              "flipY": false,
+              "height": 129,
+              "ignoreSize": false,
+              "layoutParameter": null,
+              "opacity": 255,
+              "positionPercentX": -0.216224715,
+              "positionPercentY": 0.399300247,
+              "positionType": 1,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "sizePercentX": 0.207122073,
+              "sizePercentY": 0.7413793,
+              "sizeType": 1,
+              "tag": 57,
+              "touchAble": false,
+              "useMergedTexture": false,
+              "visible": true,
+              "width": 171,
+              "x": -185,
+              "y": 72,
+              "capInsetsHeight": 1,
+              "capInsetsWidth": 1,
+              "capInsetsX": 0,
+              "capInsetsY": 0,
+              "fileName": null,
+              "fileNameData": {
+                "path": "Box_blue.png",
+                "plistFile": "Res1.plist",
+                "resourceType": 1
+              },
+              "scale9Enable": false,
+              "scale9Height": 129,
+              "scale9Width": 171
+            }
+          },
+          {
+            "classname": "Label",
+            "name": null,
+            "children": [],
+            "options": {
+              "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
+              "classname": "Label",
+              "name": "Label_4",
+              "ZOrder": 0,
+              "actiontag": 21869221,
+              "anchorPointX": 0,
+              "anchorPointY": 1,
+              "classType": "CocoStudio.EngineAdapterWrap.CSLabel",
+              "colorB": 0,
+              "colorG": 0,
+              "colorR": 0,
+              "customProperty": "",
+              "flipX": false,
+              "flipY": false,
+              "height": 121.799995,
+              "ignoreSize": false,
+              "layoutParameter": null,
+              "opacity": 255,
+              "positionPercentX": -0.176767647,
+              "positionPercentY": 0.408035576,
+              "positionType": 1,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "sizePercentX": 0.6,
+              "sizePercentY": 0.7,
+              "sizeType": 1,
+              "tag": 63,
+              "touchAble": false,
+              "useMergedTexture": false,
+              "visible": true,
+              "width": 495.360077,
+              "x": -145,
+              "y": 70,
+              "areaHeight": 121.799995,
+              "areaWidth": 495.360077,
+              "fontFile": null,
+              "fontName": "微软雅黑",
+              "fontSize": 45,
+              "hAlignment": 0,
+              "text": "Welcome to BumpRace. Tap to continue",
+              "touchScaleEnable": false,
+              "vAlignment": 0
+            }
+          }
+        ],
+        "options": {
+          "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
+          "classname": "Button",
+          "name": "Button_3",
+          "ZOrder": 0,
+          "actiontag": 36565318,
+          "anchorPointX": 0.5,
+          "anchorPointY": 0.5,
+          "classType": "CocoStudio.EngineAdapterWrap.CSButton",
+          "colorB": 255,
+          "colorG": 255,
+          "colorR": 255,
+          "customProperty": "",
+          "flipX": false,
+          "flipY": false,
+          "height": 174,
+          "ignoreSize": false,
+          "layoutParameter": null,
+          "opacity": 255,
+          "positionPercentX": 0.497916669,
+          "positionPercentY": 0.84374845,
+          "positionType": 1,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "sizePercentX": 0.8600001,
+          "sizePercentY": 0.271875,
+          "sizeType": 1,
+          "tag": 58,
+          "touchAble": true,
+          "useMergedTexture": false,
+          "visible": true,
+          "width": 825.6001,
+          "x": 480,
+          "y": 320,
+          "capInsetsHeight": 1,
+          "capInsetsWidth": 1,
+          "capInsetsX": 0,
+          "capInsetsY": 0,
+          "disabled": null,
+          "disabledData": {
+            "path": null,
+            "plistFile": null,
+            "resourceType": 0
+          },
+          "fontName": "fonts/Aleo-Regular.ttf",
+          "fontSize": 1,
+          "fontType": 0,
+          "normal": null,
+          "normalData": {
+            "path": "multiBtn.png",
+            "plistFile": "Res1.plist",
+            "resourceType": 1
+          },
+          "pressed": null,
+          "pressedData": {
+            "path": null,
+            "plistFile": null,
+            "resourceType": 0
+          },
+          "scale9Enable": false,
+          "scale9Height": 174,
+          "scale9Width": 825.6001,
+          "text": "",
+          "textColorB": 0,
+          "textColorG": 0,
+          "textColorR": 0
+        }
+      }
+    ],
+    "options": {
+      "__type": "PanelSurrogate:#EditorCommon.JsonModel.Component.GUI",
+      "classname": "Panel",
+      "name": "Panel_8",
+      "ZOrder": 0,
+      "actiontag": -1,
+      "anchorPointX": 0,
+      "anchorPointY": 0,
+      "classType": "CocoStudio.EngineAdapterWrap.CSPanel",
+      "colorB": 255,
+      "colorG": 255,
+      "colorR": 255,
+      "customProperty": "",
+      "flipX": false,
+      "flipY": false,
+      "height": 640,
+      "ignoreSize": false,
+      "layoutParameter": null,
+      "opacity": 255,
+      "positionPercentX": 0,
+      "positionPercentY": 0,
+      "positionType": 0,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "sizePercentX": 1,
+      "sizePercentY": 1,
+      "sizeType": 0,
+      "tag": 56,
+      "touchAble": true,
+      "useMergedTexture": false,
+      "visible": true,
+      "width": 960,
+      "x": 0,
+      "y": 0,
+      "adaptScreen": false,
+      "backGroundImage": null,
+      "backGroundImageData": null,
+      "backGroundScale9Enable": false,
+      "bgColorB": 255,
+      "bgColorG": 200,
+      "bgColorOpacity": 0,
+      "bgColorR": 150,
+      "bgEndColorB": 255,
+      "bgEndColorG": 200,
+      "bgEndColorR": 150,
+      "bgStartColorB": 255,
+      "bgStartColorG": 255,
+      "bgStartColorR": 255,
+      "capInsetsHeight": 1,
+      "capInsetsWidth": 1,
+      "capInsetsX": 0,
+      "capInsetsY": 0,
+      "clipAble": false,
+      "colorType": 1,
+      "layoutType": 0,
+      "vectorX": 0,
+      "vectorY": -0.5
+    }
+  }
+}
