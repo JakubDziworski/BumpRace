@@ -24,7 +24,7 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	
 	positiveSprite = Sprite::createWithSpriteFrameName(String::createWithFormat(R_positiveActionFormat.c_str(), 0)->getCString());
 	positiveSprite->setOpacity(0);
-	this->addChild(positiveSprite,2);
+	this->addChild(positiveSprite);
 	positiveSprite->setNormalizedPosition(Vec2(0.5f, 0.5f));
 	positiveSprite->setScaleX(this->getContentSize().width / 45.5f);
 	positiveSprite->setScaleY(this->getContentSize().height / 42.0f);
@@ -359,6 +359,7 @@ bool Boxx::activatePowerUp()
 	{
 	case PowerUp::PowerUpType::SPEED:
 	{
+                                        SoundManager::getInstance()->playEffect(R_jetpackLaunch);
 										cpBodyApplyImpulse(myBody, cpv(250, 0), cpv(0, 0));
 										auto jetpackFireRED = G_getParticleFromFile(R_jetpackFireRED);
 										jetpackFireRED->setPosition(0,this->getContentSize().height/2.0f);

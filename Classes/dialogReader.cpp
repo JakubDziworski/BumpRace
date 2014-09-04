@@ -51,7 +51,12 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
 	if (parent) parent->addChild(root);
 	loadedWidgets.insert(fileName, root);
 	auto animIn = cocostudio::ActionManagerEx::getInstance()->getActionByName(fileName.c_str(), "animIn");
-	if (animIn) animIn->play();
+	if (animIn)
+    {
+        animIn->play();
+        root->setTouchEnabled(true);
+        SoundManager::getInstance()->playEffect(R_popUp);
+    }
 	//set correct text font size
 	root->enumerateChildren("//.*", [this, fileName,root](Node *node)
 	{
@@ -158,6 +163,7 @@ void DialogReader::getTutorialDialog(const std::string &cocosFileName, cocos2d::
 	if (DbReader::getInstance()->isTutorialCmpltd(cocosFileName)) return;
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	auto main = me->getMainWidgetFromJson(cocosFileName, parent);
+    G_scaleNodeVerticallyToFit(main);
 	worldToPause->setIsDisplayingTutorial(true);
 	cocos2d::Vector<Widget*> widgets;
 

@@ -46,7 +46,7 @@ bool Hud::init()
 	pauseNode->addChild(resume);
 	pauseNode->addChild(repeat);
 	pauseNode->addChild(goToMenu);
-	pauseNode->setPosition(G_srodek);
+	pauseNode->setPosition(VR::center());
 	pauseNode->setVisible(false);
 	this->addChild(pauseNode);
 	this->addChild(pauseBtn, 1, B_PAUSE);
@@ -173,9 +173,9 @@ void Hud::setMultiplayer(World *world)
 		multiBtns[i] = Button::create(R_multiBtn[0], R_multiBtn[1], "", TextureResType::PLIST);
 		multiBtns[i]->setTitleFontName(R_defaultFont);
 		multiBtns[i]->setScale9Enabled(true);
-		multiBtns[i]->setScaleX(2 * G_srodek.x / multiBtns[i]->getContentSize().width / playerznumber);
+		multiBtns[i]->setScaleX((VR::right().x-VR::left().x) / multiBtns[i]->getContentSize().width / playerznumber);
 		multiBtns[i]->setAnchorPoint(Vec2(0, 0));
-		multiBtns[i]->setPosition(Vec2(VR::left().x+i*(2 * G_srodek.x / playerznumber),VR::bottom().y));
+		multiBtns[i]->setPosition(Vec2(VR::left().x+i*((VR::right().x-VR::left().x) / playerznumber),VR::bottom().y));
 		multiBtns[i]->setColor(player->getBoxColor());
 		multiBtns[i]->addTouchEventListener([player](Ref* pSender, Widget::TouchEventType type) {
 			if (type == Widget::TouchEventType::ENDED)
@@ -290,7 +290,7 @@ void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
     gmOverNode->setMargin(25, 25);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
 	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
-	gmOverNode->setPosition(G_srodek);
+	gmOverNode->setPosition(VR::center());
 	gmOverNode->setOpacity(0);
 	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));
 }

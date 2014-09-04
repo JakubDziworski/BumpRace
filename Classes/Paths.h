@@ -58,7 +58,7 @@ const std::string R_rocketLaunch = "sounds/rocket_shot.mp3";
 const std::string R_explosion = "sounds/rocket_explosion.mp3";
 const std::string R_jump = "sounds/jump.mp3";
 const std::string R_boxFelt = "sounds/felt.mp3";
-const std::string R_boxColided = "sounds/collision.mp3";
+const std::string R_boxColided = "sounds/colision.mp3";
 const std::string R_buttonClick = "sounds/jump.mp3";
 const std::string R_jetpackLaunch = "jetpack_start.mp3";
 //DIALOGS

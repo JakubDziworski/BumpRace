@@ -17,6 +17,8 @@ public:
     static cocos2d::Vec2 rightTop();
     static cocos2d::Vec2 leftBottom();
     static cocos2d::Vec2 rightBottom();
+    static float height();
+    static float width();
 private:
 	VR();
     static void lazyInit();

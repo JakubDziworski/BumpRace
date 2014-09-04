@@ -105,3 +105,11 @@ void VR::setShouldLazyInit(bool val)
 {
 	shouldLazyInit = val;
 }
+float VR::width()
+{
+    return VR::right().x-VR::left().x;
+}
+float VR::height()
+{
+    return VR::top().y-VR::bottom().y;
+}

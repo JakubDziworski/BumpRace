@@ -74,7 +74,7 @@ bool MyMenu::init()
 				createSpinner((Button*)dr->getWidget("FREERUN.json", "plus_ai"), (Button*)dr->getWidget("FREERUN.json", "minus_ai"), std::to_string(currDiffValue), (Text*)dr->getWidget("FREERUN.json", "aiSmartness"), currDiffValue, 2, 0,CC_CALLBACK_1(MyMenu::difficultySpinnerChanged,this));
 					//**CHOOSE NAME***//
 					G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("CHOOSENAMES.json", this));
-					auto textEdit = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex], NULL,-1);
+                    auto textEdit = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex],NULL,1);
 					dr->getWidget("CHOOSENAMES.json", "editBoxPlaceHolder")->addChild(textEdit);
 					textEdit->setNormalizedPosition(Point(0.5f, 0.5f));
 					((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->addEventListener([this, textEdit](Ref *reff, PageView::EventType type)
@@ -100,7 +100,7 @@ bool MyMenu::init()
 				G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("MULTICHOOSENAMES.json", this));
 				for (int i = 0; i < 3; i++)
 				{
-					auto textEdit = createTextEdit(G_playersDefaultNames[i], G_colors[m_playersBoxesFileNamesIndexes[i]], NULL, -1);
+					auto textEdit = createTextEdit(G_playersDefaultNames[i], G_colors[m_playersBoxesFileNamesIndexes[i]],NULL,i+1);
 					dr->getWidget("MULTICHOOSENAMES.json", "editBoxPlaceHolder"+to_string(i))->addChild(textEdit);
 					auto page = ((PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i)));
 					page->addEventListener([this, textEdit,i](Ref *reff, PageView::EventType type)
@@ -180,7 +180,7 @@ void MyMenu::createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* bt
 	labelText->setString(String::createWithFormat("%d", changinVal)->getCString());
 	if (additionalFunction != nullptr) additionalFunction(labelText);
 }
-cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(cocos2d::ui::TextField*)> callback/*=nullptr*/)
+cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(const std::string &name)> callback/*=nullptr*/)
 {
 	auto editbox = extension::EditBox::create(Sprite::createWithSpriteFrameName(R_editBtn[0].c_str())->getContentSize(), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[0].c_str()), extension::Scale9Sprite::createWithSpriteFrameName(R_multiBtn[1].c_str()));
 	editbox->setText(text.c_str());
@@ -188,7 +188,7 @@ cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::
 	editbox->setPlaceHolder(text.c_str());
 	editbox->setMaxLength(8);
 	editbox->setReturnType(extension::EditBox::KeyboardReturnType::DONE);
-	editbox->setDelegate(new TextHandler(text));
+	editbox->setDelegate(new TextHandler(text,tag));
 	editbox->setNormalizedPosition(Vec2(0.5, 0.5));
 	editbox->setFont(R_defaultFont.c_str(),12);
 	//
@@ -285,7 +285,7 @@ void MyMenu::onPlayMultiBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEve
 	SoundManager::getInstance()->playBtnEffect();
 	if (!DbReader::getInstance()->areBasicTutorialsCompleted())
 	{
-		dr->getMainWidgetFromJson("completeTutsFirst.json", this);
+		G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("completeTutsFirst.json", this));
 		return;
 	}
 	show(B_BACK);
@@ -314,7 +314,7 @@ void MyMenu::onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	SoundManager::getInstance()->playBtnEffect();
 	if (!DbReader::getInstance()->areBasicTutorialsCompleted())
 	{
-		dr->getMainWidgetFromJson("completeTutsFirst.json", this);
+		G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("completeTutsFirst.json", this));
 		return;
 	}
 	spType = singlePlayerType::free;
@@ -328,7 +328,6 @@ void MyMenu::playCustomNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 	if (type != Widget::TouchEventType::ENDED) return;
 	SoundManager::getInstance()->playBtnEffect();
 	Scene *scene;
-	DialogReader::getInstance()->flush();
 	if (spType == singlePlayerType::best)
 	{
 		scene = EndlessWorld::createScene(currOpponentsNumber + 1, currDiffValue, true);
@@ -658,7 +657,7 @@ void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEve
 	SoundManager::getInstance()->playBtnEffect();
 	if (!DbReader::getInstance()->areBasicTutorialsCompleted())
 	{
-		dr->getMainWidgetFromJson("completeTutsFirst.json", this);
+		G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("completeTutsFirst.json", this));
 		return;
 	}
 	spType = singlePlayerType::best;

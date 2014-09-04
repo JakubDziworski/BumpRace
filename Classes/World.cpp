@@ -50,7 +50,7 @@ bool World::myInit(int numberOfPlayers,int gates)
 	scaleeLayer = Node::create();
 	moveLayer->addChild(rotationLayer);
 	scaleeLayer->addChild(moveLayer);
-	scaleeLayer->setPosition(G_srodek);
+	scaleeLayer->setPosition(VR::width()/2.0f,VR::height()/2.0f);
 	bgNode = Node::create();
 	bgNode->setPosition(Vec2(0, 0));
 	this->addChild(bgNode, -1);
@@ -321,7 +321,7 @@ void World::gameIsOver(bool win)
 	}
 	rotationLayer->stopAllActions();
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
-	const float offset1 = 2*G_srodek.y / scaleeLayer->getScale();
+	const float offset1 = VR::width() / scaleeLayer->getScale();
 	const float guUp = offset1 * G_myCos;
 	const float goRight = offset1*G_mySin;
 	const float velocitty = 2250.0f;
@@ -405,7 +405,7 @@ void World::s_putOnPlayers(Player* playerr)
 			losowa = (rand() % boxesNumber) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
-		opponent->setBodyPosition(Vec2(2.0f* G_srodek.x /scaleeLayer->getScale() + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height*0.5f));
+		opponent->setBodyPosition(Vec2(VR::width()/2.0f /scaleeLayer->getScale() + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height*0.5f));
 		rotationLayer->addChild(opponent);
 	}
 }
@@ -458,6 +458,7 @@ void World::m_onTouched(const std::vector<Touch*>& touches, cocos2d::Event  *eve
 	for (auto touch : touches)
 	{
 		auto location = touch->getLocation();
+        const float gf= G_srodek.x;
 		if (playersNumber == 2)
 		{
 			if (location.x > G_srodek.x)
@@ -721,14 +722,14 @@ void World::generateClouds()
 		{
 			const int wielkosc = rand() % (5) + 1;
 			auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
-			const float randPosY = VR::top().y*(float(rand() % 70 + 20) / 100.0f);
-			const float randPosX = VR::right().x*(float(rand() % 100) / 100.0f);
-			const float szybkosc = (15 + float(rand() % 100) / 5.0f)*(randPosX / VR::right().x);
+			const float randPosY = VR::height()*(float(rand() % 70 + 20) / 100.0f);
+			const float randPosX = VR::width()*(float(rand() % 100) / 100.0f);
+			const float szybkosc = (15 + float(rand() % 100) / 5.0f)*(randPosX / VR::width());
 			//chmurka modifaction
 			auto delay = DelayTime::create((float(rand() % 100)) / 150.0f);
 			chmurka->setPosition(randPosX, randPosY);
 			chmurka->setScale(0.01f);
-			chmurka->runAction(Sequence::createWithTwoActions(MoveTo::create(szybkosc, Vec2(VR::left().x - chmurka->getContentSize().width, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); })));
+			chmurka->runAction(Sequence::createWithTwoActions(MoveTo::create(szybkosc, Vec2(- chmurka->getContentSize().width/2.0f, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); })));
 			chmurka->runAction(Sequence::createWithTwoActions(delay, CallFunc::create([chmurka]()
 			{
 				chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));
@@ -742,12 +743,12 @@ void World::generateClouds()
 	const int wielkosc = rand() % (5) + 1;
 	const float szybkosc = 9 + float(rand() % 100) / 20.0f;
 	auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
-	float randPosY = VR::top().y*(float(rand() % 70 + 20) / 100.0f);
+	float randPosY = VR::height()*(float(rand() % 70 + 20) / 100.0f);
 	//chmurka modifaction
 	auto delay = DelayTime::create((float(rand()%100))/150.0f);
-	chmurka->setPosition(VR::right().x + chmurka->getContentSize().width, randPosY);
+	chmurka->setPosition(VR::width() + chmurka->getContentSize().width, randPosY);
 	chmurka->setScale(0.01f);
-	chmurka->runAction(Sequence::create(delay, MoveTo::create(szybkosc, Vec2(VR::left().x - chmurka->getContentSize().width, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); }), NULL));
+	chmurka->runAction(Sequence::create(delay, MoveTo::create(szybkosc,Vec2(-chmurka->getContentSize().width/2.0f, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); }), NULL));
 	chmurka->runAction(Sequence::createWithTwoActions(delay, CallFunc::create([chmurka]()
 	{
 		chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));

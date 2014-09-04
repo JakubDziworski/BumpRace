@@ -4,18 +4,22 @@
 #include "cocos2d.h"
 #include "UI/CocosGUI.h"
 #include "extensions/GUI/CCEditBox/CCEditBox.h"
+#include "DbReader.h"
 class DialogReader;
 class TextHandler : public cocos2d::extension::EditBoxDelegate
 {
 	std::string *txt;
+    int pnum;
 public:
-	TextHandler(std::string &textToEdit)
+	TextHandler(std::string &textToEdit,int pNumber)
 	{
 		txt = &textToEdit;
+        pnum = pNumber;
 	}
 	virtual void editBoxReturn(cocos2d::extension::EditBox* editBox)
 	{
 		*txt = editBox->getText();
+        DbReader::getInstance()->setPlayerDefaultName(pnum,*txt);
 	}
 };
 class MyMenu : public cocos2d::Layer
@@ -58,7 +62,7 @@ private:
 	void hide(int menutypedef);
 	void show(int menutypedef);
 	void createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* btnMinus, const std::string &defaultText,cocos2d::ui::Text *labelText, int &changinVal, int maxVal, int minVal,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
-	cocos2d::extension::EditBox* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(cocos2d::ui::TextField*)> callback=nullptr);
+	cocos2d::extension::EditBox* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(const std::string &name)> callback=nullptr);
 	void createSinglePlayerTutorialDialog();
 	void createLevelMapUI();
 public:

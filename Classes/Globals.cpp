@@ -196,7 +196,6 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 		//listener
 		DialogReader::getInstance()->addActionHideAndSomething(cocosfile, "okBtn", [levelnum, levelType, opponentsnumber, diffLevel, gatesNumb]()
 															   {
-																	DialogReader::getInstance()->flush();
 																   cocos2d::Scene *scena = NULL;
 																   if (levelType == 1) scena = SingleGateWorld::createScene(opponentsnumber, gatesNumb, diffLevel);
 																   else if (levelType == 2) scena = SingleEliminationWorld::createScene(opponentsnumber, diffLevel);

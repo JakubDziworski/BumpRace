@@ -56,6 +56,52 @@
 		50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629517ECD46A001EB2F8 /* Icon-100.png */; };
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
+		8C2BAE7619B79FC50025CF66 /* Aleo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4819B79FC50025CF66 /* Aleo-BoldItalic.ttf */; };
+		8C2BAE7719B79FC50025CF66 /* AutoCorrectDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4919B79FC50025CF66 /* AutoCorrectDialog.json */; };
+		8C2BAE7819B79FC50025CF66 /* bestScoreModeTut.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4A19B79FC50025CF66 /* bestScoreModeTut.json */; };
+		8C2BAE7919B79FC50025CF66 /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4B19B79FC50025CF66 /* CarrerLevelChooser_1.json */; };
+		8C2BAE7A19B79FC50025CF66 /* CHOOSENAMES.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4C19B79FC50025CF66 /* CHOOSENAMES.json */; };
+		8C2BAE7B19B79FC50025CF66 /* completeTutsFirst.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4D19B79FC50025CF66 /* completeTutsFirst.json */; };
+		8C2BAE7C19B79FC50025CF66 /* connectoToFbDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4E19B79FC50025CF66 /* connectoToFbDialog.json */; };
+		8C2BAE7D19B79FC50025CF66 /* creditsDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE4F19B79FC50025CF66 /* creditsDialog.json */; };
+		8C2BAE7E19B79FC50025CF66 /* creditsDialog2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5019B79FC50025CF66 /* creditsDialog2.json */; };
+		8C2BAE7F19B79FC50025CF66 /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5119B79FC50025CF66 /* Dialog_1.json */; };
+		8C2BAE8019B79FC50025CF66 /* elimModeTut.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5219B79FC50025CF66 /* elimModeTut.json */; };
+		8C2BAE8119B79FC50025CF66 /* endlessWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5319B79FC50025CF66 /* endlessWorldLevelIntro.json */; };
+		8C2BAE8219B79FC50025CF66 /* fb-default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5419B79FC50025CF66 /* fb-default.png */; };
+		8C2BAE8319B79FC50025CF66 /* FbBestScores.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5519B79FC50025CF66 /* FbBestScores.json */; };
+		8C2BAE8419B79FC50025CF66 /* firstTut.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5619B79FC50025CF66 /* firstTut.json */; };
+		8C2BAE8519B79FC50025CF66 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5719B79FC50025CF66 /* fonts */; };
+		8C2BAE8619B79FC50025CF66 /* FREERUN.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5819B79FC50025CF66 /* FREERUN.json */; };
+		8C2BAE8719B79FC50025CF66 /* gateModeTut.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5919B79FC50025CF66 /* gateModeTut.json */; };
+		8C2BAE8819B79FC50025CF66 /* gateWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5A19B79FC50025CF66 /* gateWorldLevelIntro.json */; };
+		8C2BAE8919B79FC50025CF66 /* GUI in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5B19B79FC50025CF66 /* GUI */; };
+		8C2BAE8A19B79FC50025CF66 /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5C19B79FC50025CF66 /* HD */; };
+		8C2BAE8B19B79FC50025CF66 /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5D19B79FC50025CF66 /* HDR */; };
+		8C2BAE8C19B79FC50025CF66 /* lastModeTut.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5E19B79FC50025CF66 /* lastModeTut.json */; };
+		8C2BAE8D19B79FC50025CF66 /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE5F19B79FC50025CF66 /* levelLockedDialog.json */; };
+		8C2BAE8E19B79FC50025CF66 /* MainMenu_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6019B79FC50025CF66 /* MainMenu_1.json */; };
+		8C2BAE8F19B79FC50025CF66 /* MainMenu_16.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6119B79FC50025CF66 /* MainMenu_16.json */; };
+		8C2BAE9019B79FC50025CF66 /* MainMenu.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6219B79FC50025CF66 /* MainMenu.json */; };
+		8C2BAE9119B79FC50025CF66 /* MainMenuChoose.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6319B79FC50025CF66 /* MainMenuChoose.json */; };
+		8C2BAE9219B79FC50025CF66 /* MULTICHOOSENAMES.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6419B79FC50025CF66 /* MULTICHOOSENAMES.json */; };
+		8C2BAE9319B79FC50025CF66 /* MULTIFREERUN.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6519B79FC50025CF66 /* MULTIFREERUN.json */; };
+		8C2BAE9419B79FC50025CF66 /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6619B79FC50025CF66 /* multilanguage */; };
+		8C2BAE9519B79FC50025CF66 /* multiPlayerTut.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6719B79FC50025CF66 /* multiPlayerTut.json */; };
+		8C2BAE9619B79FC50025CF66 /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6819B79FC50025CF66 /* music */; };
+		8C2BAE9719B79FC50025CF66 /* Options.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6919B79FC50025CF66 /* Options.json */; };
+		8C2BAE9819B79FC50025CF66 /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6A19B79FC50025CF66 /* PackerResource */; };
+		8C2BAE9919B79FC50025CF66 /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6B19B79FC50025CF66 /* particles */; };
+		8C2BAE9A19B79FC50025CF66 /* PLAYSINGLE.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6C19B79FC50025CF66 /* PLAYSINGLE.json */; };
+		8C2BAE9B19B79FC50025CF66 /* powerUpTutorial.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6D19B79FC50025CF66 /* powerUpTutorial.json */; };
+		8C2BAE9C19B79FC50025CF66 /* Res1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6E19B79FC50025CF66 /* Res1.plist */; };
+		8C2BAE9D19B79FC50025CF66 /* Res1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE6F19B79FC50025CF66 /* Res1.png */; };
+		8C2BAE9E19B79FC50025CF66 /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE7019B79FC50025CF66 /* Res1.tps */; };
+		8C2BAE9F19B79FC50025CF66 /* Res2.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE7119B79FC50025CF66 /* Res2.tps */; };
+		8C2BAEA019B79FC50025CF66 /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE7219B79FC50025CF66 /* SD */; };
+		8C2BAEA119B79FC50025CF66 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE7319B79FC50025CF66 /* Shaders */; };
+		8C2BAEA219B79FC50025CF66 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE7419B79FC50025CF66 /* sounds */; };
+		8C2BAEA319B79FC50025CF66 /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BAE7519B79FC50025CF66 /* tutorialintro_1.json */; };
 		8C801B4719B12E1600BDC740 /* AIOpponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C801AF019B12E1600BDC740 /* AIOpponent.cpp */; };
 		8C801B4819B12E1600BDC740 /* Boxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C801AF219B12E1600BDC740 /* Boxx.cpp */; };
 		8C801B4919B12E1600BDC740 /* Checkpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C801AF419B12E1600BDC740 /* Checkpoint.cpp */; };
@@ -101,39 +147,6 @@
 		8C801B8D19B12E7B00BDC740 /* SessionApple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C801B8719B12E7B00BDC740 /* SessionApple.mm */; };
 		8C801B8E19B12E7B00BDC740 /* WebDialogApple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C801B8919B12E7B00BDC740 /* WebDialogApple.mm */; };
 		8C801B9019B12EDA00BDC740 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C801B8F19B12EDA00BDC740 /* FacebookSDK.framework */; };
-		8C8702A419B6E9870034D48C /* AutoCorrectDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028319B6E9870034D48C /* AutoCorrectDialog.json */; };
-		8C8702A519B6E9870034D48C /* CarrerLevelChooser_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028419B6E9870034D48C /* CarrerLevelChooser_1.json */; };
-		8C8702A619B6E9870034D48C /* CHOOSENAMES.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028519B6E9870034D48C /* CHOOSENAMES.json */; };
-		8C8702A719B6E9870034D48C /* connectoToFbDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028619B6E9870034D48C /* connectoToFbDialog.json */; };
-		8C8702A819B6E9870034D48C /* creditsDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028719B6E9870034D48C /* creditsDialog.json */; };
-		8C8702A919B6E9870034D48C /* creditsDialog2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028819B6E9870034D48C /* creditsDialog2.json */; };
-		8C8702AA19B6E9870034D48C /* Dialog_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028919B6E9870034D48C /* Dialog_1.json */; };
-		8C8702AB19B6E9870034D48C /* endlessWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028A19B6E9870034D48C /* endlessWorldLevelIntro.json */; };
-		8C8702AC19B6E9870034D48C /* fb-default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028B19B6E9870034D48C /* fb-default.png */; };
-		8C8702AD19B6E9870034D48C /* FbBestScores.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028C19B6E9870034D48C /* FbBestScores.json */; };
-		8C8702AE19B6E9870034D48C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028D19B6E9870034D48C /* fonts */; };
-		8C8702AF19B6E9870034D48C /* FREERUN.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028E19B6E9870034D48C /* FREERUN.json */; };
-		8C8702B019B6E9870034D48C /* gateWorldLevelIntro.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87028F19B6E9870034D48C /* gateWorldLevelIntro.json */; };
-		8C8702B119B6E9870034D48C /* HD in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029019B6E9870034D48C /* HD */; };
-		8C8702B219B6E9870034D48C /* HDR in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029119B6E9870034D48C /* HDR */; };
-		8C8702B319B6E9870034D48C /* levelLockedDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029219B6E9870034D48C /* levelLockedDialog.json */; };
-		8C8702B419B6E9870034D48C /* MainMenu_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029319B6E9870034D48C /* MainMenu_1.json */; };
-		8C8702B519B6E9870034D48C /* MainMenu.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029419B6E9870034D48C /* MainMenu.json */; };
-		8C8702B619B6E9870034D48C /* MainMenuChoose.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029519B6E9870034D48C /* MainMenuChoose.json */; };
-		8C8702B719B6E9870034D48C /* MULTICHOOSENAMES.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029619B6E9870034D48C /* MULTICHOOSENAMES.json */; };
-		8C8702B819B6E9870034D48C /* MULTIFREERUN.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029719B6E9870034D48C /* MULTIFREERUN.json */; };
-		8C8702B919B6E9870034D48C /* multilanguage in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029819B6E9870034D48C /* multilanguage */; };
-		8C8702BA19B6E9870034D48C /* music in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029919B6E9870034D48C /* music */; };
-		8C8702BB19B6E9870034D48C /* Options.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029A19B6E9870034D48C /* Options.json */; };
-		8C8702BC19B6E9870034D48C /* PackerResource in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029B19B6E9870034D48C /* PackerResource */; };
-		8C8702BD19B6E9870034D48C /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029C19B6E9870034D48C /* particles */; };
-		8C8702BE19B6E9870034D48C /* PLAYSINGLE.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029D19B6E9870034D48C /* PLAYSINGLE.json */; };
-		8C8702BF19B6E9870034D48C /* Res1.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029E19B6E9870034D48C /* Res1.tps */; };
-		8C8702C019B6E9870034D48C /* Res2.tps in Resources */ = {isa = PBXBuildFile; fileRef = 8C87029F19B6E9870034D48C /* Res2.tps */; };
-		8C8702C119B6E9870034D48C /* SD in Resources */ = {isa = PBXBuildFile; fileRef = 8C8702A019B6E9870034D48C /* SD */; };
-		8C8702C219B6E9870034D48C /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 8C8702A119B6E9870034D48C /* Shaders */; };
-		8C8702C319B6E9870034D48C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 8C8702A219B6E9870034D48C /* sounds */; };
-		8C8702C419B6E9870034D48C /* tutorialintro_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C8702A319B6E9870034D48C /* tutorialintro_1.json */; };
 		8CC384B519B239960015CA0A /* FbManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CC384B319B239960015CA0A /* FbManager.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -330,6 +343,52 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
+		8C2BAE4819B79FC50025CF66 /* Aleo-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-BoldItalic.ttf"; sourceTree = "<group>"; };
+		8C2BAE4919B79FC50025CF66 /* AutoCorrectDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AutoCorrectDialog.json; sourceTree = "<group>"; };
+		8C2BAE4A19B79FC50025CF66 /* bestScoreModeTut.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bestScoreModeTut.json; sourceTree = "<group>"; };
+		8C2BAE4B19B79FC50025CF66 /* CarrerLevelChooser_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CarrerLevelChooser_1.json; sourceTree = "<group>"; };
+		8C2BAE4C19B79FC50025CF66 /* CHOOSENAMES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CHOOSENAMES.json; sourceTree = "<group>"; };
+		8C2BAE4D19B79FC50025CF66 /* completeTutsFirst.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = completeTutsFirst.json; sourceTree = "<group>"; };
+		8C2BAE4E19B79FC50025CF66 /* connectoToFbDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = connectoToFbDialog.json; sourceTree = "<group>"; };
+		8C2BAE4F19B79FC50025CF66 /* creditsDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = creditsDialog.json; sourceTree = "<group>"; };
+		8C2BAE5019B79FC50025CF66 /* creditsDialog2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = creditsDialog2.json; sourceTree = "<group>"; };
+		8C2BAE5119B79FC50025CF66 /* Dialog_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dialog_1.json; sourceTree = "<group>"; };
+		8C2BAE5219B79FC50025CF66 /* elimModeTut.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = elimModeTut.json; sourceTree = "<group>"; };
+		8C2BAE5319B79FC50025CF66 /* endlessWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = endlessWorldLevelIntro.json; sourceTree = "<group>"; };
+		8C2BAE5419B79FC50025CF66 /* fb-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-default.png"; sourceTree = "<group>"; };
+		8C2BAE5519B79FC50025CF66 /* FbBestScores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FbBestScores.json; sourceTree = "<group>"; };
+		8C2BAE5619B79FC50025CF66 /* firstTut.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = firstTut.json; sourceTree = "<group>"; };
+		8C2BAE5719B79FC50025CF66 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		8C2BAE5819B79FC50025CF66 /* FREERUN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FREERUN.json; sourceTree = "<group>"; };
+		8C2BAE5919B79FC50025CF66 /* gateModeTut.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gateModeTut.json; sourceTree = "<group>"; };
+		8C2BAE5A19B79FC50025CF66 /* gateWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gateWorldLevelIntro.json; sourceTree = "<group>"; };
+		8C2BAE5B19B79FC50025CF66 /* GUI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GUI; sourceTree = "<group>"; };
+		8C2BAE5C19B79FC50025CF66 /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HD; sourceTree = "<group>"; };
+		8C2BAE5D19B79FC50025CF66 /* HDR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HDR; sourceTree = "<group>"; };
+		8C2BAE5E19B79FC50025CF66 /* lastModeTut.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lastModeTut.json; sourceTree = "<group>"; };
+		8C2BAE5F19B79FC50025CF66 /* levelLockedDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = levelLockedDialog.json; sourceTree = "<group>"; };
+		8C2BAE6019B79FC50025CF66 /* MainMenu_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenu_1.json; sourceTree = "<group>"; };
+		8C2BAE6119B79FC50025CF66 /* MainMenu_16.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenu_16.json; sourceTree = "<group>"; };
+		8C2BAE6219B79FC50025CF66 /* MainMenu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenu.json; sourceTree = "<group>"; };
+		8C2BAE6319B79FC50025CF66 /* MainMenuChoose.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenuChoose.json; sourceTree = "<group>"; };
+		8C2BAE6419B79FC50025CF66 /* MULTICHOOSENAMES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MULTICHOOSENAMES.json; sourceTree = "<group>"; };
+		8C2BAE6519B79FC50025CF66 /* MULTIFREERUN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MULTIFREERUN.json; sourceTree = "<group>"; };
+		8C2BAE6619B79FC50025CF66 /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
+		8C2BAE6719B79FC50025CF66 /* multiPlayerTut.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = multiPlayerTut.json; sourceTree = "<group>"; };
+		8C2BAE6819B79FC50025CF66 /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
+		8C2BAE6919B79FC50025CF66 /* Options.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Options.json; sourceTree = "<group>"; };
+		8C2BAE6A19B79FC50025CF66 /* PackerResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PackerResource; sourceTree = "<group>"; };
+		8C2BAE6B19B79FC50025CF66 /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
+		8C2BAE6C19B79FC50025CF66 /* PLAYSINGLE.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PLAYSINGLE.json; sourceTree = "<group>"; };
+		8C2BAE6D19B79FC50025CF66 /* powerUpTutorial.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = powerUpTutorial.json; sourceTree = "<group>"; };
+		8C2BAE6E19B79FC50025CF66 /* Res1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Res1.plist; sourceTree = "<group>"; };
+		8C2BAE6F19B79FC50025CF66 /* Res1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Res1.png; sourceTree = "<group>"; };
+		8C2BAE7019B79FC50025CF66 /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
+		8C2BAE7119B79FC50025CF66 /* Res2.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res2.tps; sourceTree = "<group>"; };
+		8C2BAE7219B79FC50025CF66 /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SD; sourceTree = "<group>"; };
+		8C2BAE7319B79FC50025CF66 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		8C2BAE7419B79FC50025CF66 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		8C2BAE7519B79FC50025CF66 /* tutorialintro_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialintro_1.json; sourceTree = "<group>"; };
 		8C801AF019B12E1600BDC740 /* AIOpponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOpponent.cpp; path = ../Classes/AIOpponent.cpp; sourceTree = "<group>"; };
 		8C801AF119B12E1600BDC740 /* AIOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOpponent.h; path = ../Classes/AIOpponent.h; sourceTree = "<group>"; };
 		8C801AF219B12E1600BDC740 /* Boxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Boxx.cpp; path = ../Classes/Boxx.cpp; sourceTree = "<group>"; };
@@ -423,39 +482,6 @@
 		8C801B8819B12E7B00BDC740 /* WebDialogApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDialogApple.h; sourceTree = "<group>"; };
 		8C801B8919B12E7B00BDC740 /* WebDialogApple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebDialogApple.mm; sourceTree = "<group>"; };
 		8C801B8F19B12EDA00BDC740 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../Classes/FacebookSDK.framework; sourceTree = "<group>"; };
-		8C87028319B6E9870034D48C /* AutoCorrectDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AutoCorrectDialog.json; sourceTree = "<group>"; };
-		8C87028419B6E9870034D48C /* CarrerLevelChooser_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CarrerLevelChooser_1.json; sourceTree = "<group>"; };
-		8C87028519B6E9870034D48C /* CHOOSENAMES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CHOOSENAMES.json; sourceTree = "<group>"; };
-		8C87028619B6E9870034D48C /* connectoToFbDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = connectoToFbDialog.json; sourceTree = "<group>"; };
-		8C87028719B6E9870034D48C /* creditsDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = creditsDialog.json; sourceTree = "<group>"; };
-		8C87028819B6E9870034D48C /* creditsDialog2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = creditsDialog2.json; sourceTree = "<group>"; };
-		8C87028919B6E9870034D48C /* Dialog_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dialog_1.json; sourceTree = "<group>"; };
-		8C87028A19B6E9870034D48C /* endlessWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = endlessWorldLevelIntro.json; sourceTree = "<group>"; };
-		8C87028B19B6E9870034D48C /* fb-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-default.png"; sourceTree = "<group>"; };
-		8C87028C19B6E9870034D48C /* FbBestScores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FbBestScores.json; sourceTree = "<group>"; };
-		8C87028D19B6E9870034D48C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		8C87028E19B6E9870034D48C /* FREERUN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FREERUN.json; sourceTree = "<group>"; };
-		8C87028F19B6E9870034D48C /* gateWorldLevelIntro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gateWorldLevelIntro.json; sourceTree = "<group>"; };
-		8C87029019B6E9870034D48C /* HD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HD; sourceTree = "<group>"; };
-		8C87029119B6E9870034D48C /* HDR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HDR; sourceTree = "<group>"; };
-		8C87029219B6E9870034D48C /* levelLockedDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = levelLockedDialog.json; sourceTree = "<group>"; };
-		8C87029319B6E9870034D48C /* MainMenu_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenu_1.json; sourceTree = "<group>"; };
-		8C87029419B6E9870034D48C /* MainMenu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenu.json; sourceTree = "<group>"; };
-		8C87029519B6E9870034D48C /* MainMenuChoose.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainMenuChoose.json; sourceTree = "<group>"; };
-		8C87029619B6E9870034D48C /* MULTICHOOSENAMES.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MULTICHOOSENAMES.json; sourceTree = "<group>"; };
-		8C87029719B6E9870034D48C /* MULTIFREERUN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MULTIFREERUN.json; sourceTree = "<group>"; };
-		8C87029819B6E9870034D48C /* multilanguage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multilanguage; sourceTree = "<group>"; };
-		8C87029919B6E9870034D48C /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
-		8C87029A19B6E9870034D48C /* Options.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Options.json; sourceTree = "<group>"; };
-		8C87029B19B6E9870034D48C /* PackerResource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PackerResource; sourceTree = "<group>"; };
-		8C87029C19B6E9870034D48C /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
-		8C87029D19B6E9870034D48C /* PLAYSINGLE.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PLAYSINGLE.json; sourceTree = "<group>"; };
-		8C87029E19B6E9870034D48C /* Res1.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res1.tps; sourceTree = "<group>"; };
-		8C87029F19B6E9870034D48C /* Res2.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Res2.tps; sourceTree = "<group>"; };
-		8C8702A019B6E9870034D48C /* SD */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SD; sourceTree = "<group>"; };
-		8C8702A119B6E9870034D48C /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
-		8C8702A219B6E9870034D48C /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
-		8C8702A319B6E9870034D48C /* tutorialintro_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tutorialintro_1.json; sourceTree = "<group>"; };
 		8CC384B319B239960015CA0A /* FbManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FbManager.cpp; path = ../Classes/FbManager.cpp; sourceTree = "<group>"; };
 		8CC384B419B239960015CA0A /* FbManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FbManager.h; path = ../Classes/FbManager.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -707,39 +733,52 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8C87028319B6E9870034D48C /* AutoCorrectDialog.json */,
-				8C87028419B6E9870034D48C /* CarrerLevelChooser_1.json */,
-				8C87028519B6E9870034D48C /* CHOOSENAMES.json */,
-				8C87028619B6E9870034D48C /* connectoToFbDialog.json */,
-				8C87028719B6E9870034D48C /* creditsDialog.json */,
-				8C87028819B6E9870034D48C /* creditsDialog2.json */,
-				8C87028919B6E9870034D48C /* Dialog_1.json */,
-				8C87028A19B6E9870034D48C /* endlessWorldLevelIntro.json */,
-				8C87028B19B6E9870034D48C /* fb-default.png */,
-				8C87028C19B6E9870034D48C /* FbBestScores.json */,
-				8C87028D19B6E9870034D48C /* fonts */,
-				8C87028E19B6E9870034D48C /* FREERUN.json */,
-				8C87028F19B6E9870034D48C /* gateWorldLevelIntro.json */,
-				8C87029019B6E9870034D48C /* HD */,
-				8C87029119B6E9870034D48C /* HDR */,
-				8C87029219B6E9870034D48C /* levelLockedDialog.json */,
-				8C87029319B6E9870034D48C /* MainMenu_1.json */,
-				8C87029419B6E9870034D48C /* MainMenu.json */,
-				8C87029519B6E9870034D48C /* MainMenuChoose.json */,
-				8C87029619B6E9870034D48C /* MULTICHOOSENAMES.json */,
-				8C87029719B6E9870034D48C /* MULTIFREERUN.json */,
-				8C87029819B6E9870034D48C /* multilanguage */,
-				8C87029919B6E9870034D48C /* music */,
-				8C87029A19B6E9870034D48C /* Options.json */,
-				8C87029B19B6E9870034D48C /* PackerResource */,
-				8C87029C19B6E9870034D48C /* particles */,
-				8C87029D19B6E9870034D48C /* PLAYSINGLE.json */,
-				8C87029E19B6E9870034D48C /* Res1.tps */,
-				8C87029F19B6E9870034D48C /* Res2.tps */,
-				8C8702A019B6E9870034D48C /* SD */,
-				8C8702A119B6E9870034D48C /* Shaders */,
-				8C8702A219B6E9870034D48C /* sounds */,
-				8C8702A319B6E9870034D48C /* tutorialintro_1.json */,
+				8C2BAE4819B79FC50025CF66 /* Aleo-BoldItalic.ttf */,
+				8C2BAE4919B79FC50025CF66 /* AutoCorrectDialog.json */,
+				8C2BAE4A19B79FC50025CF66 /* bestScoreModeTut.json */,
+				8C2BAE4B19B79FC50025CF66 /* CarrerLevelChooser_1.json */,
+				8C2BAE4C19B79FC50025CF66 /* CHOOSENAMES.json */,
+				8C2BAE4D19B79FC50025CF66 /* completeTutsFirst.json */,
+				8C2BAE4E19B79FC50025CF66 /* connectoToFbDialog.json */,
+				8C2BAE4F19B79FC50025CF66 /* creditsDialog.json */,
+				8C2BAE5019B79FC50025CF66 /* creditsDialog2.json */,
+				8C2BAE5119B79FC50025CF66 /* Dialog_1.json */,
+				8C2BAE5219B79FC50025CF66 /* elimModeTut.json */,
+				8C2BAE5319B79FC50025CF66 /* endlessWorldLevelIntro.json */,
+				8C2BAE5419B79FC50025CF66 /* fb-default.png */,
+				8C2BAE5519B79FC50025CF66 /* FbBestScores.json */,
+				8C2BAE5619B79FC50025CF66 /* firstTut.json */,
+				8C2BAE5719B79FC50025CF66 /* fonts */,
+				8C2BAE5819B79FC50025CF66 /* FREERUN.json */,
+				8C2BAE5919B79FC50025CF66 /* gateModeTut.json */,
+				8C2BAE5A19B79FC50025CF66 /* gateWorldLevelIntro.json */,
+				8C2BAE5B19B79FC50025CF66 /* GUI */,
+				8C2BAE5C19B79FC50025CF66 /* HD */,
+				8C2BAE5D19B79FC50025CF66 /* HDR */,
+				8C2BAE5E19B79FC50025CF66 /* lastModeTut.json */,
+				8C2BAE5F19B79FC50025CF66 /* levelLockedDialog.json */,
+				8C2BAE6019B79FC50025CF66 /* MainMenu_1.json */,
+				8C2BAE6119B79FC50025CF66 /* MainMenu_16.json */,
+				8C2BAE6219B79FC50025CF66 /* MainMenu.json */,
+				8C2BAE6319B79FC50025CF66 /* MainMenuChoose.json */,
+				8C2BAE6419B79FC50025CF66 /* MULTICHOOSENAMES.json */,
+				8C2BAE6519B79FC50025CF66 /* MULTIFREERUN.json */,
+				8C2BAE6619B79FC50025CF66 /* multilanguage */,
+				8C2BAE6719B79FC50025CF66 /* multiPlayerTut.json */,
+				8C2BAE6819B79FC50025CF66 /* music */,
+				8C2BAE6919B79FC50025CF66 /* Options.json */,
+				8C2BAE6A19B79FC50025CF66 /* PackerResource */,
+				8C2BAE6B19B79FC50025CF66 /* particles */,
+				8C2BAE6C19B79FC50025CF66 /* PLAYSINGLE.json */,
+				8C2BAE6D19B79FC50025CF66 /* powerUpTutorial.json */,
+				8C2BAE6E19B79FC50025CF66 /* Res1.plist */,
+				8C2BAE6F19B79FC50025CF66 /* Res1.png */,
+				8C2BAE7019B79FC50025CF66 /* Res1.tps */,
+				8C2BAE7119B79FC50025CF66 /* Res2.tps */,
+				8C2BAE7219B79FC50025CF66 /* SD */,
+				8C2BAE7319B79FC50025CF66 /* Shaders */,
+				8C2BAE7419B79FC50025CF66 /* sounds */,
+				8C2BAE7519B79FC50025CF66 /* tutorialintro_1.json */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -1001,55 +1040,68 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C2BAE9519B79FC50025CF66 /* multiPlayerTut.json in Resources */,
+				8C2BAE8919B79FC50025CF66 /* GUI in Resources */,
+				8C2BAE9419B79FC50025CF66 /* multilanguage in Resources */,
+				8C2BAE9319B79FC50025CF66 /* MULTIFREERUN.json in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
-				8C8702C319B6E9870034D48C /* sounds in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
-				8C8702AF19B6E9870034D48C /* FREERUN.json in Resources */,
-				8C8702A719B6E9870034D48C /* connectoToFbDialog.json in Resources */,
-				8C8702AD19B6E9870034D48C /* FbBestScores.json in Resources */,
+				8C2BAE7B19B79FC50025CF66 /* completeTutsFirst.json in Resources */,
+				8C2BAE9919B79FC50025CF66 /* particles in Resources */,
+				8C2BAE7E19B79FC50025CF66 /* creditsDialog2.json in Resources */,
+				8C2BAE9019B79FC50025CF66 /* MainMenu.json in Resources */,
+				8C2BAE7619B79FC50025CF66 /* Aleo-BoldItalic.ttf in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
-				8C8702AA19B6E9870034D48C /* Dialog_1.json in Resources */,
-				8C8702BB19B6E9870034D48C /* Options.json in Resources */,
-				8C8702AC19B6E9870034D48C /* fb-default.png in Resources */,
-				8C8702BE19B6E9870034D48C /* PLAYSINGLE.json in Resources */,
-				8C8702A619B6E9870034D48C /* CHOOSENAMES.json in Resources */,
+				8C2BAEA019B79FC50025CF66 /* SD in Resources */,
+				8C2BAE8F19B79FC50025CF66 /* MainMenu_16.json in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
-				8C8702A519B6E9870034D48C /* CarrerLevelChooser_1.json in Resources */,
-				8C8702B819B6E9870034D48C /* MULTIFREERUN.json in Resources */,
-				8C8702B019B6E9870034D48C /* gateWorldLevelIntro.json in Resources */,
-				8C8702C019B6E9870034D48C /* Res2.tps in Resources */,
-				8C8702A819B6E9870034D48C /* creditsDialog.json in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				8C2BAE7D19B79FC50025CF66 /* creditsDialog.json in Resources */,
+				8C2BAE8219B79FC50025CF66 /* fb-default.png in Resources */,
+				8C2BAE7719B79FC50025CF66 /* AutoCorrectDialog.json in Resources */,
+				8C2BAE8819B79FC50025CF66 /* gateWorldLevelIntro.json in Resources */,
+				8C2BAEA119B79FC50025CF66 /* Shaders in Resources */,
+				8C2BAE9819B79FC50025CF66 /* PackerResource in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
-				8C8702C219B6E9870034D48C /* Shaders in Resources */,
+				8C2BAE8719B79FC50025CF66 /* gateModeTut.json in Resources */,
+				8C2BAE9119B79FC50025CF66 /* MainMenuChoose.json in Resources */,
+				8C2BAE8619B79FC50025CF66 /* FREERUN.json in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				8C8702C119B6E9870034D48C /* SD in Resources */,
-				8C8702AE19B6E9870034D48C /* fonts in Resources */,
-				8C8702B219B6E9870034D48C /* HDR in Resources */,
-				8C8702BC19B6E9870034D48C /* PackerResource in Resources */,
-				8C8702B919B6E9870034D48C /* multilanguage in Resources */,
+				8C2BAE8119B79FC50025CF66 /* endlessWorldLevelIntro.json in Resources */,
+				8C2BAE8519B79FC50025CF66 /* fonts in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				8C2BAE7C19B79FC50025CF66 /* connectoToFbDialog.json in Resources */,
+				8C2BAE9719B79FC50025CF66 /* Options.json in Resources */,
+				8C2BAE8019B79FC50025CF66 /* elimModeTut.json in Resources */,
+				8C2BAE9B19B79FC50025CF66 /* powerUpTutorial.json in Resources */,
+				8C2BAE7919B79FC50025CF66 /* CarrerLevelChooser_1.json in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
-				8C8702B119B6E9870034D48C /* HD in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
-				8C8702BF19B6E9870034D48C /* Res1.tps in Resources */,
-				8C8702A919B6E9870034D48C /* creditsDialog2.json in Resources */,
-				8C8702B319B6E9870034D48C /* levelLockedDialog.json in Resources */,
-				8C8702B419B6E9870034D48C /* MainMenu_1.json in Resources */,
-				8C8702A419B6E9870034D48C /* AutoCorrectDialog.json in Resources */,
+				8C2BAE7819B79FC50025CF66 /* bestScoreModeTut.json in Resources */,
+				8C2BAE9619B79FC50025CF66 /* music in Resources */,
+				8C2BAE8E19B79FC50025CF66 /* MainMenu_1.json in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
-				8C8702BD19B6E9870034D48C /* particles in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
-				8C8702B519B6E9870034D48C /* MainMenu.json in Resources */,
+				8C2BAE8B19B79FC50025CF66 /* HDR in Resources */,
+				8C2BAE7F19B79FC50025CF66 /* Dialog_1.json in Resources */,
+				8C2BAE8A19B79FC50025CF66 /* HD in Resources */,
+				8C2BAE8D19B79FC50025CF66 /* levelLockedDialog.json in Resources */,
+				8C2BAE7A19B79FC50025CF66 /* CHOOSENAMES.json in Resources */,
+				8C2BAE8319B79FC50025CF66 /* FbBestScores.json in Resources */,
+				8C2BAE9C19B79FC50025CF66 /* Res1.plist in Resources */,
+				8C2BAE8C19B79FC50025CF66 /* lastModeTut.json in Resources */,
+				8C2BAE9F19B79FC50025CF66 /* Res2.tps in Resources */,
+				8C2BAE8419B79FC50025CF66 /* firstTut.json in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
-				8C8702BA19B6E9870034D48C /* music in Resources */,
-				8C8702B619B6E9870034D48C /* MainMenuChoose.json in Resources */,
-				8C8702AB19B6E9870034D48C /* endlessWorldLevelIntro.json in Resources */,
-				8C8702B719B6E9870034D48C /* MULTICHOOSENAMES.json in Resources */,
-				8C8702C419B6E9870034D48C /* tutorialintro_1.json in Resources */,
+				8C2BAEA219B79FC50025CF66 /* sounds in Resources */,
+				8C2BAE9219B79FC50025CF66 /* MULTICHOOSENAMES.json in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
+				8C2BAEA319B79FC50025CF66 /* tutorialintro_1.json in Resources */,
+				8C2BAE9D19B79FC50025CF66 /* Res1.png in Resources */,
+				8C2BAE9E19B79FC50025CF66 /* Res1.tps in Resources */,
+				8C2BAE9A19B79FC50025CF66 /* PLAYSINGLE.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
