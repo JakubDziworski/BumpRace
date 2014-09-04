@@ -43,6 +43,7 @@ extern std::string G_str(const std::string& input);
 extern std::string G_bgFilePath;
 extern std::string G_flatTopFilePath;
 extern std::string G_drzewkaFilePath;
+extern std::multimap<int,std::string> G_scoresMap;
 extern cocos2d::Color3B G_getRandomColor();
 extern const cocos2d::Color3B G_colors[6];
 extern World* G_getWorld();

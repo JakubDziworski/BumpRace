@@ -15,7 +15,7 @@ AppDelegate::~AppDelegate()
 	G_strings->release();
 }
 bool AppDelegate::applicationDidFinishLaunching() {
-	//screw::facebook::Session::start();
+	screw::facebook::Session::start();
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();

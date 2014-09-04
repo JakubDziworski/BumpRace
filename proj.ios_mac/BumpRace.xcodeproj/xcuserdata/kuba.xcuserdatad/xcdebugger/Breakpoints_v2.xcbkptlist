@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431524946.720901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
-            landmarkName = "FB_login()"
+            startingLineNumber = "557"
+            endingLineNumber = "557"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,40 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "FB_autLogin()"
+            startingLineNumber = "558"
+            endingLineNumber = "558"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -86,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "FB_autLogin()"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -102,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
-            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -118,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "311"
-            endingLineNumber = "311"
-            landmarkName = "FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function&lt;void(cocos2d::Texture2D* sprite)&gt; fun)"
+            startingLineNumber = "562"
+            endingLineNumber = "562"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -134,11 +106,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298">
+            startingLineNumber = "545"
+            endingLineNumber = "545"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -148,12 +122,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function&lt;void(cocos2d::Texture2D* sprite)&gt; fun)"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../classes/MyMenu.cpp"
-            timestampString = "431503134.901807"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864">
+            startingLineNumber = "874"
+            endingLineNumber = "874">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -178,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../classes/MyMenu.cpp"
-            timestampString = "431115130.106113"
+            timestampString = "431518121.856969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "MyMenu::createBtn(const std::string &amp;imgOn, const std::string &amp;imgOf, const std::string &amp;btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node *layout)"
             landmarkType = "5">
          </BreakpointContent>
@@ -194,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../classes/MyMenu.cpp"
-            timestampString = "431503134.901807"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "873"
-            endingLineNumber = "873">
+            startingLineNumber = "883"
+            endingLineNumber = "883">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -272,11 +262,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431503134.901807"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874">
+            startingLineNumber = "884"
+            endingLineNumber = "884">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,11 +292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431524946.720901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)"
             landmarkType = "5">
          </BreakpointContent>
@@ -350,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)"
             landmarkType = "5">
          </BreakpointContent>
@@ -366,11 +356,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "485"
+            endingLineNumber = "485"
             landmarkName = "MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)"
             landmarkType = "5">
          </BreakpointContent>
@@ -382,11 +372,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
+            startingLineNumber = "484"
+            endingLineNumber = "484"
             landmarkName = "MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)"
             landmarkType = "5">
          </BreakpointContent>
@@ -446,12 +436,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "G_enableShadow(cocos2d::ui::Text *lbl)"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -478,12 +468,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "G_enableShadow(cocos2d::ui::Text *lbl)"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -510,12 +500,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "G_enableShadow(cocos2d::Label *lbl)"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -526,12 +516,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            startingLineNumber = "544"
+            endingLineNumber = "544"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -542,28 +532,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
+            timestampString = "431526814.919439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/Globals.cpp"
-            timestampString = "431465207.413258"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "G_enableShadow(cocos2d::ui::Text *lbl)"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -574,11 +548,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431503134.901807"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "878"
-            endingLineNumber = "878">
+            startingLineNumber = "888"
+            endingLineNumber = "888">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -588,11 +562,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459">
+            startingLineNumber = "468"
+            endingLineNumber = "468">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -602,11 +576,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
             landmarkName = "MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)"
             landmarkType = "5">
          </BreakpointContent>
@@ -618,11 +592,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/MyMenu.cpp"
-            timestampString = "431468406.955458"
+            timestampString = "431525548.137623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "461"
-            endingLineNumber = "461"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
             landmarkName = "MyMenu::m_difficultySpinnerChanged(cocos2d::ui::Text *textTochange)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1121,6 +1095,344 @@
             endingLineNumber = "462"
             landmarkName = "World::m_onTouched(const std::vector&lt;Touch*&gt;&amp; touches, cocos2d::Event *event)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "620"
+            endingLineNumber = "620"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "586"
+            endingLineNumber = "586"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "628"
+            endingLineNumber = "628"
+            landmarkName = "G_scaleNodeToFitHorizontally(cocos2d::Node* node)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "FB_showScores(cocos2d::Node *nodeToAttach)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
+            landmarkName = "FB_showScores(cocos2d::Node *nodeToAttach)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function&lt;void(cocos2d::Texture2D* sprite)&gt; fun)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.903412"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::~$_2()"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.903858"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "10">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::operator()(cocos2d::EventCustom*) const"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.904203"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "316"
+                  endingLineNumber = "316"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::$_2($_2 const&amp;)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.904567"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::$_2($_2 const&amp;)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.904906"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::$_2($_2&amp;&amp;)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.90523"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::$_2($_2&amp;&amp;)"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.905569"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FB_addDownloadFinishListener(cocos2d::Node*, std::__1::function&lt;void (cocos2d::Texture2D*)&gt;)::$_2::~$_2()"
+                  moduleName = "BumpRace iOS"
+                  urlString = "file:///Volumes/Wspolny/BumpRace/BumpRace/Classes/Globals.cpp"
+                  timestampString = "431524946.905894"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315"
+                  offsetFromSymbolStart = "10">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431524754.479059"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431524762.220348"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431524763.716326"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526814.919439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
+            landmarkName = "FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function&lt;void(cocos2d::Texture2D* sprite)&gt; fun)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/MyMenu.cpp"
+            timestampString = "431525548.137623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
+            landmarkName = "MyMenu::refreshFBAvatar(cocos2d::Texture2D *tex)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Globals.cpp"
+            timestampString = "431526805.524536"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "FB_setLoginCallBack(std::function &lt;void(bool isLoggedIn)&gt; fun,cocos2d::Node *caller)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

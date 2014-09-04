@@ -67,7 +67,6 @@ private:
 	void createLevelMapUI();
 public:
     void UPDATEPLAYERNAME();
-	virtual void retain();
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MyMenu);
@@ -109,8 +108,8 @@ public:
     virtual void onEnter();
 	void defaultPageAction(cocos2d::ui::PageView* pgView);
 	void onBoxChooseChanged(cocos2d::ui::PageView *pgview);
-	void refreshFBAvatar();
+	void refreshFBAvatar(cocos2d::Texture2D *tex);
 	void checkIfNoOpponents(cocos2d::ui::Text* txt);
-	void createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node *layout);
+    cocos2d::ui::Button* createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node *layout);
 };
 #endif // !__MENU_H__

@@ -9,6 +9,7 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 #include "DbReader.h"
+std::multimap<int,std::string> G_scoresMap;
 std::string G_globalPlayerName="plyr1";
 int G_globalBoxFileNameIndex=0;
 std::string G_bgFilePath="";
@@ -258,137 +259,142 @@ void G_enableShadow(cocos2d::ui::Text *lbl)
 //**********************************FB********************************//
 void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node *caller)
 {
- /*   Session::getActiveSession()->setStatusCallback([fun](Session *session,SessionError *err)
-    {
-		if (session->getState() == Session::State::OPENED)
-		{
-			if (!Session::getActiveSession()->hasPermission("publish_actions"))
-			{
-				Session::getActiveSession()->requestPublishPermissions({ "publish_actions" });
-			}
-
-			Request::requestForMe([](int error, GraphUser *user)
-			{
-				if (!user) return;
-				FB_loadPhoto(user->getId(), 160.0f / G_dir()->getContentScaleFactor());
-				DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
-				CCLOG("score %ld", user->getScore());
-			})->execute();
-            if(fun != nullptr) fun(true);
-		}
-		else if (session->getState() == Session::State::CLOSED || session->getState() == Session::State::INVALID)
-        {
-            if(fun != nullptr) fun(false);
-        }
-	});*/
+     Session::getActiveSession()->setStatusCallback([fun](Session *session,SessionError *err)
+     {
+     if (session->getState() == Session::State::OPENED)
+     {
+     if (!Session::getActiveSession()->hasPermission("publish_actions"))
+     {
+     Session::getActiveSession()->requestPublishPermissions({ "publish_actions" });
+     }
+     if(fun != nullptr) fun(true);
+     Request::requestForMe([](int error, GraphUser *user)
+     {
+     if(error || !user)
+     {
+         FB_logOut();
+         return;
+     }
+     FB_loadPhoto(user->getId(), 160.0f / G_dir()->getContentScaleFactor());
+     DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
+     })->execute();
+     Request::requestForScores([](int error, const Vector<GraphScore *> &scores){
+         if(error) return;
+             int i=0;
+             G_scoresMap.clear();
+             for (auto s : scores) {
+                 G_scoresMap.insert( std::pair<int,std::string>(s->getScore(),s->getUser()->getName()));
+                 CCLOG("(user %s, score %ld)", s->getUser()->getName().c_str(), s->getScore());
+                 if(i==20)break;
+                 i++;
+             }
+         })->execute();
+     }
+     else
+     {
+     if(fun != nullptr) fun(false);
+     }
+     });
 }
 void FB_login()
 {
-	/*if (!Session::getActiveSession()->isOpened())
+	 if (!Session::getActiveSession()->isOpened())
 	 Session::getActiveSession()->open(true, { "user_friends" },
 	 DefaultAudience::PUBLIC,
-	 LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);*/
+	 LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);
 }
 void FB_autLogin()
 {
-	/*if (Session::getActiveSession()->getState() == Session::State::CREATED_TOKEN_LOADED) {
-	Session::getActiveSession()->open(false);
-	}*/
+	if (Session::getActiveSession()->getState() == Session::State::CREATED_TOKEN_LOADED) {
+     Session::getActiveSession()->open(false);
+     }
 }
 void FB_logOut()
 {
-	/*if (Session::getActiveSession()->getState() != Session::State::CLOSED)
-	Session::getActiveSession()->close();*/
+	if (Session::getActiveSession()->getState() != Session::State::CLOSED)
+     Session::getActiveSession()->close();
 }
 void FB_addDownloadFinishListener(cocos2d::Node *eventDispatcherNode, std::function<void(cocos2d::Texture2D* sprite)> fun)
 {
-	//EventListenerCustom *listener = EventListenerCustom::create(PhotoLoaderLoadedNotification, [=](EventCustom *event){
-	//PhotoLoaderEvent *ev = (PhotoLoaderEvent *)event;
-	//G_faceBookAvatarTex = PhotoLoader::getInstance()->loadTexture(ev->getUid());
-	////TO DO delete this
-	//G_faceBookAvatarTex->retain();
-	//for (auto spr : G_spritesUsingFBImage)
-	//{
- //       spr->setTexture(G_faceBookAvatarTex);
- //       spr->setTextureRect(Rect(0, 0, 47.0f, 47.0f));
-	//}
- //   if(fun!=nullptr) fun(G_faceBookAvatarTex);
-	//});
-	//G_dir()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, eventDispatcherNode);
+	EventListenerCustom *listener = EventListenerCustom::create(PhotoLoaderLoadedNotification, [fun](EventCustom *event){
+	PhotoLoaderEvent *ev = (PhotoLoaderEvent *)event;
+	G_faceBookAvatarTex = PhotoLoader::getInstance()->loadTexture(ev->getUid());
+	//TO DO delete this
+	G_faceBookAvatarTex->retain();
+       if(fun!=nullptr) fun(G_faceBookAvatarTex);
+	});
+	G_dir()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, eventDispatcherNode);
 }
 void FB_loadPhoto(const std::string& uid, const int size)
 {
-	//PhotoLoader::getInstance()->download(uid,size);
+	PhotoLoader::getInstance()->download(uid,size);
 }
 void sharePost(const std::string &name,const std::string &caption,const std::string &descr)
 {
-    //ShareDialogParams *params = ShareDialogParams::create();
-    //params->setLink("http://www.cocos2d-x.org/");
-    //params->setName(name);
-    //params->setCaption(caption);
-    //params->setDescription(descr);
-    ////  params->setFriends({"100008289311268"});
-    ////    params->setDataFailuresFatal(false);
-    //if (Dialog::canPresent(params)) {
-    //    Dialog::present(params, [](GraphObject *result, int error){
-    //        CCLOG("Share link dialog callback: result = %s\nerror = %d", result ? result->getValue().getDescription().c_str() : "(null)", error);
-    //    });
-    //} else {
-    //    CCLOG("Cannot show share dialog, fallback to webview");
-    //    FeedDialogBuilder *fbd = new FeedDialogBuilder();
-    //    fbd->setLink(params->getLink())->setDescription(params->getDescription());
-    //    fbd->setTo("100008289311268");
-    //    
-    //    fbd->setCallback([](int error, const string &rid){
-    //        CCLOG("Share link web dialog result: error = %d, rid = %s", error, rid.c_str());
-    //    });
-    //    fbd->build()->show();
-    //    delete fbd;
-    //}
+    ShareDialogParams *params = ShareDialogParams::create();
+    params->setLink("http://www.cocos2d-x.org/");
+    params->setName(name);
+    params->setCaption(caption);
+    params->setDescription(descr);
+    //  params->setFriends({"100008289311268"});
+    //    params->setDataFailuresFatal(false);
+    if (Dialog::canPresent(params)) {
+        Dialog::present(params, [](GraphObject *result, int error){
+            CCLOG("Share link dialog callback: result = %s\nerror = %d", result ? result->getValue().getDescription().c_str() : "(null)", error);
+        });
+    } else {
+        CCLOG("Cannot show share dialog, fallback to webview");
+        FeedDialogBuilder *fbd = new FeedDialogBuilder();
+        fbd->setLink(params->getLink())->setDescription(params->getDescription());
+        fbd->setTo("100008289311268");
+    
+        fbd->setCallback([](int error, const string &rid){
+          CCLOG("Share link web dialog result: error = %d, rid = %s", error, rid.c_str());
+        });
+        fbd->build()->show();
+        delete fbd;
+    }
 }
 void FB_shareGame()
 {
-   //sharePost(G_str("ShrGameName"),G_str("ShrGameCaption"),G_str("ShrGameDescr"));
+    sharePost(G_str("ShrGameName"),G_str("ShrGameCaption"),G_str("ShrGameDescr"));
 }
 void FB_shareLevelCompletedPost(const int level)
 {
-   //sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
+    sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
 }
 extern void FB_postBestScore(int score)
 {
-	//if (Session::getActiveSession()->isOpened())
-	//{
-	//	if (!Session::getActiveSession()->hasPermission("publish_actions"))
-	//	{
-	//		Session::getActiveSession()->requestPublishPermissions({ "publish_actions" });
-	//	}
-	//	else
-	//	{
-	//		Facebook::getInstance()->postScore(score);
-	//	}
-	//}
-	//else 
-	//{
-	//	FB_login();
-	//}
+	if (Session::getActiveSession()->isOpened())
+	{
+		if (!Session::getActiveSession()->hasPermission("publish_actions"))
+		{
+			Session::getActiveSession()->requestPublishPermissions({ "publish_actions" });
+		}
+		else
+		{
+			Facebook::getInstance()->postScore(score);
+		}
+	}
+	else
+	{
+		FB_login();
+	}
 }
 void FB_showScores(cocos2d::Node *nodeToAttach)
 {
-	//auto main = DialogReader::getInstance()->getMainWidgetFromJson("FbBestScores.json", nodeToAttach);
-	//auto listView = (cocos2d::ui::ListView*)DialogReader::getInstance()->getWidget("FbBestScores.json", "listView");
-	//listView->setItemsMargin(10);
-	//listView->setItemModel((cocos2d::ui::Layout*)DialogReader::getInstance()->getWidget("FbBestScores.json", "record"));
-	//Request::requestForScores([listView](int error, const Vector<GraphScore *> &scores)
-	//{
-	//	int i = 0;
-	//	for (auto s : scores) 
-	//	{
-	//		listView->pushBackDefaultItem();
-	//		((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString(s->getUser()->getName().c_str());
-	//		((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playerScore"))->setString(std::to_string(s->getScore()).c_str());
-	//		i++;
-	//	}
-	//})->execute();
+	auto main = DialogReader::getInstance()->getMainWidgetFromJson("FbBestScores.json", nodeToAttach);
+	auto listView = (cocos2d::ui::ListView*)DialogReader::getInstance()->getWidget("FbBestScores.json", "listView");
+	listView->setItemsMargin(10);
+	listView->setItemModel((cocos2d::ui::Layout*)DialogReader::getInstance()->getWidget("FbBestScores.json", "record"));
+        int i=0;
+		for (auto s : G_scoresMap)
+		{
+			listView->pushBackDefaultItem();
+			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString(s.second.c_str());
+			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playerScore"))->setString(std::to_string(s.first).c_str());
+			i++;
+		}
 }
 
 void G_stretcNodeToFit(cocos2d::Node* node)
@@ -417,5 +423,5 @@ void G_scaleNodeToFitHorizontally(cocos2d::Node* node)
 	const float width = VR::right().x - VR::left().x;
 	node->setScale(width/512.0f);
 	if (node->getScale() != 1.0f)
-	node->setPositionY((1 - node->getAnchorPoint().y)*0.5f*height*(1 - node->getScale()));
+        node->setPositionY((1 - node->getAnchorPoint().y)*0.5f*height*(1 - node->getScale()));
 }

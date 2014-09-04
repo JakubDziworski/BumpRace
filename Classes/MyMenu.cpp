@@ -114,8 +114,14 @@ bool MyMenu::init()
 				}
 				((Button*)dr->getWidget("MULTICHOOSENAMES.json", "PlayNow"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::playMultiNow, this));
 	//misc
-	refreshFBAvatar();
+	refreshFBAvatar(NULL);
 	createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
+    createBtn(R_btnOn,"","", [this](Ref *reff,Widget::TouchEventType type)
+    {
+        if(type != Widget::TouchEventType::ENDED) return;
+        FB_showScores(this);
+    }, 645, this);
+    this->getChildByTag(645)->setPosition(VR::center());
 	auto backbtn = this->getChildByTag(B_BACK);
 	backbtn->setAnchorPoint(Vec2(0, 1));
 	backbtn->setPosition(12,VR::leftTop().y-VR::bottom().y - 12);
@@ -131,7 +137,7 @@ bool MyMenu::init()
 	SoundManager::getInstance()->playBgMusicMenu();
 	return true;
 }
-void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
+cocos2d::ui::Button* MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const std::string &btnText, cocos2d::ui::Widget::ccWidgetTouchCallback callback, int typed, cocos2d::Node  *layout)
 {
 	cocos2d::ui::Button* btn = cocos2d::ui::Button::create(imgOn, imgOf, "", TextureResType::PLIST);
 	btn->setTitleFontName(R_defaultFont);
@@ -143,6 +149,7 @@ void MyMenu::createBtn(const std::string &imgOn, const std::string &imgOf, const
 	}
 	btn->addTouchEventListener(callback);
 	layout->addChild(btn, 15, typed);
+    return btn;
 }
 cocos2d::Scene* MyMenu::createScene()
 {
@@ -262,7 +269,7 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 		hide(B_BACK);
 		break;
 	case L_CHOOSENAMES:
-		if (tryBestScore) show(L_PLAYSINGLE);
+        if (spType == singlePlayerType::best) show(L_PLAYSINGLE);
 		else show(L_FREERUN);
 		hide(L_CHOOSENAMES);
 		break;
@@ -305,8 +312,9 @@ void MyMenu::onCarrerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventT
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	spType = singlePlayerType::carrer;
+    ((Text*)dr->getWidget("CHOOSENAMES.json", "Label_5_0"))->setString(G_str("Carrer"));
 	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Continue"));
-	onSPcontinueToBoxChooseBtn(pSender, type);
+     onSPcontinueToBoxChooseBtn(pSender, type);
 }
 void MyMenu::onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -318,6 +326,7 @@ void MyMenu::onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		return;
 	}
 	spType = singlePlayerType::free;
+    ((Text*)dr->getWidget("CHOOSENAMES.json", "Label_5_0"))->setString(G_str("FreeRun"));
 	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Play"));
 	show(L_FREERUN);
 	hide(L_PLAYSINGLE);
@@ -564,7 +573,7 @@ void MyMenu::m_autocorrectWrongPlayerChoose()
 			const int curpost = pageviewAtI->getCurPageIndex();
 			while (moved == false)
 			{
-				if (curpost + k <= 6 && !zajete[curpost + k])
+				if (curpost + k <= 5 && !zajete[curpost + k])
 				{
 					pageviewAtI->getColor() == Color3B(255, 255, 255);
 					pageviewAtI->scrollToPage(curpost + k);
@@ -646,11 +655,6 @@ void MyMenu::createLevelMapUI()
 		}
 	}
 }
-void MyMenu::retain()
-{
-	int x = 5;
-	Ref::retain();
-}
 void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	if (type != Widget::TouchEventType::ENDED) return;
@@ -661,6 +665,7 @@ void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEve
 		return;
 	}
 	spType = singlePlayerType::best;
+    ((Text*)dr->getWidget("CHOOSENAMES.json", "Label_5_0"))->setString(G_str("BestRun"));
 	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Play"));
 	onSPcontinueToBoxChooseBtn(pSender, type);
 }
@@ -739,8 +744,8 @@ void MyMenu::onEnter()
 		}
 	};
     FB_setLoginCallBack(kolbak,this);
-    FB_addDownloadFinishListener(this,nullptr);
-    //FB_autLogin();
+    FB_addDownloadFinishListener(this,CC_CALLBACK_1(MyMenu::refreshFBAvatar,this));
+    FB_autLogin();
 }
 void MyMenu::UPDATEPLAYERNAME()
 {
@@ -786,7 +791,7 @@ void MyMenu::UPDATEPLAYERNAME()
 		 return;
 	 }
  }
- void MyMenu::refreshFBAvatar()
+void MyMenu::refreshFBAvatar(cocos2d::Texture2D *tex)
  {
 	 for (int i = 0; i < 4; i++)
 	 {
