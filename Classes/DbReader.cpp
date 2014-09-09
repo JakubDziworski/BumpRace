@@ -102,7 +102,7 @@ void DbReader::setRatedOrLiked(bool val)
 
 bool DbReader::areAdsEnabled()
 {
-	db->getBoolForKey("ADSENABLED", true);
+	return db->getBoolForKey("ADSENABLED", true);
 }
 
 void DbReader::setAdsEnabled(bool val)

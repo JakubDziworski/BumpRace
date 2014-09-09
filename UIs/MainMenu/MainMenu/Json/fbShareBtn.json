@@ -12,7 +12,9 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "Res1.plist"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

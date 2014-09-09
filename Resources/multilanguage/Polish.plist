@@ -20,6 +20,8 @@
 	<string>Kontynuuj</string>
 	<key>Choose_Mode</key>
 	<string>Wybierz Tryb</string>
+	<key>Opponentow</key>
+	<string>Przeciwników</string>
 	<key>Opponents</key>
 	<string>Przeciwnicy</string>
 	<key>Opponent</key>
@@ -182,5 +184,13 @@
 	<string>Odblokuj</string>
 	<key>more_games</key>
 	<string>Więcej Gier</string>
+	<key>more_games</key>
+	<string>More Games</string>
+	<key>toohard</key>
+	<string>Za trudne? Zrób sobię przerwę i spróbuj innych gier.</string>
+	<key>noThanks</key>
+	<string>Nie</string>
+	<key>tryOther</key>
+	<string>Wypróbuj</string>
 </dict>
 </plist>

@@ -168,21 +168,21 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 				break;
 		}
 		//DIFF LEVEL
-		std::string diffStr = " " + G_str("Opponents");
+		std::string diffStr = G_str("Difficulty") + " : ";
 		switch (diffLevel)
 		{
 			case 0:
-				diffStr = G_str("stupid") + diffStr;
+				diffStr += G_str("Easy");
 				break;
 			case 1:
-				diffStr = G_str("medium") + diffStr;
+				diffStr += G_str("Medium");
 				break;
 			case 2:
-				diffStr = G_str("smart") + diffStr;
+				diffStr += G_str("Hard");
 				break;
 		}
 		//OPPONENTS
-		std::string oppStr = std::to_string(opponentsnumber) +" "+ G_str("Opponents");
+		std::string oppStr = std::to_string(opponentsnumber) +" "+ G_str("Opponentow");
 		//GATES
         std::string gatesStr = std::to_string(gatesNumb) + " ";
         if(gatesNumb >4)  gatesStr+= G_str("Gatesow");

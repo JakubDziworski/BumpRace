@@ -157,10 +157,13 @@ void Hud::displayGameOver(bool win)
         else
         {
             G_failsInRow++;
-            if(G_failsInRow == 6)
+            if(G_failsInRow % 6 == 5)
             {
-                
-                //TO DO DISPLAY WHY NOT TRY OTHER GAMES
+            	DialogReader::getInstance()->getMainWidgetFromJson("tooHardDialog.json",cocostudioNode);
+            	DialogReader::getInstance()->addActionHideAndSomething("tooHardDialog.json","tryOtherGamesBtn",[]()
+            		{
+            			GlobalAdManager::showMoreGames();
+            		});
             }
         }
         if(random(0,1)!=0)

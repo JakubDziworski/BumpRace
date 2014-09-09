@@ -28,12 +28,7 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [
-                  0,
-                  0,
-                  1,
-                  1
-                ],
+                "tweenParameter": [],
                 "tweenType": 0,
                 "visible": false
               },
@@ -135,7 +130,9 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "Res1.plist"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -313,7 +310,7 @@
                   "useMergedTexture": false,
                   "visible": true,
                   "width": 250.87999,
-                  "x": 48,
+                  "x": 47,
                   "y": 21,
                   "areaHeight": 102.600006,
                   "areaWidth": 250.87999,
@@ -398,7 +395,7 @@
           "layoutParameter": null,
           "opacity": 255,
           "positionPercentX": 0.498046875,
-          "positionPercentY": -0.283625722,
+          "positionPercentY": -0.283625931,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,

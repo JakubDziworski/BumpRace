@@ -197,6 +197,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 			
 			@Override
 			public void run() {
+				if(me.bannerAd!=null)
 				me.bannerAd.hideBanner();
 			}
 		});

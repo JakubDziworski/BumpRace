@@ -20,7 +20,9 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>Res1.plist</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>gateWorldLevelIntro.json</CurrentUIJson>
 </UIProject>

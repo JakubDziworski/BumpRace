@@ -316,6 +316,19 @@
                 <key>sourceSize</key>
                 <string>{313,85}</string>
             </dict>
+            <key>fbIcon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1422,1656},{66,66}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{66,66}}</string>
+                <key>sourceSize</key>
+                <string>{66,66}</string>
+            </dict>
             <key>fbImageLocked.png</key>
             <dict>
                 <key>frame</key>
@@ -963,7 +976,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9f4ddcaaeaad748789125f2e25eb33b7$</string>
+            <string>$TexturePacker:SmartUpdate:f820451bc1a9fb0c96beb8949f3e466e$</string>
             <key>textureFileName</key>
             <string>Res1.png</string>
         </dict>

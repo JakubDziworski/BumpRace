@@ -34,6 +34,7 @@
     <string>likeShareRecommendation.json</string>
     <string>tiredOfAdsDialog.json</string>
     <string>levelLockedDialog.json</string>
+    <string>tooHardDialog.json</string>
   </JsonList>
   <CanvasSize>
     <Width>512</Width>
@@ -49,5 +50,5 @@
     <string>Res1.plist</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>levelLockedDialog.json</CurrentUIJson>
+  <CurrentUIJson>tiredOfAdsDialog.json</CurrentUIJson>
 </UIProject>

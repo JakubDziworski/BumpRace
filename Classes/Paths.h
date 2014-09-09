@@ -41,7 +41,7 @@ const std::string R_flatBottom = "flatBottom.png";
 const std::string R_fbConnectBtn = "fbConnectBtn.png";
 const std::string R_fbdisconnectBtn = "fbDisConnectBtn.png";
 const std::string R_fbshareBtn = "fbShareBtn.png";
-const std::string R_fbIcon = "closebtn.png";//"fbIcon.png";
+const std::string R_fbIcon = "fbIcon.png";
 //LINKS
 const std::string R_fblink = "341653549336252";
 const std::string R_itunesLink = "https://itunes.apple.com/pl/app/real-boxing/id534473264?mt=8";

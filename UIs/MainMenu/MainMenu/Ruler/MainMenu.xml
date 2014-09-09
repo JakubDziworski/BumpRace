@@ -117,4 +117,8 @@
     <Project>levelLockedDialog</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>tooHardDialog</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

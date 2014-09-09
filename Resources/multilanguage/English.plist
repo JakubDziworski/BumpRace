@@ -66,9 +66,13 @@
 	<string>Complete previous level or unlock for 0.99$</string>
 	<key>unlock</key>
 	<string>Unlock</string>
-	<key>key</key>
-	<string>str</string>
 	<key>more_games</key>
 	<string>More Games</string>
+	<key>toohard</key>
+	<string>Too hard? Why don't you take a break and try some other games</string>
+	<key>noThanks</key>
+	<string>No, thanks</string>
+	<key>tryOther</key>
+	<string>Try other games</string>
 </dict>
 </plist>
