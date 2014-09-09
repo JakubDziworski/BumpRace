@@ -24,6 +24,10 @@ public:
 	void setTutorialCmpltd(const std::string &tutorialName);
 	void setTutorialsEnabled(bool vl);
 	bool areBasicTutorialsCompleted();
+	bool isRatedOrLiked();
+	void setRatedOrLiked(bool val);
+	bool areAdsEnabled();
+	void setAdsEnabled(bool val);
 };
 #endif
 

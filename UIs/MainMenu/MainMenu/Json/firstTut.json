@@ -135,9 +135,7 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [
-    "Res1.plist"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -170,8 +168,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.00300901826,
-              "positionPercentY": 0.0909298658,
+              "positionPercentX": -0.00279017864,
+              "positionPercentY": 0.0877193,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -344,7 +342,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0.00558035728,
-              "positionPercentY": 0.111111164,
+              "positionPercentY": 0.111111112,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -391,7 +389,7 @@
           "layoutParameter": null,
           "opacity": 255,
           "positionPercentX": 0.5058594,
-          "positionPercentY": -0.289473921,
+          "positionPercentY": -0.289473683,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,

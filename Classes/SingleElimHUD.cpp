@@ -23,7 +23,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create("GAME OVER!", R_defaultFont, 20);
+	auto gmOverText = Text::create(G_str("gmOver"), R_defaultFont, 20);
 	if (world->getCarrerLevel() != 0 && win)
 	{
 		gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());

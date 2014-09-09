@@ -17,6 +17,7 @@
 #include "soundManager.h"
 #include "ui/CocosGUI.h"
 #include "dialogReader.h"
+#include "GlobalAdManager.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //----***INIT***------//
@@ -143,7 +144,7 @@ void World::rozmiescCheckpointy()
 	do
 	{
 		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
-		int odleglosc = i +G_powerUpOdleglos+ rand() % int(G_powerUpOdlegloscVar);
+		int odleglosc = i +G_powerUpOdleglos+ random(0,G_powerUpOdlegloscVar);
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
 		pwrup->setPosition(Vec2(odleglosc, floor->bb.t + wysokosc));
 		i = odleglosc;
@@ -169,8 +170,8 @@ void World::tick(float delta)
 	//*******************//
 	if (rotationLayer->getNumberOfRunningActions() == 0 && !gameOver)
 	{
-		angle = rand() % 70;
-		const float duration = (rand() % 6 + 1) / 2.0f;
+		angle = random(0,70);
+		const float duration = random(0.3f,3.0f);
 		rotationLayer->runAction(RotateTo::create(duration, angle));
 		calculateSredniaPredkoscDoDzwieku();
 	}
@@ -318,7 +319,25 @@ void World::gameIsOver(bool win)
 	if (win && carrerLevel != 0)
 	{
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
+		//OSTATNI POZIOM
+		if (carrerLevel == 9)
+		{
+			//testing
+			auto dl = DelayTime::create(0.9f);
+			auto show = CallFunc::create([this]()
+			{
+				DialogReader::getInstance()->getTutorialDialog("carrerCompleted.json", G_getHud()->getCocostudioNode(), this, false);
+				((ui::Button*)DialogReader::getInstance()->getWidget("carrerCompleted.json", "checkOutGamesBtn"))->addTouchEventListener([](Ref* reff, ui::Button::TouchEventType type)
+				{
+					if (type != ui::Button::TouchEventType::ENDED) return;
+					SoundManager::getInstance()->playBtnEffect();
+					GlobalAdManager::showMoreGames();
+				});
+			});
+			this->runAction(Sequence::createWithTwoActions(dl, show));
+		}
 	}
+    //enoftest
 	rotationLayer->stopAllActions();
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
 	const float offset1 = VR::width() / scaleeLayer->getScale();
@@ -402,7 +421,7 @@ void World::s_putOnPlayers(Player* playerr)
 	{
 		do
 		{
-			losowa = (rand() % boxesNumber) + 0.1f;
+			losowa = random(0,boxesNumber-1) + 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
 		opponent->setBodyPosition(Vec2(VR::width()/2.0f /scaleeLayer->getScale() + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height*0.5f));
@@ -570,7 +589,7 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 	{
 		do
 		{
-			losowa = (rand() % boxesNumber) + 0.1f;
+			losowa = random(0,boxesNumber-1)+ 0.1f;
 		} while (std::find(wylosowane.begin(), wylosowane.end(), losowa) != wylosowane.end());
 		wylosowane.push_back(losowa);
 		opponent->setBodyPosition(Vec2(2.0f* G_srodek.x / scaleeLayer->getScale() + losowa*(opponent->getContentSize().width*2.0f), floorBody->p.y + opponent->getContentSize().height*0.5f));
@@ -720,13 +739,13 @@ void World::generateClouds()
 	{
 		for (int i = 0; i<7; i++)
 		{
-			const int wielkosc = rand() % (5) + 1;
+			const int wielkosc = random(1,5);
 			auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
-			const float randPosY = VR::height()*(float(rand() % 70 + 20) / 100.0f);
-			const float randPosX = VR::width()*(float(rand() % 100) / 100.0f);
-			const float szybkosc = (15 + float(rand() % 100) / 5.0f)*(randPosX / VR::width());
+			const float randPosY = VR::height()*(random(20.0f,90.0f) / 100.0f);
+			const float randPosX = VR::width()*(random(0.0f,100.0f) / 100.0f);
+			const float szybkosc = (15.0f + random(0.0f,20.0f))*(randPosX / VR::width());
 			//chmurka modifaction
-			auto delay = DelayTime::create((float(rand() % 100)) / 150.0f);
+			auto delay = DelayTime::create(random(0.0f,100.0f) / 150.0f);
 			chmurka->setPosition(randPosX, randPosY);
 			chmurka->setScale(0.01f);
 			chmurka->runAction(Sequence::createWithTwoActions(MoveTo::create(szybkosc, Vec2(- chmurka->getContentSize().width/2.0f, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); })));
@@ -734,18 +753,18 @@ void World::generateClouds()
 			{
 				chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));
 			})));
-			if (rand() % 2) chmurka->setFlippedX(true);
+			if (random(0,1)) chmurka->setFlippedX(true);
 			cloudsNode->addChild(chmurka, wielkosc);
 		}
 		pierwszeChmurki = true;
 	}
 	if (cloudsNode->getChildren().size() > 5) return;
-	const int wielkosc = rand() % (5) + 1;
-	const float szybkosc = 9 + float(rand() % 100) / 20.0f;
+	const int wielkosc = random(1,5);
+	const float szybkosc = 7 + random(0.0f,10.0f);
 	auto chmurka = Sprite::createWithSpriteFrameName(String::createWithFormat(R_cloudsFormat.c_str(), wielkosc)->getCString());
-	float randPosY = VR::height()*(float(rand() % 70 + 20) / 100.0f);
+	float randPosY = VR::height()*(random(20.0f,90.0f)/ 100.0f);
 	//chmurka modifaction
-	auto delay = DelayTime::create((float(rand()%100))/150.0f);
+	auto delay = DelayTime::create(random(0.0f,100.0f)/150.0f);
 	chmurka->setPosition(VR::width() + chmurka->getContentSize().width, randPosY);
 	chmurka->setScale(0.01f);
 	chmurka->runAction(Sequence::create(delay, MoveTo::create(szybkosc,Vec2(-chmurka->getContentSize().width/2.0f, randPosY)), CallFunc::create([chmurka](){chmurka->removeFromParent(); }), NULL));
@@ -753,7 +772,7 @@ void World::generateClouds()
 	{
 		chmurka->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 0.9f, 1.1f), ScaleTo::create(1.1f, 1))));
 	})));
-	if (rand() % 2) chmurka->setFlippedX(true);
+	if (random(0,1)) chmurka->setFlippedX(true);
 	cloudsNode->addChild(chmurka, wielkosc);
 }
 void World::generateDrzewka()
@@ -765,15 +784,15 @@ void World::generateDrzewka()
 		auto spr = Sprite::createWithSpriteFrameName(G_drzewkaFilePath.c_str());
 		rotationLayer->addChild(spr, j);
 		spr->setAnchorPoint(Vec2(0, 0));
-		spr->setScale((float(rand() % 275 + 40)) / 100.0f);
+		spr->setScale(random(40.0f,215.0f) / 100.0f);
 		if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekDuzych, 0)).x > VR::right().x+15)
-			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15, 0);//no animation
+			spr->setPosition(dlugoscDrzewekDuzych - random(0,14), 0);//no animation
 		else
 		{
-			spr->setPosition(dlugoscDrzewekDuzych - rand() % 15,-spr->getBoundingBox().getMaxY());//no animation
+			spr->setPosition(dlugoscDrzewekDuzych - random(0,14),-spr->getBoundingBox().getMaxY());//no animation
 			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f + 0.5f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
 		}
-		if (rand() % 2) spr->setFlippedX(true);
+		if (random(0,1)) spr->setFlippedX(true);
 		dlugoscDrzewekDuzych = spr->getBoundingBox().getMaxX();
 	}
 	if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x < VR::right().x + 25)
@@ -782,12 +801,12 @@ void World::generateDrzewka()
 		auto spr = Sprite::createWithSpriteFrameName(G_drzewkaFilePath.c_str());
 		rotationLayer->addChild(spr, j);
 		spr->setAnchorPoint(Vec2(0, 0));
-		spr->setScale((float(rand() % 60 + 40)) / 100.0f);
+		spr->setScale(random(40.0f,100.0f) / 100.0f);
 		if (rotationLayer->convertToWorldSpace(Point(dlugoscDrzewekMalych, 0)).x > VR::right().x + 15)
-			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, 0);//no animation
+			spr->setPosition(dlugoscDrzewekMalych - random(0,14), 0);//no animation
 		else
 		{
-			spr->setPosition(dlugoscDrzewekMalych - rand() % 15, -spr->getBoundingBox().getMaxY());//no animation
+			spr->setPosition(dlugoscDrzewekMalych - random(0,14), -spr->getBoundingBox().getMaxY());//no animation
 			spr->runAction(Sequence::createWithTwoActions(DelayTime::create(-j*0.2f +0.5f), MoveBy::create(0.3f, Vec2(0, -spr->getBoundingBox().getMinY()))));
 		}
 		if (rand() % 2) spr->setFlippedX(true);

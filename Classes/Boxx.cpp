@@ -9,10 +9,13 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 {
 	if (filename == R_FACEBOOKFACENAME)
 	{
-		if (!Sprite::initWithTexture(G_faceBookAvatarTex))
+		if (!Sprite::initWithSpriteFrameName("fbImgBg.png"))
 		{
 			return false;
 		}
+        auto front = Sprite::createWithTexture(G_faceBookAvatarTex);
+        this->addChild(front,1);
+        front->setNormalizedPosition(Vec2(0.5f,0.5f));
 	}
 	else
 	{
@@ -205,31 +208,23 @@ void Boxx::updatePhysPos()
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 5:
-		wind = 1.8f;
+		wind = 1.62f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 6:
-		wind = 2.0f;
+		wind = 1.64f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 7:
-		wind = 2.45f;
+		wind = 1.66f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 8:
-		wind = 2.55f;
+		wind = 1.68f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 9:
-		wind = 3.05f;
-		maxVel = G_maxVelocity*wind;
-		break;
-	case 10:
-		wind = 3.15f;
-		maxVel = G_maxVelocity*wind;
-		break;
-	case 11:
-		wind = 3.3f;
+		wind = 1.6f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	}

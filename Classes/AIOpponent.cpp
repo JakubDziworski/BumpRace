@@ -34,7 +34,7 @@ bool AIOpponent::myInit(const std::string& filename, std::string ID, cpSpace *sp
 	this->smartness = smartnez;
 	orderedOpponents = NULL;
 	//**trudnosc**//
-	const float randomPercent = (float)(rand() % 11 - 1)/10.0f;
+	const float randomPercent = random(0.0f,100.0f)/100.0f;
 	switch (smartness)
 	{
 	case 0:
@@ -123,7 +123,7 @@ void AIOpponent::maintainPowerUp()
 	}
 	if (target)
 	{
-        const int randVal = rand() % 11+1;
+        const int randVal = random(1,11);
 		if (dynamic_cast<Player*>(target))
 		{
 			switch (smartness)

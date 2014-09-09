@@ -113,7 +113,7 @@ void EndlessWorld::extendFlat()
 		}
 	}
 	//POWERUPS
-	for (int j = koniec - dodatek + G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar); j <= koniec; j += G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar))
+	for (int j = koniec - dodatek + G_powerUpOdleglos + random(0,G_powerUpOdlegloscVar); j <= koniec; j += G_powerUpOdleglos + random(0,G_powerUpOdlegloscVar))
 	{
 		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);
@@ -165,7 +165,7 @@ void EndlessWorld::setMinGates(int number)
 	}
 	//POWER UPY
 	
-	for (int odl = G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar); odl <= koniec; odl += G_powerUpOdleglos + rand() % int(G_powerUpOdlegloscVar))
+	for (int odl = G_powerUpOdleglos + random(0,G_powerUpOdlegloscVar); odl <= koniec; odl += G_powerUpOdleglos + random(0,G_powerUpOdlegloscVar))
 	{
 		int wysokosc = 2.5f * Sprite::createWithSpriteFrameName(R_Box[1])->getContentSize().height;
 		PowerUp *pwrup = PowerUp::create(&orderedOpponents);

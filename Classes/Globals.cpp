@@ -1,3 +1,4 @@
+
 #include "Globals.h"
 #include "cocos2d.h"
 #include "VisibleRect.h"
@@ -9,6 +10,7 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 #include "DbReader.h"
+int G_failsInRow = 0;
 std::multimap<int,std::string> G_scoresMap;
 std::string G_globalPlayerName="plyr1";
 int G_globalBoxFileNameIndex=0;
@@ -18,7 +20,7 @@ std::string G_drzewkaFilePath="";
 cocos2d::Texture2D *G_faceBookAvatarTex = NULL;
 cocos2d::Vector<Sprite*> G_spritesUsingFBImage(2);
 int G_endlessGateNumber = 5;
-int G_odlegloscmiedzyBramkami = 2090;
+int G_odlegloscmiedzyBramkami = 500;
 cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;
@@ -99,7 +101,7 @@ cocos2d::Color3B G_getRandomColor()
 	int tab[3];
 	for (int i = 0; i < 3; i++)
 	{
-		tab[i] = rand() % 155 + 100;
+		tab[i] = random(100,255);
 	}
 	return cocos2d::Color3B(tab[0], tab[1], tab[2]);
 }
@@ -259,47 +261,41 @@ void G_enableShadow(cocos2d::ui::Text *lbl)
 //**********************************FB********************************//
 void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node *caller)
 {
-     Session::getActiveSession()->setStatusCallback([fun](Session *session,SessionError *err)
-     {
-     if (session->getState() == Session::State::OPENED)
-     {
-     if (!Session::getActiveSession()->hasPermission("publish_actions"))
-     {
-     Session::getActiveSession()->requestPublishPermissions({ "publish_actions" });
-     }
-     if(fun != nullptr) fun(true);
-     Request::requestForMe([](int error, GraphUser *user)
-     {
-     if(error || !user)
-     {
-         FB_logOut();
-         return;
-     }
-     FB_loadPhoto(user->getId(), 160.0f / G_dir()->getContentScaleFactor());
-     DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
-     })->execute();
-     Request::requestForScores([](int error, const Vector<GraphScore *> &scores){
-         if(error) return;
-             int i=0;
-             G_scoresMap.clear();
-             for (auto s : scores) {
-                 G_scoresMap.insert( std::pair<int,std::string>(s->getScore(),s->getUser()->getName()));
-                 CCLOG("(user %s, score %ld)", s->getUser()->getName().c_str(), s->getScore());
-                 if(i==20)break;
-                 i++;
-             }
-         })->execute();
-     }
-     else
-     {
-     if(fun != nullptr) fun(false);
-     }
-     });
+	Session::getActiveSession()->setStatusCallback([fun](Session *session, SessionError *err)
+	{
+		if (session->isOpened())
+		{
+			if (fun != nullptr) fun(true);
+			Request::requestForMe([](int error, GraphUser *user)
+			{
+				if (error || !user)
+				{
+					FB_logOut();
+					return;
+				}
+				FB_loadPhoto(user->getId(), 160.0f / G_dir()->getContentScaleFactor());
+				DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
+			})->execute();
+			Request::requestForScores([](int error, const Vector<GraphScore *> &scores){
+				if (error) return;
+				int i = 0;
+				G_scoresMap.clear();
+				for (auto s : scores) {
+					G_scoresMap.insert(std::pair<int, std::string>(s->getScore(), s->getUser()->getName()));
+					CCLOG("(user %s, score %ld)", s->getUser()->getName().c_str(), s->getScore());
+					if (i == 20)break;
+					i++;
+				}
+			})->execute();
+
+		}
+		else if (fun != nullptr) fun(false);
+	});
 }
 void FB_login()
 {
 	 if (!Session::getActiveSession()->isOpened())
-	 Session::getActiveSession()->open(true, { "user_friends" },
+	 Session::getActiveSession()->open(true, {"user_friends" },
 	 DefaultAudience::PUBLIC,
 	 LoginBehavior::WITH_FALLBACK_TO_WEBVIEW);
 }
@@ -329,7 +325,7 @@ void FB_loadPhoto(const std::string& uid, const int size)
 {
 	PhotoLoader::getInstance()->download(uid,size);
 }
-void sharePost(const std::string &name,const std::string &caption,const std::string &descr)
+void FB_sharePost(const std::string &name,const std::string &caption,const std::string &descr)
 {
     ShareDialogParams *params = ShareDialogParams::create();
     params->setLink("http://www.cocos2d-x.org/");
@@ -357,11 +353,11 @@ void sharePost(const std::string &name,const std::string &caption,const std::str
 }
 void FB_shareGame()
 {
-    sharePost(G_str("ShrGameName"),G_str("ShrGameCaption"),G_str("ShrGameDescr"));
+    FB_sharePost(G_str("ShrGameName"),G_str("ShrGameCaption"),G_str("ShrGameDescr"));
 }
 void FB_shareLevelCompletedPost(const int level)
 {
-    sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
+    FB_sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
 }
 extern void FB_postBestScore(int score)
 {
@@ -371,13 +367,12 @@ extern void FB_postBestScore(int score)
 		{
 			Session::getActiveSession()->requestPublishPermissions({ "publish_actions" });
 		}
-		else
-		{
-			Facebook::getInstance()->postScore(score);
-		}
+		Facebook::getInstance()->postScore(DbReader::getInstance()->getEndlessBestScore());
+		FB_sharePost(String::createWithFormat(G_str("jstScored").c_str(), score)->getCString() , "caption", "descr");
 	}
 	else
 	{
+		CCLOG("sharing failed. triing to login");
 		FB_login();
 	}
 }
@@ -385,13 +380,15 @@ void FB_showScores(cocos2d::Node *nodeToAttach)
 {
 	auto main = DialogReader::getInstance()->getMainWidgetFromJson("FbBestScores.json", nodeToAttach);
 	auto listView = (cocos2d::ui::ListView*)DialogReader::getInstance()->getWidget("FbBestScores.json", "listView");
-	listView->setItemsMargin(10);
+	//listView->setItemsMargin(10);
+			listView->setClippingType(cocos2d::ui::Layout::ClippingType::SCISSOR);
 	listView->setItemModel((cocos2d::ui::Layout*)DialogReader::getInstance()->getWidget("FbBestScores.json", "record"));
         int i=0;
+        listView->removeAllChildren();
 		for (auto s : G_scoresMap)
 		{
 			listView->pushBackDefaultItem();
-			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString(s.second.c_str());
+			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString((std::to_string(i+1)+". "+s.second).c_str());
 			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playerScore"))->setString(std::to_string(s.first).c_str());
 			i++;
 		}

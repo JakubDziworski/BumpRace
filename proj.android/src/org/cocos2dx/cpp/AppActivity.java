@@ -26,31 +26,81 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.cpp;
 
+import java.security.spec.MGF1ParameterSpec;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxHandler;
 import org.cocos2dx.lib.Cocos2dxHelper;
 import org.cocos2dx.lib.Cocos2dxVideoHelper;
-import com.screw.facebook.*;
 
+import com.chartboost.sdk.CBLocation;
+import com.chartboost.sdk.Chartboost;
+import com.chartboost.sdk.Libraries.CBLogging.Level;
+import com.screw.facebook.*;
+import com.startapp.android.publish.Ad;
+import com.startapp.android.publish.AdDisplayListener;
+import com.startapp.android.publish.AdEventListener;
+import com.startapp.android.publish.StartAppAd;
+import com.startapp.android.publish.StartAppSDK;
+import com.startapp.android.publish.StartAppAd.AdMode;
+import com.startapp.android.publish.banner.Banner;
+import com.startapp.android.publish.banner.banner3d.Banner3D;
+
+import android.R.layout;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager.OnActivityResultListener;
+import android.sax.StartElementListener;
+import android.test.suitebuilder.TestSuiteBuilder.FailedToCreateTests;
+import android.text.Layout;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
-public class AppActivity extends Cocos2dxActivity {
+public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,AdEventListener {
+	private static AppActivity me;
+	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		me = this;
+		Chartboost.startWithAppId(me,"540f1f40c26ee4428af3b79f","cc2c459169d097360dfe4e930f15216a1445b449");
+		Chartboost.setLoggingLevel(Level.ALL);
+		Chartboost.onCreate(me);
+		StartAppSDK.init(me, "109722583", "209771633", true);
+		me.interestialAd = new StartAppAd(me);
+		me.moreGamesAd = new StartAppAd(me);
 		Facebook.onActivityCreate(this, savedInstanceState);
 	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if(interestialAd != null)
+		{
+			interestialAd.onResume();
+			moreGamesAd.onResume();
+			Chartboost.onResume(me);
+		}
 		Facebook.onActivityResume();
 	}
-
+	@Override
+	protected void onStop() {
+		super.onStop();
+		Chartboost.onStop(me);
+	}
 	@Override
 	protected void onPause() {
 		super.onPause();
+		if(interestialAd!=null)
+		{
+			interestialAd.onPause();
+			moreGamesAd.onPause();
+			Chartboost.onPause(me);
+		}
 		Facebook.onActivityPause();
 	}
 	@Override
@@ -59,4 +109,187 @@ public class AppActivity extends Cocos2dxActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Facebook.onActivityResult(requestCode, resultCode, data);
     }
+	private static boolean checkActv(Intent aint){
+    	try{
+    		me.startActivity(aint);
+    		return true;
+    	}
+    	catch(Exception e){
+    		 return false;
+    	}
+    }
+	//*****OPEN LINK*******//
+	public static void openURL(final String url){
+		me.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+		    	//normal Link
+				if(url.contains("http"))
+				{
+					//market
+					Intent i = new Intent(Intent.ACTION_VIEW);
+					i.setData(Uri.parse(url));
+					checkActv(i);
+				}
+				else
+				{
+					checkActv(getOpenFacebookIntent(url));
+				}
+			}
+		});
+    }
+	public static Intent getOpenFacebookIntent(String str) {
+		   try {
+		    me.getPackageManager().getPackageInfo("com.facebook.katana", 0);
+		    return new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/"+str));
+		   } catch (Exception e) {
+		    return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+str));
+		   }
+		}
+	
+	//*************ADS**************//
+	enum CurAdWanted{INTERESTIAL,MOREGAMES,BANNER};
+	public CurAdWanted curAdWanted;
+	public StartAppAd interestialAd;
+	public StartAppAd moreGamesAd;
+	public Banner bannerAd;
+	boolean failedToLoad = false;
+	
+	public static void showInteristial()
+	{
+		me.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				me.curAdWanted = CurAdWanted.INTERESTIAL;
+				if(me.failedToLoad)
+				{
+					me.failedToShowStartApp();
+				}
+				else
+				{
+					me.interestialAd.showAd(me);
+				}
+			}
+		});
+		
+	}
+	public static void showMoreGames()
+	{
+		me.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				me.curAdWanted = CurAdWanted.MOREGAMES;
+				if(me.failedToLoad)
+				{
+					me.failedToShowStartApp();
+				}
+				else
+				{
+					me.moreGamesAd.showAd(me);
+				}
+			}
+		});
+	}
+	public static void hideBanner()
+	{
+		me.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				me.bannerAd.hideBanner();
+			}
+		});
+	}
+	public static void showBanner()
+	{
+		me.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				FrameLayout mainLayout = (FrameLayout) me.getWindow().getDecorView().findViewById(android.R.id.content);
+				if(me.bannerAd!=null)
+				{
+				mainLayout.removeView(me.bannerAd);
+				}
+				me.curAdWanted = CurAdWanted.BANNER;
+				me.bannerAd = new Banner(me);
+				FrameLayout.LayoutParams bannerParameters =
+			            new FrameLayout.LayoutParams(
+			                        FrameLayout.LayoutParams.WRAP_CONTENT,
+			                        FrameLayout.LayoutParams.WRAP_CONTENT
+			                        );
+				bannerParameters.gravity = Gravity.CENTER | Gravity.BOTTOM;
+				// Add to main Layout
+				mainLayout.addView(me.bannerAd, bannerParameters);
+			}
+		});
+	}
+	private void reloadInterestial()
+	{
+		interestialAd = new StartAppAd(me);
+		interestialAd.loadAd(AdMode.FULLPAGE,me);
+	}
+	private void reloadMoreGames()
+	{
+		moreGamesAd = new StartAppAd(me);
+		moreGamesAd.loadAd(AdMode.OFFERWALL,me);
+	}
+	public static void loadAds()
+	{
+		me.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.v("ADS","started loading ads");
+				Chartboost.onStart(me);
+				Chartboost.cacheMoreApps(CBLocation.LOCATION_MAIN_MENU);
+				me.reloadMoreGames();
+				me.reloadInterestial();
+			}
+		});
+	}
+	private void failedToShowStartApp()
+	{
+		if(curAdWanted == CurAdWanted.MOREGAMES)
+	    {
+			Chartboost.showMoreApps(CBLocation.LOCATION_MAIN_MENU);
+			reloadMoreGames();
+	    }
+	    else if(curAdWanted == CurAdWanted.INTERESTIAL)
+	    {
+	    	Chartboost.showInterstitial(CBLocation.LOCATION_GAMEOVER);
+			reloadInterestial();
+	    }
+	}
+	@Override
+	public void onFailedToReceiveAd(Ad arg0) 
+	{
+		Log.v("ADS","ad failed");
+		failedToLoad= true;
+	}
+	@Override
+	public void onReceiveAd(Ad arg0) {
+		failedToLoad = false;
+		Log.v("ADS","ad recieved");
+	}
+	@Override
+	public void adClicked(Ad arg0) {
+		Log.v("ADS","ad clicked");
+	}
+	@Override
+	public void adDisplayed(Ad arg0) {
+		Log.v("ADS","ad displayed");
+	}
+	@Override
+	public void adHidden(Ad arg0) {
+		Log.v("ADS","ad hidden");
+		if(curAdWanted == CurAdWanted.MOREGAMES)
+	    {
+			reloadMoreGames();
+	    }
+	    else if(curAdWanted == CurAdWanted.INTERESTIAL)
+	    {
+			reloadInterestial();
+	    }
+	}
 }

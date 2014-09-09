@@ -38,20 +38,22 @@
 	<string>Gracz</string>
 	<key>Computers</key>
 	<string>Komputery</string>
+	<key>gmOver</key>
+	<string>Koniec Gry</string>
 	<key>Gate_Collector</key>
 	<string>Zbieracz Bramek</string>
 	<key>Elimination</key>
 	<string>Eliminacja</string>
 	<key>Endless</key>
-	<string>Nieskończony</string>
+	<string>Martwy Koniec</string>
 	<key>Choose_Name</key>
 	<string>Wybierz imię i postać</string>
 	<key>Choose_Names</key>
 	<string>Wybierzcie imiona i postacie</string>
-	<key>Łatwy</key>
-	<string>Easy</string>
-	<key>Średni</key>
-	<string>Medium</string>
+	<key>Easy</key>
+	<string>Łatwy</string>
+	<key>Medium</key>
+	<string>Średni</string>
 	<key>Hard</key>
 	<string>Trudny</string>
 	<key>autoCorrect</key>
@@ -71,7 +73,7 @@
 	<key>GatesCollected</key>
 	<string>zebranych bramek</string>
 	<key>Eliminated</key>
-	<string>ZOSTAŁEŚ WYELIMINOWANY!</string>
+	<string>   ZOSTAŁEŚ WYELIMINOWANY!   </string>
 	<key>YOUWON</key>
 	<string>WYGRAŁEŚ!</string>
 	<key>ObjElim</key>
@@ -117,7 +119,7 @@
 	<key>Mode</key>
 	<string>Tryb</string>
 	<key>wlcmTutText</key>
-	<string>Witaj w BumpRace</string>
+	<string>Witaj w Bump Race</string>
 	<key>generalRulesTut</key>
 	<string>Pierwszy gracz porusza się najwolniej (opór powietrza) a ostatni najszybciej.Dotknij ekranu aby podskoczyć.</string>
 	<key>wantToKnowTut</key>
@@ -133,11 +135,11 @@
 	<key>howToActivatePwrupTut</key>
 	<string>Aby aktywować naciśnij przyck na dole ekranu</string>
 	<key>gateCollectorTut</key>
-	<string>To jest tryb "Kolektor Bramek". Zbierz najwięcej bramek aby wygrać</string>
+	<string>To jest tryb &quot;Kolektor Bramek&quot;. Zbierz najwięcej bramek aby wygrać</string>
 	<key>enlessModeTut</key>
-	<string>To jest tryb "średniak". Będąc ostatni na dowolnej bramce przegrywasz!</string>
+	<string>To jest tryb &quot;Martwy koniec&quot;. Będąc ostatni na dowolnej bramce przegrywasz!</string>
 	<key>elimModeTut</key>
-	<string>To jest tryb "Eliminacja".Na każdej bramce odpada ostatni gracz, a gra toczy się dalej.</string>
+	<string>To jest tryb &quot;Eliminacja&quot;. Na każdej bramce odpada ostatni gracz, a gra toczy się dalej.</string>
 	<key>bestScoreModeTut</key>
 	<string>Zdobądź jak najwięcej bramek nie będąc ani razu ostanim na bramce</string>
 	<key>multiTut1</key>
@@ -146,8 +148,39 @@
 	<string>Możesz również naciskać na obszar nad przyciskiem</string>
 	<key>cmpltTutsFirst</key>
 	<string>Najpierw zagraj w trybie kariery lub wyłącz samuczek w opcjach</string>
-	
-	
-	
+	<key>carrerCmpltdDialog1</key>
+	<string>Ukończyłes wszystkie poziomy w trybie kariery!</string>
+	<key>carrerCmpltdDialog1a</key>
+	<string>Gratulacje!</string>
+	<key>carrerCmpltdMultiDialog</key>
+	<string>Zagraj ze swoimi znajomymi w trybie dla wielu graczy!</string>
+	<key>carrCmpltdPlentyThings</key>
+	<string>Możesz jednak grać dalej!</string>
+	<key>carrercmpltdTryCustom</key>
+	<string>Wypróbuj &quot;Własny tryb&quot; i ustal zasady gry</string>
+	<key>carrerCmpltdTryHighscore</key>
+	<string>Zmierz się z innymi graczami oraz samym sobą i pobij rekord w trybie &quot;Bicie rekordu&quot;</string>
+	<key>carrerCmpltdOtherGames</key>
+	<string>Wypróbuj również inne gry!</string>
+	<key>carrerCmpltdPlayOtherNow</key>
+	<string>Zagraj teraz!</string>
+	<key>tiredOfAds</key>
+	<string>Masz dość reklam? Usuń je teraz!</string>
+	<key>rmv</key>
+	<string>Usuń</string>
+	<key>workedHard</key>
+	<string>Ciężko pracowaliśmy nad tą grą. Jeżeli ci się podoba, oceń ją albo polub stronę na facebooku</string>
+	<key>rate</key>
+	<string>Oceń</string>
+	<key>rmvAds</key>
+	<string>Usuń reklamy</string>
+	<key>jstScored</key>
+	<string>Właśnie zdobyłem %d punktów w &quot;Bump Race&quot;</string>
+	<key>unlockLevel</key>
+	<string>Ukończ poprzedni poziom albo odblokuj za 0.99$</string>
+	<key>unlock</key>
+	<string>Odblokuj</string>
+	<key>more_games</key>
+	<string>Więcej Gier</string>
 </dict>
 </plist>

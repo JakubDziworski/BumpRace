@@ -2,6 +2,7 @@
 #include "HelloWorldScene.h"
 #include "MyMenu.h"
 #include "Globals.h"
+#include "GlobalAdManager.h"
 #include "screw/screw.h"
 USING_NS_CC;
 
@@ -16,6 +17,7 @@ AppDelegate::~AppDelegate()
 }
 bool AppDelegate::applicationDidFinishLaunching() {
 	screw::facebook::Session::start();
+	GlobalAdManager::preloadAds();
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();

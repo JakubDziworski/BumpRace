@@ -41,8 +41,12 @@ const std::string R_flatBottom = "flatBottom.png";
 const std::string R_fbConnectBtn = "fbConnectBtn.png";
 const std::string R_fbdisconnectBtn = "fbDisConnectBtn.png";
 const std::string R_fbshareBtn = "fbShareBtn.png";
-
-//MUSIC 
+const std::string R_fbIcon = "closebtn.png";//"fbIcon.png";
+//LINKS
+const std::string R_fblink = "341653549336252";
+const std::string R_itunesLink = "https://itunes.apple.com/pl/app/real-boxing/id534473264?mt=8";
+const std::string R_googleplayLink = "https://play.google.com/store/apps/details?id=com.vividgames.realboxing&hl=en";
+//MUSIC
 const std::string R_bgmusicMenu = "music/main.mp3";
 const std::string R_bgmusicGameplay = "music/gameplayMusic.mp3";
 const std::string R_MP3_punch = "sounds/punch.mp3";

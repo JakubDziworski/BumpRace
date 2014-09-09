@@ -5,6 +5,7 @@
 #include "Hud.h"
 #include "screw/screw.h"
 #include "Player.h"
+extern int G_failsInRow;
 extern std::string G_globalPlayerName;
 extern int G_globalBoxFileNameIndex;
 extern int G_endlessGateNumber;
@@ -63,7 +64,7 @@ extern void FB_shareGame();
 extern void FB_shareLevelCompletedPost(const int level);
 extern void FB_postBestScore(int score);
 extern void FB_showScores(cocos2d::Node *nodeToAttach);
-extern void sharePost(const std::string &name,const std::string &caption,const std::string &descr);
+extern void FB_sharePost(const std::string &name,const std::string &caption,const std::string &descr);
 extern void G_stretcNodeToFit(cocos2d::Node*);
 extern void G_scaleNodeVerticallyToFit(cocos2d::Node*);
 extern void G_scaleNodeToFitHorizontally(cocos2d::Node*);

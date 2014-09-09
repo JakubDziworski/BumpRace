@@ -20,6 +20,7 @@
 #include "extensions/GUI/CCEditBox/CCEditBox.h"
 #include "extensions/GUI/CCControlExtension/CCScale9Sprite.h"
 #include "screw/screw.h"
+#include "GlobalAdManager.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -75,7 +76,7 @@ bool MyMenu::init()
 					//**CHOOSE NAME***//
 					G_scaleNodeVerticallyToFit(dr->getHiddenMainWidFromJson("CHOOSENAMES.json", this));
                     auto textEdit = createTextEdit(G_playersDefaultNames[0], G_colors[playerboxFileNameIndex],NULL,1);
-					dr->getWidget("CHOOSENAMES.json", "editBoxPlaceHolder")->addChild(textEdit);
+					dr->getWidget("CHOOSENAMES.json", "editBoxPlaceHolder")->addChild(textEdit,0,"playerTextEdit");
 					textEdit->setNormalizedPosition(Point(0.5f, 0.5f));
 					((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->addEventListener([this, textEdit](Ref *reff, PageView::EventType type)
 					{
@@ -84,7 +85,7 @@ bool MyMenu::init()
 						playerboxFileNameIndex = ((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->getCurPageIndex();
 						textEdit->setFontColor(G_colors[playerboxFileNameIndex]);
 					});	
-					((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->scrollToPage(0);
+					((PageView*)dr->getWidget("CHOOSENAMES.json", "PageView_6"))->scrollToPage(3);
 					((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::playCustomNow, this));
 				//**CARRER**//
 				createLevelMapUI();	
@@ -101,7 +102,7 @@ bool MyMenu::init()
 				for (int i = 0; i < 3; i++)
 				{
 					auto textEdit = createTextEdit(G_playersDefaultNames[i], G_colors[m_playersBoxesFileNamesIndexes[i]],NULL,i+1);
-					dr->getWidget("MULTICHOOSENAMES.json", "editBoxPlaceHolder"+to_string(i))->addChild(textEdit);
+					dr->getWidget("MULTICHOOSENAMES.json", "editBoxPlaceHolder"+to_string(i))->addChild(textEdit,0,("textEdit"+std::to_string(i)).c_str());
 					auto page = ((PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i)));
 					page->addEventListener([this, textEdit,i](Ref *reff, PageView::EventType type)
 					{
@@ -110,21 +111,49 @@ bool MyMenu::init()
 						m_playersBoxesFileNamesIndexes[i] = ((PageView*)reff)->getCurPageIndex();
 						textEdit->setFontColor(G_colors[m_playersBoxesFileNamesIndexes[i]]);
 					});
-					page->scrollToPage(i);
+					page->scrollToPage(i+1);
 				}
 				((Button*)dr->getWidget("MULTICHOOSENAMES.json", "PlayNow"))->addTouchEventListener(CC_CALLBACK_2(MyMenu::playMultiNow, this));
 	//misc
 	refreshFBAvatar(NULL);
-	createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
-    createBtn(R_btnOn,"","", [this](Ref *reff,Widget::TouchEventType type)
+    if(!this->getChildByTag(L_CHOOSENAMES)->getChildByTag(645))
     {
-        if(type != Widget::TouchEventType::ENDED) return;
-        FB_showScores(this);
-    }, 645, this);
-    this->getChildByTag(645)->setPosition(VR::center());
-	auto backbtn = this->getChildByTag(B_BACK);
+        auto scoresBtn = createBtn(R_btnOn,"",G_str("bstScores"), [this](Ref *reff,Widget::TouchEventType type)
+                                   {
+                                       if(type != Widget::TouchEventType::ENDED) return;
+                                        SoundManager::getInstance()->playBtnEffect();
+                                       if(!G_faceBookAvatarTex)
+                                       {
+                                           FB_login();
+                                           return;
+                                       }
+                                       FB_showScores(this);
+                                   }, 645, this->getChildByTag(L_CHOOSENAMES));
+        auto playpos = dr->getWidget("CHOOSENAMES.json", "PlayNow")->getPosition();
+        scoresBtn->setPosition(Vec2(playpos.x,playpos.y+45));
+    }
+    if(!this->getChildByTag(L_MAINMENU)->getChildByTag(646))
+    {
+        auto moregamesBtn = createBtn(R_btnOn,"",G_str("more_games"),[](Ref* reff,ui::Widget::TouchEventType type)
+                                        {
+                                            if(type != Widget::TouchEventType::ENDED) return;
+                                            SoundManager::getInstance()->playBtnEffect();
+                                            GlobalAdManager::showMoreGames();
+                                        },646,this->getChildByTag(L_MAINMENU));
+        moregamesBtn->setAnchorPoint(Vec2(1,0));
+        moregamesBtn->setPosition(moregamesBtn->getParent()->convertToNodeSpace(Point(VR::right().x-15,VR::bottom().y+15)));
+        auto fbButton = createBtn(R_fbIcon,"","",[](Ref* reff,ui::Widget::TouchEventType type)
+                                  {
+                                      if(type != Widget::TouchEventType::ENDED) return;
+                                      SoundManager::getInstance()->playBtnEffect();
+                                      GlobalAdManager::goToLink(R_fblink);
+                                  },950,this->getChildByTag(L_MAINMENU));
+        fbButton->setAnchorPoint(Vec2(1,0));
+        fbButton->setPosition(moregamesBtn->getParent()->convertToNodeSpace(Point(VR::right().x-15,VR::bottom().y+48)));
+    }
+    auto backbtn = createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	backbtn->setAnchorPoint(Vec2(0, 1));
-	backbtn->setPosition(12,VR::leftTop().y-VR::bottom().y - 12);
+	backbtn->setPosition(Vec2(12,VR::leftTop().y-VR::bottom().y - 12));
 	backbtn->setOpacity(0);
 	backbtn->setVisible(false);
 	this->getChildByTag(L_MAINMENU)->setOpacity(255);
@@ -189,7 +218,7 @@ void MyMenu::createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* bt
 }
 cocos2d::extension::EditBox* MyMenu::createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag, std::function<void(const std::string &name)> callback/*=nullptr*/)
 {
-	auto editbox = extension::EditBox::create(Sprite::createWithSpriteFrameName(R_editBtn[0].c_str())->getContentSize(), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[0].c_str()), extension::Scale9Sprite::createWithSpriteFrameName(R_multiBtn[1].c_str()));
+	auto editbox = extension::EditBox::create(Sprite::createWithSpriteFrameName(R_editBtn[0].c_str())->getContentSize(), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[0].c_str()), extension::Scale9Sprite::createWithSpriteFrameName(R_editBtn[1].c_str()));
 	editbox->setText(text.c_str());
 	editbox->setFontColor(textColor);
 	editbox->setPlaceHolder(text.c_str());
@@ -269,8 +298,8 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 		hide(B_BACK);
 		break;
 	case L_CHOOSENAMES:
-        if (spType == singlePlayerType::best) show(L_PLAYSINGLE);
-		else show(L_FREERUN);
+        if (spType == singlePlayerType::free) show(L_FREERUN);
+		else show(L_PLAYSINGLE);
 		hide(L_CHOOSENAMES);
 		break;
 	default:
@@ -312,6 +341,7 @@ void MyMenu::onCarrerBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventT
 {
 	if (type != Widget::TouchEventType::ENDED) return;
 	spType = singlePlayerType::carrer;
+    this->getChildByTag(L_CHOOSENAMES)->getChildByTag(645)->setVisible(false);
     ((Text*)dr->getWidget("CHOOSENAMES.json", "Label_5_0"))->setString(G_str("Carrer"));
 	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Continue"));
      onSPcontinueToBoxChooseBtn(pSender, type);
@@ -326,6 +356,7 @@ void MyMenu::onFreeRunBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 		return;
 	}
 	spType = singlePlayerType::free;
+     this->getChildByTag(L_CHOOSENAMES)->getChildByTag(645)->setVisible(false);
     ((Text*)dr->getWidget("CHOOSENAMES.json", "Label_5_0"))->setString(G_str("FreeRun"));
 	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Play"));
 	show(L_FREERUN);
@@ -628,7 +659,7 @@ void MyMenu::createLevelMapUI()
 	G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson(R_LevelMapUI, parent));
 	parent->setOpacity(0);
 	parent->setVisible(false);
-	for (int i = 1; i <= 10; i++)
+	for (int i = 1; i < 10; i++)
 	{
 		const std::string name = "Level" + std::to_string(i) + "Btn";
 		auto btn = (Button*)DialogReader::getInstance()->getWidget(R_LevelMapUI, name);
@@ -636,11 +667,15 @@ void MyMenu::createLevelMapUI()
 		if (!DbReader::getInstance()->isLevelUnlocked(i))
 		{
 			btn->setColor(Color3B::GRAY);
-			btn->addTouchEventListener([this, parent](Ref* reff, Widget::TouchEventType type)
+			btn->addTouchEventListener([this, parent,i](Ref* reff, Widget::TouchEventType type)
 			{
 				if (type != Widget::TouchEventType::ENDED) return;
 				SoundManager::getInstance()->playBtnEffect();
 				G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("levelLockedDialog.json", this));
+				dr->addActionHideAndSomething("levelLockedDialog.json", "unlockLvLBtn", [i]()
+				{
+					GlobalAdManager::unlockLevel(i);
+				});
 			});
 		}
 		else
@@ -665,6 +700,7 @@ void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEve
 		return;
 	}
 	spType = singlePlayerType::best;
+    this->getChildByTag(L_CHOOSENAMES)->getChildByTag(645)->setVisible(true);
     ((Text*)dr->getWidget("CHOOSENAMES.json", "Label_5_0"))->setString(G_str("BestRun"));
 	((Button*)dr->getWidget("CHOOSENAMES.json", "PlayNow"))->setTitleText(G_str("Play"));
 	onSPcontinueToBoxChooseBtn(pSender, type);
@@ -703,6 +739,10 @@ void MyMenu::createOptionsMenu()
 		auto dialgo = DialogReader::getInstance()->getMainWidgetFromJson("creditsDialog.json", parent);
 		dialgo->setNormalizedPosition(Vec2(0, 0));
 		G_scaleNodeVerticallyToFit(dialgo);
+	});
+	dr->addButtonAction("Options.json", "rmvAdsBtn", []()
+	{
+		GlobalAdManager::rmvAds();
 	});
 	dr->addButtonAction("Options.json", "TutorialsOnButton", []{DbReader::getInstance()->setTutorialsEnabled(true); });
 	dr->addButtonAction("Options.json", "TutorialsOffBtn", []{DbReader::getInstance()->setTutorialsEnabled(false); });
@@ -749,7 +789,8 @@ void MyMenu::onEnter()
 }
 void MyMenu::UPDATEPLAYERNAME()
 {
-    if(playerEditBoxListener) playerEditBoxListener->setText(G_playersDefaultNames[0].c_str());
+	((extension::EditBox*)dr->getWidget("CHOOSENAMES.json", "editBoxPlaceHolder")->getChildByName("playerTextEdit"))->setText(G_playersDefaultNames[0].c_str());
+	((extension::EditBox*)dr->getWidget("MULTICHOOSENAMES.json", "editBoxPlaceHolder0")->getChildByName("textEdit0"))->setText(G_playersDefaultNames[0].c_str());
 }
  void MyMenu::shareGame(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -793,6 +834,7 @@ void MyMenu::UPDATEPLAYERNAME()
  }
 void MyMenu::refreshFBAvatar(cocos2d::Texture2D *tex)
  {
+	UPDATEPLAYERNAME();
 	 for (int i = 0; i < 4; i++)
 	 {
 		 Sprite* spr;
@@ -811,6 +853,7 @@ void MyMenu::refreshFBAvatar(cocos2d::Texture2D *tex)
 		 parent->removeAllChildren();
 		 parent->addChild(spr);
 	 }
+
  }
  void MyMenu::checkIfNoOpponents(cocos2d::ui::Text* txt)
  {

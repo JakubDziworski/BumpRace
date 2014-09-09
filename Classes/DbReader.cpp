@@ -90,4 +90,24 @@ void DbReader::setTutorialsEnabled(bool vl)
 	db->setBoolForKey("TUTORIALS_ENABLED", vl);
 }
 
+bool DbReader::isRatedOrLiked()
+{
+	return db->getBoolForKey("RATEDORLIKED", false);
+}
+
+void DbReader::setRatedOrLiked(bool val)
+{
+	db->setBoolForKey("RATEDORLIKED", val);
+}
+
+bool DbReader::areAdsEnabled()
+{
+	db->getBoolForKey("ADSENABLED", true);
+}
+
+void DbReader::setAdsEnabled(bool val)
+{
+	db->setBoolForKey("ADSENABLED", val);
+}
+
 DbReader * DbReader::me = NULL;

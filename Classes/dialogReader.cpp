@@ -64,7 +64,6 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
 		if (dynamic_cast<Text*>(node))
 		{
 			Text *nod = (Text*)node;
-			G_enableShadow(nod);
 			nod->setString(G_str(nod->getString()));
 		}
 		//IF IS A BUTTON
@@ -158,9 +157,9 @@ cocos2d::ui::Layout* DialogReader::getHiddenMainWidFromJson(const std::string &f
 	ret->setOpacity(0);
 	return ret;
 }
-void DialogReader::getTutorialDialog(const std::string &cocosFileName, cocos2d::Node *parent, World *worldToPause)
+void DialogReader::getTutorialDialog(const std::string &cocosFileName, cocos2d::Node *parent, World *worldToPause,bool once /*= true*/)
 {
-	if (DbReader::getInstance()->isTutorialCmpltd(cocosFileName)) return;
+	if (once && DbReader::getInstance()->isTutorialCmpltd(cocosFileName)) return;
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	auto main = me->getMainWidgetFromJson(cocosFileName, parent);
     G_scaleNodeVerticallyToFit(main);
@@ -182,7 +181,7 @@ void DialogReader::getTutorialDialog(const std::string &cocosFileName, cocos2d::
 		i++;
 	} while (widget != NULL);
 	int touches = 0;
-	((Button*)me->getWidget(cocosFileName, "continueBtn"))->addTouchEventListener([worldToPause, widgets, touches, main,cocosFileName](Ref* reff, Widget::TouchEventType type) mutable
+	((Button*)me->getWidget(cocosFileName, "continueBtn"))->addTouchEventListener([once,worldToPause, widgets, touches, main,cocosFileName](Ref* reff, Widget::TouchEventType type) mutable
 	{
 		if (type != Widget::TouchEventType::ENDED) return;
 		SoundManager::getInstance()->playBtnEffect();
@@ -202,7 +201,7 @@ void DialogReader::getTutorialDialog(const std::string &cocosFileName, cocos2d::
 				action->play();
 				main->setTouchEnabled(false);
 			}
-			DbReader::getInstance()->setTutorialCmpltd(cocosFileName);
+			if (once) DbReader::getInstance()->setTutorialCmpltd(cocosFileName);
 		}
 	});
 }

@@ -34,7 +34,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create("Game Over", R_defaultFont, 20);
+	auto gmOverText = Text::create(G_str("gmOver"), R_defaultFont, 20);
 	if (newRecord) gmOverText->setString(G_str("newRecord").c_str());
 	if (win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (!win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
@@ -52,6 +52,25 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 		gmOverNode->addWidget(score);
 		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, 12);
 		gmOverNode->addWidget(bestScore);
+        auto scoresBtn = Button::create(R_btnOn,"","",TextureResType::PLIST);
+        scoresBtn->setTitleText(G_str("bstScores"));
+        scoresBtn->setTitleFontName(R_defaultFont);
+        scoresBtn->addTouchEventListener([this](Ref *reff,Widget::TouchEventType type)
+                                   {
+                                       if(type != Widget::TouchEventType::ENDED) return;
+                                       SoundManager::getInstance()->playBtnEffect();
+                                       if(!G_faceBookAvatarTex)
+                                       {
+                                           FB_login();
+                                           return;
+                                       }
+                                       FB_showScores(this);
+                                   });
+        LinearLayoutParameter *customparam = LinearLayoutParameter::create();
+        customparam->setGravity(LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
+        customparam->setMargin(Margin(0, 12, 0, 12));
+        scoresBtn->setLayoutParameter(customparam);
+        gmOverNode->addWidgetCustomParam(scoresBtn);
 	}
 	if (beating || (carrer && win))
 	{

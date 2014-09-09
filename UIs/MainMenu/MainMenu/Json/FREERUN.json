@@ -12,9 +12,7 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [
-    "Res1.plist"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -102,7 +100,7 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": 0.502232134,
-                  "positionPercentY": 0.3625731,
+                  "positionPercentY": 0.3508772,
                   "positionType": 1,
                   "rotation": 0,
                   "scaleX": 1,

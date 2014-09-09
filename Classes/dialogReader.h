@@ -16,7 +16,7 @@ public:
 	void addActionHideAndSomething(const std::string& cocosFileName, const std::string &name, std::function<void()> additionalFeature);
 	void addButtonAction(const std::string& cocosFileName, const std::string &name, std::function<void()> additionalFeature);
 	cocos2d::Node* getWidget(const std::string &cocosFileName, const std::string &name);
-	void getTutorialDialog(const std::string &cocosFileName, cocos2d::Node *parent, World *worldToPause);
+	void getTutorialDialog(const std::string &cocosFileName, cocos2d::Node *parent, World *worldToPause,bool once = true);
 	void flush();
 };
 #endif

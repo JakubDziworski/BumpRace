@@ -34,8 +34,11 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/DbReader.cpp \
                    ../../Classes/PowerUp.cpp \
                    ../../Classes/soundManager.cpp \
-                   ../../Classes/DialogReader.cpp
-
+                   ../../Classes/DialogReader.cpp \
+                   ../../Classes/GlobalAdManager.cpp \
+				   ../../Classes/AdsAndroidManager.cpp \
+				   ../../Classes/emptyDefinitions.cpp
+				   
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(LOCAL_PATH)/../../cocos2d/cocos/ui
 

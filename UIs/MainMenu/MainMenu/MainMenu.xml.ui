@@ -29,6 +29,11 @@
     <string>bestScoreModeTut.json</string>
     <string>multiPlayerTut.json</string>
     <string>completeTutsFirst.json</string>
+    <string>carrerCompleted.json</string>
+    <string>CarrerLevelChooser_1.json</string>
+    <string>likeShareRecommendation.json</string>
+    <string>tiredOfAdsDialog.json</string>
+    <string>levelLockedDialog.json</string>
   </JsonList>
   <CanvasSize>
     <Width>512</Width>
@@ -44,5 +49,5 @@
     <string>Res1.plist</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>Options.json</CurrentUIJson>
+  <CurrentUIJson>levelLockedDialog.json</CurrentUIJson>
 </UIProject>

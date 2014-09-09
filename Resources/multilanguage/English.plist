@@ -4,6 +4,8 @@
 <dict>
 	<key>wlcmText</key>
 	<string>Welcome to BumpRace</string>
+	<key>gmOver</key>
+	<string>Game Over</string>
 	<key>generalRulesTut</key>
 	<string>Tap on the screen to jump. First player moves the slowest (wind restriction) while last one the fastest</string>
 	<key>wantToKnowTut</key>
@@ -17,13 +19,13 @@
 	<key>thrustTut</key>
 	<string>Trigger thruster to speed up</string>
 	<key>howToActivatePwrupTut</key>
-	<string>To activate press button on the bottom</key>
-	<key>gateCollectorTut</string>
-	<string>You're playing "Gate Collector" mode. Collect most gates to win</string>
+	<string>To activate press button on the bottom</string>
+	<key>gateCollectorTut</key>
+	<string>You&apos;re playing &quot;Gate Collector&quot; mode. Collect most gates to win</string>
 	<key>enlessModeTut</key>
-	<string>You're playing "anything but last" mode. Reach gate last and you loose!</string>
+	<string>You&apos;re playing &quot;anything but last&quot; mode. Reach gate last and you loose!</string>
 	<key>elimModeTut</key>
-	<string>You're playing "Elimintion" mode.Each gate last player is eliminated and the game goes on</string>
+	<string>You&apos;re playing &quot;Elimintion&quot; mode.Each gate last player is eliminated and the game goes on</string>
 	<key>bestScoreModeTut</key>
 	<string>Collect as many gates as possible without reaching any gate last</string>
 	<key>multiTut1</key>
@@ -32,5 +34,41 @@
 	<string>You can also touch anywhere over the button</string>
 	<key>cmpltTutsFirst</key>
 	<string>Play carrer first on disable tutorials in Options</string>
+	<key>carrerCmpltdDialog1</key>
+	<string>You completed all carrier levels!</string>
+	<key>carrerCmpltdDialog1a</key>
+	<string>Congratulations!</string>
+	<key>carrerCmpltdMultiDialog</key>
+	<string>Play multiplayer with your friends!</string>
+	<key>carrCmpltdPlentyThings</key>
+	<string>There is still plenty things to do!</string>
+	<key>carrercmpltdTryCustom</key>
+	<string>Try custom mode and choose your own rules for a single run!</string>
+	<key>carrerCmpltdTryHighscore</key>
+	<string>Compete with yourself and other players by setting a highscore in &quot;Best score&quot; mode</string>
+	<key>carrerCmpltdOtherGames</key>
+	<string>Try some other amazaing games too!</string>
+	<key>carrerCmpltdPlayOtherNow</key>
+	<string>Play them now!</string>
+	<key>tiredOfAds</key>
+	<string>Tired of ads? Remove them now</string>
+	<key>rmv</key>
+	<string>Remove</string>
+	<key>workedHard</key>
+	<string>We worked hard on this game. If you enjoy it please like facebook page or rate it</string>
+	<key>rate</key>
+	<string>Rate</string>
+	<key>rmvAds</key>
+	<string>Remove Ads</string>
+	<key>jstScored</key>
+	<string>I just scored %d in &quot;BumpRace&quot;</string>
+	<key>unlockLevel</key>
+	<string>Complete previous level or unlock for 0.99$</string>
+	<key>unlock</key>
+	<string>Unlock</string>
+	<key>key</key>
+	<string>str</string>
+	<key>more_games</key>
+	<string>More Games</string>
 </dict>
 </plist>

@@ -8,6 +8,7 @@
 #include "VisibleRect.h"
 #include "soundManager.h"
 #include "dialogReader.h"
+#include "GlobalAdManager.h"
 USING_NS_CC;
 using namespace ui;
 bool Hud::init()
@@ -25,7 +26,7 @@ bool Hud::init()
 	//PAUSE//
 	pauseNode = Node::create();
 	cocostudioNode = Node::create();
-	this->addChild(cocostudioNode);
+	this->addChild(cocostudioNode,4);
 	cocostudioNode->setPosition(VR::leftBottom());
 	Button* pauseBtn = Button::create(R_pauseBtn, "", "", TextureResType::PLIST);
 	pauseBtn->setTitleFontName(R_defaultFont);
@@ -48,7 +49,7 @@ bool Hud::init()
 	pauseNode->addChild(goToMenu);
 	pauseNode->setPosition(VR::center());
 	pauseNode->setVisible(false);
-	this->addChild(pauseNode);
+	this->addChild(pauseNode,7);
 	this->addChild(pauseBtn, 1, B_PAUSE);
 	//INFO
 	infoNode = Label::create("",R_defaultFont,17);
@@ -103,7 +104,9 @@ void Hud::repeatBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::Touc
 	SoundManager::getInstance()->playBtnEffect();
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	repeatBtnListenerExtended();
+    GlobalAdManager::hideBanner();
 	((World*)Director::getInstance()->getRunningScene()->getChildByTag(LAYER_GAMEPLAY))->restartLevel();
+    
 }
 void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
@@ -112,6 +115,7 @@ void Hud::gotoMenuBtnListenerBase(cocos2d::Ref* pSender, cocos2d::ui::Button::To
 	SoundManager::getInstance()->playBtnEffect();
 	Director::getInstance()->getScheduler()->setTimeScale(1);
 	gotoMenuBtnListenerExtended();
+    GlobalAdManager::hideBanner();
 	Director::getInstance()->replaceScene(MyMenu::createScene());
 }
 void Hud::displayGameOver(bool win)
@@ -145,7 +149,51 @@ void Hud::displayGameOver(bool win)
 		pwrupBtn->runAction(Sequence::createWithTwoActions(wait, move));
 		i += 0.2f;
 	}
-
+	//rate game
+	auto lateDialogs = CallFunc::create([this,win]()
+	{
+        GlobalAdManager::showBanner();
+        if(win) G_failsInRow = 0;
+        else
+        {
+            G_failsInRow++;
+            if(G_failsInRow == 6)
+            {
+                
+                //TO DO DISPLAY WHY NOT TRY OTHER GAMES
+            }
+        }
+        if(random(0,1)!=0)
+        {
+            GlobalAdManager::showInteristial();
+        }
+		if (random(0,4) == 0 && !DbReader::getInstance()->isRatedOrLiked())
+		{
+			G_scaleNodeVerticallyToFit(DialogReader::getInstance()->getMainWidgetFromJson("likeShareRecommendation.json", cocostudioNode));
+			DialogReader::getInstance()->addActionHideAndSomething("likeShareRecommendation.json", "likeBtn_0", []()
+			{
+                
+				GlobalAdManager::goToLink(R_fblink);
+				DbReader::getInstance()->setRatedOrLiked(true);
+			});
+			DialogReader::getInstance()->addActionHideAndSomething("likeShareRecommendation.json", "rateBtn", []()
+            {
+				if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) GlobalAdManager::goToLink(R_itunesLink);
+				else if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) GlobalAdManager::goToLink(R_googleplayLink);
+				DbReader::getInstance()->setRatedOrLiked(true);
+			});
+		}
+		//get Rid Of Ads
+		else if (random(0,4) == 0 && DbReader::getInstance()->areAdsEnabled())
+		{
+			G_scaleNodeVerticallyToFit(DialogReader::getInstance()->getMainWidgetFromJson("tiredOfAdsDialog.json", cocostudioNode));
+			DialogReader::getInstance()->addActionHideAndSomething("tiredOfAdsDialog.json", "removeAdsBtn", []()
+			{
+				GlobalAdManager::rmvAds(); 
+			});
+		}
+	});
+	this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.8f), lateDialogs));
 }
 void Hud::displayInfo(const std::string &stringToDisplay, Boxx* boxabout)
 {
@@ -242,6 +290,7 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 void Hud::displayNextLevel(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType)
 {
 	if (touchType != Button::TouchEventType::ENDED) return;
+    GlobalAdManager::hideBanner();
 	SoundManager::getInstance()->playBtnEffect();
 	Node *parent = Node::create();
 	this->addChild(parent);
@@ -276,7 +325,7 @@ void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
     retryBtn->setLayoutParameter(param);
 	btnlayout->addWidgetCustomParam(menuBtn);
 	btnlayout->addWidgetCustomParam(retryBtn);
-	if (G_getWorld()->getCarrerLevel() != 0 && win)
+	if (G_getWorld()->getCarrerLevel() != 0 && G_getWorld()->getCarrerLevel() != 9 && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
 		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(Hud::displayNextLevel, this));
