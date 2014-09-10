@@ -17,6 +17,7 @@ AppDelegate::~AppDelegate()
 }
 bool AppDelegate::applicationDidFinishLaunching() {
 	screw::facebook::Session::start();
+	GlobalAdManager::checkBought();
 	GlobalAdManager::preloadAds();
     // initialize director
     auto director = Director::getInstance();

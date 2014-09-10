@@ -19,6 +19,7 @@ public:
     //IN APP
 	static void rmvAds();
 	static void unlockLevel(int i);
+	static void checkBought();
     //GO TO
 	static void goToLink(const std::string &str);
 };

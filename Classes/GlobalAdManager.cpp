@@ -6,6 +6,10 @@
  */
 
 #include "GlobalAdManager.h"
+#include "cocos2d.h"
+#include "Macros.h"
+#include "MyMenu.h"
+#define COCOS2D_DEBUG 2;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "AdsCPPManager.h"
 #endif
@@ -26,6 +30,7 @@ void GlobalAdManager::preloadAds() {
 }
 
 void GlobalAdManager::showInteristial() {
+if(!DbReader::getInstance()->areAdsEnabled()) return;
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     {
     	AdsAndroidManager::showInteristialAndroid();
@@ -53,6 +58,7 @@ void GlobalAdManager::showMoreGames()
 }
 void GlobalAdManager::showBanner()
 {
+if(!DbReader::getInstance()->areAdsEnabled()) return;
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     {
     	AdsAndroidManager::showBannerAndroid();
@@ -93,11 +99,57 @@ void GlobalAdManager::goToLink(const std::string &str)
 
 void GlobalAdManager::rmvAds()
 {
-
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    {
+    	AdsAndroidManager::rmvAdsAndroid();
+    }
+#endif
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    {
+        //AdsCPPManager::goToUrl(str);
+    }
+#endif
 }
 
 void GlobalAdManager::unlockLevel(int i)
 {
-
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    {
+    	AdsAndroidManager::unlockLevelAndroid();
+    }
+#endif
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    {
+        //AdsCPPManager::goToUrl(str);
+    }
+#endif
+}
+void GlobalAdManager::checkBought()
+{
+	int value;
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    {
+		value = AdsAndroidManager::checkPurchases();
+    }
+#endif
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    {
+        //AdsCPPManager::goToUrl(str);
+    }
+#endif
+    CCLOG("BOUGHT AD VALUE  = %d",value);
+    if(value == 1 || value == 3)
+    {
+    	DbReader::getInstance()->setAdsEnabled(false);
+    }
+    if(value == 2 || value == 3)
+    {
+    	DbReader::getInstance()->setLevelsEnabledAll(true);
+    	MyMenu *menu = dynamic_cast<MyMenu*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
+    	if(menu)
+    	{
+    		menu->createLevelMapUI();
+    	}
+    }
 }
 

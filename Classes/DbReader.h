@@ -28,6 +28,8 @@ public:
 	void setRatedOrLiked(bool val);
 	bool areAdsEnabled();
 	void setAdsEnabled(bool val);
+	void setLevelsEnabledAll(bool val);
+	void getLevelsEnabledAll();
 };
 #endif
 

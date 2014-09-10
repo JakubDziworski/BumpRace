@@ -109,5 +109,16 @@ void DbReader::setAdsEnabled(bool val)
 {
 	db->setBoolForKey("ADSENABLED", val);
 }
-
+void DbReader::setLevelsEnabledAll(bool val)
+{
+	db->setBoolForKey("ALLLEVELSENABLED",true);
+	for(int i=1;i<=9;i++)
+	{
+		unlockLevel(i);
+	}
+}
+void DbReader::getLevelsEnabledAll()
+{
+	db->getBoolForKey("ALLLEVELSENABLED",false);
+}
 DbReader * DbReader::me = NULL;

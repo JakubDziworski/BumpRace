@@ -19,7 +19,8 @@ public:
 	static void hideBannerAndroid();
 	//IN APP
 	static void rmvAdsAndroid();
-	static void unlockLevelAndroid(int i);
+	static void unlockLevelAndroid();
+	static int checkPurchases();
 	//GO TO
 	static void goToLinkAndroid(const std::string &str);
 };

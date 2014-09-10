@@ -27,12 +27,14 @@ THE SOFTWARE.
 package org.cocos2dx.cpp;
 
 import java.security.spec.MGF1ParameterSpec;
+import java.util.ArrayList;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxHandler;
 import org.cocos2dx.lib.Cocos2dxHelper;
 import org.cocos2dx.lib.Cocos2dxVideoHelper;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.chartboost.sdk.CBLocation;
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.Libraries.CBLogging.Level;
@@ -47,9 +49,16 @@ import com.startapp.android.publish.banner.Banner;
 import com.startapp.android.publish.banner.banner3d.Banner3D;
 
 import android.R.layout;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.preference.PreferenceManager.OnActivityResultListener;
 import android.sax.StartElementListener;
 import android.test.suitebuilder.TestSuiteBuilder.FailedToCreateTests;
@@ -60,13 +69,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,AdEventListener {
+public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,AdEventListener,ServiceConnection {
 	private static AppActivity me;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		me = this;
+		bindService(new 
+				Intent("com.android.vending.billing.InAppBillingService.BIND"),
+				this, Context.BIND_AUTO_CREATE);
 		Chartboost.startWithAppId(me,"540f1f40c26ee4428af3b79f","cc2c459169d097360dfe4e930f15216a1445b449");
 		Chartboost.setLoggingLevel(Level.ALL);
 		Chartboost.onCreate(me);
@@ -104,10 +116,35 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		Facebook.onActivityPause();
 	}
 	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    Chartboost.onDestroy(me);
+	    if (mService != null) {
+	        unbindService(me);
+	    }   
+	}
+	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         Facebook.onActivityResult(requestCode, resultCode, data);
+        //IN APP
+        if (requestCode == 1097) 
+        {           
+            if (resultCode == RESULT_OK) 
+            {
+              //TU ZE KUPILES REMOVE ADS
+            	purchasedAds();
+            }
+         }
+        if (requestCode == 1098)
+        {
+        	 if (resultCode == RESULT_OK) 
+             {
+               //TU ZE KUPILES POZIOMY
+        		purchasedLevels();
+             }
+        }
     }
 	private static boolean checkActv(Intent aint){
     	try{
@@ -292,5 +329,85 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	    {
 			reloadInterestial();
 	    }
+	}
+	
+	//IN APP PURCHASE
+	static IInAppBillingService mService;
+	public static native void purchasedAds();
+	public static native void purchasedLevels();
+	@Override
+	public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+		 mService = IInAppBillingService.Stub.asInterface(arg1);
+	}
+	@Override
+	public void onServiceDisconnected(ComponentName arg0) {
+		 mService = null;
+	}
+	static int inAppUnlocked()
+	{
+		if(mService!=null)
+		{
+			try {
+				Bundle ownedItems = mService.getPurchases(3, me.getPackageName(), "inapp", null);
+				int response = ownedItems.getInt("RESPONSE_CODE");
+				if (response == 0) {
+				   ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+				   if(ownedSkus.size() == 0) return 0;
+				   if(ownedSkus.size() == 2) return 3;
+				   if(ownedSkus.get(0) == "com.bumprace.removeads") return 1;
+				   if(ownedSkus.get(0) == "com.bumprace.unlocklevel") return 2;
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+	public static void unlockLevels()
+	{
+		me.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Bundle buyIntentBundle = mService.getBuyIntent(3, me.getPackageName(),
+							"com.bumprace.unlocklevel", "inapp", "unlockLevelPayLoad");
+					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+					try {
+						me.startIntentSenderForResult(pendingIntent.getIntentSender(),
+								   1098, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+								   Integer.valueOf(0));
+					} catch (SendIntentException e) {
+						e.printStackTrace();
+					}
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public static void removeAd()
+	{
+		me.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				purchasedAds();
+				try {
+					Bundle buyIntentBundle = mService.getBuyIntent(3, me.getPackageName(),
+							"com.bumprace.removeads", "inapp", "removeAdsPayLoad");
+					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+					try {
+						me.startIntentSenderForResult(pendingIntent.getIntentSender(),
+								   1097, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+								   Integer.valueOf(0));
+					} catch (SendIntentException e) {
+						e.printStackTrace();
+					}
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

@@ -64,8 +64,8 @@ private:
 	void createSpinner(cocos2d::ui::Button* btnplus, cocos2d::ui::Button* btnMinus, const std::string &defaultText,cocos2d::ui::Text *labelText, int &changinVal, int maxVal, int minVal,std::function<void(cocos2d::ui::Text*)> additionalFunction=nullptr);
 	cocos2d::extension::EditBox* createTextEdit(std::string &text, cocos2d::Color3B textColor, int parenttag, int tag,std::function<void(const std::string &name)> callback=nullptr);
 	void createSinglePlayerTutorialDialog();
-	void createLevelMapUI();
 public:
+	void createLevelMapUI();
     void UPDATEPLAYERNAME();
 	static cocos2d::Scene* createScene();
 	virtual bool init();
