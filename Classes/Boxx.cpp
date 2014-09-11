@@ -327,7 +327,7 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 	case PowerUp::PowerUpType::SPEED:
 		jetpack = Sprite::createWithSpriteFrameName(R_jetpack);
 		jetpack->setNormalizedPosition(Vec2(0, 0.5f));
-		this->addChild(jetpack);
+		this->addChild(jetpack,3);
 		break;
 	case PowerUp::PowerUpType::GHOST:
 		ghost = Sprite::createWithSpriteFrameName(String::createWithFormat("%s1.png",R_ghostPrefix.c_str())->getCString());
@@ -338,7 +338,7 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 	case PowerUp::PowerUpType::THUNDER:
 		rocket = Sprite::createWithSpriteFrameName(R_rocket);
 		rocket->setNormalizedPosition(Vec2(0, 0.5f));
-		this->addChild(rocket);
+		this->addChild(rocket,3);
 		break;
 
 	default:

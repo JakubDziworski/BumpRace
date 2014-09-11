@@ -273,6 +273,7 @@ void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node
 					FB_logOut();
 					return;
 				}
+				G_playersDefaultNames[0] = user->getFirstName();
 				FB_loadPhoto(user->getId(), 160.0f / G_dir()->getContentScaleFactor());
 				DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
 			})->execute();

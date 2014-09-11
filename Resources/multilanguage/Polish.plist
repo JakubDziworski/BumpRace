@@ -145,7 +145,7 @@
 	<key>elimModeTut</key>
 	<string>To jest tryb &quot;Eliminacja&quot;. Na każdej bramce odpada ostatni gracz, a gra toczy się dalej.</string>
 	<key>bestScoreModeTut</key>
-	<string>Zdobądź jak najwięcej bramek nie będąc ani razu ostanim na bramce</string>
+	<string>Pokonaj jak najwięcej bramek nie będąc ani razu ostani</string>
 	<key>multiTut1</key>
 	<string>Naciskaj na przycisk w kolorze twojej postaci aby podskoczyć</string>
 	<key>multiTut2</key>

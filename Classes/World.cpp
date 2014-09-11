@@ -469,7 +469,7 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
 	lateInit();
 	getHud()->setMultiplayer(this);
-	scaleeLayer->setPositionY(scaleeLayer->getPositionY()+Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height);	//podwyzszamy troche zeby przyciski nie zaslanialy nic
+	scaleeLayer->setPositionY((scaleeLayer->getPositionY()+Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height)/scaleeLayer->getScale());	//podwyzszamy troche zeby przyciski nie zaslanialy nic
 	DialogReader::getInstance()->getTutorialDialog("multiPlayerTut.json", hud->getCocostudioNode(), this);
 }
 void World::m_onTouched(const std::vector<Touch*>& touches, cocos2d::Event  *event)
