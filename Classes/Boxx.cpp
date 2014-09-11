@@ -333,7 +333,7 @@ bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)
 		ghost = Sprite::createWithSpriteFrameName(String::createWithFormat("%s1.png",R_ghostPrefix.c_str())->getCString());
 		ghost->setNormalizedPosition(Vec2(0.25f, 1.05f));
 		ghost->setOpacity(255);
-		this->addChild(ghost);
+		this->addChild(ghost,3);
 		break;
 	case PowerUp::PowerUpType::THUNDER:
 		rocket = Sprite::createWithSpriteFrameName(R_rocket);

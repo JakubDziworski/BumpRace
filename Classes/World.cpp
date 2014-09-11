@@ -35,6 +35,7 @@ void World::lateInit()
 	cpSpaceAddCollisionHandler(gravitySpace, COLLISONTYPEBOX, COLLISONTYPEBOX, NULL, NULL, World::boxesCollided, NULL, NULL);
 	cpSpaceAddCollisionHandler(gravitySpace, COLLISONTYPEBOX, COLLISIONTYPEFLOOR, NULL, NULL, World::boxFeltDown, NULL, NULL);
 	SoundManager::getInstance()->playBgMusicGameplay();
+	DialogReader::getInstance()->flush();
 	DialogReader::getInstance()->getTutorialDialog("firstTut.json", hud->getCocostudioNode(),this);
 }
 bool World::myInit(int numberOfPlayers,int gates)

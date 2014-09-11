@@ -74,6 +74,8 @@
 	<string>nie zaliczony</string>
 	<key>GatesCollected</key>
 	<string>zebranych bramek</string>
+	<key>elmintd</key>
+	<string>wyeliminowany</string>
 	<key>Eliminated</key>
 	<string>   ZOSTAŁEŚ WYELIMINOWANY!   </string>
 	<key>YOUWON</key>
@@ -83,7 +85,7 @@
 	<key>ObjGate</key>
 	<string>Cel: Zdobądź największą ilość bramek</string>
 	<key>ObjEndless</key>
-	<string>Cel: Przejdź wszystkie punkty kontrolne\nnie będąc ani razu ostani na bramce</string>
+	<string>Cel: Przejdź wszystkie punkty kontrolne nie będąc ostatni</string>
 	<key>smart</key>
 	<string>Mądrzy</string>
 	<key>stupid</key>
@@ -187,7 +189,7 @@
 	<key>more_games</key>
 	<string>More Games</string>
 	<key>toohard</key>
-	<string>Za trudne? Zrób sobię przerwę i spróbuj innych gier.</string>
+	<string>Za trudne? Zrób sobię przerwę i wyprubój inne gry.</string>
 	<key>noThanks</key>
 	<string>Nie</string>
 	<key>tryOther</key>

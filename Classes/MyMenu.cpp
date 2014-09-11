@@ -515,7 +515,7 @@ void MyMenu::playMultiNow(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
 	Scene *scene;
 	if (m_currModeSelected == 0)
 	{
-		scene = SingleGateWorld::createScene(m_currOpponentsNumber +m_currPlayersNumber, currGatesNumb, currDiffValue);
+		scene = SingleGateWorld::createScene(m_currOpponentsNumber +m_currPlayersNumber, m_currGatesNumb, currDiffValue);
 	}
 	else if (m_currModeSelected == 1)
 	{
@@ -654,11 +654,16 @@ void MyMenu::createSinglePlayerTutorialDialog()
 }
 void MyMenu::createLevelMapUI()
 {
-	auto parent = Layout::create();
-	this->addChild(parent,0, L_CARRER);
+	Layout *parent = NULL;
+	if(!this->getChildByTag(L_CARRER))
+	{
+		parent = Layout::create();
+		this->addChild(parent,0, L_CARRER);
+		parent->setOpacity(0);
+		parent->setVisible(false);
+	}
+	else parent = (Layout*)this->getChildByTag(L_CARRER);
 	G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson(R_LevelMapUI, parent));
-	parent->setOpacity(0);
-	parent->setVisible(false);
 	for (int i = 1; i < 10; i++)
 	{
 		const std::string name = "Level" + std::to_string(i) + "Btn";
@@ -813,7 +818,7 @@ void MyMenu::UPDATEPLAYERNAME()
 		 {
 			 for (auto child : page->getChildren())
 			 {
-				 if (child->getScale() != 1);
+				 if (child->getScale() != 1)
 				 child->runAction(ScaleTo::create(scaleTime, 1));
 			 }
 		 }

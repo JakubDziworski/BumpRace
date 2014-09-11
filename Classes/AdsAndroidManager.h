@@ -20,7 +20,7 @@ public:
 	//IN APP
 	static void rmvAdsAndroid();
 	static void unlockLevelAndroid();
-	static int checkPurchases();
+	static void checkPurchases();
 	//GO TO
 	static void goToLinkAndroid(const std::string &str);
 };

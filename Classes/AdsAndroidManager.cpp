@@ -7,6 +7,7 @@
 
 #include "AdsAndroidManager.h"
 #include "platform/android/jni/JniHelper.h"
+#include "GlobalAdManager.h"
 #define COCOS2D_DEBUG 2
 using namespace cocos2d;
 extern "C"
@@ -111,28 +112,26 @@ void AdsAndroidManager::goToLinkAndroid(const std::string &str)
 		t.env->CallStaticVoidMethod(t.classID, t.methodID, stringArg);
 	}
 }
-int AdsAndroidManager::checkPurchases()
+void AdsAndroidManager::checkPurchases()
 {
 	JniMethodInfo t;
 	if (JniHelper::getStaticMethodInfo(t,
 			"org/cocos2dx/cpp/AppActivity",    // fully qualified class name
 			"inAppUnlocked",                              // method name
-			"()I")) {             // data type of argument
+			"()V")) {             // data type of argument
 
-			jint i =  (jint)t.env->CallObjectMethod(t.classID,t.methodID);
-			return i;
+			t.env->CallObjectMethod(t.classID,t.methodID);
 	}
-	return 0;
 }
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_purchasedAds(JNIEnv* env, jobject thiz);
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_purchasedLevels(JNIEnv* env, jobject thiz);
 }
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_purchasedAds(JNIEnv* env, jobject thiz)
 {
-	CCLOG("BOUGHT ADS");
+    GlobalAdManager::onBoughtRemoveAds();
 }
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_purchasedLevels(JNIEnv* env, jobject thiz)
 {
-	CCLOG("BOUGHT LEVELS");
+    GlobalAdManager::onBoughtLevels();
 }
 

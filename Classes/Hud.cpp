@@ -280,6 +280,7 @@ void Hud::powerUpCollected(PowerUp::PowerUpType type, Boxx* box)
 	{
 		if (type != Widget::TouchEventType::ENDED) return;
 		SoundManager::getInstance()->playBtnEffect();
+        if(!box || box->isDeactivated()) return;
 		if (!box->activatePowerUp()) return;
 		activatorBtns[i]->setTouchEnabled(false);
 		activatorBtns[i]->stopAllActions();

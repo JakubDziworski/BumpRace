@@ -20,7 +20,7 @@ std::string G_drzewkaFilePath="";
 cocos2d::Texture2D *G_faceBookAvatarTex = NULL;
 cocos2d::Vector<Sprite*> G_spritesUsingFBImage(2);
 int G_endlessGateNumber = 5;
-int G_odlegloscmiedzyBramkami = 500;
+int G_odlegloscmiedzyBramkami = 2500;
 cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;

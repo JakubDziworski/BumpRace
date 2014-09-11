@@ -18,6 +18,9 @@ public:
     static void showBanner();
     static void hideBanner();
     static void goToUrl(const std::string &str);
+    //in app
+    static void buyrmvAdsIos();
+    static void buyAllLevelsIos();
     
 };
 #endif /* defined(__BumpRace__AdsCPPManager__) */

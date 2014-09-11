@@ -20,6 +20,8 @@ public:
 	static void rmvAds();
 	static void unlockLevel(int i);
 	static void checkBought();
+    static void onBoughtLevels();
+    static void onBoughtRemoveAds();
     //GO TO
 	static void goToLink(const std::string &str);
 };

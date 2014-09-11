@@ -9,9 +9,12 @@
 #import "MyAdsManager.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <StartApp/StartApp.h>
+#include "GlobalAdManager.h"
 
 @implementation MyAdsManager
 
+NSString *const rmvAdsID =@"fgfds";
+NSString *const unlckLevelsID=@"gfdsgfds";
 
 + (MyAdsManager*) getInstance
 {
@@ -32,6 +35,7 @@
 - (void) preloadALL
 {
     //START APP
+    [self fetchProducts];
     STAStartAppSDK* sdk = [STAStartAppSDK sharedInstance];
     sdk.appID = @"209130774";
     sdk.devID = @"109722583";
@@ -135,5 +139,62 @@
 - (void) didClickAd:(STAAbstractAd*)ad
 {
     
+}
+
+//in app purchase
+-(void) rmvAdsIos
+{
+    for(SKProduct * skProduct in _products)
+    {
+        if(skProduct.productIdentifier == rmvAdsID)
+        {
+            SKPayment *payment = [SKPayment paymentWithProduct:skProduct];
+            [[SKPaymentQueue defaultQueue]addPayment: payment];
+        }
+    }
+}
+-(void) unlockLevelIos
+{
+    for(SKProduct * skProduct in _products)
+    {
+        if(skProduct.productIdentifier == unlckLevelsID)
+        {
+            SKPayment *payment = [SKPayment paymentWithProduct:skProduct];
+            [[SKPaymentQueue defaultQueue]addPayment: payment];
+            [[SKPaymentQueue defaultQueue]addTransactionObserver:self];
+        }
+    }
+}
+
+-(void) paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
+    for(SKPaymentTransaction *transaction in transactions)
+    {
+        switch (transaction.transactionState) {
+            case SKPaymentTransactionStatePurchased || SKPaymentTransactionStateRestored:
+                if(transaction.payment.productIdentifier == rmvAdsID)
+                {
+                    GlobalAdManager::onBoughtRemoveAds();
+                }
+                    
+                else if(transaction.payment.productIdentifier == unlckLevelsID)
+                {
+                    GlobalAdManager::onBoughtLevels();
+                }
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+        }
+    }
+}
+-(void) fetchProducts
+{
+    _productsRequest = [[SKProductsRequest alloc] init];
+    _productsRequest.delegate = self;
+    [_productsRequest start];
+}
+-(void) productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
+{
+    _products = response.products;
+    _productsRequest=nil;
 }
 @end

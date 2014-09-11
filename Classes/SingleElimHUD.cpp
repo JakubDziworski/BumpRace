@@ -102,7 +102,7 @@ void SingleElimHud::lateinit(World *worldd)
 }
 void SingleElimHud::boxEliminated(Boxx* ostatni)
 {
-	this->displayInfo("ELIMINATED!",ostatni);
+	this->displayInfo(G_str("elmintd"),ostatni);
 	Text *wyeliminowany = scoreTable.at(ostatni);
 	const float zwolnienie = G_dir()->getScheduler()->getTimeScale();
 	auto powieksz = ScaleTo::create(0.35f*zwolnienie, 1.4f);
@@ -118,6 +118,13 @@ void SingleElimHud::boxEliminated(Boxx* ostatni)
 		{
 			if (plyr == ostatni)
 			{
+                if(activatorBtns[i])
+                {
+                    activatorBtns[i]->stopAllActions();
+                    activatorBtns[i]->runAction(EaseBackIn::create(MoveBy::create(0.5f,Vec2(0,-100))));
+                    activatorBtns[i]->setTouchEnabled(false);
+                    activatorBtns[i]->runAction(TintTo::create(0.5f, 139 ,131, 120));
+                }
 				multiBtns[i]->setTouchEnabled(false);
 				multiBtns[i]->runAction(TintTo::create(0.5f, 139 ,131, 120));
 			}

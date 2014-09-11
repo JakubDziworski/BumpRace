@@ -33,3 +33,11 @@ void AdsCPPManager::goToUrl(const std::string &str)
     NSString* output = [NSString stringWithUTF8String:str.c_str()];
     [[MyAdsManager getInstance] openURLPage : output];
 }
+void AdsCPPManager::buyrmvAdsIos()
+{
+    [[MyAdsManager getInstance] rmvAdsIos];
+}
+void AdsCPPManager::buyAllLevelsIos()
+{
+    [[MyAdsManager getInstance] unlockLevelIos];
+}

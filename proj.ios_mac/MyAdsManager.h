@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <Chartboost/Chartboost.h>
 #import <StartApp/StartApp.h>
-
+#import <StoreKit/StoreKit.h>
 typedef enum
 {
     BANER,
@@ -20,13 +20,15 @@ typedef enum
     MOREGAMES
 } CurrAdWanted;
 
-@interface MyAdsManager :  UIViewController <ChartboostDelegate,STADelegateProtocol,STABannerDelegateProtocol>
+@interface MyAdsManager :  UIViewController <ChartboostDelegate,STADelegateProtocol,STABannerDelegateProtocol,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 {
      STAStartAppAd* interistialStartAppAd;
      STAStartAppAd* moreGamesStartAppAd;
     STABannerView* banner;
      CurrAdWanted adWanted;
+    SKProductsRequest *_productsRequest;
 }
+@property (nonatomic, strong) NSArray *products;
 + (MyAdsManager*) getInstance;
 - (void) preloadALL;
 - (void)showInterstitial;
@@ -34,6 +36,9 @@ typedef enum
 - (void) showBanner;
 - (void) hideBanner;
 - (void) openURLPage : (NSString*)str;
-
+//in app
+-(void) rmvAdsIos;
+-(void) unlockLevelIos;
+-(int) checkPurchasesIos;
 @end
 #endif

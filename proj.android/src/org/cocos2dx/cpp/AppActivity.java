@@ -28,6 +28,8 @@ package org.cocos2dx.cpp;
 
 import java.security.spec.MGF1ParameterSpec;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxHandler;
@@ -40,6 +42,7 @@ import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.Libraries.CBLogging.Level;
 import com.screw.facebook.*;
 import com.startapp.android.publish.Ad;
+import com.startapp.android.publish.Ad.AdState;
 import com.startapp.android.publish.AdDisplayListener;
 import com.startapp.android.publish.AdEventListener;
 import com.startapp.android.publish.StartAppAd;
@@ -69,16 +72,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,AdEventListener,ServiceConnection {
+public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,AdEventListener {
 	private static AppActivity me;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		me = this;
-		bindService(new 
-				Intent("com.android.vending.billing.InAppBillingService.BIND"),
-				this, Context.BIND_AUTO_CREATE);
+		Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+		serviceIntent.setPackage("com.android.vending");
+		bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 		Chartboost.startWithAppId(me,"540f1f40c26ee4428af3b79f","cc2c459169d097360dfe4e930f15216a1445b449");
 		Chartboost.setLoggingLevel(Level.ALL);
 		Chartboost.onCreate(me);
@@ -119,9 +122,10 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	public void onDestroy() {
 	    super.onDestroy();
 	    Chartboost.onDestroy(me);
-	    if (mService != null) {
-	        unbindService(me);
-	    }   
+	    if (mService != null) 
+	    {
+	        unbindService(mServiceConn);
+	    }
 	}
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -335,33 +339,51 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	static IInAppBillingService mService;
 	public static native void purchasedAds();
 	public static native void purchasedLevels();
-	@Override
-	public void onServiceConnected(ComponentName arg0, IBinder arg1) {
-		 mService = IInAppBillingService.Stub.asInterface(arg1);
-	}
-	@Override
-	public void onServiceDisconnected(ComponentName arg0) {
-		 mService = null;
-	}
-	static int inAppUnlocked()
+	ServiceConnection mServiceConn = new ServiceConnection() 
 	{
-		if(mService!=null)
-		{
-			try {
-				Bundle ownedItems = mService.getPurchases(3, me.getPackageName(), "inapp", null);
-				int response = ownedItems.getInt("RESPONSE_CODE");
-				if (response == 0) {
-				   ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
-				   if(ownedSkus.size() == 0) return 0;
-				   if(ownedSkus.size() == 2) return 3;
-				   if(ownedSkus.get(0) == "com.bumprace.removeads") return 1;
-				   if(ownedSkus.get(0) == "com.bumprace.unlocklevel") return 2;
+		   @Override
+		   public void onServiceDisconnected(ComponentName name) 
+		   {
+		       mService = null;
+		   }
+
+		   @Override
+		   public void onServiceConnected(ComponentName name, IBinder service) 
+		   {
+		       mService = IInAppBillingService.Stub.asInterface(service);
+		   }
+	};
+	public static void inAppUnlocked()
+	{
+		me.runOnUiThread(new Runnable() {
+			@Override
+			public void run() 
+			{
+				if(mService!=null)
+				{
+					try 
+					{
+						Bundle ownedItems = mService.getPurchases(3, me.getPackageName(), "inapp", null);
+						int response = ownedItems.getInt("RESPONSE_CODE");
+						if (response == 0) {
+						   ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+						   if(ownedSkus.size() == 0) return;
+						   if(ownedSkus.size() == 2)
+						   {
+							   purchasedAds();
+							   purchasedLevels();
+						   }
+						   else if(ownedSkus.get(0) == "com.bumprace.removeads") purchasedAds();
+						   else if(ownedSkus.get(0) == "com.bumprace.unlocklevel") purchasedLevels();
+						}
+					} 
+					catch (RemoteException e) 
+					{
+						e.printStackTrace();
+					}
 				}
-			} catch (RemoteException e) {
-				e.printStackTrace();
 			}
-		}
-		return 0;
+		});
 	}
 	public static void unlockLevels()
 	{
@@ -370,6 +392,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 			@Override
 			public void run() {
 				try {
+					if(mService == null) return;
 					Bundle buyIntentBundle = mService.getBuyIntent(3, me.getPackageName(),
 							"com.bumprace.unlocklevel", "inapp", "unlockLevelPayLoad");
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
@@ -392,8 +415,8 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 			
 			@Override
 			public void run() {
-				purchasedAds();
 				try {
+					if(mService == null) return;
 					Bundle buyIntentBundle = mService.getBuyIntent(3, me.getPackageName(),
 							"com.bumprace.removeads", "inapp", "removeAdsPayLoad");
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");

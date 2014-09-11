@@ -5,11 +5,16 @@
 //  Created by kuba on 04.09.2014.
 //
 //
-
+/*
 #include "AdsCPPManager.h"
-    void AdsCPPManager::preload(){}
-   void AdsCPPManager::showIntereIstial(){}
-    void AdsCPPManager::showMoreApps(){}
-   void AdsCPPManager::showBanner(){}
-   void AdsCPPManager::hideBanner(){}
-    void AdsCPPManager::goToUrl(const std::string &str){}
+static void preloadAndroid();
+static void showInteristialAndroid();
+static void showMoreGamesAndroid();
+static void showBannerAndroid();
+static void hideBannerAndroid();
+//IN APP
+static void rmvAdsAndroid();
+static void unlockLevelAndroid();
+static int checkPurchases();
+//GO TO
+static void goToLinkAndroid(const std::string &str);*/

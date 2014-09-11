@@ -2,9 +2,9 @@
 //  StartApp.h
 //  StartApp
 //
-//  Created by Aviv Alluf on 5/22/14.
+//  Created by StartApp on 5/22/14.
 //  Copyright (c) 2014 StartApp. All rights reserved.
-//
+//  SDK version 2.3.1
 
 #import <Foundation/Foundation.h>
 

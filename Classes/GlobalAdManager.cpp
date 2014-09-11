@@ -106,7 +106,7 @@ void GlobalAdManager::rmvAds()
 #endif
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     {
-        //AdsCPPManager::goToUrl(str);
+        AdsCPPManager::buyrmvAdsIos();
     }
 #endif
 }
@@ -120,36 +120,34 @@ void GlobalAdManager::unlockLevel(int i)
 #endif
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     {
-        //AdsCPPManager::goToUrl(str);
+        AdsCPPManager::buyAllLevelsIos();
     }
 #endif
 }
 void GlobalAdManager::checkBought()
 {
-	int value;
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     {
-		value = AdsAndroidManager::checkPurchases();
+		AdsAndroidManager::checkPurchases();
     }
 #endif
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     {
-        //AdsCPPManager::goToUrl(str);
+       //nothing
     }
 #endif
-    CCLOG("BOUGHT AD VALUE  = %d",value);
-    if(value == 1 || value == 3)
+}
+void GlobalAdManager::onBoughtLevels()
+{
+    DbReader::getInstance()->setLevelsEnabledAll(true);
+    MyMenu *menu = dynamic_cast<MyMenu*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
+    if(menu)
     {
-    	DbReader::getInstance()->setAdsEnabled(false);
+        menu->createLevelMapUI();
     }
-    if(value == 2 || value == 3)
-    {
-    	DbReader::getInstance()->setLevelsEnabledAll(true);
-    	MyMenu *menu = dynamic_cast<MyMenu*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
-    	if(menu)
-    	{
-    		menu->createLevelMapUI();
-    	}
-    }
+}
+void GlobalAdManager::onBoughtRemoveAds()
+{
+    DbReader::getInstance()->setAdsEnabled(false);
 }
 
