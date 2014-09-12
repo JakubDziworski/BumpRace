@@ -71,6 +71,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
         customparam->setMargin(Margin(0, 12, 0, 12));
         scoresBtn->setLayoutParameter(customparam);
         gmOverNode->addWidgetCustomParam(scoresBtn);
+        FB_updateScore();
 	}
 	if (beating || (carrer && win))
 	{

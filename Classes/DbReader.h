@@ -23,6 +23,7 @@ public:
 	bool isTutorialCmpltd(const std::string &tutorialName);
 	void setTutorialCmpltd(const std::string &tutorialName);
 	void setTutorialsEnabled(bool vl);
+	bool areTutorialsEnabled();
 	bool areBasicTutorialsCompleted();
 	bool isRatedOrLiked();
 	void setRatedOrLiked(bool val);

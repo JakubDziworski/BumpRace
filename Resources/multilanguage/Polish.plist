@@ -181,7 +181,7 @@
 	<key>jstScored</key>
 	<string>Właśnie zdobyłem %d punktów w &quot;Bump Race&quot;</string>
 	<key>unlockLevel</key>
-	<string>Ukończ poprzedni poziom albo odblokuj za 0.99$</string>
+	<string>Ukończ poprzedni poziom albo odblokuj</string>
 	<key>unlock</key>
 	<string>Odblokuj</string>
 	<key>more_games</key>

@@ -140,11 +140,13 @@ void GlobalAdManager::checkBought()
 void GlobalAdManager::onBoughtLevels()
 {
     DbReader::getInstance()->setLevelsEnabledAll(true);
-    MyMenu *menu = dynamic_cast<MyMenu*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD));
-    if(menu)
-    {
-        menu->createLevelMapUI();
-    }
+    auto scene = cocos2d::Director::getInstance()->getRunningScene();
+    if(!scene) return;
+    MyMenu *menu = dynamic_cast<MyMenu*>(scene->getChildByTag(LAYER_HUD));
+    if(!menu) return;
+    CCLOG("BEFORE TRYING TO ACCES LVEL MAP");
+    menu->createLevelMapUI();
+    CCLOG("AFTER TRYING TO ACCES LVEL MAP");
 }
 void GlobalAdManager::onBoughtRemoveAds()
 {

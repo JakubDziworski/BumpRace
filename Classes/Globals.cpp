@@ -10,6 +10,8 @@
 #include "SingleEliminationWorld.h"
 #include "EndlessWorld.h"
 #include "DbReader.h"
+#include "soundManager.h"
+#define COCOS2D_DEBUG 2
 int G_failsInRow = 0;
 std::multimap<int,std::string> G_scoresMap;
 std::string G_globalPlayerName="plyr1";
@@ -360,6 +362,10 @@ void FB_shareLevelCompletedPost(const int level)
 {
     FB_sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
 }
+void FB_updateScore()
+{
+	Facebook::getInstance()->postScore(DbReader::getInstance()->getEndlessBestScore());
+}
 extern void FB_postBestScore(int score)
 {
 	if (Session::getActiveSession()->isOpened())
@@ -380,18 +386,29 @@ extern void FB_postBestScore(int score)
 void FB_showScores(cocos2d::Node *nodeToAttach)
 {
 	auto main = DialogReader::getInstance()->getMainWidgetFromJson("FbBestScores.json", nodeToAttach);
+	G_scaleNodeVerticallyToFit(main);
+	main->setTouchEnabled(true);
+	main->setPositionY(0);
+	main->setOpacity(0);
+    main->runAction(FadeIn::create(0.3f));
+	DialogReader::getInstance()->addButtonAction("FbBestScores.json","closeBtn",[main]()
+			{
+				main->runAction(FadeOut::create(0.3f));
+				main->setPositionY(-VR::height());
+			});
 	auto listView = (cocos2d::ui::ListView*)DialogReader::getInstance()->getWidget("FbBestScores.json", "listView");
-	//listView->setItemsMargin(10);
-			listView->setClippingType(cocos2d::ui::Layout::ClippingType::SCISSOR);
+	listView->setItemsMargin(10);
+	listView->setClippingType(cocos2d::ui::Layout::ClippingType::SCISSOR);
 	listView->setItemModel((cocos2d::ui::Layout*)DialogReader::getInstance()->getWidget("FbBestScores.json", "record"));
         int i=0;
         listView->removeAllChildren();
 		for (auto s : G_scoresMap)
 		{
-			listView->pushBackDefaultItem();
-			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString((std::to_string(i+1)+". "+s.second).c_str());
-			((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playerScore"))->setString(std::to_string(s.first).c_str());
-			i++;
+				CCLOG("pushing to scores %s",s.second.c_str());
+							listView->pushBackDefaultItem();
+							((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString((std::to_string(i+1)+". "+s.second).c_str());
+							((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playerScore"))->setString(std::to_string(s.first).c_str());
+							i++;
 		}
 }
 

@@ -663,6 +663,7 @@ void MyMenu::createLevelMapUI()
 		parent->setVisible(false);
 	}
 	else parent = (Layout*)this->getChildByTag(L_CARRER);
+	bool firstUncompletedFound=false;
 	G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson(R_LevelMapUI, parent));
 	for (int i = 1; i < 10; i++)
 	{
@@ -671,6 +672,11 @@ void MyMenu::createLevelMapUI()
 		btn->setColor(Color3B::WHITE);
 		if (!DbReader::getInstance()->isLevelUnlocked(i))
 		{
+			if(!firstUncompletedFound)
+			{
+				firstUncompletedFound=true;
+				btn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f,1.3f),ScaleTo::create(0.2f,1))));
+			}
 			btn->setColor(Color3B::GRAY);
 			btn->addTouchEventListener([this, parent,i](Ref* reff, Widget::TouchEventType type)
 			{
@@ -745,12 +751,44 @@ void MyMenu::createOptionsMenu()
 		dialgo->setNormalizedPosition(Vec2(0, 0));
 		G_scaleNodeVerticallyToFit(dialgo);
 	});
+	if(!DbReader::getInstance()->areAdsEnabled())
+	{
+		auto rmvBtn = (Button*)dr->getWidget("Options.json", "rmvAdsBtn");
+		rmvBtn->setTouchEnabled(false);
+		rmvBtn->setColor(Color3B(100,100,100));
+	}
 	dr->addButtonAction("Options.json", "rmvAdsBtn", []()
 	{
 		GlobalAdManager::rmvAds();
 	});
-	dr->addButtonAction("Options.json", "TutorialsOnButton", []{DbReader::getInstance()->setTutorialsEnabled(true); });
-	dr->addButtonAction("Options.json", "TutorialsOffBtn", []{DbReader::getInstance()->setTutorialsEnabled(false); });
+	auto ofBtn = (Button*)dr->getWidget("Options.json", "TutorialsOffBtn");
+	auto onBtn = (Button*)dr->getWidget("Options.json", "TutorialsOnButton");
+	if(DbReader::getInstance()->areTutorialsEnabled())
+	{
+		onBtn->setTouchEnabled(false);
+		onBtn->setColor(Color3B(100,100,100));
+	}
+	else
+	{
+		ofBtn->setTouchEnabled(false);
+		ofBtn->setColor(Color3B(100,100,100));
+	}
+	dr->addButtonAction("Options.json", "TutorialsOnButton", [onBtn,ofBtn]
+	                                                       {
+	                                                    		   DbReader::getInstance()->setTutorialsEnabled(true);
+	                                                    		   onBtn->setTouchEnabled(false);
+	                                                    		   onBtn->setColor(Color3B(100,100,100));
+	                                                    		   ofBtn->setTouchEnabled(true);
+	                                                    		   ofBtn->setColor(Color3B(255,255,255));
+	                                                       });
+	dr->addButtonAction("Options.json", "TutorialsOffBtn", [ofBtn,onBtn]
+	                                                        {
+	                                                        		DbReader::getInstance()->setTutorialsEnabled(false);
+	                                                        		ofBtn->setTouchEnabled(false);
+	                                                        		ofBtn->setColor(Color3B(100,100,100));
+	                                                        		onBtn->setTouchEnabled(true);
+	                                                        		onBtn->setColor(Color3B(255,255,255));
+	                                                        });
     auto connbtn = (Button*)dr->getWidget("Options.json", "fbConnectBtn");
     connbtn->setVisible(!FB_connected);
     connbtn->setTouchEnabled(!FB_connected);

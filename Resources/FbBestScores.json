@@ -4,130 +4,7 @@
   "animation": {
     "classname": null,
     "name": "AnimationManager",
-    "actionlist": [
-      {
-        "classname": null,
-        "name": "animIn",
-        "actionnodelist": [
-          {
-            "classname": null,
-            "name": "Image_2",
-            "ActionTag": 60652411,
-            "actionframelist": [
-              {
-                "classname": null,
-                "name": null,
-                "colorb": 255,
-                "colorg": 255,
-                "colorr": 255,
-                "frameid": 0,
-                "opacity": 255,
-                "positionx": 256,
-                "positiony": 171,
-                "rotation": 0,
-                "scalex": 1,
-                "scaley": 1,
-                "starttime": 0,
-                "tweenParameter": [
-                  0,
-                  0,
-                  1,
-                  1
-                ],
-                "tweenType": 0,
-                "visible": false
-              },
-              {
-                "classname": null,
-                "name": null,
-                "colorb": 255,
-                "colorg": 255,
-                "colorr": 255,
-                "frameid": 4,
-                "opacity": 255,
-                "positionx": 256,
-                "positiony": 171,
-                "rotation": 0,
-                "scalex": 1,
-                "scaley": 1,
-                "starttime": 0,
-                "tweenParameter": [
-                  0,
-                  0,
-                  1,
-                  1
-                ],
-                "tweenType": 26,
-                "visible": false
-              }
-            ]
-          }
-        ],
-        "loop": false,
-        "unittime": 0.1
-      },
-      {
-        "classname": null,
-        "name": "animOut",
-        "actionnodelist": [
-          {
-            "classname": null,
-            "name": "Image_2",
-            "ActionTag": 60652411,
-            "actionframelist": [
-              {
-                "classname": null,
-                "name": null,
-                "colorb": 255,
-                "colorg": 255,
-                "colorr": 255,
-                "frameid": 0,
-                "opacity": 255,
-                "positionx": 256,
-                "positiony": 171,
-                "rotation": 0,
-                "scalex": 1,
-                "scaley": 1,
-                "starttime": 0,
-                "tweenParameter": [
-                  0,
-                  0,
-                  1,
-                  1
-                ],
-                "tweenType": 26,
-                "visible": false
-              },
-              {
-                "classname": null,
-                "name": null,
-                "colorb": 255,
-                "colorg": 255,
-                "colorr": 255,
-                "frameid": 4,
-                "opacity": 255,
-                "positionx": 266,
-                "positiony": -169.000031,
-                "rotation": 0,
-                "scalex": 1,
-                "scaley": 1,
-                "starttime": 0,
-                "tweenParameter": [
-                  0,
-                  0,
-                  1,
-                  1
-                ],
-                "tweenType": 25,
-                "visible": false
-              }
-            ]
-          }
-        ],
-        "loop": false,
-        "unittime": 0.1
-      }
-    ]
+    "actionlist": []
   },
   "dataScale": 1,
   "designHeight": 342,
@@ -248,7 +125,7 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": 0.9480794,
-                  "positionPercentY": 0.487329453,
+                  "positionPercentY": 0.487329423,
                   "positionType": 1,
                   "rotation": 0,
                   "scaleX": 1,
@@ -267,11 +144,11 @@
                   "areaWidth": 147.456009,
                   "fontFile": null,
                   "fontName": "fonts/Aleo-BoldItalic.ttf",
-                  "fontSize": 25,
+                  "fontSize": 15,
                   "hAlignment": 2,
                   "text": "25",
                   "touchScaleEnable": false,
-                  "vAlignment": 1
+                  "vAlignment": 0
                 }
               },
               {
@@ -298,7 +175,7 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": 0.04882812,
-                  "positionPercentY": 0.487329453,
+                  "positionPercentY": 0.487329423,
                   "positionType": 1,
                   "rotation": 0,
                   "scaleX": 1,
@@ -317,11 +194,11 @@
                   "areaWidth": 147.456009,
                   "fontFile": null,
                   "fontName": "fonts/Aleo-BoldItalic.ttf",
-                  "fontSize": 25,
+                  "fontSize": 15,
                   "hAlignment": 0,
-                  "text": "PlayerName",
+                  "text": "name and surname",
                   "touchScaleEnable": false,
-                  "vAlignment": 1
+                  "vAlignment": 0
                 }
               }
             ],
@@ -344,8 +221,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.335286438,
-              "positionPercentY": 0.7472385,
+              "positionPercentX": 1.54296863,
+              "positionPercentY": 0.224171549,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -354,12 +231,12 @@
               "sizePercentY": 0.14,
               "sizeType": 1,
               "tag": 349,
-              "touchAble": true,
+              "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
               "width": 245.76001,
-              "x": -103,
-              "y": 230,
+              "x": 474,
+              "y": 69,
               "adaptScreen": false,
               "backGroundImage": null,
               "backGroundImageData": null,

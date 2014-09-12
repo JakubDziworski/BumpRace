@@ -344,12 +344,14 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		   @Override
 		   public void onServiceDisconnected(ComponentName name) 
 		   {
+			   Log.v("ADS","IN APP SERV DISCONNECTED");
 		       mService = null;
 		   }
 
 		   @Override
 		   public void onServiceConnected(ComponentName name, IBinder service) 
 		   {
+			   Log.v("ADS","IN APP SERV CONNCTD");
 		       mService = IInAppBillingService.Stub.asInterface(service);
 		   }
 	};
@@ -363,18 +365,32 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 				{
 					try 
 					{
+						 Log.v("ADS","STARTED FETCHING IN APP PURCHASES");
 						Bundle ownedItems = mService.getPurchases(3, me.getPackageName(), "inapp", null);
 						int response = ownedItems.getInt("RESPONSE_CODE");
+						
 						if (response == 0) {
+							
 						   ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
 						   if(ownedSkus.size() == 0) return;
 						   if(ownedSkus.size() == 2)
 						   {
-							   purchasedAds();
+							   Log.v("ADS","BOTH APPS BOUGHT");
 							   purchasedLevels();
+							   Log.v("ADS","AFTER SETTING PURCHASED LEVELS");
+							   purchasedAds();
+							   Log.v("ADS","AFTER SETTING PURCHASED ADS");
 						   }
-						   else if(ownedSkus.get(0) == "com.bumprace.removeads") purchasedAds();
-						   else if(ownedSkus.get(0) == "com.bumprace.unlocklevel") purchasedLevels();
+						   else if(ownedSkus.get(0).equals("com.bumprace.removeads"))
+							   {
+							   purchasedAds();
+							   Log.v("ADS","AFTER SETTING PURCHASED ADS ALONE");
+							   }
+						   else if(ownedSkus.get(0).equals("com.bumprace.unlocklevel"))
+							   {
+							   purchasedLevels();
+							   Log.v("ADS","AFTER SETTING PURCHASED LEVELS ALONE");
+							   }
 						}
 					} 
 					catch (RemoteException e) 

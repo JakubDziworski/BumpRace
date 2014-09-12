@@ -8,7 +8,7 @@ USING_NS_CC;
 DbReader::DbReader()
 {
 	db = UserDefault::getInstance();
-	CCLOG("%s", db->getXMLFilePath().c_str());
+	CCLOG("gettint instance of dbreader : %s", db->getXMLFilePath().c_str());
 }
 
 DbReader * DbReader::getInstance()
@@ -77,6 +77,10 @@ bool DbReader::isTutorialCmpltd(const std::string &tutorialName)
 	}
 	return true;
 }
+bool DbReader::areTutorialsEnabled()
+{
+	return db->getBoolForKey("TUTORIALS_ENABLED", true);
+}
 void DbReader::setTutorialCmpltd(const std::string &tutorialName)
 {
 	db->setBoolForKey(tutorialName.c_str(), true);
@@ -87,7 +91,9 @@ bool DbReader::areBasicTutorialsCompleted()
 }
 void DbReader::setTutorialsEnabled(bool vl)
 {
+	CCLOG("Setting ads disabled");
 	db->setBoolForKey("TUTORIALS_ENABLED", vl);
+	CCLOG("After setting ads disabled");
 }
 
 bool DbReader::isRatedOrLiked()
@@ -107,15 +113,19 @@ bool DbReader::areAdsEnabled()
 
 void DbReader::setAdsEnabled(bool val)
 {
+	CCLOG("Setting ads disabled");
 	db->setBoolForKey("ADSENABLED", val);
+	CCLOG("after Setting ads disabled");
 }
 void DbReader::setLevelsEnabledAll(bool val)
 {
+	CCLOG("Unlocking all levels");
 	db->setBoolForKey("ALLLEVELSENABLED",true);
 	for(int i=1;i<=9;i++)
 	{
 		unlockLevel(i);
 	}
+	CCLOG("After unlocking all levels");
 }
 void DbReader::getLevelsEnabledAll()
 {

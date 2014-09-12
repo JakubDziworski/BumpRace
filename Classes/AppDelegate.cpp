@@ -17,7 +17,6 @@ AppDelegate::~AppDelegate()
 }
 bool AppDelegate::applicationDidFinishLaunching() {
 	screw::facebook::Session::start();
-	GlobalAdManager::checkBought();
 	GlobalAdManager::preloadAds();
     // initialize director
     auto director = Director::getInstance();
@@ -34,6 +33,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object
 	G_initLanguage();
+	GlobalAdManager::checkBought();
 	auto screenSize = glview->getFrameSize();
 	prepareImageRes(screenSize);
     auto scene = MyMenu::createScene();
