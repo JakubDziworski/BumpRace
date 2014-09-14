@@ -8,6 +8,7 @@
 #include "Checkpoint.h"
 #include "soundManager.h"
 #include "dialogReader.h"
+#include "GlobalAdManager.h"
 USING_NS_CC;
 cocos2d::Scene* SingleEliminationWorld::createScene(int numberOfPlayers, int aiLevel)
 {
@@ -28,6 +29,7 @@ bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
 	{
 		return false;
 	}
+    GlobalAdManager::sendFlurryEvent("Started Elimination Mode");
 	G_dir()->getScheduler()->setTimeScale(1);
 	hud = NULL;
 	return true;

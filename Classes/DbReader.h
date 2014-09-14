@@ -31,6 +31,8 @@ public:
 	void setAdsEnabled(bool val);
 	void setLevelsEnabledAll(bool val);
 	void getLevelsEnabledAll();
+    void incrementLevelTry(int level);
+    int getLevelTries(int level);
 };
 #endif
 

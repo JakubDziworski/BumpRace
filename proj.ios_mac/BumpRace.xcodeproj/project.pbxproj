@@ -119,6 +119,7 @@
 		8C6CC3ED19BDEC0A00F06ABB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6CC3EC19BDEC0A00F06ABB /* Security.framework */; };
 		8C6CC3EF19BDF21500F06ABB /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6CC3EE19BDF21500F06ABB /* GameController.framework */; };
 		8C6CC3F519BE08FC00F06ABB /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6CC3F419BE08FC00F06ABB /* Chartboost.framework */; };
+		8C76474319C60D0F0076E364 /* libFlurry_5.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C76474219C60D0F0076E364 /* libFlurry_5.3.0.a */; };
 		8C801B4719B12E1600BDC740 /* AIOpponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C801AF019B12E1600BDC740 /* AIOpponent.cpp */; };
 		8C801B4819B12E1600BDC740 /* Boxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C801AF219B12E1600BDC740 /* Boxx.cpp */; };
 		8C801B4919B12E1600BDC740 /* Checkpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C801AF419B12E1600BDC740 /* Checkpoint.cpp */; };
@@ -421,6 +422,8 @@
 		8C6CC3EE19BDF21500F06ABB /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		8C6CC3F419BE08FC00F06ABB /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		8C6CC3F619BE0CD900F06ABB /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
+		8C76474119C60D0F0076E364 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		8C76474219C60D0F0076E364 /* libFlurry_5.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.3.0.a; sourceTree = "<group>"; };
 		8C801AF019B12E1600BDC740 /* AIOpponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOpponent.cpp; path = ../Classes/AIOpponent.cpp; sourceTree = "<group>"; };
 		8C801AF119B12E1600BDC740 /* AIOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOpponent.h; path = ../Classes/AIOpponent.h; sourceTree = "<group>"; };
 		8C801AF219B12E1600BDC740 /* Boxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Boxx.cpp; path = ../Classes/Boxx.cpp; sourceTree = "<group>"; };
@@ -543,6 +546,7 @@
 				8CD0531719B8A196002E1A14 /* PassKit.framework in Frameworks */,
 				8CD0531519B8A18F002E1A14 /* MobileCoreServices.framework in Frameworks */,
 				8CD0531319B8A187002E1A14 /* MessageUI.framework in Frameworks */,
+				8C76474319C60D0F0076E364 /* libFlurry_5.3.0.a in Frameworks */,
 				8CD0530D19B8A175002E1A14 /* AudioToolbox.framework in Frameworks */,
 				8CD052FE19B8A10A002E1A14 /* EventKit.framework in Frameworks */,
 				8C6CC3F519BE08FC00F06ABB /* Chartboost.framework in Frameworks */,
@@ -684,6 +688,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				8C76474019C60D0F0076E364 /* Flurry */,
 				8CDA4EC419C0F22400742768 /* StartApp.bundle */,
 				8CDA4EC519C0F22400742768 /* StartApp.framework */,
 				8C6CC3F619BE0CD900F06ABB /* cocos2d_libs.xcodeproj */,
@@ -935,6 +940,15 @@
 				8C6CC41819BE0CD900F06ABB /* libCocosDenshion iOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8C76474019C60D0F0076E364 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				8C76474119C60D0F0076E364 /* Flurry.h */,
+				8C76474219C60D0F0076E364 /* libFlurry_5.3.0.a */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 		8C801B7F19B12E7B00BDC740 /* facebook */ = {
@@ -1295,7 +1309,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jakub Dziworski (SMBJ3E475Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jakub Dziworski (42AT9WV7CJ)";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1327,12 +1341,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/Chartboost/SDK",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "9e44ab24-d47c-4a48-9d48-302f9b3a5a25";
+				PROVISIONING_PROFILE = "5b4a7747-46f3-441e-99a1-785d7b1ca046";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1343,7 +1358,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jakub Dziworski (SMBJ3E475Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jakub Dziworski (42AT9WV7CJ)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1372,6 +1387,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/Chartboost/SDK",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
@@ -1380,7 +1396,7 @@
 					"-v",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "9e44ab24-d47c-4a48-9d48-302f9b3a5a25";
+				PROVISIONING_PROFILE = "5b4a7747-46f3-441e-99a1-785d7b1ca046";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

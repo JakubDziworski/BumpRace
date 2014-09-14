@@ -144,12 +144,22 @@ void GlobalAdManager::onBoughtLevels()
     if(!scene) return;
     MyMenu *menu = dynamic_cast<MyMenu*>(scene->getChildByTag(LAYER_HUD));
     if(!menu) return;
-    CCLOG("BEFORE TRYING TO ACCES LVEL MAP");
     menu->createLevelMapUI();
-    CCLOG("AFTER TRYING TO ACCES LVEL MAP");
 }
 void GlobalAdManager::onBoughtRemoveAds()
 {
     DbReader::getInstance()->setAdsEnabled(false);
 }
-
+void GlobalAdManager::sendFlurryEvent(const std::string str)
+{
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    {
+		AdsAndroidManager::callFluryAndroid(str);
+    }
+#endif
+#if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    {
+        AdsCPPManager::sendFlurryEvent(str);
+    }
+#endif
+}

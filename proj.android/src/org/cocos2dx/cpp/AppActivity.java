@@ -40,6 +40,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.chartboost.sdk.CBLocation;
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.Libraries.CBLogging.Level;
+import com.flurry.android.FlurryAgent;
 import com.screw.facebook.*;
 import com.startapp.android.publish.Ad;
 import com.startapp.android.publish.Ad.AdState;
@@ -103,9 +104,14 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		Facebook.onActivityResume();
 	}
 	@Override
+	protected void onStart () {
+		super.onStart ();
+		FlurryAgent.onStartSession(me,"HX9MSJJT33P42FC5BD3D");
+	}
+	@Override
 	protected void onStop() {
 		super.onStop();
-		Chartboost.onStop(me);
+		FlurryAgent.onEndSession(me);
 	}
 	@Override
 	protected void onPause() {
@@ -448,5 +454,10 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 				}
 			}
 		});
+	}
+	//FLURRY
+	public static void logFlurry(String str)
+	{
+		FlurryAgent.logEvent(str);
 	}
 }

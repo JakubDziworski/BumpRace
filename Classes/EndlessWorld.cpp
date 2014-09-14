@@ -8,6 +8,7 @@
 #include "soundManager.h"
 #include "external/chipmunk/include/chipmunk/chipmunk_unsafe.h"
 #include "dialogReader.h"
+#include "GlobalAdManager.h"
 USING_NS_CC_EXT;
 USING_NS_CC;
 bool EndlessWorld::init(int oppNum, int aiLevel, bool bestScore)
@@ -25,6 +26,14 @@ bool EndlessWorld::init(int oppNum, int aiLevel, bool bestScore)
 	minliczbabramek = 0;
 	score = 0;
 	endless = bestScore;
+    if(bestScore)
+    {
+         GlobalAdManager::sendFlurryEvent("Started Best Score Mode");
+    }
+    else
+    {
+         GlobalAdManager::sendFlurryEvent("Started Dead End Mode");
+    }
 	return true;
 }
 cocos2d::Scene * EndlessWorld::createScene(int oppNum, int aiLevel, bool bestScore)

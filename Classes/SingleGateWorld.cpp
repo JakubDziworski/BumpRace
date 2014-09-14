@@ -8,6 +8,7 @@
 #include "Checkpoint.h"
 #include "soundManager.h"
 #include "dialogReader.h"
+#include "GlobalAdManager.h"
 USING_NS_CC;
 
 
@@ -30,6 +31,7 @@ bool SingleGateWorld::myInit(int numberOfPlayers,int gates, int aiLevel)
 	{
 		return false;
 	}
+    GlobalAdManager::sendFlurryEvent("Started Gate Mode");
 	G_dir()->getScheduler()->setTimeScale(1);
 	return true;
 }

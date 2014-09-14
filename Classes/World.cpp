@@ -153,6 +153,14 @@ void World::rozmiescCheckpointy()
 	} 
 	while (i < floor->bb.r);
 }
+void World::setCarrierLevel(int val)
+{
+        carrerLevel = val;
+        if(!DbReader::getInstance()->isLevelUnlocked(carrerLevel+1))
+        {
+            DbReader::getInstance()->incrementLevelTry(carrerLevel);
+        }
+}
 void World::createBackground()
 {
 	DPIscaleFactor = clampf((512.0f / 106.f) / (Director::getInstance()->getOpenGLView()->getFrameSize().width / (float)Device::getDPI()),0.45,0.9f);
@@ -312,6 +320,22 @@ Hud* World::getHud()
 void World::gameIsOver(bool win)
 {
 	if (gameOver) return;
+    string classname =typeid(this).name();
+    if(isMultiplayer())
+    {
+        GlobalAdManager::sendFlurryEvent(classname+
+                                         " : MP Game Over With Effect : " + std::to_string(win) +
+                                         " ("+std::to_string(gatesNumber)+" gates, " + std::to_string(boxesNumber-1) + "Opponentz, "+
+                                         std::to_string(aiSmart)+" Smartness");
+    }
+    else
+    {
+        
+        GlobalAdManager::sendFlurryEvent(classname+
+                                         " : SP Game Over With Effect : " + std::to_string(win) +
+                                         " ("+std::to_string(gatesNumber)+" gates, " + std::to_string(boxesNumber-1) + "Opponentz, "+
+                                         std::to_string(aiSmart)+" Smartness");
+    }
 	gameOver = true;
 	this->setTouchEnabled(false);
 	Director::getInstance()->getScheduler()->setTimeScale(0.1f);
@@ -319,6 +343,12 @@ void World::gameIsOver(bool win)
 	getHud()->displayGameOver(win);
 	if (win && carrerLevel != 0)
 	{
+        if(!DbReader::getInstance()->isLevelUnlocked(carrerLevel+1))
+        {
+            GlobalAdManager::sendFlurryEvent("Level " + std::to_string(carrerLevel)+
+                                             " Finished With Effect : " + std::to_string(win)+
+                                             "After " +std::to_string(DbReader::getInstance()->getLevelTries(carrerLevel))+" tries");
+        }
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
 		//OSTATNI POZIOM
 		if (carrerLevel == 9)
@@ -369,6 +399,7 @@ Boxx* World::getPrzedOstaniActive()
 void World::setSinglePlayer(Player* player)
 {
 	//DOTYK
+    GlobalAdManager::sendFlurryEvent("Started Single Player");
 	auto touchlistener = EventListenerTouchOneByOne::create();
 	touchlistener->onTouchBegan = CC_CALLBACK_2(World::s_onTouched, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchlistener, this);
@@ -459,6 +490,7 @@ void World::s_cameraFollow()
 void World::setMultiplayer(cocos2d::Vector<Player*> players)
 {
 	//DOTYK
+    GlobalAdManager::sendFlurryEvent("Started Multiplayer with "+std::to_string(players.size())+" players");
 	multiplayerEnabled = true;
 	playersNumber = players.size();
 	auto touchlistener = EventListenerTouchAllAtOnce::create();

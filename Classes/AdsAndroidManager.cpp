@@ -123,6 +123,22 @@ void AdsAndroidManager::checkPurchases()
 			t.env->CallObjectMethod(t.classID,t.methodID);
 	}
 }
+void AdsAndroidManager::callFluryAndroid(const std::string &str)
+{
+	JniMethodInfo t;
+
+		if (JniHelper::getStaticMethodInfo(t,
+			"org/cocos2dx/cpp/AppActivity",    // fully qualified class name
+			"logFlurry",                              // method name
+			"(Ljava/lang/String;)V")) {             // data type of argument
+
+			// jstring - C++ representation of Java String
+			jstring stringArg = t.env->NewStringUTF(str.c_str());
+
+			// call the method, with arguments
+			t.env->CallStaticVoidMethod(t.classID, t.methodID, stringArg);
+		}
+}
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_purchasedAds(JNIEnv* env, jobject thiz);
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_purchasedLevels(JNIEnv* env, jobject thiz);
 }

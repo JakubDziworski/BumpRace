@@ -62,10 +62,6 @@
 	<string>Auto-popraw</string>
 	<key>AutoCorrectDialogText</key>
 	<string>Kilku graczy dokonało tego samego wyboru.Popraw ręcznie albo zastosuj autokorektę.</string>
-	<key>Tutorial_Single/Multiplayer</key>
-	<string>Wybierz grę dla pojedynczego gracza albo dla dwóch graczy</string>
-	<key>completePrev</key>
-	<string>Ukończ poprzednie poziomy aby odblokować</string>
 	<key>Level</key>
 	<string>Poziom</string>
 	<key>Completed</key>
@@ -86,12 +82,6 @@
 	<string>Cel: Zdobądź największą ilość bramek</string>
 	<key>ObjEndless</key>
 	<string>Cel: Przejdź wszystkie punkty kontrolne nie będąc ostatni</string>
-	<key>smart</key>
-	<string>Mądrzy</string>
-	<key>stupid</key>
-	<string>Głupi</string>
-	<key>medium</key>
-	<string>Zwykli</string>
 	<key>gatesLeft</key>
 	<string>Pozostało %d Bramek</string>
 	<key>gatesLeft2</key>
@@ -184,8 +174,6 @@
 	<string>Ukończ poprzedni poziom albo odblokuj</string>
 	<key>unlock</key>
 	<string>Odblokuj</string>
-	<key>more_games</key>
-	<string>Więcej Gier</string>
 	<key>more_games</key>
 	<string>More Games</string>
 	<key>toohard</key>

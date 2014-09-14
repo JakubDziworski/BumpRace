@@ -39,6 +39,8 @@ typedef enum
 //in app
 -(void) rmvAdsIos;
 -(void) unlockLevelIos;
--(int) checkPurchasesIos;
+-(void) checkPurchasesIos;
+//flurry
+-(void) callFlurryIos : (NSString*)str;
 @end
 #endif

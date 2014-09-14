@@ -21,6 +21,7 @@ public:
 	static void rmvAdsAndroid();
 	static void unlockLevelAndroid();
 	static void checkPurchases();
+	static void callFluryAndroid(const std::string &str);
 	//GO TO
 	static void goToLinkAndroid(const std::string &str);
 };

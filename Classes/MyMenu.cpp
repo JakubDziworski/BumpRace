@@ -672,11 +672,6 @@ void MyMenu::createLevelMapUI()
 		btn->setColor(Color3B::WHITE);
 		if (!DbReader::getInstance()->isLevelUnlocked(i))
 		{
-			if(!firstUncompletedFound)
-			{
-				firstUncompletedFound=true;
-				btn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f,1.3f),ScaleTo::create(0.2f,1))));
-			}
 			btn->setColor(Color3B::GRAY);
 			btn->addTouchEventListener([this, parent,i](Ref* reff, Widget::TouchEventType type)
 			{
@@ -691,6 +686,11 @@ void MyMenu::createLevelMapUI()
 		}
 		else
 		{
+            if(!firstUncompletedFound && !DbReader::getInstance()->isLevelUnlocked(i+1))
+			{
+				firstUncompletedFound=true;
+				btn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f,1.3f),ScaleTo::create(0.2f,1))));
+			}
 			btn->addTouchEventListener([parent, i,this](Ref *reff, Widget::TouchEventType type)
 			{
 				if (type != Widget::TouchEventType::ENDED) return;

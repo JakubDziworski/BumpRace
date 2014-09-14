@@ -16,6 +16,7 @@ AppDelegate::~AppDelegate()
 	G_strings->release();
 }
 bool AppDelegate::applicationDidFinishLaunching() {
+    GlobalAdManager::sendFlurryEvent("App did Finish Launching");
 	screw::facebook::Session::start();
 	GlobalAdManager::preloadAds();
     // initialize director

@@ -10,11 +10,12 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <StartApp/StartApp.h>
 #include "GlobalAdManager.h"
+#import "Flurry.h"
 
 @implementation MyAdsManager
 
-NSString *const rmvAdsID =@"fgfds";
-NSString *const unlckLevelsID=@"gfdsgfds";
+NSString *const rmvAdsID =@"com.frontmob.removeAdsBumpRacetest";
+NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRacetest";
 
 + (MyAdsManager*) getInstance
 {
@@ -48,6 +49,8 @@ NSString *const unlckLevelsID=@"gfdsgfds";
                   appSignature:@"9d5d610e2b5a7749df0e54054f3a4df9090a4a28"
                       delegate:self];
     [Chartboost cacheMoreApps:CBLocationHomeScreen];
+    [Flurry setCrashReportingEnabled:YES];
+    [Flurry startSession:@"G4YR337XZDM6PH8DXYQ6"];
 }
 - (void) openURLPage : (NSString*) str
 {
@@ -79,6 +82,7 @@ NSString *const unlckLevelsID=@"gfdsgfds";
 }
 -(void)showMoreGames
 {
+    GlobalAdManager::sendFlurryEvent("clicked more games button");
     adWanted = MOREGAMES;
     [moreGamesStartAppAd showAd];
 }
@@ -115,7 +119,10 @@ NSString *const unlckLevelsID=@"gfdsgfds";
 //PRELOAD AGAIN
 - (void) didShowAd:(STAAbstractAd*)ad
 {
-  
+    if(adWanted == MOREGAMES)
+    {
+        GlobalAdManager::sendFlurryEvent("Did showed more apps");
+    }
 }
 - (void) failedLoadAd:(STAAbstractAd*)ad withError:(NSError *)error
 {
@@ -129,6 +136,7 @@ NSString *const unlckLevelsID=@"gfdsgfds";
 {
     if(adWanted == MOREGAMES)
     {
+        GlobalAdManager::sendFlurryEvent("Did closed more apps");
         [self reinitMoreGames];
     }
     else if(adWanted == INTERISITAL)
@@ -138,15 +146,24 @@ NSString *const unlckLevelsID=@"gfdsgfds";
 }
 - (void) didClickAd:(STAAbstractAd*)ad
 {
-    
+    if(adWanted == MOREGAMES)
+    {
+        GlobalAdManager::sendFlurryEvent("Did clicked more apps");
+    }
 }
 
+-(void) checkPurchasesIos
+{
+    //[[SKPaymentQueue defaultQueue]restoreCompletedTransactions];
+   // [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+}
 //in app purchase
 -(void) rmvAdsIos
 {
+    [self checkPurchasesIos];
     for(SKProduct * skProduct in _products)
     {
-        if(skProduct.productIdentifier == rmvAdsID)
+        if([skProduct.productIdentifier isEqualToString:rmvAdsID])
         {
             SKPayment *payment = [SKPayment paymentWithProduct:skProduct];
             [[SKPaymentQueue defaultQueue]addPayment: payment];
@@ -155,13 +172,13 @@ NSString *const unlckLevelsID=@"gfdsgfds";
 }
 -(void) unlockLevelIos
 {
+    [self checkPurchasesIos];
     for(SKProduct * skProduct in _products)
     {
-        if(skProduct.productIdentifier == unlckLevelsID)
+        if([skProduct.productIdentifier isEqualToString: unlckLevelsID])
         {
             SKPayment *payment = [SKPayment paymentWithProduct:skProduct];
             [[SKPaymentQueue defaultQueue]addPayment: payment];
-            [[SKPaymentQueue defaultQueue]addTransactionObserver:self];
         }
     }
 }
@@ -172,12 +189,12 @@ NSString *const unlckLevelsID=@"gfdsgfds";
     {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased || SKPaymentTransactionStateRestored:
-                if(transaction.payment.productIdentifier == rmvAdsID)
+                if([transaction.payment.productIdentifier isEqualToString: rmvAdsID])
                 {
                     GlobalAdManager::onBoughtRemoveAds();
                 }
                     
-                else if(transaction.payment.productIdentifier == unlckLevelsID)
+                else if([transaction.payment.productIdentifier isEqualToString: unlckLevelsID])
                 {
                     GlobalAdManager::onBoughtLevels();
                 }
@@ -188,13 +205,19 @@ NSString *const unlckLevelsID=@"gfdsgfds";
 }
 -(void) fetchProducts
 {
-    _productsRequest = [[SKProductsRequest alloc] init];
+    NSSet *productIdentifiers = [NSSet setWithObjects:rmvAdsID,unlckLevelsID,nil ];
+    _productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
     _productsRequest.delegate = self;
     [_productsRequest start];
 }
 -(void) productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    _products = response.products;
+    _products = [[NSArray alloc]initWithArray:response.products];
     _productsRequest=nil;
+}
+//FLURRY
+-(void) callFlurryIos : (NSString*)str
+{
+    [Flurry logEvent:str];
 }
 @end

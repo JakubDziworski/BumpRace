@@ -131,4 +131,13 @@ void DbReader::getLevelsEnabledAll()
 {
 	db->getBoolForKey("ALLLEVELSENABLED",false);
 }
+void DbReader::incrementLevelTry(int level)
+{
+    int prevValue = getLevelTries(level);
+    db->setIntegerForKey(("LEVEL "+std::to_string(level) + " TRIES").c_str(), prevValue+1);
+}
+int DbReader::getLevelTries(int level)
+{
+    return db->getIntegerForKey(("LEVEL "+std::to_string(level) + " TRIES").c_str(),0);
+}
 DbReader * DbReader::me = NULL;

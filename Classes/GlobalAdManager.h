@@ -24,6 +24,8 @@ public:
     static void onBoughtRemoveAds();
     //GO TO
 	static void goToLink(const std::string &str);
+	//FLURRY
+    static void sendFlurryEvent(const std::string str);
 };
 
 #endif /* GLOBALADMANAGER_H_ */
