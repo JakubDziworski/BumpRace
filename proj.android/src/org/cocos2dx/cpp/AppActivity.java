@@ -226,6 +226,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		me.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				logFlurry("clicked More Games Button");
 				me.curAdWanted = CurAdWanted.MOREGAMES;
 				if(me.failedToLoad)
 				{

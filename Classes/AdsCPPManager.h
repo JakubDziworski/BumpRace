@@ -21,6 +21,8 @@ public:
     //in app
     static void buyrmvAdsIos();
     static void buyAllLevelsIos();
+    //flurry
+    static void sendFlurryEvent(const std::string &str);
     
 };
 #endif /* defined(__BumpRace__AdsCPPManager__) */

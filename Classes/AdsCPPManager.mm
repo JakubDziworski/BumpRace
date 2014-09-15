@@ -41,3 +41,8 @@ void AdsCPPManager::buyAllLevelsIos()
 {
     [[MyAdsManager getInstance] unlockLevelIos];
 }
+void AdsCPPManager::sendFlurryEvent(const std::string &str)
+{
+    NSString* output = [NSString stringWithUTF8String:str.c_str()];
+    [[MyAdsManager getInstance] callFlurryIos : output];
+}
