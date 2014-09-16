@@ -14,8 +14,8 @@
 
 @implementation MyAdsManager
 
-NSString *const rmvAdsID =@"com.frontmob.removeAdsBumpRacetest";
-NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRacetest";
+NSString *const rmvAdsID =@"com.frontmob.removeAdsBumpRace";
+NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRace";
 
 + (MyAdsManager*) getInstance
 {
@@ -155,7 +155,7 @@ NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRacetest";
 -(void) checkPurchasesIos
 {
     //[[SKPaymentQueue defaultQueue]restoreCompletedTransactions];
-   // [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
 //in app purchase
 -(void) rmvAdsIos

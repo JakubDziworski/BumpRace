@@ -6,6 +6,10 @@
 	<string>Welcome to BumpRace</string>
 	<key>Single_Player</key>
 	<string>Singleplayer</string>
+	<key>LvlCmplSuffix</key>
+	<string> in &quot;Bump Race&quot;. Try it out too!</string>
+	<key>LvlCmplPrefix</key>
+	<string>I just completed level </string>
 	<key>Multi_Player</key>
 	<string>Multiplayer</string>
 	<key>Options</key>

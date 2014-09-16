@@ -43,8 +43,8 @@ bool FB_loginListenerExist = false;
 extern cocos2d::ActionManager *slowActionManager;
 extern cocos2d::ActionManager *normalActionManager;
 cocos2d::Dictionary *G_strings;
-const int G_ALLboxesNumber = 6;
-const cocos2d::Color3B G_colors[6] = { cocos2d::Color3B(115, 207, 231), cocos2d::Color3B(178, 210, 53), cocos2d::Color3B(130, 85, 127), cocos2d::Color3B(244, 191, 26), cocos2d::Color3B(226, 54, 39), cocos2d::Color3B(115, 207, 231) };
+const int G_ALLboxesNumber = 7;
+const cocos2d::Color3B G_colors[7] = { cocos2d::Color3B(115, 207, 231), cocos2d::Color3B(178, 210, 53), cocos2d::Color3B(130, 85, 127), cocos2d::Color3B(244, 191, 26), cocos2d::Color3B(226, 54, 39),cocos2d::Color3B(234,153,150), cocos2d::Color3B(59,89,152) };
 void G_setCurrAngle(float angle)
 {
 	G_Currangle = angle;
@@ -202,11 +202,11 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 		DialogReader::getInstance()->addActionHideAndSomething(cocosfile, "okBtn", [levelnum, levelType, opponentsnumber, diffLevel, gatesNumb]()
 															   {
 																   cocos2d::Scene *scena = NULL;
-																   if (levelType == 1) scena = SingleGateWorld::createScene(opponentsnumber, gatesNumb, diffLevel);
-																   else if (levelType == 2) scena = SingleEliminationWorld::createScene(opponentsnumber, diffLevel);
+																   if (levelType == 1) scena = SingleGateWorld::createScene(opponentsnumber+1, gatesNumb, diffLevel);
+																   else if (levelType == 2) scena = SingleEliminationWorld::createScene(opponentsnumber+1, diffLevel);
 																   else
 																   {
-																	   scena = EndlessWorld::createScene(opponentsnumber,diffLevel,false);
+																	   scena = EndlessWorld::createScene(opponentsnumber+1,diffLevel,false);
 																	   EndlessWorld *world = (EndlessWorld*)scena->getChildByTag(LAYER_GAMEPLAY);
 																	   world->setSinglePlayer(Player::create(R_Box[G_globalBoxFileNameIndex],G_globalPlayerName,world->getGravitySpace(),G_colors[G_globalBoxFileNameIndex]));
 																	   world->setMinGates(gatesNumb);
@@ -220,31 +220,31 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 	switch (level)
 	{
 		case 1://level,typ,przeciwnicy,trudnosc,bramki
-			setUpDialog(1,1,4,0, 7);
+			setUpDialog(1,1,3,0, 7);
 			break;
 		case 2:
-			setUpDialog(2,2, 5, 0, 7);
+			setUpDialog(2,2, 3, 0, 7);
 			break;
 		case 3:
-			setUpDialog(3, 3, 4, 0, 7);
+			setUpDialog(3, 3, 5, 0, 7);
 			break;
 		case 4:
-			setUpDialog(4,1, 5, 1, 12);
+			setUpDialog(4,1, 4, 1, 12);
 			break;
 		case 5:
-			setUpDialog(5, 2, 5, 1, 12);
+			setUpDialog(5, 2, 4, 1, 12);
 			break;
 		case 6:
-			setUpDialog(6, 3,5, 1, 12);
+			setUpDialog(6, 3,4, 1, 12);
 			break;
 		case 7:
-			setUpDialog(7, 1, 6, 2, 20);
+			setUpDialog(7, 1, 5, 2, 20);
 			break;
 		case 8:
-			setUpDialog(8, 2, 8, 2, 12);
+			setUpDialog(8, 2, 5, 2, 12);
 			break;
 		case 9:
-			setUpDialog(9, 3, 8, 2, 20);
+			setUpDialog(9, 3, 3, 2, 15);
 			break;
 		default:
 			break;
@@ -252,13 +252,11 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 }
 void G_enableShadow(cocos2d::Label *lbl)
 {
-	const float offset = lbl->getSystemFontSize();
-	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
+	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(0.3f, 0.3f));
 }
 void G_enableShadow(cocos2d::ui::Text *lbl)
 {
-	const float offset = lbl->getFontSize();
-	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(offset / 20.0f, offset / 20.0f));
+	lbl->enableShadow(cocos2d::Color4B::BLACK, cocos2d::Size(0.3f,0.3f));
 }
 //**********************************FB********************************//
 void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node *caller)
@@ -276,7 +274,7 @@ void FB_setLoginCallBack(std::function <void(bool isLoggedIn)> fun,cocos2d::Node
 					return;
 				}
 				G_playersDefaultNames[0] = user->getFirstName();
-				FB_loadPhoto(user->getId(), 160.0f / G_dir()->getContentScaleFactor());
+				FB_loadPhoto(user->getId(), 40.0f*G_dir()->getContentScaleFactor());
 				DbReader::getInstance()->setPlayerDefaultName(1, user->getFirstName());
 			})->execute();
 			Request::requestForScores([](int error, const Vector<GraphScore *> &scores){
@@ -331,10 +329,9 @@ void FB_loadPhoto(const std::string& uid, const int size)
 void FB_sharePost(const std::string &name,const std::string &caption,const std::string &descr)
 {
     ShareDialogParams *params = ShareDialogParams::create();
-    params->setLink("http://www.cocos2d-x.org/");
+    params->setLink("https://www.facebook.com/pages/Bump-Race/341653549336252");
+    params->setDescription(name);
     params->setName(name);
-    params->setCaption(caption);
-    params->setDescription(descr);
     //  params->setFriends({"100008289311268"});
     //    params->setDataFailuresFatal(false);
     if (Dialog::canPresent(params)) {
@@ -345,7 +342,7 @@ void FB_sharePost(const std::string &name,const std::string &caption,const std::
         CCLOG("Cannot show share dialog, fallback to webview");
         FeedDialogBuilder *fbd = new FeedDialogBuilder();
         fbd->setLink(params->getLink())->setDescription(params->getDescription());
-        fbd->setTo("100008289311268");
+        //fbd->setTo("100008289311268");
     
         fbd->setCallback([](int error, const string &rid){
           CCLOG("Share link web dialog result: error = %d, rid = %s", error, rid.c_str());
@@ -360,7 +357,7 @@ void FB_shareGame()
 }
 void FB_shareLevelCompletedPost(const int level)
 {
-    FB_sharePost(G_str("LvlCmplName")+to_string(level),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
+    FB_sharePost(G_str("LvlCmplPrefix")+to_string(level)+G_str("LvlCmplSuffix"),G_str("LvlCmplCaption"),G_str("LvlCmplDescr"));
 }
 void FB_updateScore()
 {
@@ -404,6 +401,7 @@ void FB_showScores(cocos2d::Node *nodeToAttach)
         listView->removeAllChildren();
 		for (auto s : G_scoresMap)
 		{
+            if(i>=15) return;
 				CCLOG("pushing to scores %s",s.second.c_str());
 							listView->pushBackDefaultItem();
 							((cocos2d::ui::Text*)listView->getItem(i)->getChildByName("playername"))->setString((std::to_string(i+1)+". "+s.second).c_str());

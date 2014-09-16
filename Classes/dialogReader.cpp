@@ -41,7 +41,6 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
 		auto animIn = cocostudio::ActionManagerEx::getInstance()->getActionByName(fileName.c_str(), "animIn");
 		if (animIn)
 		{
-			SoundManager::getInstance()->playEffect(R_popUp);
 			animIn->play();
 			root->setTouchEnabled(true);
 		}
@@ -55,7 +54,6 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
     {
         animIn->play();
         root->setTouchEnabled(true);
-        SoundManager::getInstance()->playEffect(R_popUp);
     }
 	//set correct text font size
 	root->enumerateChildren("//.*", [this, fileName,root](Node *node)
@@ -138,8 +136,8 @@ cocos2d::Node* DialogReader::getWidget(const std::string &cocosFileName, const s
 }
 void DialogReader::flush()
 {
-	loadedWidgets.clear();
 	cocostudio::ActionManagerEx::getInstance()->releaseActions();
+	loadedWidgets.clear();
 }
 void DialogReader::addButtonAction(const std::string& cocosFileName, const std::string &name, std::function<void()> additionalFeature)
 {

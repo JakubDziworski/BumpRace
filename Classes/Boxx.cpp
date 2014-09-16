@@ -208,11 +208,11 @@ void Boxx::updatePhysPos()
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 5:
-		wind = 1.62f;
+		wind = 1.7f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 6:
-		wind = 1.64f;
+		wind = 1.8f;
 		maxVel = G_maxVelocity*wind;
 		break;
 	case 7:
@@ -272,7 +272,7 @@ void Boxx::addPoint()
 	points++;
 	const float offset = this->getContentSize().height;
 	Label *plus1 = Label::create("+1",R_defaultFont,50);
-	this->addChild(plus1,25);
+	this->addChild(plus1,200);
 	plus1->setAnchorPoint(Vec2(0.5f,0.0f));
 	plus1->setNormalizedPosition(Vec2(0.5f,1.0f));
 	plus1->setOpacity(0);
@@ -294,8 +294,8 @@ void Boxx::deactivate()
 	auto smokeYELLOW = G_getParticleFromFile(R_boxDeactivatedYELLOW);
 	smokeYELLOW->setPosition(Vec2(this->getContentSize().width*0.5f, this->getContentSize().height*0.7f));
 	fireRED->setPosition(Vec2(this->getContentSize().width*0.5f, this->getContentSize().height*0.7f));
-	this->addChild(fireRED,1);
-	this->addChild(smokeYELLOW,0);
+	this->addChild(fireRED,3);
+	this->addChild(smokeYELLOW,2);
 	deactivated = true;
 }
 bool Boxx::collectedPowerUp(PowerUp::PowerUpType pwruptype)

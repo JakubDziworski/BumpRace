@@ -37,7 +37,6 @@ void SoundManager::preloadSounds()
 {
 	//effects
 	audioEngine->preloadEffect(R_MP3_punch.c_str());
-	audioEngine->preloadEffect(R_slide.c_str());
 	audioEngine->preloadEffect(R_slideRampDown.c_str());
 	audioEngine->preloadEffect(R_slideSlow.c_str());
 	audioEngine->preloadEffect(R_slideRampUp.c_str());
@@ -141,15 +140,6 @@ void SoundManager::playBgmusic(const std::string &inp)
 {
 	audioEngine->playBackgroundMusic(inp.c_str(),true);
 	fadeInMusic();
-}
-void SoundManager::playSlideEffect(float speedVal)
-{
-	if (slowMoEnabled) return;
-	if (normalSlideEffect != 0)
-	{
-		audioEngine->stopEffect(normalSlideEffect);
-	}
-	normalSlideEffect = audioEngine->playEffect(R_slide.c_str(), true, speedVal);
 }
 void SoundManager::gameIsOver(bool win)
 {

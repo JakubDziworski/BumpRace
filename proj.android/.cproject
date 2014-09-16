@@ -21,12 +21,29 @@
 							<builder arguments="${ProjDirPath}/build_native.py -b" buildPath="${ProjDirPath}" command="python" id="org.eclipse.cdt.build.core.settings.default.builder.1038735572" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder">
 								<outputEntries>
 									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
 								</outputEntries>
 							</builder>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.547532631" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1481118451" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.990682174" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="${NDK_ROOT}/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="D:/ndk/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="D:/ndk/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="D:/ndk/sources/cxx-stl/gnu-libstdc++/4.8/include"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/2d"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/physics"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/base"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/math/kazmath"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/ui"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/network"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/audio/include"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/editor-support"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/extensions"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/external"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/external/chipmunk/include/chipmunk"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/proj.android"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.387417389" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="CC_TARGET_PLATFORM=CC_PLATFORM_ANDROID"/>
@@ -36,23 +53,23 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.429561268" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1008860290" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="${NDK_ROOT}/sources/android/native_app_glue"/>
-									<listOptionValue builtIn="false" value="${NDK_ROOT}/platforms/android-18/arch-arm/usr/include"/>
-									<listOptionValue builtIn="false" value="${NDK_ROOT}/sources/cxx-stl/gnu-libstdc++/4.8/include"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/2d"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/physics"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/base"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/math/kazmath"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/ui"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/network"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/audio/include"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/cocos/editor-support"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/extensions"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/external"/>
-									<listOptionValue builtIn="false" value="${ProjDirPath}/../cocos2d/external/chipmunk/include/chipmunk"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}&quot;"/>
+									<listOptionValue builtIn="false" value="D:/ndk/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="D:/ndk/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="D:/ndk/sources/cxx-stl/gnu-libstdc++/4.8/include"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/2d"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/physics"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/base"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/math/kazmath"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/ui"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/network"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/audio/include"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/editor-support"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/extensions"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/external"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/external/chipmunk/include/chipmunk"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/proj.android"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1728671637" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="CC_TARGET_PLATFORM=CC_PLATFORM_ANDROID"/>
@@ -62,7 +79,23 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.795443271" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.315092538" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="${NDK_ROOT}/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="D:/ndk/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="D:/ndk/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="D:/ndk/sources/cxx-stl/gnu-libstdc++/4.8/include"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/2d"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/physics"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/base"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/math/kazmath"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/ui"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/network"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/audio/include"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/cocos/editor-support"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/extensions"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/external"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/cocos2d/external/chipmunk/include/chipmunk"/>
+									<listOptionValue builtIn="false" value="D:/BumpRace/BumpRace/proj.android"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.706119994" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="CC_TARGET_PLATFORM=CC_PLATFORM_ANDROID"/>

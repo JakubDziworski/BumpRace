@@ -388,12 +388,12 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 							   purchasedAds();
 							   Log.v("ADS","AFTER SETTING PURCHASED ADS");
 						   }
-						   else if(ownedSkus.get(0).equals("com.bumprace.removeads"))
+						   else if(ownedSkus.get(0).equals("com.bumprace.removeadsrelease"))
 							   {
 							   purchasedAds();
 							   Log.v("ADS","AFTER SETTING PURCHASED ADS ALONE");
 							   }
-						   else if(ownedSkus.get(0).equals("com.bumprace.unlocklevel"))
+						   else if(ownedSkus.get(0).equals("com.bumprace.unlocklevelrelease"))
 							   {
 							   purchasedLevels();
 							   Log.v("ADS","AFTER SETTING PURCHASED LEVELS ALONE");
@@ -417,7 +417,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 				try {
 					if(mService == null) return;
 					Bundle buyIntentBundle = mService.getBuyIntent(3, me.getPackageName(),
-							"com.bumprace.unlocklevel", "inapp", "unlockLevelPayLoad");
+							"com.bumprace.unlocklevelrelease", "inapp", "unlockLevelPayLoad");
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
 					try {
 						me.startIntentSenderForResult(pendingIntent.getIntentSender(),
@@ -441,7 +441,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 				try {
 					if(mService == null) return;
 					Bundle buyIntentBundle = mService.getBuyIntent(3, me.getPackageName(),
-							"com.bumprace.removeads", "inapp", "removeAdsPayLoad");
+							"com.bumprace.removeadsrelease", "inapp", "removeAdsPayLoad");
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
 					try {
 						me.startIntentSenderForResult(pendingIntent.getIntentSender(),

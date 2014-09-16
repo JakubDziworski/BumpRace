@@ -4,6 +4,10 @@
 <dict>
 	<key>Single_Player</key>
 	<string>Jeden Gracz</string>
+	<key>LvlCmplPrefix</key>
+	<string>Właśnie ukończyłem </string>
+	<key>LvlCmplSuffix</key>
+	<string> poziom w &quot;Bump Race&quot;</string>
 	<key>Multi_Player</key>
 	<string>Wielu Graczy</string>
 	<key>Options</key>

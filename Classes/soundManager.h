@@ -36,7 +36,6 @@ public:
 	void fadeOutMusic();
 	void fadeInMusic();
 	void playBgmusic(const std::string &inp);
-	void playSlideEffect(float speedVal);
 	void stopSlideEffect();
 	void gameIsOver(bool win);
 	void fadeOutEffect(int effect);

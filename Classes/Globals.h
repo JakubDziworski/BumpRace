@@ -46,7 +46,7 @@ extern std::string G_flatTopFilePath;
 extern std::string G_drzewkaFilePath;
 extern std::multimap<int,std::string> G_scoresMap;
 extern cocos2d::Color3B G_getRandomColor();
-extern const cocos2d::Color3B G_colors[6];
+extern const cocos2d::Color3B G_colors[7];
 extern World* G_getWorld();
 extern Hud* G_getHud();
 extern float G_getFTimeScale(float val);

@@ -46,7 +46,9 @@
   <imageFileList>
     <string>Res1.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>Res1.plist</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>FbBestScores.json</CurrentUIJson>
+  <CurrentUIJson>CHOOSENAMES.json</CurrentUIJson>
 </UIProject>

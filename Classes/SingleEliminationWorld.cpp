@@ -22,9 +22,9 @@ cocos2d::Scene* SingleEliminationWorld::createScene(int numberOfPlayers, int aiL
 }
 bool SingleEliminationWorld::myElimInit(int numberOfPlayers, int aiLevel)
 {
-    G_flatTopFilePath = R_flatTopCollector;
-	G_drzewkaFilePath = R_drzewkaCollector;
-	G_bgFilePath = R_tloCollector;
+    G_flatTopFilePath = R_flatTopEndless;
+	G_drzewkaFilePath = R_drzewkaElim;
+	G_bgFilePath = R_tloElim;
 	if (!World::myInitWithAI(numberOfPlayers,numberOfPlayers-1, aiLevel))
 	{
 		return false;

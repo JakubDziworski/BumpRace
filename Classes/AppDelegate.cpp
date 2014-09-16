@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
-#include "MyMenu.h"
+#include "SplashScreen.h"
 #include "Globals.h"
 #include "GlobalAdManager.h"
 #include "screw/screw.h"
@@ -28,8 +28,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 	srand(time(NULL));
     // turn on display FPS
-    director->setDisplayStats(true);
-	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) glview->setFrameSize(512,300);
+   // director->setDisplayStats(true);
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object
@@ -37,13 +36,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	GlobalAdManager::checkBought();
 	auto screenSize = glview->getFrameSize();
 	prepareImageRes(screenSize);
-    auto scene = MyMenu::createScene();
+    auto scene = SplashScreen::createScene();
     director->runWithScene(scene);
     return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
-void AppDelegate::applicationDidEnterBackground() {
+void AppDelegate::applicationDidEnterBackground()
+{
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
@@ -63,19 +63,22 @@ void AppDelegate::prepareImageRes(cocos2d::Size scrSize)
 {
 	std::vector<std::string> resPaths;
 	GLView *glView = Director::getInstance()->getOpenGLView();
-	if (scrSize.width <= 512) 
+	if (scrSize.width <= 640)
 	{
+		GlobalAdManager::sendFlurryEvent("res SD");
 		resPaths.push_back("SD");
 	}
-	else if (scrSize.width <= 1024) //IPAD RES
+	else if (scrSize.width <= 1280) //IPAD RES
 	{
+		GlobalAdManager::sendFlurryEvent("res HD");
 		resPaths.push_back("HD");
 		Director::getInstance()->setContentScaleFactor(2);
 	}
 	else 
 	{
-		resPaths.push_back("HD");
-		Director::getInstance()->setContentScaleFactor(2);
+		GlobalAdManager::sendFlurryEvent("res HDR");
+		resPaths.push_back("HDR");
+		Director::getInstance()->setContentScaleFactor(4);
 	}
 	glView->setDesignResolutionSize(512,342, ResolutionPolicy::NO_BORDER);
 	cocos2d::FileUtils::getInstance()->setSearchPaths(resPaths);

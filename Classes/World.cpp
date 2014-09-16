@@ -420,9 +420,27 @@ void World::s_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 }
 void World::s_putOnPlayers(Player* playerr)
 {
-	bool used[6] = { false, false, false, false, false, false };
+	bool used[7] = { false, false, false, false, false, false, false };
+    int madrych;
+    int srednich;
+    int smartval;
+    if(aiSmart==0)
+    {
+        madrych=0;
+        srednich=0;
+    }
+    else if(aiSmart == 1)
+    {
+        srednich = 2;
+        madrych = 0;
+    }
+    else if(aiSmart == 2)
+    {
+        madrych = 2;
+        srednich = 1;
+    }
 	player = playerr;
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		if (player->getBoxColor() == G_colors[i])
 			used[i] = true;
@@ -440,7 +458,10 @@ void World::s_putOnPlayers(Player* playerr)
 				break;
 			}
 		}
-		auto aiop = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s %d", G_str("Opponent").c_str(), i)->getCString(), gravitySpace, aiSmart, G_colors[wolny]);
+        if(madrych > 0) {smartval = 2; madrych --;}
+        else if(srednich > 0) {smartval = 1; srednich --;}
+        else smartval = 0;
+		auto aiop = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s %d", G_str("Opponent").c_str(), i)->getCString(), gravitySpace, smartval, G_colors[wolny]);
 		opponentz.pushBack(aiop);
 		aiop->addOrderedOpponents(orderedOpponents);
 	}
@@ -501,7 +522,7 @@ void World::setMultiplayer(cocos2d::Vector<Player*> players)
 	cameraFollowFunction = CC_CALLBACK_0(World::m_cameraFollow, this);
 	lateInit();
 	getHud()->setMultiplayer(this);
-	scaleeLayer->setPositionY((scaleeLayer->getPositionY()+Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height)/scaleeLayer->getScale());	//podwyzszamy troche zeby przyciski nie zaslanialy nic
+	scaleeLayer->setPositionY(scaleeLayer->getPositionY()+(Sprite::createWithSpriteFrameName(R_multiBtn[0])->getContentSize().height)/scaleeLayer->getScale());	//podwyzszamy troche zeby przyciski nie zaslanialy nic
 	DialogReader::getInstance()->getTutorialDialog("multiPlayerTut.json", hud->getCocostudioNode(), this);
 }
 void World::m_onTouched(const std::vector<Touch*>& touches, cocos2d::Event  *event)
@@ -510,7 +531,6 @@ void World::m_onTouched(const std::vector<Touch*>& touches, cocos2d::Event  *eve
 	for (auto touch : touches)
 	{
 		auto location = touch->getLocation();
-        const float gf= G_srodek.x;
 		if (playersNumber == 2)
 		{
 			if (location.x > G_srodek.x)
@@ -585,11 +605,29 @@ void World::m_onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Eve
 }
 void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 {
-	bool used[6] = { false, false, false, false, false, false };
+	bool used[7] = { false, false, false, false, false, false,false };
+    int madrych;
+    int srednich;
+    int smartval;
+    if(aiSmart==0)
+    {
+        madrych=0;
+        srednich=0;
+    }
+    else if(aiSmart == 1)
+    {
+        srednich = 2;
+        madrych = 0;
+    }
+    else if(aiSmart == 2)
+    {
+        madrych = 2;
+        srednich = 1;
+    }
 	player = NULL;
 	for (auto player : players)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			if (player->getBoxColor() == G_colors[i])
 				used[i] = true;
@@ -609,7 +647,10 @@ void World::m_putOnPlayers(cocos2d::Vector<Player*> players)
 				break;
 			}
 		}
-		AIOpponent *opp = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s %d", G_str("Opponent").c_str(),j)->getCString(), gravitySpace, aiSmart, G_colors[wolny]);
+        if(madrych > 0) {smartval = 2; madrych --;}
+        else if(srednich > 0) {smartval = 1; srednich --;}
+        else smartval = 0;
+		AIOpponent *opp = AIOpponent::create(R_Box[wolny], String::createWithFormat("%s %d", G_str("Opponent").c_str(),j)->getCString(), gravitySpace, smartval, G_colors[wolny]);
 		opp->addOrderedOpponents(orderedOpponents);
 		opponentz.pushBack(opp);
 	}
@@ -679,7 +720,6 @@ void World::calculateSredniaPredkoscDoDzwieku()
 		suma+=child->getVelocityX();
 	}
 	const float srednia = suma / boxesNumber;
-	SoundManager::getInstance()->playSlideEffect(clampf(srednia / defaultSpeed, 0.5f, 1.6f));
 }
 void World::onExit()
 {
@@ -844,7 +884,6 @@ void World::generateDrzewka()
 		}
 		if (rand() % 2) spr->setFlippedX(true);
 		dlugoscDrzewekMalych = spr->getBoundingBox().getMaxX();
-
 	}
 }
 void World::generateBg()

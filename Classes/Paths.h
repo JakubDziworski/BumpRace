@@ -4,11 +4,12 @@
 //IMAGES
 const std::string R_SPRITE_checkpoint = "checkpoint.png";
 const std::string R_defaultFont = "fonts/Aleo-BoldItalic.ttf";
-const std::string R_Box[6] = { "Box_blue.png", "Box_green.png", "Box_purple.png", "Box_yellow.png", "Box_red.png","fbface"};
+const std::string R_Box[7] = { "Box_blue.png", "Box_green.png", "Box_purple.png", "Box_yellow.png", "Box_red.png","laska.png","fbface"};
 const std::string R_faceBookFaceLocked = "fbImageLocked.png";
 const std::string R_FACEBOOKFACENAME = "fbface";
 const std::string R_tloCollector = "tlo.png";
 const std::string R_tloEndless = "tloEndless.png";
+const std::string R_tloElim = "tloElimination.png";
 const std::string R_btnBack ="btnBackOf.png";
 const std::string R_btnOn = "btnOf.png";
 const std::string R_flat = "Flat.png";
@@ -35,8 +36,10 @@ const std::string R_positiveActionFormat = "positiveAction_%.5d.png";
 const std::string R_cloudsFormat = "cloud%d.png";
 const std::string R_drzewkaCollector = "drzewka.png";
 const std::string R_drzewkaEndless = "drzewkaEndless.png";
+const std::string R_drzewkaElim = "drzewkaElimination.png";
 const std::string R_flatTopCollector = "flatTtop.png";
 const std::string R_flatTopEndless = "flatTtopEndless.png";
+const std::string R_flatTopElim = "flatTtopElimination.png";
 const std::string R_flatBottom = "flatBottom.png";
 const std::string R_fbConnectBtn = "fbConnectBtn.png";
 const std::string R_fbdisconnectBtn = "fbDisConnectBtn.png";
@@ -44,27 +47,25 @@ const std::string R_fbshareBtn = "fbShareBtn.png";
 const std::string R_fbIcon = "fbIcon.png";
 //LINKS
 const std::string R_fblink = "341653549336252";
-const std::string R_itunesLink = "https://itunes.apple.com/pl/app/real-boxing/id534473264?mt=8";
-const std::string R_googleplayLink = "https://play.google.com/store/apps/details?id=com.vividgames.realboxing&hl=en";
+const std::string R_itunesLink = "https://itunes.apple.com/us/app/bump-race/id919073312?mt=8";
+const std::string R_googleplayLink = "https://play.google.com/store/apps/details?id=com.frontmob.bumpracerelease";
 //MUSIC
 const std::string R_bgmusicMenu = "music/main.mp3";
 const std::string R_bgmusicGameplay = "music/gameplayMusic.mp3";
 const std::string R_MP3_punch = "sounds/punch.mp3";
-const std::string R_slide = "sounds/slide.mp3";
 const std::string R_slideRampDown = "sounds/slideRampDown.mp3";
 const std::string R_slideSlow = "sounds/slideSlow.mp3";
 const std::string R_slideRampUp = "sounds/slideRampUp.mp3";
 const std::string R_failure = "sounds/failure.mp3";
 const std::string R_powerUp = "sounds/powerUpCollected.wav";
 const std::string R_victory = "sounds/victory.mp3";
-const std::string R_popUp = "sounds/popUp.wav";
 const std::string R_rocketLaunch = "sounds/rocket_shot.mp3";
 const std::string R_explosion = "sounds/rocket_explosion.mp3";
 const std::string R_jump = "sounds/jump.mp3";
 const std::string R_boxFelt = "sounds/felt.mp3";
 const std::string R_boxColided = "sounds/colision.mp3";
 const std::string R_buttonClick = "sounds/jump.mp3";
-const std::string R_jetpackLaunch = "jetpack_start.mp3";
+const std::string R_jetpackLaunch = "sounds/jetpack_start.mp3";
 //DIALOGS
 const std::string R_tutorialDialog = "tutorialintro_1.json";
 const std::string R_LevelMapUI = "CarrerLevelChooser_1.json";

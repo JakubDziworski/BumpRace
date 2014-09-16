@@ -141,7 +141,7 @@ bool MyMenu::init()
                                             GlobalAdManager::showMoreGames();
                                         },646,this->getChildByTag(L_MAINMENU));
         moregamesBtn->setAnchorPoint(Vec2(1,0));
-        moregamesBtn->setPosition(moregamesBtn->getParent()->convertToNodeSpace(Point(VR::right().x-15,VR::bottom().y+15)));
+        moregamesBtn->setPosition(moregamesBtn->getParent()->convertToWorldSpace(Point(VR::right().x-15,VR::bottom().y+15)));
         auto fbButton = createBtn(R_fbIcon,"","",[](Ref* reff,ui::Widget::TouchEventType type)
                                   {
                                       if(type != Widget::TouchEventType::ENDED) return;
@@ -149,7 +149,7 @@ bool MyMenu::init()
                                       GlobalAdManager::goToLink(R_fblink);
                                   },950,this->getChildByTag(L_MAINMENU));
         fbButton->setAnchorPoint(Vec2(1,0));
-        fbButton->setPosition(moregamesBtn->getParent()->convertToNodeSpace(Point(VR::right().x-15,VR::bottom().y+48)));
+        fbButton->setPosition(fbButton->getParent()->convertToWorldSpace(Point(VR::right().x-15,VR::bottom().y+55)));
     }
     auto backbtn = createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	backbtn->setAnchorPoint(Vec2(0, 1));
@@ -588,7 +588,7 @@ bool MyMenu::m_checkPlayersOverlap()
 }
 void MyMenu::m_autocorrectWrongPlayerChoose()
 {
-	bool zajete[6] = { false, false, false, false, false, false };
+	bool zajete[7] = { false, false, false, false, false, false,false };
 	for (int i = 0; i < m_currPlayersNumber; i++)
 	{
 		PageView *pageviewAtI = (PageView*)dr->getWidget("MULTICHOOSENAMES.json", "PageView_" + std::to_string(i));
@@ -604,7 +604,7 @@ void MyMenu::m_autocorrectWrongPlayerChoose()
 			const int curpost = pageviewAtI->getCurPageIndex();
 			while (moved == false)
 			{
-				if (curpost + k <= 5 && !zajete[curpost + k])
+				if (curpost + k <= 6 && !zajete[curpost + k])
 				{
 					pageviewAtI->getColor() == Color3B(255, 255, 255);
 					pageviewAtI->scrollToPage(curpost + k);
@@ -864,7 +864,7 @@ void MyMenu::UPDATEPLAYERNAME()
  }
  void MyMenu::onBoxChooseChanged(cocos2d::ui::PageView *pgview)
  {
-	 if (pgview->getCurPageIndex() == 5 && G_faceBookAvatarTex == NULL)
+	 if (pgview->getCurPageIndex() == 6 && G_faceBookAvatarTex == NULL)
 	 {
 		 G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("connectoToFbDialog.json", this));
 		 dr->addActionHideAndSomething("connectoToFbDialog.json", "connectBtn", []()

@@ -172,8 +172,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>PackerResource/drzewka.png</filename>
-            <filename>PackerResource/drzewkaEndless.png</filename>
+            <filename>PackerResource2</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
