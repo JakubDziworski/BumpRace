@@ -3,6 +3,7 @@
 #include "SplashScreen.h"
 #include "Globals.h"
 #include "GlobalAdManager.h"
+#include "MyMenu.h"
 #include "screw/screw.h"
 USING_NS_CC;
 
@@ -36,7 +37,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	GlobalAdManager::checkBought();
 	auto screenSize = glview->getFrameSize();
 	prepareImageRes(screenSize);
-    auto scene = SplashScreen::createScene();
+    Scene* scene;
+    if(CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
+    {
+    	scene = SplashScreen::createScene();
+    }
+    else
+    {
+    	scene = MyMenu::createScene();
+    }
     director->runWithScene(scene);
     return true;
 }

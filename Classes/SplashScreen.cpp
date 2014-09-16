@@ -19,14 +19,7 @@ bool SplashScreen::init()
         return false;
     }
     auto sprite = Sprite::create("splash.png");
-    if(VR::width() < 512.0f)
-    {
-        sprite->setScale(512.0f/VR::width());
-    }
-    else
-    {
-        sprite->setScale(342.0f/VR::height());
-    }
+    sprite->setScale(1.07f);
     sprite->setPosition(VR::center());
     auto lateCallFunc = CallFunc::create([]()
     	{

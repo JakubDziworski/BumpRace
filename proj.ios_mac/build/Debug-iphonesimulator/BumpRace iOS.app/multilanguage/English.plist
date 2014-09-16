@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>wlcmText</key>
+	<string>Welcome to BumpRace</string>
+	<key>Single_Player</key>
+	<string>Singleplayer</string>
+	<key>LvlCmplSuffix</key>
+	<string> in &quot;Bump Race&quot;. Try it out too!</string>
+	<key>LvlCmplPrefix</key>
+	<string>I just completed level </string>
+	<key>Multi_Player</key>
+	<string>Multiplayer</string>
+	<key>Options</key>
+	<string>Options</string>
+	<key>Carrer</key>
+	<string>Carrer</string>
+	<key>gmOver</key>
+	<string>Game Over</string>
+	<key>BestRun</key>
+	<string>Endless Run</string>
+	<key>FreeRun</key>
+	<string>Free Run</string>
+	<key>Play</key>
+	<string>Play</string>
+	<key>generalRulesTut</key>
+	<string>Tap on the screen to jump. First player moves the slowest (wind resistance) while last one the fastest</string>
+	<key>Continue</key>
+	<string>Continue</string>
+	<key>Choose_Mode</key>
+	<string>Choose a mode</string>
+	<key>Opponentow</key>
+	<string>Opponents</string>
+	<key>New Opponents</key>
+	<string>Opponents</string>
+	<key>Opponent</key>
+	<string>Com</string>
+	<key>Gatesow</key>
+	<string>Gates</string>
+	<key>lastGate</key>
+	<string>Last Gate!</string>
+	<key>Difficulty</key>
+	<string>Difficulty</string>
+	<key>Players</key>
+	<string>Players</string>
+	<key>Player</key>
+	<string>Player</string>
+	<key>Computers</key>
+	<string>Computers</string>
+	<key>Gate_Collector</key>
+	<string>Gate Collector</string>
+	<key>Elimination</key>
+	<string>Elimination</string>
+	<key>Endless</key>
+	<string>Dead End</string>
+	<key>Choose_Name</key>
+	<string>Choose your name and character</string>
+	<key>Choose_Names</key>
+	<string>Choose your names and characters</string>
+	<key>Easy</key>
+	<string>Easy</string>
+	<key>Medium</key>
+	<string>Medium</string>
+	<key>Hard</key>
+	<string>Hard</string>
+	<key>autoCorrect</key>
+	<string>Auto-correct</string>
+	<key>AutoCorrectDialogText</key>
+	<string>More than one player selected the same character. Correct manually or autocorrect.</string>
+	<key>Level</key>
+	<string>Level</string>
+	<key>Completed</key>
+	<string>Completed</string>
+	<key>Failed</key>
+	<string>Failed</string>
+	<key>GatesCollected</key>
+	<string>gates collected</string>
+	<key>elmintd</key>
+	<string>eliminated</string>
+	<key>Eliminated</key>
+	<string>You have been eliminated!</string>
+	<key>YOUWON</key>
+	<string>You won!</string>
+	<key>ObjElim</key>
+	<string>Objective: Don&apos;t get eliminated</string>
+	<key>ObjGate</key>
+	<string>Objective: Collect most gates</string>
+	<key>ObjEndless</key>
+	<string>Objective: Reach each checkpoint not last</string>
+	<key>gatesLeft</key>
+	<string>%d Gates Left</string>
+	<key>gatesLeft2</key>
+	<string>%d Gates Left</string>
+	<key>score</key>
+	<string>Score : %d</string>
+	<key>newRecord</key>
+	<string>New Record!</string>
+	<key>bestScore</key>
+	<string>Best Score</string>
+	<key>tapToStart</key>
+	<string>Tap anywhere to START</string>
+	<key>Tutorials</key>
+	<string>Tutorials</string>
+	<key>On</key>
+	<string>On</string>
+	<key>Off</key>
+	<string>Off</string>
+	<key>Credits</key>
+	<string>Credits</string>
+	<key>gandA</key>
+	<string>Graphics &amp; Audio</string>
+	<key>everything</key>
+	<string>Everything else</string>
+	<key>cnctToPlayer</key>
+	<string>Connect to facebook to play using your facebook picture!</string>
+	<key>bstScores</key>
+	<string>Best Scores</string>
+	<key>Mode</key>
+	<string>Mode</string>
+	<key>wlcmTutText</key>
+	<string>Welcome to Bump Race</string>
+	<key>wantToKnowTut</key>
+	<string>Want to know how to play, right?</string>
+	<key>pwrUpCollectedTutIntro</key>
+	<string>You just caught Power Up! There are 3 types of powerups</string>
+	<key>rocketTut</key>
+	<string>Shoot rocket at players behind you to slow them down</string>
+	<key>ghostTut</key>
+	<string>Wear a ghost robe and run through other players</string>
+	<key>thrustTut</key>
+	<string>Trigger thruster to speed up</string>
+	<key>howToActivatePwrupTut</key>
+	<string>To activate press button on the bottom</string>
+	<key>gateCollectorTut</key>
+	<string>You&apos;re playing &quot;Gate Collector&quot; mode. Collect most gates to win</string>
+	<key>enlessModeTut</key>
+	<string>You&apos;re playing &quot;Dead End&quot; mode. Reach any gate last and you loose!</string>
+	<key>elimModeTut</key>
+	<string>You&apos;re playing &quot;Elimintion&quot; mode. Each gate, last player is eliminated and the game goes on</string>
+	<key>bestScoreModeTut</key>
+	<string>Collect as many gates as possible without reaching any gate last</string>
+	<key>multiTut1</key>
+	<string>Press the button which color is the same as your character</string>
+	<key>multiTut2</key>
+	<string>You can also touch anywhere over the button</string>
+	<key>cmpltTutsFirst</key>
+	<string>Play carrer first or disable tutorials in Options</string>
+	<key>carrerCmpltdDialog1</key>
+	<string>You completed all carrer levels!</string>
+	<key>carrerCmpltdDialog1a</key>
+	<string>Congratulations!</string>
+	<key>carrerCmpltdMultiDialog</key>
+	<string>Play multiplayer with your friends!</string>
+	<key>carrCmpltdPlentyThings</key>
+	<string>There are still many things to do!</string>
+	<key>carrercmpltdTryCustom</key>
+	<string>Try custom mode and choose your own rules for a single run!</string>
+	<key>carrerCmpltdTryHighscore</key>
+	<string>Compete with yourself and other players by setting a highscore in &quot;Endless Run&quot; mode</string>
+	<key>carrerCmpltdOtherGames</key>
+	<string>Try some other amazaing games too!</string>
+	<key>carrerCmpltdPlayOtherNow</key>
+	<string>Play them now!</string>
+	<key>tiredOfAds</key>
+	<string>Tired of ads? Remove them now</string>
+	<key>rmv</key>
+	<string>Remove</string>
+	<key>workedHard</key>
+	<string>We worked hard on this game. If you enjoy it please like facebook page or rate it</string>
+	<key>rate</key>
+	<string>Rate</string>
+	<key>rmvAds</key>
+	<string>Remove Ads</string>
+	<key>jstScored</key>
+	<string>I just scored %d in &quot;BumpRace&quot;</string>
+	<key>unlockLevel</key>
+	<string>Complete previous level or unlock now!</string>
+	<key>unlock</key>
+	<string>Unlock</string>
+	<key>more_games</key>
+	<string>More Games</string>
+	<key>toohard</key>
+	<string>Too hard? Why don&apos;t you take a break and try some other games</string>
+	<key>noThanks</key>
+	<string>No, thanks</string>
+	<key>tryOther</key>
+	<string>Try other games</string>
+</dict>
+</plist>
