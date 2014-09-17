@@ -6,6 +6,8 @@ namespace cocos2d { namespace ui{ class Layout; }}
 class DialogReader : public cocos2d::Node
 {
 private:
+	float touchTimeElapsed = 0;
+	void touchTimer(float dt);
 	static DialogReader* me;
 	DialogReader();
 	cocos2d::Map<std::string, cocos2d::ui::Layout*> loadedWidgets;

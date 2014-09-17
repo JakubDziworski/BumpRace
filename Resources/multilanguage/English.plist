@@ -25,7 +25,7 @@
 	<key>Play</key>
 	<string>Play</string>
 	<key>generalRulesTut</key>
-	<string>Tap on the screen to jump. First player moves the slowest (wind resistance) while last one the fastest</string>
+	<string>Tap on the screen to jump. First player moves slowest (wind resistance) while last one is the fastest</string>
 	<key>Continue</key>
 	<string>Continue</string>
 	<key>Choose_Mode</key>

@@ -91,9 +91,34 @@ cocos2d::ui::Layout* DialogReader::getMainWidgetFromJson(const std::string &file
 		}
 		else if (dynamic_cast<PageView*>(node))
 		{
-			PageView *nod = (PageView*)node;
-			PageViewController *ctrl = PageViewController::create();
-			ctrl->setControlledpageView(nod);
+			//PO DOTKNIECIU NA DOWOLNY PRZESUNIECIE
+			int i = 0;
+			auto pgview = ((PageView*)node);
+			for (auto pgchild : pgview->getPages())
+			{
+				pgchild->addTouchEventListener([this, pgview, pgchild, i](Ref *reff, Widget::TouchEventType type)
+				{
+					if (type == Widget::TouchEventType::BEGAN)
+					{
+						this->schedule(schedule_selector(DialogReader::touchTimer));
+					}
+					else if (type == Widget::TouchEventType::ENDED)
+					{
+						if (touchTimeElapsed < 0.6f)
+						{
+							pgview->scrollToPage(i);
+						}
+						touchTimeElapsed = 0;
+						this->unschedule(schedule_selector(DialogReader::touchTimer));
+					}
+					else if (type == Widget::TouchEventType::CANCELED)
+					{
+						touchTimeElapsed = 0;
+						this->unschedule(schedule_selector(DialogReader::touchTimer));
+					}
+				});
+				i++;
+			}
 		}
 		return false;
 	});
@@ -202,4 +227,9 @@ void DialogReader::getTutorialDialog(const std::string &cocosFileName, cocos2d::
 			if (once) DbReader::getInstance()->setTutorialCmpltd(cocosFileName);
 		}
 	});
+}
+
+void DialogReader::touchTimer(float dt)
+{
+	touchTimeElapsed += dt;
 }
