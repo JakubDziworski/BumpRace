@@ -35,11 +35,20 @@ SoundManager * SoundManager::getInstance()
 }
 void SoundManager::preloadSounds()
 {
-	//effects
 	audioEngine->preloadEffect(R_MP3_punch.c_str());
 	audioEngine->preloadEffect(R_slideRampDown.c_str());
 	audioEngine->preloadEffect(R_slideSlow.c_str());
 	audioEngine->preloadEffect(R_slideRampUp.c_str());
+	audioEngine->preloadEffect(R_failure.c_str());
+	audioEngine->preloadEffect(R_powerUp.c_str());
+	audioEngine->preloadEffect(R_victory.c_str());
+	audioEngine->preloadEffect(R_rocketLaunch.c_str());
+	audioEngine->preloadEffect(R_explosion.c_str());
+	audioEngine->preloadEffect(R_jump.c_str());
+	audioEngine->preloadEffect(R_boxFelt.c_str());
+	audioEngine->preloadEffect(R_boxColided.c_str());
+	audioEngine->preloadEffect(R_buttonClick.c_str());
+	audioEngine->preloadEffect(R_jetpackLaunch.c_str());
 	//music
 	audioEngine->preloadBackgroundMusic(R_bgmusicMenu.c_str());
 	audioEngine->preloadBackgroundMusic(R_bgmusicGameplay.c_str());

@@ -15,7 +15,7 @@
 	<key>Options</key>
 	<string>Options</string>
 	<key>Carrer</key>
-	<string>Carrer</string>
+	<string>Career</string>
 	<key>gmOver</key>
 	<string>Game Over</string>
 	<key>BestRun</key>
@@ -25,7 +25,7 @@
 	<key>Play</key>
 	<string>Play</string>
 	<key>generalRulesTut</key>
-	<string>Tap on the screen to jump. First player moves slowest (wind resistance) while last one is the fastest</string>
+	<string>Tap on the screen to jump. First player moves slowest (highest wind resistance) while last one is the fastest</string>
 	<key>Continue</key>
 	<string>Continue</string>
 	<key>Choose_Mode</key>
@@ -145,9 +145,9 @@
 	<key>multiTut2</key>
 	<string>You can also touch anywhere over the button</string>
 	<key>cmpltTutsFirst</key>
-	<string>Play carrer first or disable tutorials in Options</string>
+	<string>Play career first or disable tutorials in Options</string>
 	<key>carrerCmpltdDialog1</key>
-	<string>You completed all carrer levels!</string>
+	<string>You completed all career levels!</string>
 	<key>carrerCmpltdDialog1a</key>
 	<string>Congratulations!</string>
 	<key>carrerCmpltdMultiDialog</key>
@@ -179,7 +179,7 @@
 	<key>unlock</key>
 	<string>Unlock</string>
 	<key>more_games</key>
-	<string>More Games</string>
+	<string>More Games!</string>
 	<key>toohard</key>
 	<string>Too hard? Why don&apos;t you take a break and try some other games</string>
 	<key>noThanks</key>

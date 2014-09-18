@@ -326,7 +326,7 @@ void World::gameIsOver(bool win)
         GlobalAdManager::sendFlurryEvent(classname+
                                          " : MP Game Over With Effect : " + std::to_string(win) +
                                          " ("+std::to_string(gatesNumber)+" gates, " + std::to_string(boxesNumber-1) + "Opponentz, "+
-                                         std::to_string(aiSmart)+" Smartness");
+                                         std::to_string(aiSmart)+" Smartness)");
     }
     else
     {
@@ -334,7 +334,7 @@ void World::gameIsOver(bool win)
         GlobalAdManager::sendFlurryEvent(classname+
                                          " : SP Game Over With Effect : " + std::to_string(win) +
                                          " ("+std::to_string(gatesNumber)+" gates, " + std::to_string(boxesNumber-1) + "Opponentz, "+
-                                         std::to_string(aiSmart)+" Smartness");
+                                         std::to_string(aiSmart)+" Smartness)");
     }
 	gameOver = true;
 	this->setTouchEnabled(false);
@@ -498,10 +498,8 @@ void World::s_cameraFollow()
 	posX = -player->getPositionX()*G_myCos;
 	posY = player->getPositionX()*G_mySin;
 	const float lastposX = -followMate->getPositionX()*G_myCos;
-	const float lastposY = +followMate->getPositionX()*G_mySin;
 	const float maxOffsetX = G_srodek.x / scaleeLayer->getScale() / screenRatio;
-	const float maxOffsetY = G_srodek.y / scaleeLayer->getScale() / screenRatio;
-	const float maxpierwszyOffset = 0.8f*G_srodek.y / scaleeLayer->getScale();
+	const float maxpierwszyOffset = 0.4f*VR::height() / scaleeLayer->getScale();
 	const float pierwszyposY = pierwszyy->getPositionX()*G_mySin;
 	//************//
 	moveLayer->setPositionX(clampf((posX + lastposX) / 2, posX - maxOffsetX, posX + maxOffsetX));

@@ -159,7 +159,7 @@ void Hud::displayGameOver(bool win)
             G_failsInRow++;
             if(G_failsInRow % 6 == 5)
             {
-            	DialogReader::getInstance()->getMainWidgetFromJson("tooHardDialog.json",cocostudioNode);
+            	G_scaleNodeVerticallyToFit(DialogReader::getInstance()->getMainWidgetFromJson("tooHardDialog.json",cocostudioNode));
             	DialogReader::getInstance()->addActionHideAndSomething("tooHardDialog.json","tryOtherGamesBtn",[]()
             		{
             			GlobalAdManager::showMoreGames();

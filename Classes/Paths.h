@@ -47,7 +47,7 @@ const std::string R_fbshareBtn = "fbShareBtn.png";
 const std::string R_fbIcon = "fbIcon.png";
 //LINKS
 const std::string R_fblink = "341653549336252";
-const std::string R_itunesLink = "https://itunes.apple.com/us/app/bump-race/id919073312?mt=8";
+const std::string R_itunesLink = "https://itunes.apple.com/app/id919073312";
 const std::string R_googleplayLink = "https://play.google.com/store/apps/details?id=com.frontmob.bumpracerelease";
 //MUSIC
 const std::string R_bgmusicMenu = "music/main.mp3";

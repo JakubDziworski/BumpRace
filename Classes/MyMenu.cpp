@@ -141,7 +141,8 @@ bool MyMenu::init()
                                             GlobalAdManager::showMoreGames();
                                         },646,this->getChildByTag(L_MAINMENU));
         moregamesBtn->setAnchorPoint(Vec2(1,0));
-        moregamesBtn->setPosition(moregamesBtn->getParent()->convertToWorldSpace(Point(VR::right().x-15,VR::bottom().y+15)));
+        auto rightbot  = moregamesBtn->getParent()->convertToNodeSpace(Point(VR::right().x,VR::bottom().y));
+        moregamesBtn->setPosition(Vec2(rightbot.x-15,rightbot.y+15));
         auto fbButton = createBtn(R_fbIcon,"","",[](Ref* reff,ui::Widget::TouchEventType type)
                                   {
                                       if(type != Widget::TouchEventType::ENDED) return;
@@ -149,7 +150,7 @@ bool MyMenu::init()
                                       GlobalAdManager::goToLink(R_fblink);
                                   },950,this->getChildByTag(L_MAINMENU));
         fbButton->setAnchorPoint(Vec2(1,0));
-        fbButton->setPosition(fbButton->getParent()->convertToWorldSpace(Point(VR::right().x-15,VR::bottom().y+55)));
+        fbButton->setPosition(Vec2(rightbot.x-15,rightbot.y+55));
     }
     auto backbtn = createBtn(R_btnBack,"","", CC_CALLBACK_2(MyMenu::goBack, this), B_BACK, this);
 	backbtn->setAnchorPoint(Vec2(0, 1));
