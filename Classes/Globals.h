@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "World.h"
 #include "Hud.h"
+#include "ui/cocosGUI.h"
 #include "screw/screw.h"
 #include "Player.h"
 extern int G_failsInRow;
@@ -69,5 +70,7 @@ extern void FB_sharePost(const std::string &name,const std::string &caption,cons
 extern void G_stretcNodeToFit(cocos2d::Node*);
 extern void G_scaleNodeVerticallyToFit(cocos2d::Node*);
 extern void G_scaleNodeToFitHorizontally(cocos2d::Node*);
+extern cocos2d::Label* G_createLabel(const std::string &txtToDisplay,const std::string &fntName,int size);
+extern cocos2d::ui::Text* G_createText(const std::string &txtToDisplay,const std::string &fntName,int size);
 #endif
 

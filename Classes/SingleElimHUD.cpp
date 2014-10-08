@@ -23,7 +23,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create(G_str("gmOver"), R_defaultFont, 20);
+	auto gmOverText = G_createText(G_str("gmOver"), R_defaultFont, 20);
 	if (world->getCarrerLevel() != 0 && win)
 	{
 		gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
@@ -51,7 +51,7 @@ void SingleElimHud::displayGameIsOverAdditional(bool win)
 	{
         auto box = world->getPozycje().at(j);
 		if (box == G_getWorld()->getPlayer() && ommitPlayer){ i++; continue; }
-		Text* text = Text::create("", R_defaultFont, 12);
+		Text* text = G_createText("", R_defaultFont, 12);
 		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0.5f, 0));
 		text->setColor(box->getBoxColor());
@@ -85,7 +85,7 @@ void SingleElimHud::lateinit(World *worldd)
 	int i = 0;
 	for (Boxx *box : *world->getBoxes())
 	{
-		Text* text = Text::create("", R_defaultFont, 12);
+		Text* text = G_createText("", R_defaultFont, 12);
 		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0, 0));
 		text->setColor(box->getBoxColor());

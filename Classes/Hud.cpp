@@ -52,7 +52,7 @@ bool Hud::init()
 	this->addChild(pauseNode,7);
 	this->addChild(pauseBtn, 1, B_PAUSE);
 	//INFO
-	infoNode = Label::create("",R_defaultFont,17);
+	infoNode = G_createText("",R_defaultFont,17);
 	infoNode->setPosition(G_srodek);
 	infoNode->setVisible(false);
 	infoNode->setOpacity(0);

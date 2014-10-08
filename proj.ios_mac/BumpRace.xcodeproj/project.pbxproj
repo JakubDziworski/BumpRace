@@ -130,8 +130,8 @@
 		8C801B8C19B12E7B00BDC740 /* RequestApple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C801B8519B12E7B00BDC740 /* RequestApple.mm */; };
 		8C801B8D19B12E7B00BDC740 /* SessionApple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C801B8719B12E7B00BDC740 /* SessionApple.mm */; };
 		8C801B8E19B12E7B00BDC740 /* WebDialogApple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C801B8919B12E7B00BDC740 /* WebDialogApple.mm */; };
-		8C801B9019B12EDA00BDC740 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C801B8F19B12EDA00BDC740 /* FacebookSDK.framework */; };
 		8CC384B519B239960015CA0A /* FbManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CC384B319B239960015CA0A /* FbManager.cpp */; };
+		8CC5E9AD19E33DE7004A3063 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC5E9AC19E33DE7004A3063 /* FacebookSDK.framework */; };
 		8CCBC50719C8175200D08419 /* SplashScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CCBC50519C8175200D08419 /* SplashScreen.cpp */; };
 		8CD052F519B8A0E6002E1A14 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD052F419B8A0E6002E1A14 /* AdSupport.framework */; };
 		8CD052F919B8A101002E1A14 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD052F619B8A101002E1A14 /* CoreGraphics.framework */; };
@@ -447,9 +447,9 @@
 		8C801B8719B12E7B00BDC740 /* SessionApple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SessionApple.mm; sourceTree = "<group>"; };
 		8C801B8819B12E7B00BDC740 /* WebDialogApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDialogApple.h; sourceTree = "<group>"; };
 		8C801B8919B12E7B00BDC740 /* WebDialogApple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebDialogApple.mm; sourceTree = "<group>"; };
-		8C801B8F19B12EDA00BDC740 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../Classes/FacebookSDK.framework; sourceTree = "<group>"; };
 		8CC384B319B239960015CA0A /* FbManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FbManager.cpp; path = ../Classes/FbManager.cpp; sourceTree = "<group>"; };
 		8CC384B419B239960015CA0A /* FbManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FbManager.h; path = ../Classes/FbManager.h; sourceTree = "<group>"; };
+		8CC5E9AC19E33DE7004A3063 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		8CCBC50519C8175200D08419 /* SplashScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScreen.cpp; path = ../Classes/SplashScreen.cpp; sourceTree = "<group>"; };
 		8CCBC50619C8175200D08419 /* SplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplashScreen.h; path = ../Classes/SplashScreen.h; sourceTree = "<group>"; };
 		8CD052F419B8A0E6002E1A14 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -511,6 +511,7 @@
 				8CD0531919B8A19D002E1A14 /* Social.framework in Frameworks */,
 				8CD0531719B8A196002E1A14 /* PassKit.framework in Frameworks */,
 				8CD0531519B8A18F002E1A14 /* MobileCoreServices.framework in Frameworks */,
+				8CC5E9AD19E33DE7004A3063 /* FacebookSDK.framework in Frameworks */,
 				8CD0531319B8A187002E1A14 /* MessageUI.framework in Frameworks */,
 				8C76474319C60D0F0076E364 /* libFlurry_5.3.0.a in Frameworks */,
 				8CD0530D19B8A175002E1A14 /* AudioToolbox.framework in Frameworks */,
@@ -519,7 +520,6 @@
 				8CD052FF19B8A10A002E1A14 /* EventKitUI.framework in Frameworks */,
 				8CD052FA19B8A101002E1A14 /* CoreLocation.framework in Frameworks */,
 				8CD052FB19B8A101002E1A14 /* CoreTelephony.framework in Frameworks */,
-				8C801B9019B12EDA00BDC740 /* FacebookSDK.framework in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -657,6 +657,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				8CC5E9AC19E33DE7004A3063 /* FacebookSDK.framework */,
 				8C76474019C60D0F0076E364 /* Flurry */,
 				8CDA4EC419C0F22400742768 /* StartApp.bundle */,
 				8CDA4EC519C0F22400742768 /* StartApp.framework */,
@@ -697,7 +698,6 @@
 				8CD052F719B8A101002E1A14 /* CoreLocation.framework */,
 				8CD052F819B8A101002E1A14 /* CoreTelephony.framework */,
 				8CD052F419B8A0E6002E1A14 /* AdSupport.framework */,
-				8C801B8F19B12EDA00BDC740 /* FacebookSDK.framework */,
 				D6B0611A1803AB670077942B /* CoreMotion.framework */,
 				503AE11A17EB9C5A00D1A890 /* IOKit.framework */,
 				503AE11117EB99EE00D1A890 /* libcurl.dylib */,
@@ -1243,8 +1243,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jakub Dziworski (SMBJ3E475Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jakub Dziworski (SMBJ3E475Q)";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1254,6 +1254,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/Chartboost/SDK",
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/Chartboost",
+					"$(PROJECT_DIR)/ios",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1282,7 +1283,7 @@
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b37fe4d6-041c-499f-aac3-c313016d282e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1295,7 +1296,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jakub Dziworski (SMBJ3E475Q)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1305,6 +1306,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/Chartboost/SDK",
 					"$(PROJECT_DIR)/MoPubSDK/AdNetworkSupport/Chartboost",
+					"$(PROJECT_DIR)/ios",
 				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1334,7 +1336,7 @@
 					"-v",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b37fe4d6-041c-499f-aac3-c313016d282e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

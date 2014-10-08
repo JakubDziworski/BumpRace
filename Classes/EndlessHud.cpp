@@ -34,7 +34,7 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create(G_str("gmOver"), R_defaultFont, 20);
+	auto gmOverText = G_createText(G_str("gmOver"), R_defaultFont, 20);
 	if (newRecord) gmOverText->setString(G_str("newRecord").c_str());
 	if (win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (!win && carrer) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
@@ -47,10 +47,10 @@ void EndlessHud::displayGameIsOverAdditional(bool win)
 	//SCORE INFO
 	if(world->isEndless())
 	{
-		Text *score = Text::create("SCORE:", R_defaultFont, 12);
+		Text *score = G_createText("SCORE:", R_defaultFont, 12);
 		score->setString(String::createWithFormat(G_str("score").c_str(), world->getScore())->getCString());
 		gmOverNode->addWidget(score);
-		Text *bestScore = Text::create(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, 12);
+		Text *bestScore = G_createText(String::createWithFormat("%s%s%d",G_str("bestScore").c_str()," : ",bestSCore)->getCString(), R_defaultFont, 12);
 		gmOverNode->addWidget(bestScore);
         auto scoresBtn = Button::create(R_btnOn,"","",TextureResType::PLIST);
         scoresBtn->setTitleText(G_str("bstScores"));
@@ -118,7 +118,7 @@ void EndlessHud::lateinit(World *world)
 	this->world = (EndlessWorld*)world;
 	if (this->world->isEndless())
 	{
-		scoreText = Label::create(String::createWithFormat(G_str("score").c_str(), 0)->getCString(), R_defaultFont, 17);
+		scoreText = G_createText(String::createWithFormat(G_str("score").c_str(), 0)->getCString(), R_defaultFont, 17);
 		scoreText->setAnchorPoint(Vec2(0, 1));
 		const float margin = 0.05*G_srodek.x;
 		scoreText->setPosition(Vec2(VR::leftTop().x + margin, VR::leftTop().y - margin));

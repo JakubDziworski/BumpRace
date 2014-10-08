@@ -22,7 +22,7 @@ std::string G_drzewkaFilePath="";
 cocos2d::Texture2D *G_faceBookAvatarTex = NULL;
 cocos2d::Vector<Sprite*> G_spritesUsingFBImage(2);
 int G_endlessGateNumber = 5;
-int G_odlegloscmiedzyBramkami = 2500;
+int G_odlegloscmiedzyBramkami = 2900;
 cocos2d::Director *G_director = NULL;
 cocos2d::Vec2 G_srodek = cocos2d::Vec2(0,0);
 float G_prevXgravity = 0;
@@ -438,3 +438,20 @@ void G_scaleNodeToFitHorizontally(cocos2d::Node* node)
 	if (node->getScale() != 1.0f)
         node->setPositionY((1 - node->getAnchorPoint().y)*0.5f*height*(1 - node->getScale()));
 }
+cocos2d::Label* G_createLabel(const std::string &txtToDisplay,const std::string &fntName,int size)
+{
+    auto ret = cocos2d::Label::create();
+    ret->setString(txtToDisplay);
+    const TTFConfig ttfconf = TTFConfig(fntName.c_str(),size,GlyphCollection::DYNAMIC,nullptr,false,0);
+    ret->setTTFConfig(ttfconf);
+    return ret;
+}
+cocos2d::ui::Text* G_createText(const std::string &txtToDisplay,const std::string &fntName,int size)
+{
+    auto ret = cocos2d::ui::Text::create();
+    ret->setString(txtToDisplay);
+    ret->setFontSize(size);
+    ret->setFontName(fntName);
+    return ret;
+}
+

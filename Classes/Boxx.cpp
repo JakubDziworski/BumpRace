@@ -39,8 +39,6 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	points = 0;
 	deactivated = false;
 	//create cocos stuff//
-	debugL = Label::create("",R_defaultFont,22);
-	debugL->setColor(this->boxColor);
 	//physics//
 	auto bounding = this->getContentSize();
 	myBody = cpBodyNew(1.0f,INFINITY);
@@ -68,13 +66,8 @@ bool Boxx::myInit(const std::string& filename, std::string ID, cpSpace *space, c
 	cpSpaceAddShape(space, topShape);
 	cpSpaceAddShape(space, shape);
 	//tweaks and adchild//
-	debugL->setNormalizedPosition(Vec2(0.5f,2));
-	G_enableShadow(debugL);
-	debugL->setHorizontalAlignment(TextHAlignment::CENTER);
-	debugL->setVisible(false);
 	myBody->data = this;
 	myBody->velocity_func = gravityFunc;
-	this->addChild(debugL);
 	this->ID = ID;
 	for (int i = 0; i < 3; i++)
 	{
@@ -250,28 +243,16 @@ void Boxx::updatePhysPos()
 }
 void Boxx::displayDebugInfo()
 {
-	additionalDebugInfo();
-	//if (!isOnFlat()) debugL->setString(debugL->getString()+"JUMPINg \n");
-	debugL->setString(debugL->getString() + CCString::createWithFormat(" racePOS: %d", racePos)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat(" physPOS:%d", physPos)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n velx:%.1f", myBody->v.x)->getCString());
-	//debugL->setString(debugL->getString() + CCString::createWithFormat("\n v_limit:%.1f", myBody->v_limit)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n wind:%.1f", wind)->getCString());
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n maxVel:%.1f", maxVel)->getCString());
 }
 void Boxx::additionalDebugInfo()
 {
-	debugL->setString(ID);
-	debugL->setString(debugL->getString() + CCString::createWithFormat("\n points:%d", points)->getCString());
-	if (deactivated) 
-		debugL->setString(debugL->getString() + "\ndeactivated");
 }
 void Boxx::addPoint()
 {
 	if (deactivated) return;
 	points++;
 	const float offset = this->getContentSize().height;
-	Label *plus1 = Label::create("+1",R_defaultFont,50);
+	ui::Text *plus1 = G_createText("+1",R_defaultFont,50);
 	this->addChild(plus1,200);
 	plus1->setAnchorPoint(Vec2(0.5f,0.0f));
 	plus1->setNormalizedPosition(Vec2(0.5f,1.0f));

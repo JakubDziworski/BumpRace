@@ -109,20 +109,21 @@ void World::createFloor()
 	floor = cpPolyShapeNew(floorBody, 4, verts, cpvzero);
 	//SPRITE
 	floorBatchNode = SpriteBatchNode::create(G_flatTopFilePath.c_str());
-	Texture2D::TexParams tp = { GL_REPEAT, GL_REPEAT, GL_REPEAT, GL_REPEAT };
-	floorBatchNode->getTexture()->setTexParameters(tp);
+	Texture2D::TexParams tp = { GL_REPEAT, GL_LINEAR, GL_REPEAT, GL_LINEAR };
 	flatsprite = PhysicsSprite::createWithTexture(floorBatchNode->getTexture(), Rect(verts[0].x, verts[1].y, abs(verts[3].x), floorBatchNode->getTexture()->getContentSize().height));
+    //flatsprite->getTexture()->setTexParameters(tp);
 	flatsprite->setCPBody(floorBody);
 	floorBatchNode->addChild(flatsprite);
 	flatsprite->setAnchorPoint(Vec2(0, 1));
+    rotationLayer->addChild(floorBatchNode);
 	//FLATSPRITE BOTTOM
-	auto flatSPriteBottom = SpriteBatchNode::create(R_flatBottom.c_str());
-	flatSPriteBottom->getTexture()->setTexParameters(tp);
-	bottomSpr = Sprite::createWithTexture(flatSPriteBottom->getTexture(), Rect(0, 0, abs(verts[3].x), 2500));
+    Texture2D::TexParams tp2 = { GL_REPEAT, GL_REPEAT, GL_REPEAT, GL_REPEAT };
+	bottomSpr = Sprite::create(R_flatBottom.c_str(), Rect(0, 0, abs(verts[3].x), 2500));
+    bottomSpr->getTexture()->setTexParameters(tp2);
+    flatsprite->getTexture()->setTexParameters(tp);
 	bottomSpr->setAnchorPoint(Vec2(0, 1));
 	bottomSpr->setPosition(flatsprite->getBoundingBox().getMinX(), flatsprite->getBoundingBox().getMinY()+1);
-	rotationLayer->addChild(floorBatchNode);
-	rotationLayer->addChild(bottomSpr);
+	rotationLayer->addChild(bottomSpr,5);
 	floor->e = 0;//elastycznosc;
 	floor->u = 0.1f;//friction
 	floor->collision_type = COLLISIONTYPEFLOOR;
@@ -728,7 +729,7 @@ void World::onExit()
 }
 void World::startBoxPointer()
 {
-	auto startBtn = Label::create(G_str("tapToStart"), R_defaultFont, 17);
+	auto startBtn = G_createText(G_str("tapToStart"), R_defaultFont, 17);
 	G_enableShadow(startBtn);
 	hud->addChild(startBtn, -1);
 	startBtn->setPosition(VR::center());
@@ -736,11 +737,11 @@ void World::startBoxPointer()
 	auto show = ScaleTo::create(0.2f,0.9f, 1.2f);
 	auto lateSequence = CallFunc::create([startBtn](){startBtn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.3f, 1), ScaleBy::create(0.3f, 0.9f, 1.2f)))); });
 	startBtn->runAction(Sequence::createWithTwoActions(show, lateSequence));
-	auto labels = cocos2d::Vector<Label*>(boxesNumber);
+    auto labels = cocos2d::Vector<ui::Text*>(boxesNumber);
 	float i = 0;
 	for (auto box : opponentz)
 	{
-		auto label = Label::create(box->getID(), R_defaultFont, 27);
+		auto label = G_createText(box->getID(), R_defaultFont, 27);
 		box->addChild(label);
 		label->setAnchorPoint(Vec2(0.5f, 0));
 		label->setNormalizedPosition(Vec2(0.5f, 1.3f));

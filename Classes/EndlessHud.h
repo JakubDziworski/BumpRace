@@ -8,7 +8,7 @@ class EndlessHud : public Hud
 private:
 	EndlessWorld* world;
 	cocos2d::Vector<Boxx*> *orderedBoxes;
-	cocos2d::Label *scoreText;
+	cocos2d::ui::Text *scoreText;
 	myLayout *gmOverNode;
 public:
 	virtual bool init();

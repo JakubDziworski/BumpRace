@@ -16,7 +16,7 @@ protected:
 	Node *cocostudioNode;
 	Node *gameOverNode;
 	Node *scoreTableNode;
-	cocos2d::Label *infoNode;
+	cocos2d::ui::Text *infoNode;
 	cocos2d::ui::Button *activatorBtns[4];
 	cocos2d::ui::Button *multiBtns[4];
 	void pauseTouchCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType touchType);

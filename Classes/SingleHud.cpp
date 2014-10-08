@@ -46,7 +46,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	gmOverNode = myLayout::create();
 	gmOverNode->setType(0);
 	//gmover text
-	auto gmOverText = Text::create(G_str("gmOver"), R_defaultFont, 20);
+	auto gmOverText = G_createText(G_str("gmOver"), R_defaultFont, 20);
     gmOverText->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	if (world->getCarrerLevel() != 0 && win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Completed").c_str())->getCString());
 	else if (world->getCarrerLevel() != 0 && !win) gmOverText->setString(String::createWithFormat("%s %d %s", G_str("Level").c_str(), world->getCarrerLevel(), G_str("Failed").c_str())->getCString());
@@ -66,7 +66,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 		if (player->getScore() >= orderedBoxes->front()->getScore())
 		{
 			ommitPlayer = true;
-			Text* text = Text::create("GATES COLLECTED", R_defaultFont, 12);
+			Text* text = G_createText("GATES COLLECTED", R_defaultFont, 12);
 			G_enableShadow(text);
 			text->setAnchorPoint(Vec2(0.5f, 0));
 			text->setColor(player->getBoxColor());
@@ -77,7 +77,7 @@ void SingleGateHud::displayGameIsOverAdditional(bool win)
 	for (Boxx *box : *orderedBoxes)
 	{
 		if (box == player && ommitPlayer){ i++; continue; }
-		Text* text = Text::create("GATES COLLECTED", R_defaultFont, 12);
+		Text* text = G_createText("GATES COLLECTED", R_defaultFont, 12);
 		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0.5f, 0));
 		text->setColor(box->getBoxColor());
@@ -109,7 +109,7 @@ void SingleGateHud::lateinit(World *world)
 	//TOP LEFT SCORE VIEW///
 	for (Boxx *box : *world->getBoxes())
 	{
-		Text* text = Text::create("", R_defaultFont, 12);
+		Text* text = G_createText("", R_defaultFont, 12);
 		G_enableShadow(text);
 		text->setAnchorPoint(Vec2(0, 0));
 		text->setColor(box->getBoxColor());
