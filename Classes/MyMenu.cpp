@@ -806,6 +806,15 @@ void MyMenu::createOptionsMenu()
     auto discoBtn = (Button*)dr->getWidget("Options.json", "fbDisconnectBtn");
     discoBtn->setVisible(FB_connected);
     discoBtn->setTouchEnabled(FB_connected);
+    //options
+    auto restoreBtn = createBtn(R_btnOn,"","restore",[](cocos2d::Ref*,cocos2d::ui::Widget::TouchEventType type){
+        if(type != Widget::TouchEventType::ENDED) return;
+        SoundManager::getInstance()->playBtnEffect();
+        GlobalAdManager::checkBought();
+    },295,parent);
+    restoreBtn->setAnchorPoint(Vec2(1,0));
+    auto rightbot  = restoreBtn->getParent()->convertToNodeSpace(Point(VR::right().x,VR::bottom().y));
+    restoreBtn->setPosition(Vec2(rightbot.x-15,rightbot.y+15));
 }
 void MyMenu::onEnter()
 {

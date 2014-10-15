@@ -34,7 +34,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object
 	G_initLanguage();
-	GlobalAdManager::checkBought();
 	auto screenSize = glview->getFrameSize();
 	prepareImageRes(screenSize);
     Scene* scene;

@@ -19,6 +19,7 @@ public:
     static void hideBanner();
     static void goToUrl(const std::string &str);
     //in app
+    static void restorePurchases();
     static void buyrmvAdsIos();
     static void buyAllLevelsIos();
     //flurry

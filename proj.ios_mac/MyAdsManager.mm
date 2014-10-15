@@ -154,13 +154,13 @@ NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRace";
 
 -(void) checkPurchasesIos
 {
-    //[[SKPaymentQueue defaultQueue]restoreCompletedTransactions];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue]restoreCompletedTransactions];
 }
 //in app purchase
 -(void) rmvAdsIos
 {
-    [self checkPurchasesIos];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     for(SKProduct * skProduct in _products)
     {
         if([skProduct.productIdentifier isEqualToString:rmvAdsID])
@@ -172,7 +172,7 @@ NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRace";
 }
 -(void) unlockLevelIos
 {
-    [self checkPurchasesIos];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     for(SKProduct * skProduct in _products)
     {
         if([skProduct.productIdentifier isEqualToString: unlckLevelsID])
@@ -182,7 +182,51 @@ NSString *const unlckLevelsID=@"com.frontmob.buyLevelsBumpRace";
         }
     }
 }
-
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:@"Unable to restore in-app purchases"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+    BOOL success = NO;
+    for (SKPaymentTransaction *transaction in queue.transactions) {
+        if(transaction.transactionState != SKPaymentTransactionStateRestored) continue;
+        NSString *productID = transaction.payment.productIdentifier;
+        if([productID isEqualToString: rmvAdsID])
+        {
+            GlobalAdManager::onBoughtRemoveAds();
+            success = YES;
+        }
+        else if([productID isEqualToString: unlckLevelsID])
+        {
+            GlobalAdManager::onBoughtLevels();
+            success = YES;
+        }
+    }
+    if(success)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                        message:@"Successfuly restored in-app purchases."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info"
+                                                        message:@"You have no in-app purchases."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
 -(void) paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
     for(SKPaymentTransaction *transaction in transactions)

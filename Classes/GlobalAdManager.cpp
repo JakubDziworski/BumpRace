@@ -133,7 +133,7 @@ void GlobalAdManager::checkBought()
 #endif
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     {
-       //nothing
+        AdsCPPManager::restorePurchases();
     }
 #endif
 }

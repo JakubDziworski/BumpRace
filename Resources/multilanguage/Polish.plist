@@ -4,6 +4,8 @@
 <dict>
 	<key>Single_Player</key>
 	<string>Jeden Gracz</string>
+	<key>restore</key>
+	<string>Wczytaj zakupy</string>
 	<key>LvlCmplPrefix</key>
 	<string>Właśnie ukończyłem </string>
 	<key>LvlCmplSuffix</key>
