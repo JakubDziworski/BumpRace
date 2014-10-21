@@ -120,7 +120,7 @@ void Boxx::jump()
 	if (isJumping()) return;
 	this->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.2f,0.9f, 1.1f), ScaleTo::create(0.2f, 1, 1.0f)));
 	cpBodyApplyImpulse(myBody, cpv(0, 250), cpv(0, 0));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_jump.c_str());
+	SoundManager::getInstance()->playEffect(R_jump);
 }
 void Boxx::gravityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
@@ -415,7 +415,6 @@ bool Boxx::activatePowerUp()
 										  });
 										  auto remove = CallFunc::create([rocketNew, this](){rocketNew->removeFromParent(); pwrupType = PowerUp::PowerUpType::NONE; powerUpExecuted = false; });
 										  SoundManager::getInstance()->playEffect(R_rocketLaunch);
-										  CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_rocketLaunch.c_str());
 										  rocketNew->runAction(Sequence::create(fly, explode, fadeOutRocket, wait, remove, NULL));
 										  rocket->removeFromParent();
 										  rocket = NULL;
@@ -441,7 +440,7 @@ void Boxx::updatePowerUp()
 }
 void Boxx::positiveGateAction()
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_MP3_punch.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
+	SoundManager::getInstance()->playEffect(R_MP3_punch);
 	cocos2d::Vector<SpriteFrame*> animFrames(16);
 	for (int i = 0; i <= 15; i++)
 	{

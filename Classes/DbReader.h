@@ -33,6 +33,8 @@ public:
 	void getLevelsEnabledAll();
     void incrementLevelTry(int level);
     int getLevelTries(int level);
+	bool isSoundEnabled();
+	void setSoundEnabled(bool);
 };
 #endif
 

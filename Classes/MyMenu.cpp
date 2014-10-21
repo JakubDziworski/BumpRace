@@ -815,6 +815,36 @@ void MyMenu::createOptionsMenu()
     restoreBtn->setAnchorPoint(Vec2(1,0));
     auto rightbot  = restoreBtn->getParent()->convertToNodeSpace(Point(VR::right().x,VR::bottom().y));
     restoreBtn->setPosition(Vec2(rightbot.x-15,rightbot.y+15));
+	//SOUNDS
+	auto changeSound = createBtn(R_btnOn, "", "disableSound", [](cocos2d::Ref* reff, cocos2d::ui::Widget::TouchEventType type)
+	{
+		if(type != Widget::TouchEventType::ENDED) return;
+		        SoundManager::getInstance()->playBtnEffect();
+		bool changedState = !DbReader::getInstance()->isSoundEnabled();
+		DbReader::getInstance()->setSoundEnabled(changedState);
+		SoundManager::getInstance()->setAudioEnabled(changedState);
+		if (changedState)
+		{
+			((Button*)reff)->setTitleText(G_str("disableSound"));
+		}
+		else
+		{
+			((Button*)reff)->setTitleText(G_str("enableSound"));
+		}
+	}, 295, parent);
+	if (DbReader::getInstance()->isSoundEnabled())
+	{
+		changeSound->setTitleText(G_str("disableSound"));
+		
+	}
+	else
+	{
+		changeSound->setTitleText(G_str("enableSound"));
+	}
+	SoundManager::getInstance()->setAudioEnabled(DbReader::getInstance()->isSoundEnabled());
+	changeSound->setAnchorPoint(Vec2(1, 0));
+	auto resotreBtnPos = restoreBtn->getPosition();
+	changeSound->setPosition(Vec2(restoreBtn->getBoundingBox().getMaxX(),restoreBtn->getBoundingBox().getMaxY()+5));
 }
 void MyMenu::onEnter()
 {

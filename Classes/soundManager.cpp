@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "Paths.h"
+#include "DbReader.h"
 USING_NS_CC;
 //variables
 
@@ -33,6 +34,23 @@ SoundManager * SoundManager::getInstance()
 	}
 	return me;
 }
+void SoundManager::setAudioEnabled(bool val)
+{
+	if (val)
+	{
+		audioEngine->resumeAllEffects();
+		audioEngine->setEffectsVolume(100);
+		audioEngine->setBackgroundMusicVolume(100);
+		audioEngine->resumeBackgroundMusic();
+	}
+	else
+	{
+		audioEngine->pauseAllEffects();
+		audioEngine->setEffectsVolume(0);
+		audioEngine->setBackgroundMusicVolume(0);
+		audioEngine->pauseBackgroundMusic();
+	}
+}
 void SoundManager::preloadSounds()
 {
 	audioEngine->preloadEffect(R_MP3_punch.c_str());
@@ -55,6 +73,7 @@ void SoundManager::preloadSounds()
 }
 void SoundManager::disableSlowMo()
 {
+	if (!DbReader::getInstance()->isSoundEnabled()) return;
 	if (!slowMoEnabled) return;
 	slowMoEnabled = false;
 	fadeInTime = 0.0f;
@@ -70,6 +89,7 @@ void SoundManager::disableSlowMo()
 }
 void SoundManager::enableSlowMo()
 {
+	if (!DbReader::getInstance()->isSoundEnabled()) return;
 	slowMoEnabled = true;
 	fadeOutTime = 0.0f;
 	if (normalSlideEffect != NULL) audioEngine->pauseEffect(normalSlideEffect);
@@ -142,12 +162,18 @@ void SoundManager::fadeOutMusic()
 }
 void SoundManager::fadeInMusic()
 {
+	if (!DbReader::getInstance()->isSoundEnabled()) return;
 	fadeInTime = 0;
 	director->getScheduler()->scheduleSelector(schedule_selector(SoundManager::fadeInMusicScheduler), me, 0, false);
 }
 void SoundManager::playBgmusic(const std::string &inp)
 {
 	audioEngine->playBackgroundMusic(inp.c_str(),true);
+	if (!DbReader::getInstance()->isSoundEnabled())
+	{
+		audioEngine->setBackgroundMusicVolume(0);
+		audioEngine->pauseBackgroundMusic();
+	}
 	fadeInMusic();
 }
 void SoundManager::gameIsOver(bool win)
@@ -167,6 +193,7 @@ void SoundManager::updateTweenAction(float value, const std::string& key)
 
 void SoundManager::playEffect(const std::string &fileName)
 {
+	if (!DbReader::getInstance()->isSoundEnabled()) return;
 	audioEngine->playEffect(fileName.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
 }
 
@@ -185,6 +212,7 @@ void SoundManager::stopSlideEffect()
 
 void SoundManager::playBtnEffect()
 {
+	if (!DbReader::getInstance()->isSoundEnabled()) return;
 	audioEngine->playEffect(R_buttonClick.c_str());
 }
 void SoundManager::stopAllEffects()

@@ -4,6 +4,10 @@
 <dict>
 	<key>Single_Player</key>
 	<string>Jeden Gracz</string>
+	<key>enableSound</key>
+	<string>wł. dźwięk</string>
+	<key>disableSound</key>
+	<string>wył. dźwięk</string>
 	<key>restore</key>
 	<string>Wczytaj zakupy</string>
 	<key>LvlCmplPrefix</key>

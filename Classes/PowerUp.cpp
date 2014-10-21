@@ -4,6 +4,7 @@
 #include "Boxx.h"
 #include "Macros.h"
 #include "Hud.h"
+#include "soundManager.h"
 USING_NS_CC;
 void PowerUp::tick(float dt)
 {
@@ -21,7 +22,7 @@ void PowerUp::tick(float dt)
 		{
 			if (G_getWorld()->isGameOver()) return;
 			if(!box->collectedPowerUp(pwrupType)) return;
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(R_powerUp.c_str(), false, Director::getInstance()->getScheduler()->getTimeScale());
+			SoundManager::getInstance()->playEffect(R_powerUp);
 			((Hud*)cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(LAYER_HUD))->powerUpCollected(pwrupType, box);
 			this->unscheduleAllSelectors();
 			this->removeFromParentAndCleanup(true);

@@ -140,4 +140,12 @@ int DbReader::getLevelTries(int level)
 {
     return db->getIntegerForKey(("LEVEL "+std::to_string(level) + " TRIES").c_str(),0);
 }
+bool DbReader::isSoundEnabled()
+{
+	return db->getBoolForKey("SOUND_ENABLED", true);
+}
+void DbReader::setSoundEnabled(bool val)
+{
+	db->setBoolForKey("SOUND_ENABLED", val);
+}
 DbReader * DbReader::me = NULL;

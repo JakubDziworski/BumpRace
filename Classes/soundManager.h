@@ -27,6 +27,7 @@ private:
 	void waitForRampDown(float dt);
 public:
 	static SoundManager *getInstance();
+	void setAudioEnabled(bool val);
 	void enableSlowMo();
 	void disableSlowMo();
 	void preloadSounds();
