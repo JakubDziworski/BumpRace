@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>enableSound</key>
+	<string>Activar audio</string>
+	<key>disableSound</key>
+	<string>Desactivar audio</string>
+	<key>wlcmText</key>
+	<string>Bienvenido a BumpRace</string>
+	<key>restore</key>
+	<string>Restaurar compras</string>
+	<key>Single_Player</key>
+	<string>Un Jugador</string>
+	<key>LvlCmplSuffix</key>
+	<string> en &quot;Bump Race&quot;. Pruebalo tambien!</string>
+	<key>LvlCmplPrefix</key>
+	<string>Acabo de completar el nivel </string>
+	<key>Multi_Player</key>
+	<string>Multijugador</string>
+	<key>Options</key>
+	<string>Opciones</string>
+	<key>Carrer</key>
+	<string>Carrera</string>
+	<key>gmOver</key>
+	<string>Juego Terminado</string>
+	<key>BestRun</key>
+	<string>Carrera Sin Fin</string>
+	<key>FreeRun</key>
+	<string>Carrera Libre</string>
+	<key>Play</key>
+	<string>Jugar</string>
+	<key>generalRulesTut</key>
+	<string>Toca la pantalla para saltar. El primer jugador es el mas lento (mayor resistencia al viento) mientras que el Ultimo es el mas rapido</string>
+	<key>Continue</key>
+	<string>Continuar</string>
+	<key>Choose_Mode</key>
+	<string>Elegir modo</string>
+	<key>Opponentow</key>
+	<string>Oponentes</string>
+	<key>New Opponents</key>
+	<string>Oponentes</string>
+	<key>Opponent</key>
+	<string>Com</string>
+	<key>Gates</key>
+	<string>Compuertas</string>
+	<key>Gatesow</key>
+	<string>Compuertas</string>
+	<key>lastGate</key>
+	<string>Ultima Compuerta!</string>
+	<key>Difficulty</key>
+	<string>Dificultad</string>
+	<key>Players</key>
+	<string>Jugadores</string>
+	<key>Player</key>
+	<string>Jugador</string>
+	<key>Computers</key>
+	<string>Computadoras</string>
+	<key>Gate_Collector</key>
+	<string>Colector de Compuertas</string>
+	<key>Elimination</key>
+	<string>Eliminacion</string>
+	<key>Endless</key>
+	<string>Callejon Sin Salida</string>
+	<key>Choose_Name</key>
+	<string>Elige tu nombre y personaje</string>
+	<key>Choose_Names</key>
+	<string>Elige tus nombres y personajes</string>
+	<key>Easy</key>
+	<string>Facil</string>
+	<key>Medium</key>
+	<string>Intermedio</string>
+	<key>Hard</key>
+	<string>Dificil</string>
+	<key>autoCorrect</key>
+	<string>Autocorregir</string>
+	<key>AutoCorrectDialogText</key>
+	<string>Mas de un jugador ha seleccionado el mismo personaje. Corregir manualmente o autocorregir.</string>
+	<key>Level</key>
+	<string>Nivel</string>
+	<key>Completed</key>
+	<string>Completado</string>
+	<key>Failed</key>
+	<string>Fracasado</string>
+	<key>GatesCollected</key>
+	<string>compuertas recolectadas</string>
+	<key>elmintd</key>
+	<string>eliminado</string>
+	<key>Eliminated</key>
+	<string>Has sido eliminado!</string>
+	<key>YOUWON</key>
+	<string>Has ganado!</string>
+	<key>ObjElim</key>
+	<string>Objetivo: No dejes que te eliminen</string>
+	<key>ObjGate</key>
+	<string>Objetivo: Recolecta mas compuertas</string>
+	<key>ObjEndless</key>
+	<string>Objetivo: Alcanza cada punto de control sin ser el Ultimo</string>
+	<key>gatesLeft</key>
+	<string>%d Compuertas Restantes</string>
+	<key>gatesLeft2</key>
+	<string>%d Compuertas Restantes</string>
+	<key>score</key>
+	<string>Puntuacion : %d</string>
+	<key>newRecord</key>
+	<string>Nuevo Record!</string>
+	<key>bestScore</key>
+	<string>Mejor Puntuacion</string>
+	<key>tapToStart</key>
+	<string>Pulsa en cualquier parte para COMENZAR</string>
+	<key>Tutorials</key>
+	<string>Tutoriales</string>
+	<key>On</key>
+	<string>Encendido</string>
+	<key>Off</key>
+	<string>Apagado</string>
+	<key>Credits</key>
+	<string>Creditos</string>
+	<key>gandA</key>
+	<string>Graficos y Audio</string>
+	<key>everything</key>
+	<string>Todo lo demas</string>
+	<key>cnctToPlayer</key>
+	<string>Conectate a Facebook para jugar utilizando tu foto de Facebook!</string>
+	<key>bstScores</key>
+	<string>Mejores Puntajes</string>
+	<key>Mode</key>
+	<string>Modo</string>
+	<key>wlcmTutText</key>
+	<string>Bienvenido a Bump Race</string>
+	<key>wantToKnowTut</key>
+	<string>Quieres saber como jugar cierto?</string>
+	<key>pwrUpCollectedTutIntro</key>
+	<string>Acabas de conseguir un Power Up! Existen 3 tipos de power ups</string>
+	<key>rocketTut</key>
+	<string>Dispara cohetes a los jugadores detras de ti para retrasarlos</string>
+	<key>ghostTut</key>
+	<string>Utiliza la capa fantasma para correr a traves de los otros jugadores</string>
+	<key>thrustTut</key>
+	<string>Activa el propulsor para acelerar</string>
+	<key>howToActivatePwrupTut</key>
+	<string>Para activar presiona el boton en la parte inferior</string>
+	<key>gateCollectorTut</key>
+	<string>Estas jugando en el modo de &quot; Recolector de Compuertas &quot;. Recolecta la mayor cantidad de compuertas para ganar.</string>
+	<key>enlessModeTut</key>
+	<string>Estas jugando en el modo de &quot; Callejon Sin Salida &quot;. Pierdes si llegas a cualquier compuerta en Ultimo lugar!</string>
+	<key>elimModeTut</key>
+	<string>Estas jugando en el modo de &quot;  Eliminacion &quot;. En cada compuerta el Ultimo jugador es eliminado y el juego continUa.</string>
+	<key>bestScoreModeTut</key>
+	<string>Recolecta tantas compuertas como sea posible sin llegar en Ultimo lugar.</string>
+	<key>multiTut1</key>
+	<string>Presiona el boton que tiene el mismo color que tu personaje.</string>
+	<key>multiTut2</key>
+	<string>Tambien puedes tocar en cualquier parte sobre el boton</string>
+	<key>cmpltTutsFirst</key>
+	<string>Juega primero carrera o desactiva los tutoriales en Opciones.</string>
+	<key>carrerCmpltdDialog1</key>
+	<string>Completaste todos los niveles de carrera!</string>
+	<key>carrerCmpltdDialog1a</key>
+	<string>Felicitaciones!</string>
+	<key>carrerCmpltdMultiDialog</key>
+	<string>Juega en multijugador con tus amigos!</string>
+	<key>carrCmpltdPlentyThings</key>
+	<string>AUn hay muchas cosas para hacer!</string>
+	<key>carrercmpltdTryCustom</key>
+	<string>Prueba el modo personalizado y elige tus propias reglas para una sola carrera!</string>
+	<key>carrerCmpltdTryHighscore</key>
+	<string>Compite contigo mismo y con otros jugadores al establecer un mejor puntaje en el modo &quot; Eliminacion &quot;.</string>
+	<key>carrerCmpltdOtherGames</key>
+	<string>Prueba tambien otros increibles juegos!</string>
+	<key>carrerCmpltdPlayOtherNow</key>
+	<string>Juegalos ahora!</string>
+	<key>tiredOfAds</key>
+	<string>Cansado de la publicidad? Eliminala ahora</string>
+	<key>rmv</key>
+	<string>Eliminar</string>
+	<key>workedHard</key>
+	<string>Trabajamos duro en este juego. Si te gusto por favor calificalo o danos un "me gusta" en Facebook.</string>
+	<key>rate</key>
+	<string>Calificar</string>
+	<key>rmvAds</key>
+	<string>Eliminar la Publicidad</string>
+	<key>jstScored</key>
+	<string>Consegui una puntuacion de %d en &quot;BumpRace&quot; </string>
+	<key>unlockLevel</key>
+	<string>Completa el nivel anterior o desbloquealo ahora!</string>
+	<key>unlock</key>
+	<string>Desbloquear</string>
+	<key>more_games</key>
+	<string>Mas Juegos!</string>
+	<key>toohard</key>
+	<string>Demasiado dificil? Porque no tomas un descanso y pruebas otros juegos</string>
+	<key>noThanks</key>
+	<string>No, gracias</string>
+	<key>tryOther</key>
+	<string>Prueba otros juegos</string>
+</dict>
+</plist>

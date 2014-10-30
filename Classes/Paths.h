@@ -12,6 +12,7 @@ const std::string R_tloEndless = "tloEndless.png";
 const std::string R_tloElim = "tloElimination.png";
 const std::string R_btnBack ="btnBackOf.png";
 const std::string R_btnOn = "btnOf.png";
+const std::string R_dialogBG = "dialogBg.png";
 const std::string R_flat = "Flat.png";
 const std::string R_gotoMenuBtn = "gotoMenuBtnOf.png";
 const std::string R_multiBtn[2] = {"multiBtnOn.png","multiBtnOff.png"};

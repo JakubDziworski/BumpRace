@@ -342,7 +342,7 @@ void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
     gmOverNode->addWidget(btnlayout);
     gmOverNode->setMargin(25, 25);
 	gmOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-	gmOverNode->setBackGroundImage(R_btnOn, Widget::TextureResType::PLIST);
+	gmOverNode->setBackGroundImage(R_dialogBG, Widget::TextureResType::PLIST);
 	gmOverNode->setPosition(VR::center());
 	gmOverNode->setOpacity(0);
 	gmOverNode->runAction(FadeIn::create(0.5f*Director::getInstance()->getScheduler()->getTimeScale()));

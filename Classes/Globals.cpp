@@ -86,6 +86,14 @@ void G_initLanguage()
 	{
 		G_strings = cocos2d::Dictionary::createWithContentsOfFile("multilanguage/Polish.plist");
 	}
+	else if (currentLanguageType == cocos2d::LanguageType::ITALIAN)
+	{
+		G_strings = cocos2d::Dictionary::createWithContentsOfFile("multilanguage/Italian.plist");
+	}
+	else if (currentLanguageType == cocos2d::LanguageType::SPANISH)
+	{
+			G_strings = cocos2d::Dictionary::createWithContentsOfFile("multilanguage/Spanish.plist");
+	}
 	else
 	{
 		G_strings = cocos2d::Dictionary::createWithContentsOfFile("multilanguage/English.plist");
