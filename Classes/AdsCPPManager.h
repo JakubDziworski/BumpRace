@@ -17,6 +17,7 @@ public:
     static void showMoreApps();
     static void showBanner();
     static void hideBanner();
+    static void showExitAd();
     static void goToUrl(const std::string &str);
     //in app
     static void restorePurchases();

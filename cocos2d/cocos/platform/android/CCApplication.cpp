@@ -120,7 +120,7 @@ LanguageType Application::getCurrentLanguage()
     {
         ret = LanguageType::GERMAN;
     }
-    else if (0 == strcmp("es", pLanguageName))
+    else if (0 == strcmp("es", pLanguageName) || 0 == strcmp("ca", pLanguageName))
     {
         ret = LanguageType::SPANISH;
     }

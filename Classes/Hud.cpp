@@ -166,10 +166,10 @@ void Hud::displayGameOver(bool win)
             		});
             }
         }
-        if(random(0,1)!=0)
-        {
+       // if(random(0,1)!=0)
+       // {
             GlobalAdManager::showInteristial();
-        }
+        //}
 		if (random(0,4) == 0 && !DbReader::getInstance()->isRatedOrLiked())
 		{
 			G_scaleNodeVerticallyToFit(DialogReader::getInstance()->getMainWidgetFromJson("likeShareRecommendation.json", cocostudioNode));

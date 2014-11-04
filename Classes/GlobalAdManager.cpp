@@ -56,6 +56,20 @@ void GlobalAdManager::showMoreGames()
     }
 #endif
 }
+void GlobalAdManager::showExitAd()
+{
+	if(!DbReader::getInstance()->areAdsEnabled()) return;
+	#if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	    {
+	    	AdsAndroidManager::showExitAd();
+	    }
+	#endif
+	#if  (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	    {
+	        AdsCPPManager::showExitAd();
+	    }
+	#endif
+}
 void GlobalAdManager::showBanner()
 {
 if(!DbReader::getInstance()->areAdsEnabled()) return;

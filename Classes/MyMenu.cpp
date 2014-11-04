@@ -267,13 +267,15 @@ void MyMenu::goBack(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType t
 	switch (currMenu)
 	{
 	case L_MAINMENU:
+		GlobalAdManager::showExitAd();
+		CCLOG("after showing");
 		#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 		MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 		return;
 		#endif
 		Director::getInstance()->end();
 		#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		exit(0);
+		//exit(0);
 		#endif
 		break;
 	case L_PLAYSINGLE:

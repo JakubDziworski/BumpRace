@@ -16,6 +16,7 @@ public:
 	static void showMoreGames();
     static void showBanner();
     static void hideBanner();
+    static void showExitAd();
     //IN APP
 	static void rmvAds();
 	static void unlockLevel(int i);

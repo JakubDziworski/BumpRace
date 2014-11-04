@@ -36,6 +36,16 @@ void AdsAndroidManager::showInteristialAndroid()
 			}
 }
 
+void AdsAndroidManager::showExitAd()
+{
+	JniMethodInfo t;
+
+	if (JniHelper::getStaticMethodInfo(t, "org/cocos2dx/cpp/AppActivity", // fully qualified class name
+			"showExitAd", // method name
+			"()V")) { // data type of argument
+		t.env->CallStaticVoidMethod(t.classID, t.methodID);
+	}
+}
 void AdsAndroidManager::showMoreGamesAndroid()
 {
 	JniMethodInfo t;

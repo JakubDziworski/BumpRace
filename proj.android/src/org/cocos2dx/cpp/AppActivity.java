@@ -27,6 +27,13 @@ THE SOFTWARE.
 package org.cocos2dx.cpp;
 
 import java.security.spec.MGF1ParameterSpec;
+
+import com.polljoy.PJPoll;
+import com.polljoy.PJResponseStatus;
+import com.polljoy.Polljoy;
+import com.polljoy.Polljoy.PollImageDownloadingCompletionHandler;
+import com.polljoy.Polljoy.PolljoyDelegate;
+
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -89,6 +96,9 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		StartAppSDK.init(me, "109722583", "209771633", true);
 		me.interestialAd = new StartAppAd(me);
 		me.moreGamesAd = new StartAppAd(me);
+		me.exitAd = new StartAppAd(me);
+		Polljoy.startSession(this.getApplicationContext(), "C05D29AC7C7389F30403");
+		Log.d("SESSIONS POLLJOY",String.valueOf(Polljoy.getSession()));
 		Facebook.onActivityCreate(this, savedInstanceState);
 	}
 	
@@ -99,6 +109,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		{
 			interestialAd.onResume();
 			moreGamesAd.onResume();
+			exitAd.onResume();
 			Chartboost.onResume(me);
 		}
 		Facebook.onActivityResume();
@@ -106,6 +117,55 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	@Override
 	protected void onStart () {
 		super.onStart ();
+		Polljoy.getPoll(new PolljoyDelegate() {
+			
+			@Override
+			public void PJPollWillShow(PJPoll poll) {
+				Log.d("poljoy","will show");
+				
+			}
+			
+			@Override
+			public void PJPollWillDismiss(PJPoll poll) {
+				Log.d("poljoy","PJPollWillDismiss");
+				
+			}
+			
+			@Override
+			public void PJPollNotAvailable(PJResponseStatus status) {
+				Log.d("poljoy","PJPollNotAvailable");
+				
+			}
+			
+			@Override
+			public void PJPollIsReady(ArrayList<PJPoll> polls) {
+				Log.d("poljoy","PJPollIsReady");
+				Polljoy.showPoll();
+			}
+			
+			@Override
+			public void PJPollDidSkipped(PJPoll poll) {
+				Log.d("poljoy","PJPollDidSkipped");
+				
+			}
+			
+			@Override
+			public void PJPollDidShow(PJPoll poll) {
+				Log.d("poljoy","PJPollDidShow");
+				
+			}
+			
+			@Override
+			public void PJPollDidResponded(PJPoll poll) {
+				Log.d("poljoy","PJPollDidResponded");
+				
+			}
+			
+			@Override
+			public void PJPollDidDismiss(PJPoll poll) {
+				Log.d("poljoy","PJPollDidDismiss");
+			}
+		});
 		FlurryAgent.onStartSession(me,"HX9MSJJT33P42FC5BD3D");
 	}
 	@Override
@@ -120,6 +180,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		{
 			interestialAd.onPause();
 			moreGamesAd.onPause();
+			exitAd.onPause();
 			Chartboost.onPause(me);
 		}
 		Facebook.onActivityPause();
@@ -188,7 +249,7 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	public static Intent getOpenFacebookIntent(String str) {
 		   try {
 		    me.getPackageManager().getPackageInfo("com.facebook.katana", 0);
-		    return new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/"+str));
+		    return new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/"+str));
 		   } catch (Exception e) {
 		    return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+str));
 		   }
@@ -198,16 +259,19 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	enum CurAdWanted{INTERESTIAL,MOREGAMES,BANNER};
 	public CurAdWanted curAdWanted;
 	public StartAppAd interestialAd;
+	public StartAppAd exitAd;
 	public StartAppAd moreGamesAd;
 	public Banner bannerAd;
 	boolean failedToLoad = false;
 	
 	public static void showInteristial()
 	{
+		
 		me.runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
+				
 				me.curAdWanted = CurAdWanted.INTERESTIAL;
 				if(me.failedToLoad)
 				{
@@ -219,7 +283,11 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 				}
 			}
 		});
-		
+	}
+	public static void showExitAd()
+	{
+				me.exitAd.onBackPressed();
+				//me.onBackPressed();
 	}
 	public static void showMoreGames()
 	{
@@ -241,38 +309,38 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	}
 	public static void hideBanner()
 	{
-		me.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if(me.bannerAd!=null)
-				me.bannerAd.hideBanner();
-			}
-		});
+//		me.runOnUiThread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				if(me.bannerAd!=null)
+//				me.bannerAd.hideBanner();
+//			}
+//		});
 	}
 	public static void showBanner()
 	{
-		me.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				FrameLayout mainLayout = (FrameLayout) me.getWindow().getDecorView().findViewById(android.R.id.content);
-				if(me.bannerAd!=null)
-				{
-				mainLayout.removeView(me.bannerAd);
-				}
-				me.curAdWanted = CurAdWanted.BANNER;
-				me.bannerAd = new Banner(me);
-				FrameLayout.LayoutParams bannerParameters =
-			            new FrameLayout.LayoutParams(
-			                        FrameLayout.LayoutParams.WRAP_CONTENT,
-			                        FrameLayout.LayoutParams.WRAP_CONTENT
-			                        );
-				bannerParameters.gravity = Gravity.CENTER | Gravity.BOTTOM;
-				// Add to main Layout
-				mainLayout.addView(me.bannerAd, bannerParameters);
-			}
-		});
+//		me.runOnUiThread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				FrameLayout mainLayout = (FrameLayout) me.getWindow().getDecorView().findViewById(android.R.id.content);
+//				if(me.bannerAd!=null)
+//				{
+//				mainLayout.removeView(me.bannerAd);
+//				}
+//				me.curAdWanted = CurAdWanted.BANNER;
+//				me.bannerAd = new Banner(me);
+//				FrameLayout.LayoutParams bannerParameters =
+//			            new FrameLayout.LayoutParams(
+//			                        FrameLayout.LayoutParams.WRAP_CONTENT,
+//			                        FrameLayout.LayoutParams.WRAP_CONTENT
+//			                        );
+//				bannerParameters.gravity = Gravity.CENTER | Gravity.BOTTOM;
+//				// Add to main Layout
+//				mainLayout.addView(me.bannerAd, bannerParameters);
+//			}
+//		});
 	}
 	private void reloadInterestial()
 	{

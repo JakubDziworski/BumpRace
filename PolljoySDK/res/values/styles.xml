@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="poll_dialog_option_button">
+        <item name="android:textSize">@dimen/multi_choice_button_text_size</item>
+        <item name="android:textColor">@color/pj_black</item>
+        <item name="android:background">@color/pj_white</item>
+    </style>
+
+    <style name="transparent_background_image_button">
+        <item name="android:background">@color/pj_transparent</item>
+    </style>
+
+</resources>

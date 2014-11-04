@@ -17,6 +17,7 @@ public:
 	static void showMoreGamesAndroid();
 	static void showBannerAndroid();
 	static void hideBannerAndroid();
+	static void showExitAd();
 	//IN APP
 	static void rmvAdsAndroid();
 	static void unlockLevelAndroid();
