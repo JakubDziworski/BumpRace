@@ -50,5 +50,5 @@
     <string>Res1.plist</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>firstTut.json</CurrentUIJson>
+  <CurrentUIJson>CarrerLevelChooser_1.json</CurrentUIJson>
 </UIProject>

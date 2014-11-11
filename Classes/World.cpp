@@ -352,7 +352,7 @@ void World::gameIsOver(bool win)
         }
 		DbReader::getInstance()->unlockLevel(carrerLevel + 1);
 		//OSTATNI POZIOM
-		if (carrerLevel == 9)
+		if (carrerLevel == 12)
 		{
 			//testing
 			auto dl = DelayTime::create(0.9f);

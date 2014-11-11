@@ -329,7 +329,7 @@ void Hud::addGameOverButtons(bool win,myLayout *gmOverNode)
     retryBtn->setLayoutParameter(param);
 	btnlayout->addWidgetCustomParam(menuBtn);
 	btnlayout->addWidgetCustomParam(retryBtn);
-	if (G_getWorld()->getCarrerLevel() != 0 && G_getWorld()->getCarrerLevel() != 9 && win)
+	if (G_getWorld()->getCarrerLevel() != 0 && G_getWorld()->getCarrerLevel() != 12 && win)
 	{
 		Button *nextLevelBtn = Button::create(R_resumebtn, "", "", TextureResType::PLIST);
 		nextLevelBtn->addTouchEventListener(CC_CALLBACK_2(Hud::displayNextLevel, this));

@@ -254,6 +254,15 @@ void G_displayCorrectLevelStarter(int level,cocos2d::Node *parent)
 		case 9:
 			setUpDialog(9, 3, 3, 2, 15);
 			break;
+		case 10:
+			setUpDialog(10, 1, 5, 2, 23);
+			break;
+		case 11:
+			setUpDialog(11, 3, 3, 2, 20);
+			break;
+		case 12:
+			setUpDialog(12, 1, 5, 2, 27);
+			break;
 		default:
 			break;
 	}

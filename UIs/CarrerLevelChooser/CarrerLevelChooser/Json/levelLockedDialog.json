@@ -241,7 +241,12 @@
                 "scalex": 1.02941227,
                 "scaley": 0.9956568,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -289,7 +294,12 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -337,7 +347,12 @@
                 "scalex": 1,
                 "scaley": 1,
                 "starttime": 0,
-                "tweenParameter": [],
+                "tweenParameter": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
                 "tweenType": 0,
                 "visible": false
               },
@@ -378,9 +393,7 @@
   "textures": [
     "Res1.plist"
   ],
-  "texturesPng": [
-    "Res1.plist"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -409,8 +422,8 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.503819466,
-          "positionPercentY": 0.561847568,
+          "positionPercentX": 0.501041651,
+          "positionPercentY": -0.065625,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,
@@ -459,8 +472,8 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.502083361,
-          "positionPercentY": 0.5000002,
+          "positionPercentX": 0.5,
+          "positionPercentY": -0.1265625,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,
@@ -513,8 +526,8 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.499189824,
-          "positionPercentY": 0.397916883,
+          "positionPercentX": 0.496875,
+          "positionPercentY": -0.2296875,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser</ProjectDir>
+  <ProjectDir>C:\projects\CocosProjects\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser</ProjectDir>
   <Version>1.6.0.0</Version>
-  <Resources>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\Resources</Resources>
+  <Resources>C:\projects\CocosProjects\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\Resources</Resources>
   <Name>CarrerLevelChooser</Name>
   <JsonFileName>CarrerLevelChooser.json</JsonFileName>
-  <JsonFolder>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\Json</JsonFolder>
+  <JsonFolder>C:\projects\CocosProjects\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\Json</JsonFolder>
   <JsonList>
     <string>levelLockedDialog.json</string>
     <string>CarrerLevelChooser_1_1024.json</string>
@@ -17,7 +17,7 @@
     <Width>512</Width>
     <Height>342</Height>
   </CanvasSize>
-  <filePath>D:\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\CarrerLevelChooser.xml.ui</filePath>
+  <filePath>C:\projects\CocosProjects\BumpRace\BumpRace\UIs\CarrerLevelChooser\CarrerLevelChooser\CarrerLevelChooser.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath />
   <imageFileList>
@@ -25,5 +25,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>CarrerLevelChooser_1_2048.json</CurrentUIJson>
+  <CurrentUIJson>MainMenuChoose.json</CurrentUIJson>
 </UIProject>

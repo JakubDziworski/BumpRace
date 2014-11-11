@@ -30,9 +30,11 @@ import java.security.spec.MGF1ParameterSpec;
 
 import com.polljoy.PJPoll;
 import com.polljoy.PJResponseStatus;
+import com.polljoy.PJUserType;
 import com.polljoy.Polljoy;
 import com.polljoy.Polljoy.PollImageDownloadingCompletionHandler;
 import com.polljoy.Polljoy.PolljoyDelegate;
+import com.polljoy.internal.PolljoyCore;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -46,7 +48,9 @@ import org.cocos2dx.lib.Cocos2dxVideoHelper;
 import com.android.vending.billing.IInAppBillingService;
 import com.chartboost.sdk.CBLocation;
 import com.chartboost.sdk.Chartboost;
+import com.chartboost.sdk.ChartboostDelegate;
 import com.chartboost.sdk.Libraries.CBLogging.Level;
+import com.chartboost.sdk.Model.CBError.CBImpressionError;
 import com.flurry.android.FlurryAgent;
 import com.screw.facebook.*;
 import com.startapp.android.publish.Ad;
@@ -93,6 +97,42 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 		Chartboost.startWithAppId(me,"540f1f40c26ee4428af3b79f","cc2c459169d097360dfe4e930f15216a1445b449");
 		Chartboost.setLoggingLevel(Level.ALL);
 		Chartboost.onCreate(me);
+		Chartboost.setLoggingLevel(Level.ALL);
+		Chartboost.setDelegate(new ChartboostDelegate() {
+			@Override
+			public void didFailToLoadInterstitial(String location,
+					CBImpressionError error) {
+				super.didFailToLoadInterstitial(location, error);
+				me.cbIntrisitalCached = false;
+			}
+			@Override
+			public void didFailToLoadMoreApps(String location,
+					CBImpressionError error) {
+				super.didFailToLoadMoreApps(location, error);
+				me.cbMoreGamesCached = false;
+			}
+			@Override
+			public void didCacheInterstitial(String location) {
+				super.didCacheInterstitial(location);
+				me.cbIntrisitalCached = true;
+			}
+			@Override
+			public void didCacheMoreApps(String location) {
+				super.didCacheMoreApps(location);
+				me.cbMoreGamesCached=true;
+			}
+			@Override
+			public void didCloseInterstitial(String location) {
+				super.didCloseInterstitial(location);
+					reloadInterestial();
+			}
+
+			@Override
+			public void didCloseMoreApps(String location) {
+				super.didCloseMoreApps(location);
+				reloadMoreGames();
+			}
+		});
 		StartAppSDK.init(me, "109722583", "209771633", true);
 		me.interestialAd = new StartAppAd(me);
 		me.moreGamesAd = new StartAppAd(me);
@@ -117,7 +157,8 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	@Override
 	protected void onStart () {
 		super.onStart ();
-		Polljoy.getPoll(new PolljoyDelegate() {
+		int x = Polljoy.getSession();
+		Polljoy.getPoll(null, 0,x, (int) PolljoyCore.getTimeSinceInstall(me), PJUserType.PJNonPayUser, null,new PolljoyDelegate() {
 			
 			@Override
 			public void PJPollWillShow(PJPoll poll) {
@@ -261,8 +302,8 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	public StartAppAd interestialAd;
 	public StartAppAd exitAd;
 	public StartAppAd moreGamesAd;
-	public Banner bannerAd;
-	boolean failedToLoad = false;
+	public boolean cbMoreGamesCached = false;
+	public boolean cbIntrisitalCached = false;
 	
 	public static void showInteristial()
 	{
@@ -271,11 +312,9 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 			
 			@Override
 			public void run() {
-				
-				me.curAdWanted = CurAdWanted.INTERESTIAL;
-				if(me.failedToLoad)
+				if(me.cbIntrisitalCached)
 				{
-					me.failedToShowStartApp();
+					Chartboost.showInterstitial(CBLocation.LOCATION_LEVEL_COMPLETE);
 				}
 				else
 				{
@@ -295,10 +334,9 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 			@Override
 			public void run() {
 				logFlurry("clicked More Games Button");
-				me.curAdWanted = CurAdWanted.MOREGAMES;
-				if(me.failedToLoad)
+				if(me.cbMoreGamesCached)
 				{
-					me.failedToShowStartApp();
+					Chartboost.showMoreApps(CBLocation.LOCATION_MAIN_MENU);
 				}
 				else
 				{
@@ -344,13 +382,16 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	}
 	private void reloadInterestial()
 	{
+		
 		interestialAd = new StartAppAd(me);
 		interestialAd.loadAd(AdMode.FULLPAGE,me);
+		Chartboost.cacheInterstitial(CBLocation.LOCATION_LEVEL_COMPLETE);
 	}
 	private void reloadMoreGames()
 	{
 		moreGamesAd = new StartAppAd(me);
 		moreGamesAd.loadAd(AdMode.OFFERWALL,me);
+		Chartboost.cacheMoreApps(CBLocation.LOCATION_MAIN_MENU);
 	}
 	public static void loadAds()
 	{
@@ -359,34 +400,18 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 			public void run() {
 				Log.v("ADS","started loading ads");
 				Chartboost.onStart(me);
-				Chartboost.cacheMoreApps(CBLocation.LOCATION_MAIN_MENU);
 				me.reloadMoreGames();
 				me.reloadInterestial();
 			}
 		});
 	}
-	private void failedToShowStartApp()
-	{
-		if(curAdWanted == CurAdWanted.MOREGAMES)
-	    {
-			Chartboost.showMoreApps(CBLocation.LOCATION_MAIN_MENU);
-			reloadMoreGames();
-	    }
-	    else if(curAdWanted == CurAdWanted.INTERESTIAL)
-	    {
-	    	Chartboost.showInterstitial(CBLocation.LOCATION_GAMEOVER);
-			reloadInterestial();
-	    }
-	}
 	@Override
 	public void onFailedToReceiveAd(Ad arg0) 
 	{
 		Log.v("ADS","ad failed");
-		failedToLoad= true;
 	}
 	@Override
 	public void onReceiveAd(Ad arg0) {
-		failedToLoad = false;
 		Log.v("ADS","ad recieved");
 	}
 	@Override
@@ -396,18 +421,12 @@ public class AppActivity extends Cocos2dxActivity implements AdDisplayListener,A
 	@Override
 	public void adDisplayed(Ad arg0) {
 		Log.v("ADS","ad displayed");
+		reloadMoreGames();
+		reloadInterestial();
 	}
 	@Override
 	public void adHidden(Ad arg0) {
 		Log.v("ADS","ad hidden");
-		if(curAdWanted == CurAdWanted.MOREGAMES)
-	    {
-			reloadMoreGames();
-	    }
-	    else if(curAdWanted == CurAdWanted.INTERESTIAL)
-	    {
-			reloadInterestial();
-	    }
 	}
 	
 	//IN APP PURCHASE

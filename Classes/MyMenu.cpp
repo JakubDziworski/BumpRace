@@ -678,32 +678,32 @@ void MyMenu::createLevelMapUI()
 	else parent = (Layout*)this->getChildByTag(L_CARRER);
 	bool firstUncompletedFound=false;
 	G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson(R_LevelMapUI, parent));
-	for (int i = 1; i < 10; i++)
+	for (int i = 1; i < 13; i++)
 	{
 		const std::string name = "Level" + std::to_string(i) + "Btn";
 		auto btn = (Button*)DialogReader::getInstance()->getWidget(R_LevelMapUI, name);
 		btn->setColor(Color3B::WHITE);
-		if (!DbReader::getInstance()->isLevelUnlocked(i))
-		{
-			btn->setColor(Color3B::GRAY);
-			btn->addTouchEventListener([this, parent,i](Ref* reff, Widget::TouchEventType type)
-			{
-				if (type != Widget::TouchEventType::ENDED) return;
-				SoundManager::getInstance()->playBtnEffect();
-				G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("levelLockedDialog.json", this));
-				dr->addActionHideAndSomething("levelLockedDialog.json", "unlockLvLBtn", [i]()
-				{
-					GlobalAdManager::unlockLevel(i);
-				});
-			});
-		}
-		else
-		{
-            if(!firstUncompletedFound && !DbReader::getInstance()->isLevelUnlocked(i+1))
-			{
-				firstUncompletedFound=true;
-				btn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f,1.3f),ScaleTo::create(0.2f,1))));
-			}
+//		if (!DbReader::getInstance()->isLevelUnlocked(i))
+//		{
+//			btn->setColor(Color3B::GRAY);
+//			btn->addTouchEventListener([this, parent,i](Ref* reff, Widget::TouchEventType type)
+//			{
+//				if (type != Widget::TouchEventType::ENDED) return;
+//				SoundManager::getInstance()->playBtnEffect();
+//				G_scaleNodeVerticallyToFit(dr->getMainWidgetFromJson("levelLockedDialog.json", this));
+//				dr->addActionHideAndSomething("levelLockedDialog.json", "unlockLvLBtn", [i]()
+//				{
+//					GlobalAdManager::unlockLevel(i);
+//				});
+//			});
+//		}
+//		else
+//		{
+//            if(!firstUncompletedFound && !DbReader::getInstance()->isLevelUnlocked(i+1))
+//			{
+//				firstUncompletedFound=true;
+//				btn->runAction(RepeatForever::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f,1.3f),ScaleTo::create(0.2f,1))));
+//			}
 			btn->addTouchEventListener([parent, i,this](Ref *reff, Widget::TouchEventType type)
 			{
 				if (type != Widget::TouchEventType::ENDED) return;
@@ -711,7 +711,7 @@ void MyMenu::createLevelMapUI()
 				curCarrerLevelChose = i;
 				G_displayCorrectLevelStarter(i, this);
 			});
-		}
+		//}
 	}
 }
 void MyMenu::onBestScoreBtn(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
